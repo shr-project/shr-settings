@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Settings
+TryExec=shr-settings
+GenericName=SHR Settings
+Comment=Settings of SHR based Openmoko phone
+StartupNotify=true
+Exec=shr-settings
+Terminal=false
+Type=Application
+Categories=Settings;
+Icon=shr_settings.png
