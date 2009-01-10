@@ -14,15 +14,21 @@ __date__ ="$2008-12-27 21:53:00$"
     class MyModule(module.AbstractModule):
         self.name = "MyModule";
         self.section = "main";
+        
+        def init(self):
+            self.gsm_enabled = self.dbus_system.(...)
+            self.toggle0.state_set(self.gsm_enabled)
+            
+            return True
 
         def createView(self):
-            box1 = elementary.Box(self.window)
-            toggle0 = elementary.Toggle(self.window)
-            toggle0.label_set("GSM antenna:")
-            toggle0.size_hint_align_set(-1.0, 0.0)
-            toggle0.states_labels_set("On","Off")
-            box1.pack_start(toggle0)
-            return box1
+            self.box1 = elementary.Box(self.window)
+            self.toggle0 = elementary.Toggle(self.window)
+            self.toggle0.label_set("GSM antenna:")
+            self.toggle0.size_hint_align_set(-1.0, 0.0)
+            self.toggle0.states_labels_set("On","Off")
+            self.box1.pack_start(toggle0)
+            return self.box1
 #=================
 """
 
@@ -63,20 +69,41 @@ class AbstractModule(object):
             Default: module is enabled
         """
         return True
+        
+    def init(self):
+        """
+            Module init. This is done after createView, but before 
+            createView.show(), if it return "false" then module is
+            skipped (will not be shown).
+            Here should be things like timer's start, setting default
+            values of toggles, labels, etc.
+            
+            dec init(self):
+                self.gsm_enabled = self.dbus_system.(...)
+                self.toggle0.state_set(self.gsm_enabled);
+                
+                return True
+        """
+        return True
+        
+    def destroy(self):
+        """This one should close timers, free memory (python?) etc.."""
+        pass
 
     def createView(self):
         """
             This should return elementary object (for example Box) with will
             be displayed to user.
+            Code here should do only a gui.
             Here is example code:
 
             def createView(self):
-                box1 = elementary.Box(self.window)
-                toggle0 = elementary.Toggle(self.window)
-                toggle0.label_set("GSM antenna:")
-                toggle0.size_hint_align_set(-1.0, 0.0)
-                toggle0.states_labels_set("On","Off")
-                box1.pack_start(toggle0)
-                return box1
+                self.box1 = elementary.Box(self.window)
+                self.toggle0 = elementary.Toggle(self.window)
+                self.toggle0.label_set("GSM antenna:")
+                self.toggle0.size_hint_align_set(-1.0, 0.0)
+                self.toggle0.states_labels_set("On","Off")
+                self.box1.pack_start(toggle0)
+                return self.box1
         """
         pass

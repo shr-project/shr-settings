@@ -40,25 +40,33 @@ class Profile(module.AbstractModule):
                 else:
                     set = 0
                 obj.state_set(set)
+        if self.guiUpdates:
+            ecore.timer_add( 1.3, self.guiUpdate)
 
 
     def toggle0bt_Click(self, obj, event):
+        print "1"
         profile = obj.getProfile_name()
-        state = obj.state_get()
-        print "action on:"+profile+" state:"+str(state)
+        print "2"
+        s = obj.state_get()
+        print "3"
+        #print "action on:"+str(profile)+" state:"+str(state)
 
-        if state == 1:
+        print "act 0"
+        if s == 1:
+            print "act 1"
             self.pr_iface.SetProfile(profile)
-            ecore.timer_add( 1.0, self.guiUpdate)
+            print "act 2"
+            
 
     def createView(self):
-
+        self.guiUpdates = 1
         self.stan = ""
         
         try:
-            DBusGMainLoop(set_as_default=True)
-            bus = dbus.SystemBus()
-            pr_device_obj = bus.get_object( "org.freesmartphone.opreferencesd", "/org/freesmartphone/Preferences" )
+            #DBusGMainLoop(set_as_default=True)
+            #bus = dbus.SystemBus()
+            pr_device_obj = self.dbus.get_object( "org.freesmartphone.opreferencesd", "/org/freesmartphone/Preferences" )
             self.pr_iface = dbus.Interface(pr_device_obj, "org.freesmartphone.Preferences" )
             self.stan = self.pr_iface.GetProfile()
             self.dbus_status = 1
@@ -98,6 +106,8 @@ class Profile(module.AbstractModule):
                 toggle0.show()
                 boxh.pack_start(toggle0)
                 self.toggleArray.append(toggle0)
+            self.guiUpdate()
+                
         """
         defbt = elementary.Button(self.window)
         defbt.clicked = self.defbt_click
@@ -117,3 +127,10 @@ class Profile(module.AbstractModule):
        
 
         return boxh
+
+
+    def stopUpdate(self):
+        print "Profile desktructor"
+        self.guiUpdates = 0
+
+

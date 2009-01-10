@@ -1,6 +1,7 @@
 import elementary
 import module
 import os
+import datetime
 
 #changelog:
 # 1.01.2009 - hiciu - cleaning code
@@ -19,6 +20,8 @@ class Clock(module.AbstractModule):
 
     def clockset(self, obj, event):
 	    if self.editable:
+                now = datetime.datetime.now()
+                os.system("date "+str(now.month).zfill(2)+str(now.day).zfill(2)+str(self.cl.time_get()[0]).zfill(2)+str(self.cl.time_get()[1]).zfill(2)+str(now.year)+"."+str(self.cl.time_get()[2]).zfill(2))
                 self.cl.edit_set(False)
                 obj.label_set("Set time")
                 self.editable = False

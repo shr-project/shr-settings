@@ -46,14 +46,14 @@ class BtMstateContener:
         print "BT BtMstateContener getModel [inf] device is ? "+self.model
 
     def getService(self):
-        ser = os.popen("ps -A | grep hci").read().replace("\n","")
+        ser = os.popen("ps -A | grep [h]ci").read().replace("\n","")
         if ser != "":
             return 1
         else:
             return 0
 
     def getServiceObex(self):
-        ser = os.popen("ps -A | grep obexftpd").read().replace("\n","")
+        ser = os.popen("ps -A | grep [o]bexftpd").read().replace("\n","")
         if ser != "":
             return 1
         else:
@@ -181,8 +181,8 @@ class Bt(module.AbstractModule):
 
         self.toggle3.state_set( obex )
 
-
-        ecore.timer_add( 5.4, self.BtmodGUIupdate)
+        if self.guiUpdate:
+            ecore.timer_add( 5.4, self.BtmodGUIupdate)
 
     def toggle0Click(self, obj, event, *args, **kargs):
 #        if self.btmc.getPower():
@@ -245,6 +245,7 @@ class Bt(module.AbstractModule):
 
 
     def createView(self):
+        self.guiUpdate = 1
         self.btmc = BtMstateContener()
         vi = self.btmc.getVisibility()
 
@@ -287,7 +288,7 @@ class Bt(module.AbstractModule):
             self.toggle3.label_set("Services (ObexFTPd):")
             self.toggle3.size_hint_align_set(-1.0, 0.0)
             self.toggle3.states_labels_set("On","Off")
-            if os.popen("obexftpd --help | grep ObexFTPd").read().replace("\n","")!="":
+            if os.popen("obexftpd --help | grep [O]bexFTPd").read().replace("\n","")!="":
                 self.toggle3.show()
                 box1.pack_end(self.toggle3)
                 self.toggle3.changed = self.toggle3Click
@@ -300,4 +301,7 @@ class Bt(module.AbstractModule):
         self.BtmodGUIupdate()
 
         return box1
-        
+
+    def stopUpdate(self):
+        print "BT desktructor"
+        self.guiUpdate = 0

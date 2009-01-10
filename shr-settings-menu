@@ -1,0 +1,222 @@
+#!/usr/bin/env python
+import elementary
+import edje
+import evas
+import dbus
+import e_dbus
+
+def load_module(module, win, dbus):
+    mod = module(win, dbus);
+    if mod.isEnabled():
+        frame = elementary.Frame(win)
+        
+        frame.label_set(mod.getName()+" settings")
+        box1.pack_end(frame)
+        frame.size_hint_align_set(-1.0, 0.0)
+        frame.show()
+
+        cont = mod.createView()
+        if cont != None:
+            frame.content_set(cont)
+            cont.show()
+        else:
+            print " error! module %s method createView() return's nothing!" % mod
+
+def load_module2(module, win, dbus, box):
+    mod = module(win, dbus);
+    if mod.isEnabled():
+        frame = elementary.Frame(win)
+
+        frame.label_set(mod.getName()+" settings")
+        box.pack_end(frame)
+        frame.size_hint_align_set(-1.0, 0.0)
+        frame.show()
+
+        cont = mod.createView()
+        if cont != None:
+            frame.content_set(cont)
+            cont.show()
+        else:
+            print "2 error! module %s method createView() return's nothing!" % mod
+
+class Button2(elementary.Button):
+    def set_nr(self, i):
+        self.nr =i
+    def get_nr(self):
+        return self.nr
+
+
+def destroy(obj, event, *args, **kargs):
+    print "DEBUG: window destroy callback called! kabum!"
+    elementary.exit()
+
+def btClick(obj, event):
+    btNr = obj.get_nr()
+    i = 0
+
+    print "1"
+    global box1
+    global win
+    
+    print "2"
+    #box1 = elementary.Box(win)
+    print "3"
+    #box1.size_hint_weight_set(1.0, 1.0)
+    print "4"
+    
+    print "5"
+
+    for d in dirs:
+        if i == btNr:
+            box1.pack_start(d[3])
+            d[3].show()
+            box1.show()
+        else:
+            d[3].hide()
+        i+=1
+
+
+
+if __name__ == "__main__":
+    elementary.init()
+    global win 
+    win = elementary.Window("settings", elementary.ELM_WIN_BASIC)
+    win.title_set("SHR settings new")
+    win.destroy = destroy
+
+    #dbus init:
+    #as in exposure.py:
+    mainloop = e_dbus.DBusEcoreMainLoop()
+    #dbus_session = dbus.SessionBus(mainloop=self.mainloop) - we don't need atm
+    dbus_system = dbus.SystemBus(mainloop=mainloop)
+
+    bg = elementary.Background(win)
+    win.resize_object_add(bg)
+    bg.size_hint_weight_set(1.0, 1.0)
+    bg.show()
+
+
+
+    box0 = elementary.Box(win)
+    box0.size_hint_weight_set(1.0, 1.0)
+    box0.size_hint_align_set(-1.0, -1.0)
+    win.resize_object_add(box0)
+    box0.show()
+
+    
+    scDirs = elementary.Scroller(win)
+    scDirs.size_hint_weight_set(1.0, 1.0)
+    scDirs.size_hint_align_set(-1.0, -1.0)
+    box0.pack_end(scDirs)
+    scDirs.show()
+
+    boxDirs = elementary.Box(win)
+    boxDirs.horizontal_set(True)
+    boxDirs.size_hint_weight_set(1.0, 1.0)
+    boxDirs.size_hint_align_set(-1.0, -1.0)
+    scDirs.content_set(boxDirs)
+    boxDirs.show()
+
+
+
+
+
+    #    toolbar = elementary.Toolbar(win)
+    #    box0.pack_start(toolbar)
+    #    toolbar.show()
+
+    sc = elementary.Scroller(win)
+    #sc.size_hint_weight_set(1.0, 1.0)
+    sc.size_hint_weight_set(1.0, 1.0)
+    box0.pack_end(sc)
+    sc.show()
+
+
+    quitbt = elementary.Button(win)
+    quitbt.clicked = destroy
+    quitbt.label_set("Quit")
+    quitbt.size_hint_align_set(-1.0, 0.0)
+    quitbt.show()
+    box0.pack_end(quitbt)
+
+
+    global box1
+    box1 = elementary.Box(win)
+    box1.size_hint_weight_set(1.0, 1.0)
+    box1.size_hint_align_set(-1.0, -1.0)
+    sc.content_set(box1)
+    box1.show()
+
+
+    
+    #loading modules
+    from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_misc, shr_test
+
+    global dirs
+    dirs = [    ["Times",   "ico_arrow_d_24_24.png", [ shr_device_timeouts.Timeouts ] ],
+                ["Times",   "ico_bind_24_24.png", [ shr_device_timeouts.Timeouts ] ],
+                ["BT",      "ico_arrow_d_24_24.png",  [shr_bt.Bt]    ]
+        ]
+
+    i = 0
+    for d in dirs:
+        print "dir name:"+str(d[0])
+
+        ico = elementary.Icon(win)
+        ico.file_set("data/"+str(d[1]) )
+        ico.scale_set(0,0)
+
+        bt = Button2(win)
+        bt.set_nr( i )
+        i+=1
+        bt.clicked = btClick
+        bt.icon_set(ico)
+        bt.show()
+        ico.show()
+        #bt.size_hint_weight_set(1.0, 1.0)
+        bt.size_hint_weight_set(0.0, 1.0)
+        bt.size_hint_align_set(0.0, -1.0)
+        boxDirs.pack_end(bt)
+
+        box = elementary.Box(win)
+        box.size_hint_weight_set(1.0, 1.0)
+        #box.size_hint_align_set(-1.0, -1.0)
+
+        for m in d[2]:
+            print "loading %s" % m
+            load_module2(m, win, dbus_system, box)
+
+        d.append(box)
+
+        if i==1:
+            print "box1 -------------- show"
+            box1.pack_start(box)
+            box.show()
+
+
+
+
+
+    if 1==2:
+        modules = [ shr_device_timeouts.Timeouts,
+                    shr_gsm.Gsm,
+                    shr_pm.Pm,
+                    shr_bt.Bt,
+                    shr_wifi.Wifi,
+                    shr_gprs.Gprs,
+                    shr_usb.Usb,
+                    shr_clock.Clock,
+                    shr_profile.Profile,
+                    shr_services.Services,
+                    shr_misc.Misc,
+                    shr_test.Test
+                  ]
+    #for mod in modules:
+    #    print "loading %s" % mod
+    #    load_module(mod, win, dbus_system)
+
+    #end of loading modules
+
+    win.show()
+    elementary.run()
+    elementary.shutdown()

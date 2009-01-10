@@ -33,6 +33,7 @@ class Usb(module.AbstractModule):
 	    return 0
 
     def createView(self):
+        
         box1 = elementary.Box(self.window)
         self.toggle0 = elementary.Toggle(self.window)
         self.toggle0.label_set("USB mode:")

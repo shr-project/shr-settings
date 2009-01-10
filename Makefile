@@ -7,7 +7,7 @@ build:
 	exit 0
 
 clean:
-	rm *.pyc *~ *.pyo \
+	rm -f *.pyc *~ *.pyo \
 	shr_settings_modules/*.pyc shr_settings_modules/*~ shr_settings_modules/*.pyo
 
 install:
