@@ -88,6 +88,12 @@ class Services(module.AbstractModule):
         print "Services sssbtClick [info]"
         self.makeWindowOrList()
 
+    def chk_if_needToByDisplay(self, servicesList, name):
+        for i in servicesList:
+            if i == name:
+                return 1
+        return 0
+
     def makeWindowOrList(self, mkList=0):
 
         if mkList:
@@ -143,41 +149,45 @@ class Services(module.AbstractModule):
         sc.content_set(box1)
         box1.show()
 
+
+        listForDisplay = os.popen("for i in `find /etc/rc*.d/`; do echo ${i:14}; done").read().split("\n")
+        
+
+
         servicesList = dircache.listdir("/etc/init.d/")
-
-
         servicesList.sort()
         for i in servicesList:
-            #how to make horizontal box?
-            boxSSS = elementary.Box(self.winser)
-            boxSSS.horizontal_set(True)
-            boxSSS.size_hint_align_set(-1.0, 0.0)
-            
+            if self.chk_if_needToByDisplay(listForDisplay, i):
+                #how to make horizontal box?
+                boxSSS = elementary.Box(self.winser)
+                boxSSS.horizontal_set(True)
+                boxSSS.size_hint_align_set(-1.0, 0.0)
 
-            startbt = ButtonServer(self.winser)
-            startbt.set_osCmd("/etc/init.d/"+i+" start")
-            startbt.clicked = self.startbtClick
-            startbt.label_set("start")
-            startbt.size_hint_align_set(-1.0, 0.0)
-            startbt.show()
-            boxSSS.pack_start(startbt)
-            
-            stopbt = ButtonServer(self.winser)
-            stopbt.set_osCmd("/etc/init.d/"+i+" stop")
-            stopbt.clicked = self.stopbtClick
-            stopbt.label_set("stop")
-            stopbt.size_hint_align_set(-1.0, 0.0)
-            stopbt.show()
-            boxSSS.pack_end(stopbt)
 
-            fo = elementary.Frame(self.winser)
-            fo.label_set( i )
-            fo.size_hint_align_set(-1.0, 0.0)
-            fo.show()
-            fo.content_set( boxSSS )
+                startbt = ButtonServer(self.winser)
+                startbt.set_osCmd("/etc/init.d/"+i+" start")
+                startbt.clicked = self.startbtClick
+                startbt.label_set("start")
+                startbt.size_hint_align_set(-1.0, 0.0)
+                startbt.show()
+                boxSSS.pack_start(startbt)
 
-            boxSSS.show()
-            box1.pack_end(fo)
+                stopbt = ButtonServer(self.winser)
+                stopbt.set_osCmd("/etc/init.d/"+i+" stop")
+                stopbt.clicked = self.stopbtClick
+                stopbt.label_set("stop")
+                stopbt.size_hint_align_set(-1.0, 0.0)
+                stopbt.show()
+                boxSSS.pack_end(stopbt)
+
+                fo = elementary.Frame(self.winser)
+                fo.label_set( i )
+                fo.size_hint_align_set(-1.0, 0.0)
+                fo.show()
+                fo.content_set( boxSSS )
+
+                boxSSS.show()
+                box1.pack_end(fo)
 
 
         if mkList==0:
