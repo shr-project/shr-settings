@@ -86,30 +86,40 @@ class Services(module.AbstractModule):
 
     def sssbtClick(self, obj, event):
         print "Services sssbtClick [info]"
-        self.winser = elementary.Window("servicesInfo", elementary.ELM_WIN_BASIC)
-        self.winser.title_set("Services list")
-        self.winser.autodel_set(True)
+        self.makeWindowOrList()
 
-        self.bginfo = elementary.Background(self.winser)
-        self.winser.resize_object_add(self.bginfo)
-        self.bginfo.size_hint_weight_set(1.0, 1.0)
-        self.bginfo.show()
+    def makeWindowOrList(self, mkList=0):
 
-        box0 = elementary.Box(self.winser)
-        box0.size_hint_weight_set(1.0, 1.0)
-        self.winser.resize_object_add(box0)
-        box0.show()
+        if mkList:
+            self.winser = mkList
 
-        fr = elementary.Frame(self.winser)
-        fr.label_set("Services list")
-        fr.size_hint_align_set(-1.0, 0.0)
-        box0.pack_end(fr)
-        fr.show()
+        if mkList==0:
+            self.winser = elementary.Window("servicesInfo", elementary.ELM_WIN_BASIC)
+            self.winser.title_set("Services list")
+            self.winser.autodel_set(True)
+
+            self.bginfo = elementary.Background(self.winser)
+            self.winser.resize_object_add(self.bginfo)
+            self.bginfo.size_hint_weight_set(1.0, 1.0)
+            self.bginfo.show()
+
+            box0 = elementary.Box(self.winser)
+            box0.size_hint_weight_set(1.0, 1.0)
+            self.winser.resize_object_add(box0)
+            box0.show()
+
+        
+            fr = elementary.Frame(self.winser)
+            fr.label_set("Services list")
+            fr.size_hint_align_set(-1.0, 0.0)
+            box0.pack_end(fr)
+            fr.show()
 
         sc = elementary.Scroller(self.winser)
         sc.size_hint_weight_set(1.0, 1.0)
         sc.size_hint_align_set(-1.0, -1.0)
-        box0.pack_end(sc)
+        if mkList==0:
+            box0.pack_end(sc)
         sc.show()
 
         """
@@ -120,13 +130,13 @@ class Services(module.AbstractModule):
         reloadbt.show()
         box0.pack_end(reloadbt)
         """
-        
-        cancelbt = elementary.Button(self.winser)
-        cancelbt.clicked = self.destroyInfo
-        cancelbt.label_set("Close")
-        cancelbt.size_hint_align_set(-1.0, 0.0)
-        cancelbt.show()
-        box0.pack_end(cancelbt)
+        if mkList==0:
+            cancelbt = elementary.Button(self.winser)
+            cancelbt.clicked = self.destroyInfo
+            cancelbt.label_set("Close")
+            cancelbt.size_hint_align_set(-1.0, 0.0)
+            cancelbt.show()
+            box0.pack_end(cancelbt)
 
         box1 = elementary.Box(self.winser)
         box1.size_hint_weight_set(1.0, -1.0)
@@ -170,13 +180,17 @@ class Services(module.AbstractModule):
             box1.pack_end(fo)
 
 
-
-        self.winser.show()
+        if mkList==0:
+            self.winser.show()
+        else:
+            return box1
 
     def createView(self):
         self.editable = False
 
         box0 = elementary.Box(self.window)
+        box0.size_hint_align_set(-1.0, 0.0)
+        """
 
         sssbt = elementary.Button(self.window)
         sssbt.label_set("start | stop")
@@ -184,6 +198,6 @@ class Services(module.AbstractModule):
         sssbt.clicked = self.sssbtClick
         box0.pack_end(sssbt)
         sssbt.show()
-
-
+        """
+        box0.pack_end(self.makeWindowOrList( self.window ) )
         return box0
