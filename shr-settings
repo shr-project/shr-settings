@@ -168,17 +168,15 @@ class MainWindow:
 
         from shr_settings_modules import shr_gsm,shr_sim, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_misc, shr_test
 
-        dirs = [    ["GSM","ico_gsm_32_32.png",                 [ shr_gsm.Gsm, shr_sim.Sim ] ],
-                    ["Services","ico_initd_32_32.png",          [ shr_services.Services ] ],
-                    ["Bluetooth","ico_bt_32_32.png",            [ shr_bt.Bt ] ],
-                    ["Internet","ico_internet_32_32.png",       [ shr_wifi.Wifi, shr_gprs.Gprs ] ],
-#                    ["SIM","ico_sim_32_32.png",                 [ shr_sim.Sim ] ],
-                    ["Profiles","ico_profile_32_32.png",        [ shr_profile.Profile ] ],
-                    ["Clock","ico_timeset_32_32.png",           [ shr_clock.Clock ] ],
+        dirs = [    ["GSM","ico_gsm_32_32.png",                        [ shr_gsm.Gsm, shr_sim.Sim ] ],
+                    ["Bluetooth","ico_bt_32_32.png",                   [ shr_bt.Bt ] ],
+                    ["Internet","ico_internet_32_32.png",              [ shr_wifi.Wifi, shr_gprs.Gprs ] ],
+                    ["Profiles","ico_profile_32_32.png",               [ shr_profile.Profile ] ],
+                    ["Clock","ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
                     ["Power management","ico_powermanager_32_32.png",  [ shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
-#                    ["Timeouts","ico_timeout_32_32.png",           [ shr_device_timeouts.Timeouts ] ],
-                    ["USB","ico_usb_32_32.png",                 [ shr_usb.Usb ] ],
-                    ["Others", "ico_others_32_32.png",          [ shr_misc.Misc, shr_test.Test ] ]
+                    ["USB","ico_usb_32_32.png",                        [ shr_usb.Usb ] ],
+                    ["Services","ico_initd_32_32.png",                 [ shr_services.Services ] ],
+                    ["Others", "ico_others_32_32.png",                 [ shr_misc.Misc, shr_test.Test ] ]
             ]
 
 
