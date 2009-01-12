@@ -1,12 +1,18 @@
 import elementary
 import module
 import os
-import datetime
+import datetime, time
+import dbus
 
 #changelog:
 # 1.01.2009 - hiciu - cleaning code
 
 #kurde, raz spacja, raz tabulator.. wtf?
+#tak to jest, jak sie pisze kod na freerunnrze ;) - dos
+
+def getDbusObject (bus, busname , objectpath , interface):
+        dbusObject = bus.get_object(busname, objectpath)
+        return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class Clock(module.AbstractModule):
     name = "Date/time"
@@ -14,6 +20,25 @@ class Clock(module.AbstractModule):
 
     def ntpsync(self, obj, event):
         os.system("ntpdate ntp.org")
+        self.cl.edit_set(False)
+        self.but.label_set("Set time")
+        self.editable = False
+
+    def gpssync(self, obj, event):  
+        try:
+            gpstimeres = getDbusObject (self.dbus, "org.freesmartphone.ogpsd", "/org/freedesktop/Gypsy", "org.freedesktop.Gypsy.Time")
+            gpstime = gpstimeres.GetTime()
+        except:
+            gpsres = getDbusObject (self.dbus, "org.freesmartphone.ogpsd", "/org/freedesktop/Gypsy", "org.freesmartphone.Resource" )
+            gpsres.Enable()
+            time.sleep(3)
+            gpstimeres = getDbusObject (self.dbus, "org.freesmartphone.ogpsd", "/org/freedesktop/Gypsy", "org.freedesktop.Gypsy.Time")
+            gpstime = gpstimeres.GetTime()
+            gpsres.Disable()
+        print gpstime
+        rtcres = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/RealTimeClock/0", "org.freesmartphone.Device.RealTimeClock" )
+        rtcres.SetCurrentTime(str(gpstime)) 
+
         self.cl.edit_set(False)
         self.but.label_set("Set time")
         self.editable = False
@@ -49,4 +74,11 @@ class Clock(module.AbstractModule):
         ntp.clicked = self.ntpsync
         box0.pack_end(ntp)
         ntp.show()
+        gps = elementary.Button(self.window)
+        gps.label_set("Synchronize with GPS")
+        gps.size_hint_align_set(-1.0, 0.0)
+        gps.clicked = self.gpssync
+        box0.pack_end(gps)
+        gps.show()
+
         return box0
