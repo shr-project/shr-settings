@@ -2,6 +2,8 @@
     make version with toolbar
     load modules categories dynamicly
     provide easy way to share dbus objects
+- shr_gsm.py
+    take look why Operators window don't work on new frameworkd
 - shr_sim.py
     fix to start with GSM resource disabled
 - shr_bt.py
