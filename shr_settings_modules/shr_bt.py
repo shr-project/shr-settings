@@ -2,48 +2,17 @@ import time
 import module
 import elementary, ecore
 import os
+import dbus
 
-"""
-- gta01
-/sys/devices/platform/s3c2410-i2c/i2c-adapter/i2c-0/0-0008/neo1973-pm-bt.0/
-- gta02
-/sys/devices/platform/s3c2440-i2c/i2c-adapter/i2c-0/0-0073/neo1973-pm-bt.0/
-
-"""
-btModels = [ \
-"/sys/devices/platform/s3c2410-i2c/i2c-adapter/i2c-0/0-0008/neo1973-pm-bt.0",
-"/sys/devices/platform/s3c2440-i2c/i2c-adapter/i2c-0/0-0073/neo1973-pm-bt.0",
-"/sys/bus/platform/devices/neo1973-pm-bt.0"]
+def getDbusObject (bus, busname , objectpath , interface):
+        dbusObject = bus.get_object(busname, objectpath)
+        return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class BtMstateContener:
-    def __init__(self):
-        self.model = ""
+    def __init__(self, busres, buspower):
         self.state = 0
-        self.getModel()
-
-    def getModel(self):
-        return self.model
-
-    def getModel(self):
-        try:
-            open(btModels[0]+"/power_on", "r")
-            self.model = "gta01"
-        except:
-            print "BT BtMstateContener getModel [inf] not gta01"
-
-        try:
-            open(btModels[1]+"/power_on", "r")
-            self.model = "gta02"
-        except:
-            print "BT BtMstateContener getModel [inf] not gta02"
-
-        try:
-            open(btModels[1]+"/power_on", "r")
-            self.model = "gta02"
-        except:
-            print "BT BtMstateContener getModel [inf] not gta02"
-
-        print "BT BtMstateContener getModel [inf] device is ? "+self.model
+        self.busres = busres
+        self.buspower = buspower
 
     def getService(self):
         ser = os.popen("ps -A | grep [h]ci").read().replace("\n","")
@@ -59,59 +28,15 @@ class BtMstateContener:
         else:
             return 0
         
-
     def setPower(self, b ):
-        print "BT BtMstateContener setPower [inf] "+self.model
-        if b==0:
-            print "BT BtMstateContener setPower [inf] turn off bt by sysfs"
-            #print "stop /etc/init.d/bluetooth"
-            #os.system("/etc/init.d/bluetooth stop")
-            #time.sleep(1)
-
-            print "power_on"
-            os.system("echo "+str(b)+" > "+btModels[2]+"/power_on")
-
-            print "sleep"
-            time.sleep(1)
-        
-            print "reset"
-            os.system("echo 1 > "+btModels[2]+"/reset")
-            
-
+        if b:
+            self.busres.Enable()
         else:
-            print "BT BtMstateContener setPower [inf] turn on bt by sysfs"
-            print "power_on"
-            os.system("echo "+str(b)+" > "+btModels[2]+"/power_on")
-
-            if self.model == "gta02":
-                print "sleep"
-                time.sleep(1)
-
-                print "reset"
-                os.system("echo 0 > "+btModels[2]+"/reset")
-
-            #time.sleep(1)
-            #print "start /etc/init.d/bluetooth"
-            #os.system("/etc/init.d/bluetooth start")
-
-        
+            self.busres.Disable()
+        self.buspower.SetPower(b)
 
     def getPower(self):
-        if self.model=="gta01":
-            f0 = open(btModels[2]+"/power_on", "r")
-        elif self.model=="gta02":
-            f0 = open(btModels[2]+"/power_on", "r")
-        elif self.model=="":
-            return self.state
-
-        while f0:
-            line = f0.readline()
-            if not line:
-                f0.close()
-                break
-            else:
-                self.state = int(line)
-        return self.state
+        return self.buspower.GetPower()
 
     def setVisibility(self, b):
         if b:
@@ -245,63 +170,65 @@ class Bt(module.AbstractModule):
 
 
     def createView(self):
-        self.guiUpdate = 1
-        self.btmc = BtMstateContener()
-        vi = self.btmc.getVisibility()
-
         box1 = elementary.Box(self.window)
 
-        if self.btmc.getModel=="":
+        try:
+            self.busres = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/PowerControl/Bluetooth", "org.freesmartphone.Resource" ) 
+            self.buspower = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/PowerControl/Bluetooth", "org.freesmartphone.Device.PowerControl" )
+        except:
             label =elementary.Label(self.window)
-            label.label_set("can't find file in sysfs")
+            label.label_set("can't connect to dbus")
             label.size_hint_align_set(-1.0, 0.0)
             label.show()
             box1.pack_start(label)
-        else:
-            self.toggle0 = elementary.Toggle(self.window)
-            self.toggle0.label_set("Bluetooth radio:")
-            self.toggle0.size_hint_align_set(-1.0, 0.0)
-            self.toggle0.states_labels_set("On","Off")
-            box1.pack_start(self.toggle0)
-            self.toggle0.show()
-            self.toggle0.changed = self.toggle0Click
+            return box1
 
-            self.toggle1 = elementary.Toggle(self.window)
-            self.toggle1.label_set("Visibility")
-            self.toggle1.size_hint_align_set(-1.0, 0.0)
-            self.toggle1.states_labels_set("On","Off")
-            self.toggle1.state_set(vi)
-            box1.pack_end(self.toggle1)
-            self.toggle1.changed = self.toggle1Click
+        self.guiUpdate = 1
+        self.btmc = BtMstateContener(self.busres, self.buspower)
+        vi = self.btmc.getVisibility()
+
+
+        self.toggle0 = elementary.Toggle(self.window)
+        self.toggle0.label_set("Bluetooth radio:")
+        self.toggle0.size_hint_align_set(-1.0, 0.0)
+        self.toggle0.states_labels_set("On","Off")
+        box1.pack_start(self.toggle0)
+        self.toggle0.show()
+        self.toggle0.changed = self.toggle0Click
+
+        self.toggle1 = elementary.Toggle(self.window)
+        self.toggle1.label_set("Visibility")
+        self.toggle1.size_hint_align_set(-1.0, 0.0)
+        self.toggle1.states_labels_set("On","Off")
+        self.toggle1.state_set(vi)
+        box1.pack_end(self.toggle1)
+        self.toggle1.changed = self.toggle1Click
 
 
             
-            self.toggle2 = elementary.Toggle(self.window)
-            self.toggle2.label_set("Services (spi, hci):")
-            self.toggle2.size_hint_align_set(-1.0, 0.0)
-            self.toggle2.states_labels_set("On","Off")
-            box1.pack_end(self.toggle2)
-            self.toggle2.changed = self.toggle2Click
+        self.toggle2 = elementary.Toggle(self.window)
+        self.toggle2.label_set("Services (spi, hci):")
+        self.toggle2.size_hint_align_set(-1.0, 0.0)
+        self.toggle2.states_labels_set("On","Off")
+        box1.pack_end(self.toggle2)
+        self.toggle2.changed = self.toggle2Click
 
 
-            self.toggle3 = elementary.Toggle(self.window)
-            self.toggle3.label_set("Services (ObexFTPd):")
-            self.toggle3.size_hint_align_set(-1.0, 0.0)
-            self.toggle3.states_labels_set("On","Off")
-            if os.popen("obexftpd --help | grep [O]bexFTPd").read().replace("\n","")!="":
-                self.toggle3.show()
-                box1.pack_end(self.toggle3)
-                self.toggle3.changed = self.toggle3Click
-            else:
-                print "No obexftpd found :/ toggle disable"
-
-
-
+        self.toggle3 = elementary.Toggle(self.window)
+        self.toggle3.label_set("Services (ObexFTPd):")
+        self.toggle3.size_hint_align_set(-1.0, 0.0)
+        self.toggle3.states_labels_set("On","Off")
+        if os.popen("obexftpd --help | grep [O]bexFTPd").read().replace("\n","")!="":
+            self.toggle3.show()
+            box1.pack_end(self.toggle3)
+            self.toggle3.changed = self.toggle3Click
+        else:
+            print "No obexftpd found :/ toggle disable"
 
         self.BtmodGUIupdate()
 
         return box1
 
     def stopUpdate(self):
-        print "BT desktructor"
+        print "BT destructor"
         self.guiUpdate = 0

@@ -5,7 +5,7 @@
 - shr_sim.py
     fix to start with GSM resource disabled
 - shr_bt.py
-    fix to work with 2.6.28
+    fix showing and hiding services toggles
 - shr_gprs.py
     make it useful :)
 - shr_profile.py
