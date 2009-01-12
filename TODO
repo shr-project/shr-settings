@@ -1,2 +1,22 @@
+- shr-settings
+    make version with toolbar
+    load modules categories dynamicly
+    provide easy way to share dbus objects
+- shr_sim.py
+    fix to start with GSM resource disabled
+- shr_bt.py
+    fix to work with 2.6.28
+- shr_gprs.py
+    make it useful :)
+- shr_profile.py
+    use hoversel or something else better than toggles
+- shr_clock.py
+    check, why gps synchro isn't working (frameworkd bug?)
+- shr_pm.py
+    check, if actions buttons are doing exactly what their labels say
+- shr_usb.py
+    fix to work with 2.6.28 and gta01
 - shr_services.py
     make int with less windows popup
+- module.py
+    do it in the most flexible way (init, destroy etc.) and prepare all modules to use it
