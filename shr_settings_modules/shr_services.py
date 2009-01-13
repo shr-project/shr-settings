@@ -72,6 +72,7 @@ class Services(module.AbstractModule):
         
         self.windeb.show()
 
+
         c = os.popen( cmd, "r" )
         while 1:
             line = c.readline()
@@ -94,74 +95,38 @@ class Services(module.AbstractModule):
                 return 1
         return 0
 
-    def makeWindowOrList(self, mkList=0):
+   
 
-        if mkList:
-            self.winser = mkList
+    def createView(self):
+        self.editable = False
 
-        if mkList==0:
-            self.winser = elementary.Window("servicesInfo", elementary.ELM_WIN_BASIC)
-            self.winser.title_set("Services list")
-            self.winser.autodel_set(True)
+        print "services 1"
+        box0 = elementary.Box(self.window)
+        print "services 2"
 
-            self.bginfo = elementary.Background(self.winser)
-            self.winser.resize_object_add(self.bginfo)
-            self.bginfo.size_hint_weight_set(1.0, 1.0)
-            self.bginfo.show()
-
-            box0 = elementary.Box(self.winser)
-            box0.size_hint_weight_set(1.0, 1.0)
-            self.winser.resize_object_add(box0)
-            box0.show()
-
-        
-            fr = elementary.Frame(self.winser)
-            fr.label_set("Services list")
-            fr.size_hint_align_set(-1.0, 0.0)
-            box0.pack_end(fr)
-            fr.show()
-
-        sc = elementary.Scroller(self.winser)
+        sc = elementary.Scroller(self.window)
         sc.size_hint_weight_set(1.0, 1.0)
         sc.size_hint_align_set(-1.0, 0.0)
-        if mkList==0:
-            box0.pack_end(sc)
+        box0.pack_end(sc)
         sc.show()
 
-        """
-        reloadbt = elementary.Button(self.winser)
-        reloadbt.clicked = self.reloadbtClick
-        reloadbt.label_set("Reload")
-        reloadbt.size_hint_align_set(-1.0, 0.0)
-        reloadbt.show()
-        box0.pack_end(reloadbt)
-        """
-        if mkList==0:
-            cancelbt = elementary.Button(self.winser)
-            cancelbt.clicked = self.destroyInfo
-            cancelbt.label_set("Close")
-            cancelbt.size_hint_align_set(-1.0, 0.0)
-            cancelbt.show()
-            box0.pack_end(cancelbt)
-
-        box1 = elementary.Box(self.winser)
+        box1 = elementary.Box(self.window)
         box1.size_hint_align_set(-1.0, 0.0)
         box1.size_hint_weight_set(-1.0, 0.0)
         sc.content_set(box1)
         box1.show()
-
 
         servicesList = dircache.listdir("/etc/init.d/")
         servicesList.sort()
         for i in servicesList:
             #how to make horizontal box?
             print "add:"+i
-            boxSSS = elementary.Box(self.winser)
+            boxSSS = elementary.Box(self.window)
             boxSSS.horizontal_set(True)
             boxSSS.size_hint_align_set(-1.0, 0.0)
+            boxSSS.show()
 
-
-            startbt = ButtonServer(self.winser)
+            startbt = ButtonServer(self.window)
             startbt.set_osCmd("/etc/init.d/"+i+" start")
             startbt.clicked = self.startbtClick
             startbt.label_set("start")
@@ -169,7 +134,7 @@ class Services(module.AbstractModule):
             startbt.show()
             boxSSS.pack_start(startbt)
 
-            stopbt = ButtonServer(self.winser)
+            stopbt = ButtonServer(self.window)
             stopbt.set_osCmd("/etc/init.d/"+i+" stop")
             stopbt.clicked = self.stopbtClick
             stopbt.label_set("stop")
@@ -177,34 +142,17 @@ class Services(module.AbstractModule):
             stopbt.show()
             boxSSS.pack_end(stopbt)
 
-            fo = elementary.Frame(self.winser)
+            fo = elementary.Frame(self.window)
             fo.label_set( i )
             fo.size_hint_align_set(-1.0, 0.0)
             fo.show()
             fo.content_set( boxSSS )
 
-            boxSSS.show()
-            box1.pack_end(fo)
+            box0.pack_end(fo)
 
 
-        if mkList==0:
-            self.winser.show()
-        else:
-            return box0
 
-    def createView(self):
-        self.editable = False
 
-        box0 = elementary.Box(self.window)
-        #box0.size_hint_align_set(-1.0, 0.0)
-        """
-
-        sssbt = elementary.Button(self.window)
-        sssbt.label_set("start | stop")
-        sssbt.size_hint_align_set(-1.0, 0.0)
-        sssbt.clicked = self.sssbtClick
-        box0.pack_end(sssbt)
-        sssbt.show()
-        """
-        box0.pack_end(self.makeWindowOrList( self.window ) )
+        
+        print "services 5"
         return box0
