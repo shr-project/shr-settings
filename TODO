@@ -18,8 +18,9 @@
     check, if actions buttons are doing exactly what their labels say
 - shr_usb.py
     fix to work with 2.6.28 and gta01
-- shr_services.py
+[+][yoyo][Tue Jan 13 15:18:06 CET 2009] shr_services.py
     make int with less windows popup
+    [+][yoyo][Tue Jan 13 15:18:06 CET 2009] module have now one window popup less :)
 - module.py
     do it in the most flexible way (init, destroy etc.) and prepare all modules to use it
 
