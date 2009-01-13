@@ -16,6 +16,9 @@
     check, why gps synchro isn't working (frameworkd bug?)
 - shr_pm.py
     check, if actions buttons are doing exactly what their labels say
+        [suspend]   - tested work OK
+        [power off] - need to chk
+        [restart]   - need to chk
 - shr_usb.py
     fix to work with 2.6.28 and gta01
 [+][yoyo][Tue Jan 13 15:18:06 CET 2009] shr_services.py
