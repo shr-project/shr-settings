@@ -1,3 +1,5 @@
+!! python-elementary have problem with toggle state_set() !!
+
 - shr-settings
     make version with toolbar
     load modules categories dynamicly
