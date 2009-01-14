@@ -1,5 +1,3 @@
-!! python-elementary have problem with toggle state_set() !!
-
 - shr-settings
     make version with toolbar
     load modules categories dynamicly
@@ -19,15 +17,12 @@
 - shr_pm.py
     check, if actions buttons are doing exactly what their labels say
         [suspend]   - tested work OK
-        [power off] - need to chk
-        [restart]   - need to chk
+        [power off] - suspends    WRONG
+        [restart]   - tested work OK
+    so, fix [power off] button
 - shr_usb.py
     fix to work with 2.6.28 and gta01
-[+][yoyo][Tue Jan 13 15:18:06 CET 2009] shr_services.py
-    make int with less windows popup
-    [+][yoyo][Tue Jan 13 15:18:06 CET 2009] module have now one window popup less :)
+- shr_services.py
+    maybe find better way to display returned message to user
 - module.py
     do it in the most flexible way (init, destroy etc.) and prepare all modules to use it
-
-
-[yoyo] git test
