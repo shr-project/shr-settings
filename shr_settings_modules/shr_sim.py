@@ -68,9 +68,25 @@ class SimMstateContener:
                 pass
         print "DONE"
 
+
+    def PhoneBookClean(self, n ):
+        phoneMax = self.GetPhonebookInfo(n)['max_index']
+        print "PhoneBookClean max: "+str(phoneMax)
+        for i in range(1, (phoneMax+1), 1):
+            print "remove id: "+str(i)
+            try:
+                self.gsm_sim_iface.DeleteEntry(n, i)
+            except:
+                pass
+        print "DONE"
    
 
-    
+class Button2( elementary.Button ):
+    def set_name( self, i ):
+        self.profile_name = i
+
+    def get_name( self ):
+        return self.profile_name
 
 class Sim(module.AbstractModule):
     name = "SIM"
@@ -81,6 +97,10 @@ class Sim(module.AbstractModule):
     def cleanMessageBookClick(self, obj, event):
         self.simmc.MessageBookClean()
 
+    def cleanPhoneBookClick(self, obj, event):
+        name = obj.get_name()
+        print "clean phone book: ["+str(name)+"]"
+        self.simmc.PhoneBookClean( name )
 
     def createView(self):
         self.guiUpdate = 1
@@ -100,37 +120,67 @@ class Sim(module.AbstractModule):
             label.show()
             box1.pack_start(label)
         else:
-            simInfo = self.simmc.getSimInfo()
-            frameInfo = elementary.Frame(self.window)
-            frameInfo.label_set("SIM information:")
-            box1.pack_end(frameInfo)
-            frameInfo.size_hint_align_set(-1.0, 0.0)
-            frameInfo.show()
+
+
+
+            # message book info
+            messBookInfo = self.simmc.GetMessagebookInfo()
+            frameBook = elementary.Frame(self.window)
+            frameBook.label_set("Message book:")
+            box1.pack_end(frameBook)
+            frameBook.size_hint_align_set(-1.0, 0.0)
+            frameBook.show()
+
+            boxBook = elementary.Box(self.window)
+            boxBook.show()
+            frameBook.content_set(boxBook)
+
+            for m in messBookInfo:
+                boxS = elementary.Box(self.window)
+                boxS.horizontal_set(True)
+                boxS.size_hint_align_set(-1.0, 0.0)
+                boxS.show()
+
+                labelN =elementary.Label(self.window)
+                labelN.label_set(str(m)+":")
+                labelN.size_hint_align_set(-1.0, -1.0)
+                labelN.size_hint_weight_set(1.0, 1.0)
+                labelN.show()
+                boxS.pack_start(labelN)
+
+                labelV =elementary.Label(self.window)
+                labelV.size_hint_align_set(-1.0, 0.0)
+                labelV.label_set( str( messBookInfo[m] ) )
+                labelV.show()
+                boxS.pack_end(labelV)
+
+                boxBook.pack_start( boxS )
+
+
+            # actions
+            boxS = elementary.Box(self.window)
+            boxS.horizontal_set(True)
+            boxS.size_hint_align_set(-1.0, 0.0)
+            boxS.show()
+
+            # clear TODO
+            cleanbt = elementary.Button(self.window)
+            cleanbt.clicked = self.cleanMessageBookClick
+            cleanbt.label_set("clean")
+            cleanbt.size_hint_align_set(-1.0, 0.0)
+            cleanbt.show()
+            boxS.pack_end(cleanbt)
+
+            boxBook.pack_end( boxS )
+
+
+
+
+
+
+
+
             
-            boxInfo = elementary.Box(self.window)
-            frameInfo.content_set(boxInfo)
-            
-            for s in simInfo:
-                if s != "subscriber_numbers":
-                    boxS = elementary.Box(self.window)
-                    boxS.horizontal_set(True)
-                    boxS.size_hint_align_set(-1.0, 0.0)
-                    boxS.show()
-
-                    labelN =elementary.Label(self.window)
-                    labelN.label_set(str(s)+":")
-                    labelN.size_hint_align_set(-1.0, -1.0)
-                    labelN.size_hint_weight_set(1.0, 1.0)
-                    labelN.show()
-                    boxS.pack_start(labelN)
-
-                    labelV =elementary.Label(self.window)
-                    labelV.size_hint_align_set(-1.0, 0.0)
-                    labelV.label_set( str( simInfo[s] ) )
-                    labelV.show()
-                    boxS.pack_end(labelV)
-
-                    boxInfo.pack_start( boxS )
 
             phoneBooks = self.simmc.ListPhonebooks()
             for b in phoneBooks:
@@ -177,94 +227,61 @@ class Sim(module.AbstractModule):
 
                     boxBook.pack_start( boxS )
 
-            print "phoneBookInfo --------- DONE"
-
-            """
-            # actions
-            boxS = elementary.Box(self.window)
-            boxS.horizontal_set(True)
-            boxS.size_hint_align_set(-1.0, 0.0)
-            boxS.show()
-
-            # backup TODO
-            backupbt = elementary.Button(self.window)
-            #backupbt.clicked = self.destroy2
-            backupbt.label_set("backup")
-            backupbt.size_hint_align_set(-1.0, 0.0)
-            backupbt.show()
-            boxS.pack_end(backupbt)
-
-            # clear TODO
-            cleanbt = elementary.Button(self.window)
-            #backupbt.clicked = self.destroy2
-            cleanbt.label_set("clean")
-            cleanbt.size_hint_align_set(-1.0, 0.0)
-            cleanbt.show()
-            boxS.pack_end(cleanbt)
-
-            boxBook.pack_end( boxS )
-            """
-            print "1"
-            # message book info
-
-            messBookInfo = self.simmc.GetMessagebookInfo()
-            print "2"
-            frameBook = elementary.Frame(self.window)
-            print "3"
-            frameBook.label_set("Message book:")
-            box1.pack_end(frameBook)
-            frameBook.size_hint_align_set(-1.0, 0.0)
-            frameBook.show()
-
-            boxBook = elementary.Box(self.window)
-            boxBook.show()
-            frameBook.content_set(boxBook)
-            
-            for m in messBookInfo:
+                # actions
                 boxS = elementary.Box(self.window)
                 boxS.horizontal_set(True)
                 boxS.size_hint_align_set(-1.0, 0.0)
                 boxS.show()
 
-                labelN =elementary.Label(self.window)
-                labelN.label_set(str(m)+":")
-                labelN.size_hint_align_set(-1.0, -1.0)
-                labelN.size_hint_weight_set(1.0, 1.0)
-                labelN.show()
-                boxS.pack_start(labelN)
+                # clear TODO
+                cleanbt = Button2(self.window)
+                cleanbt.set_name( b )
+                cleanbt.clicked = self.cleanPhoneBookClick
+                cleanbt.label_set("clean")
+                cleanbt.size_hint_align_set(-1.0, 0.0)
+                cleanbt.show()
+                boxS.pack_end(cleanbt)
 
-                labelV =elementary.Label(self.window)
-                labelV.size_hint_align_set(-1.0, 0.0)
-                labelV.label_set( str( messBookInfo[m] ) )
-                labelV.show()
-                boxS.pack_end(labelV)
-
-                boxBook.pack_start( boxS )
+                boxBook.pack_end( boxS )
 
 
-            # actions
-            boxS = elementary.Box(self.window)
-            boxS.horizontal_set(True)
-            boxS.size_hint_align_set(-1.0, 0.0)
-            boxS.show()
-            """
-            # backup TODO
-            backupbt = elementary.Button(self.window)
-            #backupbt.clicked = self.destroy2
-            backupbt.label_set("backup")
-            backupbt.size_hint_align_set(-1.0, 0.0)
-            backupbt.show()
-            boxS.pack_end(backupbt)
-            """
-            # clear TODO
-            cleanbt = elementary.Button(self.window)
-            cleanbt.clicked = self.cleanMessageBookClick
-            cleanbt.label_set("clean")
-            cleanbt.size_hint_align_set(-1.0, 0.0)
-            cleanbt.show()
-            boxS.pack_end(cleanbt)
 
-            boxBook.pack_end( boxS )
+            print "phoneBookInfo --------- DONE"
+
+            
+            simInfo = self.simmc.getSimInfo()
+            frameInfo = elementary.Frame(self.window)
+            frameInfo.label_set("SIM information:")
+            box1.pack_end(frameInfo)
+            frameInfo.size_hint_align_set(-1.0, 0.0)
+            frameInfo.show()
+
+            boxInfo = elementary.Box(self.window)
+            frameInfo.content_set(boxInfo)
+
+
+            
+            for s in simInfo:
+                if s != "subscriber_numbers":
+                    boxS = elementary.Box(self.window)
+                    boxS.horizontal_set(True)
+                    boxS.size_hint_align_set(-1.0, 0.0)
+                    boxS.show()
+
+                    labelN =elementary.Label(self.window)
+                    labelN.label_set(str(s)+":")
+                    labelN.size_hint_align_set(-1.0, -1.0)
+                    labelN.size_hint_weight_set(1.0, 1.0)
+                    labelN.show()
+                    boxS.pack_start(labelN)
+
+                    labelV =elementary.Label(self.window)
+                    labelV.size_hint_align_set(-1.0, 0.0)
+                    labelV.label_set( str( simInfo[s] ) )
+                    labelV.show()
+                    boxS.pack_end(labelV)
+
+                    boxInfo.pack_start( boxS )
             
 
             
