@@ -1,5 +1,10 @@
 import elementary, module, os, dbus
-from pythonwifi.iwlibs import Wireless, getNICnames
+try:
+    from pythonwifi.iwlibs import Wireless, getNICnames
+    iwlibs_present = 1
+except:
+    print "from pythonwifi.iwlibs import Wireless, getNICnames import error - not present"
+    iwlibs_present = 0
 
 def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
@@ -54,6 +59,11 @@ class Wifi(module.AbstractModule):
             return label
 
         box1 = elementary.Box(self.window)
+        global iwlibs_present
+        if iwlibs_present == 0:
+            return box1
+
+
         toggle0 = elementary.Toggle(self.window)
         toggle0.label_set("WiFi radio:")
         toggle0.size_hint_align_set(-1.0, 0.0)
