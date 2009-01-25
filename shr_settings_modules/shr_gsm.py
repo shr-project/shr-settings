@@ -282,7 +282,7 @@ class Gsm(module.AbstractModule):
         self.box1 = elementary.Box(self.window)
 
         try:
-            print self.gsmsc.gsmdevice_getStatus()
+            print self.gsmsc.gsmnetwork_GetStatus()
 
             self.toggle0 = elementary.Toggle(self.window)
             self.toggle0.label_set("GSM antenna:")
