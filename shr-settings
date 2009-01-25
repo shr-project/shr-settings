@@ -68,24 +68,27 @@ class ModulesWindow:
         for mod in modulesList:
         
             print "loading %s" % mod
-            mod2 = mod(self.win2, bus)
-            elementary.init()
-            self.modList.append(mod2)
+            try:
+                mod2 = mod(self.win2, bus)
+                self.modList.append(mod2)
 
-            if mod2.isEnabled():
-                frame = elementary.Frame(self.win2)
+                if mod2.isEnabled():
+                    cont = mod2.createView()
 
-                frame.label_set(mod2.getName()+" settings")
-                box12.pack_end(frame)
-                frame.size_hint_align_set(-1.0, 0.0)
-                frame.show()
+                    frame = elementary.Frame(self.win2)
 
-                cont = mod2.createView()
-                if cont != None:
-                    frame.content_set(cont)
-                    cont.show()
-                else:
-                    print " error! module %s method createView() return's nothing!" % mod2
+                    frame.label_set(mod2.getName()+" settings")
+                    box12.pack_end(frame)
+                    frame.size_hint_align_set(-1.0, 0.0)
+                    frame.show()
+
+                    if cont != None:
+                        frame.content_set(cont)
+                        cont.show()
+                    else:
+                        print " error! module %s method createView() return's nothing!" % mod2
+            except:
+                print "module %s can't be loaded!" % mod
 
         self.win2.show()
 
