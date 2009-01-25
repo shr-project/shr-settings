@@ -281,7 +281,8 @@ class Gsm(module.AbstractModule):
         
         self.box1 = elementary.Box(self.window)
 
-        if self.gsmsc.dbus_getState():
+        try:
+            print self.gsmsc.gsmdevice_getStatus()
 
             self.toggle0 = elementary.Toggle(self.window)
             self.toggle0.label_set("GSM antenna:")
@@ -306,7 +307,7 @@ class Gsm(module.AbstractModule):
             self.toggle0.changed = self.toggle0bt
 
             self.GSMmodGUIupdate()
-        else:
+        except:
             print "GSM view [info] can't connect to dbus"
             errlab = elementary.Label(self.window)
             errlab.label_set("can't connect to dbus")
@@ -321,7 +322,7 @@ class Gsm(module.AbstractModule):
                 boxOp.size_hint_align_set(-1.0, 0.0)
 
                 label = elementary.Label(self.window)
-                label.label_set("In not running! Start it?")
+                label.label_set("It's not running! Start it?")
                 label.size_hint_align_set(-1.0, 0.0)
                 label.show()
                 boxOp.pack_start( label )
