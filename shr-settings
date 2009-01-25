@@ -23,7 +23,7 @@ class ModulesWindow:
         from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_misc, shr_test
 
         self.win2 = elementary.Window("settingsMods", elementary.ELM_WIN_BASIC)
-        self.win2.title_set("Settings modules")
+        self.win2.title_set(modulesList[0])
         self.win2.destroy = self.destroy2
         
 
@@ -65,7 +65,7 @@ class ModulesWindow:
 
 
         self.modList = []
-        for mod in modulesList:
+        for mod in modulesList[2]:
         
             print "loading %s" % mod
             try:
@@ -185,7 +185,7 @@ class MainWindow:
 
         for d in dirs:
             bt = Button2(self.win)
-            bt.set_modules( d[2] )
+            bt.set_modules( d )
 
             bt.clicked = self.displayModulesWin
             bt.size_hint_align_set(-1.0, 0.0)
