@@ -270,6 +270,7 @@ class Gsm(module.AbstractModule):
         self.wininfo.show()
 
     def start_ophonekitd_btClick(self, obj, event, *args, **kargs):
+        obj.hide()
         os.system( "DISPLAY=:0 ophonekitd &" )
 
 
