@@ -27,9 +27,6 @@ class Services(module.AbstractModule):
     def startbtClick(self, obj, event, *args, **kargs):
         self.startDebugWin( obj.get_osCmd() )
 
-    def stopbtClick(self, obj, event, *args, **kargs):
-        self.startDebugWin( obj.get_osCmd() )
-
     def startDebugWin(self, cmd):
         print "Services startDebugWin [info]"
         self.windeb = elementary.Window("servicesDebug", elementary.ELM_WIN_BASIC)
@@ -134,9 +131,17 @@ class Services(module.AbstractModule):
             startbt.show()
             boxSSS.pack_start(startbt)
 
+            restartbt = ButtonServer(self.window)
+            restartbt.set_osCmd("/etc/init.d/"+i+" restart")
+            restartbt.clicked = self.startbtClick
+            restartbt.label_set("restart")
+            restartbt.size_hint_align_set(-1.0, 0.0)
+            restartbt.show()
+            boxSSS.pack_end(restartbt)
+
             stopbt = ButtonServer(self.window)
             stopbt.set_osCmd("/etc/init.d/"+i+" stop")
-            stopbt.clicked = self.stopbtClick
+            stopbt.clicked = self.startbtClick
             stopbt.label_set("stop")
             stopbt.size_hint_align_set(-1.0, 0.0)
             stopbt.show()
