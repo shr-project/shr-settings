@@ -59,10 +59,6 @@ class Wifi(module.AbstractModule):
             return label
 
         box1 = elementary.Box(self.window)
-        global iwlibs_present
-        if iwlibs_present == 0:
-            return box1
-
 
         toggle0 = elementary.Toggle(self.window)
         toggle0.label_set("WiFi radio:")
@@ -83,8 +79,10 @@ class Wifi(module.AbstractModule):
                 btn1.show()
         except:
             label1 = elementary.Label(self.window)
-            label1.label_set("unable to scan")
-            box1.pack_end(label1)
-            label1.show()
+            global iwlibs_present
+            if iwlibs_present == 1:
+                label1.label_set("unable to scan")
+                box1.pack_end(label1)
+                label1.show()
 
         return box1
