@@ -18,34 +18,10 @@ class Clock(module.AbstractModule):
     name = "Date/time"
     section = "Other"
 
-    def ntpsync(self, obj, event):
-        os.system("ntpdate ntp.org")
-        self.cl.edit_set(False)
-        self.but.label_set("Set time")
-        self.editable = False
-
-    def gpssync(self, obj, event):  
-        try:
-            gpstimeres = getDbusObject (self.dbus, "org.freesmartphone.ogpsd", "/org/freedesktop/Gypsy", "org.freedesktop.Gypsy.Time")
-            gpstime = gpstimeres.GetTime()
-        except:
-            gpsres = getDbusObject (self.dbus, "org.freesmartphone.ogpsd", "/org/freedesktop/Gypsy", "org.freesmartphone.Resource" )
-            gpsres.Enable()
-            time.sleep(3)
-            gpstimeres = getDbusObject (self.dbus, "org.freesmartphone.ogpsd", "/org/freedesktop/Gypsy", "org.freedesktop.Gypsy.Time")
-            gpstime = gpstimeres.GetTime()
-            gpsres.Disable()
-        print gpstime
-        rtcres = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/RealTimeClock/0", "org.freesmartphone.Device.RealTimeClock" )
-        rtcres.SetCurrentTime(str(gpstime)) 
-
-        self.cl.edit_set(False)
-        self.but.label_set("Set time")
-        self.editable = False
-
     def clockset(self, obj, event):
 	    if self.editable:
                 now = datetime.datetime.now()
+                #TODO - set time by fso dbus request
                 os.system("date "+str(now.month).zfill(2)+str(now.day).zfill(2)+str(self.cl.time_get()[0]).zfill(2)+str(self.cl.time_get()[1]).zfill(2)+str(now.year)+"."+str(self.cl.time_get()[2]).zfill(2))
                 self.cl.edit_set(False)
                 obj.label_set("Set time")
@@ -68,17 +44,5 @@ class Clock(module.AbstractModule):
         box0.pack_end(self.but)
         self.but.clicked = self.clockset
         self.but.show()
-        ntp = elementary.Button(self.window)
-        ntp.label_set("Synchronize with ntp")
-        ntp.size_hint_align_set(-1.0, 0.0)
-        ntp.clicked = self.ntpsync
-        box0.pack_end(ntp)
-        ntp.show()
-        gps = elementary.Button(self.window)
-        gps.label_set("Synchronize with GPS")
-        gps.size_hint_align_set(-1.0, 0.0)
-        gps.clicked = self.gpssync
-        box0.pack_end(gps)
-        gps.show()
 
         return box0
