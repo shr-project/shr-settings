@@ -5,7 +5,7 @@ import evas
 import dbus
 import e_dbus
 
-
+from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_test, shr_gps, shr_sim
 
 class Button2(elementary.Button):
     def set_modules(self, modules):
@@ -17,10 +17,6 @@ class Button2(elementary.Button):
 
 class ModulesWindow:
     def makeGui(self,  modulesList, bus):
-
-        elementary.init()
-
-        from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_misc, shr_test
 
         self.win2 = elementary.Window("settingsMods", elementary.ELM_WIN_BASIC)
         self.win2.title_set(modulesList[0])
@@ -169,17 +165,16 @@ class MainWindow:
 
         #loading modules
 
-        from shr_settings_modules import shr_gsm,shr_sim, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_misc, shr_test
-
         dirs = [    ["GSM","ico_gsm_32_32.png",                        [ shr_gsm.Gsm, shr_sim.Sim ] ],
                     ["Bluetooth","ico_bt_32_32.png",                   [ shr_bt.Bt ] ],
                     ["Internet","ico_internet_32_32.png",              [ shr_wifi.Wifi, shr_gprs.Gprs ] ],
                     ["Profiles","ico_profile_32_32.png",               [ shr_profile.Profile ] ],
-                    ["Clock","ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
+                    ["Date/time","ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
                     ["Power management","ico_powermanager_32_32.png",  [ shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
                     ["USB","ico_usb_32_32.png",                        [ shr_usb.Usb ] ],
                     ["Services","ico_initd_32_32.png",                 [ shr_services.Services ] ],
-                    ["Others", "ico_others_32_32.png",                 [ shr_misc.Misc, shr_test.Test ] ]
+                    ["Others", "ico_others_32_32.png",                 [ shr_gps.Gps ] ],
+                    ["Test", "",                                       [ shr_test.Test ] ]
             ]
 
 
