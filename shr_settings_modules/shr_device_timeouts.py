@@ -1,31 +1,39 @@
-
 import module, os, re, sys, elementary, ecore
 import threading
 import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 
 
-class Button2( elementary.Button ):
-    def set_extData( self, i, name, labelObj, value ):
-        self.i = i
-        self.name = name
-        self.labelObj = labelObj
-        self.value = value
+class ValueLabel( elementary.Label ):
+    """ Label that displays current timeout """
+    def __init__(self, win):
+        self._value = None
+        super(ValueLabel, self).__init__(win)
 
-    def get_i( self ):
-        return self.i
+    def get_value(self):
+        return self._value
+
+    def set_value(self, val):
+         self.label_set(str(val))
+         self._value = val
+
+
+class AddButton( elementary.Button ):
+    """ Button that add/substracts from the value label """
+    def set_extData( self, addStep, name, labelObj):
+        self._addStep = addStep
+        self.name = name
+        self._labelObj = labelObj
+
+    def get_addStep( self ):
+        return self._addStep
 
     def get_name(self):
         return self.name
 
     def get_labelObj(self):
-        return self.labelObj
+        return self._labelObj
 
-    def get_value(self):
-        return self.value
-
-    def set_value(self, i):
-        self.value = i
 
 class Timeouts(module.AbstractModule):
     name = "Timeouts"
@@ -55,25 +63,26 @@ class Timeouts(module.AbstractModule):
             result[str(path)] = self.getInterface( "org.freesmartphone.frameworkd", path, interface )
         return result
 
-    
+
+    #----------------------------------------------------------------------------#   
     def addbtClick(self, obj, event):
-        self.timeouts = self.devidle.GetTimeouts()
-        label = obj.get_labelObj()
-        addFor = int(obj.get_i())
-        name = obj.get_name()
-        stat = int(self.timeouts[str(name)])
+    #----------------------------------------------------------------------------#
+        """ Callback function when +-[1,10] timeout buttons have been pressed """
+        label   = obj.get_labelObj()
+        cur_val = label.get_value()
+        addFor  = obj.get_addStep()
+        name    = obj.get_name()
+        new_val = max(-1, cur_val + addFor)
 
-        if self.dbus_state == 1 and (stat >= 0 or addFor>0):
-            self.devidle.SetTimeout( name, int(stat+addFor) )
-            obj.set_value(int(stat+addFor))
-            label.label_set( str( stat+addFor ) )
-
-
+        if self.dbus_state == 1:
+            self.devidle.SetTimeout( name, new_val )
+            label.set_value(new_val)
 
 
     
-
+    #----------------------------------------------------------------------------#   
     def createView(self):
+    #----------------------------------------------------------------------------#   
         self.box1 = elementary.Box(self.window)
 
 
@@ -103,7 +112,7 @@ class Timeouts(module.AbstractModule):
         else:
 
             for i in self.timeouts:
-                if i != "avake" :
+                if not str(i) in ("awake","busy","none"):
                     boxS = elementary.Box(self.window)
                     boxS.horizontal_set(True)
                     boxS.size_hint_align_set(-1.0, 0.5)
@@ -113,48 +122,60 @@ class Timeouts(module.AbstractModule):
                     namel = elementary.Label(self.window)
                     namel.size_hint_align_set(-1.0, -1.0)
                     namel.size_hint_weight_set(1.0, 1.0)
-                    namel.label_set(str(i).replace("_"," ")+": ")
+                    namel.label_set(str(i).replace("_"," "))
                     namel.show()
                     boxS.pack_start(namel)
 
-
-                    value = self.timeouts[i]
-
-                    add = ""
-                    for s in range(len(str(value)), 5, 1):
-                        add = add + " "
-
-                    valuel = elementary.Label(self.window)
+                    cur_val = int(self.timeouts[i])
+                    valuel  = ValueLabel(self.window)
                     valuel.size_hint_align_set(0.5, 0.0)
-                    valuel.label_set(add+str(self.timeouts[i]))
+                    valuel.label_set(str(cur_val))
+                    valuel.set_value(cur_val) #implicitely sets label too
                     valuel.show()
 
-                    minbt = Button2(self.window)
-                    minbt.set_extData( -1, str(i), valuel, value )
-                    minbt.clicked = self.addbtClick
-                    minbt.label_set("[ - ]")
-                    minbt.size_hint_align_set(-1.0, 0.0)
-                    minbt.show()
+                    # the -10 button
+                    mintenbt = AddButton(self.window)
+                    mintenbt.set_extData( -10, str(i), valuel)
+                    mintenbt.clicked = self.addbtClick
+                    mintenbt.label_set("-10")
+                    mintenbt.size_hint_align_set(-1.0, 0.0)
+                    mintenbt.show()
 
-                    addbt = Button2(self.window)
-                    addbt.set_extData( 1, str(i), valuel, value )
-                    addbt.clicked = self.addbtClick
-                    addbt.label_set("[ + ]")
-                    addbt.size_hint_align_set(-1.0, 0.0)
-                    addbt.show()
+                    # the -1 button
+                    minonebt = AddButton(self.window)
+                    minonebt.set_extData( -1, str(i), valuel) 
+                    minonebt.clicked = self.addbtClick
+                    minonebt.label_set("-1")
+                    minonebt.size_hint_align_set(-1.0, 0.0)
+                    minonebt.show()
+
+                    # the +1 button
+                    addonebt = AddButton(self.window)
+                    addonebt.set_extData( 1, str(i), valuel)
+                    addonebt.clicked = self.addbtClick
+                    addonebt.label_set("+1")
+                    addonebt.size_hint_align_set(-1.0, 0.0)
+                    addonebt.show()
 
 
-                    boxS.pack_end(minbt)
+                    # the +10 button
+                    addtenbt = AddButton(self.window)
+                    addtenbt.set_extData( 10, str(i), valuel) 
+                    addtenbt.clicked = self.addbtClick
+                    addtenbt.label_set("+10")
+                    addtenbt.size_hint_align_set(-1.0, 0.0)
+                    addtenbt.show()
+
+
+                    boxS.pack_end(mintenbt)
+                    boxS.pack_end(minonebt)
                     boxS.pack_end(valuel)
-                    boxS.pack_end(addbt)
+                    boxS.pack_end(addonebt)
+                    boxS.pack_end(addtenbt)
 
-
-
-                boxS.show()
-                self.box1.pack_start(boxS)
+                    # add the "<name> [-]val[+]" box
+                    boxS.show()
+                    self.box1.pack_start(boxS)
             
         
         return self.box1
-
-
-
