@@ -1,61 +1,10 @@
 
 import module, os, re, sys, elementary, ecore
 import threading
-import dbus
 
 class Pm(module.AbstractModule):
     name = "Power"
 
-    def poweroffbtClick(self, obj, event):
-        iface = self.get_usage_iface()
-        if iface:
-            iface.Shutdown()
-        else:
-            print "Shutdown by dbus cmd error"
-
-    def restartbtClick(self, obj, event):
-        iface = self.get_usage_iface()
-        if iface:
-            iface.Reboot()
-        else:
-            print "Reboot by dbus cmd error"
-
-    def get_usage_iface(self):
-        try:
-            usage_obj = self.dbus.get_object( 'org.freesmartphone.ousaged', '/org/freesmartphone/Usage' )
-            return dbus.Interface(usage_obj, 'org.freesmartphone.Usage')
-            
-            #self.usage_iface.Suspend()
-            
-        except:
-            print "suspend by dbus cmd error"
-            return 0
-
-
-        
-
-    def suspendbtClick(self, obj, event):
-        iface = self.get_usage_iface()
-
-        if os.popen("cat /proc/cpuinfo | grep [G]TA01").read() == "GTA01\n":
-            print "suspend for GTA01"
-            os.system("/etc/init.d/fso-gsmd stop")
-            time.sleep(0)
-
-
-            if iface:
-                iface.Suspend()
-            else:
-                print "suspend by dbus cmd error2"
-
-            time.sleep(0)
-            os.system("/etc/init.d/fso-gsmd start")
-        else:
-            if iface:
-                iface.Suspend()
-            else:
-                print "suspend by dbus cmd error2"
-            
     def refreshAct(self):
         self.apml.label_set( os.popen("apm").read().replace("\n","") )
         vol = "1234"
@@ -149,45 +98,6 @@ class Pm(module.AbstractModule):
 
         self.refreshAct()
 
-
-
-        box2p = elementary.Box(self.window)
-        box2p.size_hint_weight_set(1.0, 1.0)
-        box2p.size_hint_align_set(-1.0, 0.0)
-
-        poweroffbt = elementary.Button(self.window)
-        poweroffbt.clicked = self.suspendbtClick
-        poweroffbt.label_set("power off")
-        poweroffbt.size_hint_align_set(-1.0, 0.0)
-        poweroffbt.show()
-        box2p.pack_end(poweroffbt)
-
-        restartbt = elementary.Button(self.window)
-        restartbt.clicked = self.restartbtClick
-        restartbt.label_set("restart")
-        restartbt.size_hint_align_set(-1.0, 0.0)
-        restartbt.show()
-        box2p.pack_end(restartbt)
-
-        suspendbt = elementary.Button(self.window)
-        suspendbt.clicked = self.suspendbtClick
-        suspendbt.label_set("suspend")
-        suspendbt.size_hint_align_set(-1.0, 0.0)
-        suspendbt.show()
-        box2p.pack_end(suspendbt)
-
-
-        fo = elementary.Frame(self.window)
-        fo.label_set( "actions:" )
-        fo.size_hint_align_set(-1.0, 0.0)
-        fo.show()
-        fo.content_set( box2p )
-
-        box2p.show()
-        self.box1.pack_end(fo)
-
-
-        
         return self.box1
 
     def stopUpdate(self):
