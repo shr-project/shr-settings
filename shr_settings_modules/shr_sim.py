@@ -21,7 +21,6 @@ class SimMstateContener:
         try:
             gsm_sim_obj = bus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
             self.gsm_sim_iface = dbus.Interface(gsm_sim_obj, 'org.freesmartphone.GSM.SIM')
-            #self.gsm_sim_iface.getSimInfo()
             self.state = 1
             print "SimMstateContener can connect to dbus"
         except:
@@ -30,12 +29,6 @@ class SimMstateContener:
 
     def getDbusState(self):
         return self.state
-
-    def getSimInfo(self):
-        if self.state == 0:
-            return 0
-        else:
-            return self.gsm_sim_iface.GetSimInfo()
 
     def ListPhonebooks(self):
         if self.state == 0:
@@ -88,11 +81,97 @@ class Button2( elementary.Button ):
     def get_name( self ):
         return self.profile_name
 
+class PhbookInfoFrame(elementary.Frame):
+    """ derived from a Frame, this shows phone book statistics.
+        It contains a callback function that is called by dbus
+        One needs to init the tableobject in which the frames are placed once.
+    """
+    # class var describing which cell the frame should cover, internally incremented
+    table_pos = 1
+
+    #-------------------------------------------------------------------
+    def __init__(self, par_tableobj, booktype, par_Simclass):
+    #-------------------------------------------------------------------
+        """ booktype is a string describing the phone book
+            par_Simclass is the instance of the corresp Sim class
+        """
+        # init class var with table in which frames should go
+        self.tableobj = par_tableobj
+        self.booktype = booktype
+        self.simclass = par_Simclass
+        assert self.booktype is not None
+        assert self.tableobj == 'elementary.c_elementary.Table'
+        # call elementary.Frame.__init__
+        super(PhbookInfoFrame, self).__init__(par_tableobj)
+
+
+    #-------------------------------------------------------------------
+    def phonebookinfo_reply_handler(self, phoneBookInfo):
+    #-------------------------------------------------------------------
+        """ Callback for the 'PhonebookInfo' dbus call.
+            Receives info and adds corresponding frame to table.
+        """
+        print "async book "+ self.booktype +" arrived"
+        #frame
+        frameBook = elementary.Frame(self.tableobj)
+        frameBook.label_set("Book "+ self.booktype)
+        (row,col) = divmod(PhbookInfoFrame.table_pos, 2)
+        self.tableobj.pack(frameBook, col, row, 1, 1)
+        frameBook.size_hint_weight_set(0.5, 0.5)
+        frameBook.size_hint_align_set(-1.0, 0.0)
+        frameBook.show()
+
+        boxBook = elementary.Box(frameBook)
+        boxBook.show()
+        frameBook.content_set(boxBook)
+
+        # create a new box for each line and show it
+        for (key, val) in phoneBookInfo.iteritems():
+           if not key in ('first','min_index'):
+                boxS = elementary.Box(boxBook)
+                boxS.horizontal_set(True)
+                boxS.size_hint_align_set(-1.0, 0.0)
+                boxS.show()
+
+                labelN =elementary.Label(boxS)
+                labelN.label_set(key)
+                labelN.size_hint_align_set(-1.0, -1.0)
+                labelN.size_hint_weight_set(1.0, 1.0)
+                labelN.show()
+                boxS.pack_start(labelN)
+
+                labelV =elementary.Label(boxS)
+                labelV.size_hint_align_set(-1.0, 0.0)
+                labelV.label_set(str( val ))
+                labelV.show()
+                boxS.pack_end(labelV)
+
+                boxBook.pack_start( boxS )
+
+        # actions
+        boxS = elementary.Box(boxBook)
+        boxS.horizontal_set(True)
+        boxS.size_hint_align_set(-1.0, 0.0)
+        boxS.show()
+
+        # clear TODO
+        cleanbt = Button2(boxS)
+        cleanbt.set_name( self.booktype )
+        cleanbt.clicked = self.simclass.cleanPhoneBookClick
+        cleanbt.label_set("clean")
+        cleanbt.size_hint_align_set(-1.0, 0.0)
+        cleanbt.show()
+        boxS.pack_end(cleanbt)
+
+        boxBook.pack_end( boxS )
+        # increase table cell for next frame
+        PhbookInfoFrame.table_pos += 1
+
+
 class Sim(module.AbstractModule):
     name = "SIM"
     section = "Connectivity"
-
-    
+    # no of displayed books, so we can put the next in the right table cell
 
     def cleanMessageBookClick(self, obj, event):
         self.simmc.MessageBookClean()
@@ -102,47 +181,67 @@ class Sim(module.AbstractModule):
         print "clean phone book: ["+str(name)+"]"
         self.simmc.PhoneBookClean( name )
 
-    def createView(self):
-        self.guiUpdate = 1
-        
-        self.simmc = SimMstateContener( self.dbus )
-        print "3"
-        print "sim dbus"+str(self.simmc.getDbusState())
-        print "4"
+    #-------------------------------------------------------------------
+    def siminfo_reply_handler(self, siminfo):
+    #-------------------------------------------------------------------
+        """ Callback for the 'SimInfo box' dbus call.
+            Receives info and adds corresponding labels.
+        """
+        print "async SIM info arrived"
 
-        box1 = elementary.Box(self.window)
-        print "5"
+        # iterate through all values and display them
+        for (key, val) in siminfo.iteritems():
+          if key != "subscriber_numbers":
+            boxS = elementary.Box(self.window)
+            boxS.horizontal_set(True)
+            boxS.size_hint_align_set(-1.0, 0.0)
+            boxS.show()
 
-        if self.simmc.getDbusState==0:
-            label =elementary.Label(self.window)
-            label.label_set("can't find file in sysfs")
-            label.size_hint_align_set(-1.0, 0.0)
-            label.show()
-            box1.pack_start(label)
-        else:
+            labelN =elementary.Label(self.window)
+            labelN.label_set(key.replace('_',' '))
+            labelN.size_hint_align_set(-1.0, -1.0)
+            labelN.size_hint_weight_set(1.0, 1.0)
+            labelN.show()
+            boxS.pack_start(labelN)
+
+            labelV =elementary.Label(self.window)
+            labelV.size_hint_align_set(-1.0, 0.0)
+            labelV.label_set(val)
+            labelV.show()
+            boxS.pack_end(labelV)
+
+            self.boxSIMInfo.pack_start( boxS )
 
 
+    #-------------------------------------------------------------------
+    def msgbookinfo_reply_handler(self, messBookInfo):
+    #-------------------------------------------------------------------
+        """ Callback for the 'MessageBookInfo' dbus call.
+            Receives info and adds corresponding frame to table.
+        """
+        print "async Msg book arrived"
 
-            # message book info
-            messBookInfo = self.simmc.GetMessagebookInfo()
-            frameBook = elementary.Frame(self.window)
-            frameBook.label_set("Message book:")
-            box1.pack_end(frameBook)
-            frameBook.size_hint_align_set(-1.0, 0.0)
-            frameBook.show()
+        frameBook = elementary.Frame(self.window)
+        frameBook.label_set("Message book")
+        self.books_table.pack(frameBook, 0, 0, 1, 1)
+        frameBook.size_hint_weight_set(1.0, 1.0)
+        frameBook.size_hint_align_set(-1.0, -1.0)
+        frameBook.show()
 
-            boxBook = elementary.Box(self.window)
-            boxBook.show()
-            frameBook.content_set(boxBook)
+        boxBook = elementary.Box(self.window)
+        boxBook.show()
+        frameBook.content_set(boxBook)
 
-            for m in messBookInfo:
+        for (key, val)  in messBookInfo.iteritems():
+           # filter out "first", "min_index", they are always 1
+           if not key in ('first','min_index'):
                 boxS = elementary.Box(self.window)
                 boxS.horizontal_set(True)
                 boxS.size_hint_align_set(-1.0, 0.0)
                 boxS.show()
 
                 labelN =elementary.Label(self.window)
-                labelN.label_set(str(m)+":")
+                labelN.label_set(key)
                 labelN.size_hint_align_set(-1.0, -1.0)
                 labelN.size_hint_weight_set(1.0, 1.0)
                 labelN.show()
@@ -150,143 +249,97 @@ class Sim(module.AbstractModule):
 
                 labelV =elementary.Label(self.window)
                 labelV.size_hint_align_set(-1.0, 0.0)
-                labelV.label_set( str( messBookInfo[m] ) )
+                labelV.label_set(str( val ))
                 labelV.show()
                 boxS.pack_end(labelV)
 
                 boxBook.pack_start( boxS )
 
+        # actions
+        boxS = elementary.Box(self.window)
+        boxS.horizontal_set(True)
+        boxS.size_hint_align_set(-1.0, 0.0)
+        boxS.show()
 
-            # actions
-            boxS = elementary.Box(self.window)
-            boxS.horizontal_set(True)
-            boxS.size_hint_align_set(-1.0, 0.0)
-            boxS.show()
+        # clear TODO
+        cleanbt = elementary.Button(self.window)
+        cleanbt.clicked = self.cleanMessageBookClick
+        cleanbt.label_set("clean")
+        cleanbt.size_hint_align_set(-1.0, 0.0)
+        cleanbt.show()
+        boxS.pack_end(cleanbt)
 
-            # clear TODO
-            cleanbt = elementary.Button(self.window)
-            cleanbt.clicked = self.cleanMessageBookClick
-            cleanbt.label_set("clean")
-            cleanbt.size_hint_align_set(-1.0, 0.0)
-            cleanbt.show()
-            boxS.pack_end(cleanbt)
-
-            boxBook.pack_end( boxS )
-
+        boxBook.pack_end( boxS )
 
 
+    #-------------------------------------------------------------------
+    def dbusasync_error_handler(self, e):
+    #-------------------------------------------------------------------
+        print "received exception " + str(e)
+        #TODO proper error handling
 
+    #-------------------------------------------------------------------
+    def createView(self):
+    #-------------------------------------------------------------------
+        self.guiUpdate = 1
+        
+        self.simmc = SimMstateContener( self.dbus )
+        print "sim dbus state "+str(self.simmc.getDbusState())
 
+        box1 = elementary.Box(self.window)
 
+        # If we can't connect to the right DBus object crap out here
+        if self.simmc.getDbusState==0:
+            label =elementary.Label(self.window)
+            label.label_set("Cannot connect to dbus")
+            label.size_hint_align_set(-1.0, 0.0)
+            label.show()
+            box1.pack_start(label)
+            return box1
+        
+        #from here on we can assume a valid dbus object
 
+        # table containing all messagebook/phonebook frames
+        self.books_table = elementary.Table(box1)
+        self.books_table.size_hint_align_set(-1.0, -1.0)
+        self.books_table.size_hint_weight_set(1.0, 1.0)
 
-            
+        box1.pack_end(self.books_table)
+        self.books_table.show()
 
-            phoneBooks = self.simmc.ListPhonebooks()
-            for b in phoneBooks:
-                #frame
-                frameBook = elementary.Frame(self.window)
-                frameBook.label_set("Book "+b+":")
-                box1.pack_end(frameBook)
-                frameBook.size_hint_align_set(-1.0, 0.0)
-                frameBook.show()
+        # add message book info
+        self.simmc.gsm_sim_iface.GetMessagebookInfo(
+	  reply_handler = self.msgbookinfo_reply_handler, 
+          error_handler=self.dbusasync_error_handler
+        )
 
-                boxBook = elementary.Box(self.window)
-                boxBook.show()
-                frameBook.content_set(boxBook)
+        # List phonebook statistics
+        phoneBooks = self.simmc.ListPhonebooks()
+        # reset table cell pos to 1, so we always start correctly
+        PhbookInfoFrame.table_pos = 1
+        frames = []
+        for b in phoneBooks:
+            frame = PhbookInfoFrame(self.books_table, b, self)
+            frames.append(frame)
+            self.simmc.gsm_sim_iface.GetPhonebookInfo( b,
+     	      reply_handler = frame.phonebookinfo_reply_handler, 
+              error_handler=self.dbusasync_error_handler
+            )
 
+        # add the SIM info box
+        self.simmc.gsm_sim_iface.GetSimInfo(
+	  reply_handler = self.siminfo_reply_handler, 
+          error_handler=self.dbusasync_error_handler
+        )
 
-                print "phoneBookInfo: "+b
-                phoneBookInfo = self.simmc.GetPhonebookInfo( b )
-                for i in phoneBookInfo:
-                    print "phoneBookInfo: "+b+"; "+i
-                    #info state
-                    boxS = elementary.Box(self.window)
-                    boxS.horizontal_set(True)
-                    boxS.size_hint_align_set(-1.0, 0.0)
-                    boxS.show()
+        frameInfo = elementary.Frame(self.window)
+        frameInfo.label_set("SIM information:")
+        box1.pack_end(frameInfo)
+        frameInfo.size_hint_align_set(-1.0, 0.0)
+        frameInfo.show()
 
-                    labelN =elementary.Label(self.window)
-                    try:
-                        labelN.label_set(str(i)+":")
-                    except:
-                        pass
-                    labelN.size_hint_align_set(-1.0, -1.0)
-                    labelN.size_hint_weight_set(1.0, 1.0)
-                    labelN.show()
-                    boxS.pack_start(labelN)
-
-                    labelV =elementary.Label(self.window)
-                    labelV.size_hint_align_set(-1.0, 0.0)
-                    try:
-                        labelV.label_set( str( phoneBookInfo[i] ) )
-                    except:
-                        pass
-                    labelV.show()
-                    boxS.pack_end(labelV)
-
-                    boxBook.pack_start( boxS )
-
-                # actions
-                boxS = elementary.Box(self.window)
-                boxS.horizontal_set(True)
-                boxS.size_hint_align_set(-1.0, 0.0)
-                boxS.show()
-
-                # clear TODO
-                cleanbt = Button2(self.window)
-                cleanbt.set_name( b )
-                cleanbt.clicked = self.cleanPhoneBookClick
-                cleanbt.label_set("clean")
-                cleanbt.size_hint_align_set(-1.0, 0.0)
-                cleanbt.show()
-                boxS.pack_end(cleanbt)
-
-                boxBook.pack_end( boxS )
-
-
-
-            print "phoneBookInfo --------- DONE"
-
-            
-            simInfo = self.simmc.getSimInfo()
-            frameInfo = elementary.Frame(self.window)
-            frameInfo.label_set("SIM information:")
-            box1.pack_end(frameInfo)
-            frameInfo.size_hint_align_set(-1.0, 0.0)
-            frameInfo.show()
-
-            boxInfo = elementary.Box(self.window)
-            frameInfo.content_set(boxInfo)
-
-
-            
-            for s in simInfo:
-                if s != "subscriber_numbers":
-                    boxS = elementary.Box(self.window)
-                    boxS.horizontal_set(True)
-                    boxS.size_hint_align_set(-1.0, 0.0)
-                    boxS.show()
-
-                    labelN =elementary.Label(self.window)
-                    labelN.label_set(str(s)+":")
-                    labelN.size_hint_align_set(-1.0, -1.0)
-                    labelN.size_hint_weight_set(1.0, 1.0)
-                    labelN.show()
-                    boxS.pack_start(labelN)
-
-                    labelV =elementary.Label(self.window)
-                    labelV.size_hint_align_set(-1.0, 0.0)
-                    labelV.label_set( str( simInfo[s] ) )
-                    labelV.show()
-                    boxS.pack_end(labelV)
-
-                    boxInfo.pack_start( boxS )
-            
-
-            
-
-
+        self.boxSIMInfo = elementary.Box(self.window)
+        frameInfo.content_set(self.boxSIMInfo)
 
         return box1
 
