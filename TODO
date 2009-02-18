@@ -2,22 +2,14 @@
     make version with toolbar
     load modules categories dynamicly
     provide easy way to share dbus objects
-- shr_gsm.py
-    take look why Operators window don't work on new frameworkd
 - shr_bt.py
     fix showing and hiding services toggles
 - shr_gprs.py
     make it useful :)
 - shr_profile.py
     use hoversel or something else better than toggles
-- shr_pm.py
-    check, if actions buttons are doing exactly what their labels say
-        [suspend]   - tested work OK
-        [power off] - suspends    WRONG
-        [restart]   - tested work OK
-    so, fix [power off] button
 - shr_usb.py
-    fix to work with 2.6.28 and with gta01
+    fix to work with gta01
 - shr_services.py
     maybe find better way to display returned message to user
 - module.py
