@@ -1,9 +1,8 @@
 #!/usr/bin/env python
-import elementary, os
-import edje
-import evas
-import dbus
-import e_dbus
+import elementary
+import ecore
+import dbus, e_dbus
+import os
 
 from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_test, shr_gps, shr_sim
 
@@ -16,6 +15,35 @@ class Button2(elementary.Button):
 
 
 class ModulesWindow:
+    def renderModules(self, modulesList, bus):
+        print "idler"
+        for mod in modulesList[2]:
+
+            print "loading %s" % mod
+            try:
+                mod2 = mod(self.win2, bus)
+                self.modList.append(mod2)
+
+                if mod2.isEnabled():
+                    cont = mod2.createView()
+
+                    frame = elementary.Frame(self.win2)
+
+                    frame.label_set(mod2.getName()+" settings")
+                    self.box12.pack_end(frame)
+                    frame.size_hint_align_set(-1.0, 0.0)
+                    frame.show()
+
+                    if cont != None:
+                        frame.content_set(cont)
+                        cont.show()
+                    else:
+                        print " error! module %s method createView() return's nothing!" % mod2
+            except:
+                print "module %s can't be loaded!" % mod
+        self.loading.hide()
+        return None
+
     def makeGui(self,  modulesList, bus):
 
         self.win2 = elementary.Window("settingsMods", elementary.ELM_WIN_BASIC)
@@ -54,38 +82,25 @@ class ModulesWindow:
         box02.pack_end(quitbt2)
 
 
-        box12 = elementary.Box(self.win2)
-        box12.size_hint_weight_set(1.0, -1.0)
-        sc2.content_set(box12)
-        box12.show()
+        self.box12 = elementary.Box(self.win2)
+        self.box12.size_hint_weight_set(1.0, -1.0)
+        sc2.content_set(self.box12)
+        self.box12.show()
 
+        
+        self.loading = elementary.Frame(self.win2)
+        loadinglabel = elementary.Label(self.win2)
+        loadinglabel.label_set("Please wait...")
+        self.loading.label_set("Loading modules...")
+        self.loading.content_set(loadinglabel)
+        self.win2.resize_object_add(self.loading)
+        loadinglabel.size_hint_weight_set(0.0, 0.0) # i *don't* like you, ugly
+        loadinglabel.size_hint_align_set(0.5, 0.5)   # size and weight hints!!!
+        loadinglabel.show()
+        self.loading.show()
 
         self.modList = []
-        for mod in modulesList[2]:
-        
-            print "loading %s" % mod
-            try:
-                mod2 = mod(self.win2, bus)
-                self.modList.append(mod2)
-
-                if mod2.isEnabled():
-                    cont = mod2.createView()
-
-                    frame = elementary.Frame(self.win2)
-
-                    frame.label_set(mod2.getName()+" settings")
-                    box12.pack_end(frame)
-                    frame.size_hint_align_set(-1.0, 0.0)
-                    frame.show()
-
-                    if cont != None:
-                        frame.content_set(cont)
-                        cont.show()
-                    else:
-                        print " error! module %s method createView() return's nothing!" % mod2
-            except:
-                print "module %s can't be loaded!" % mod
-
+        ecore.idler_add(self.renderModules, modulesList, bus)
         self.win2.show()
 
     def destroy2(self,obj, event, *args, **kargs):
