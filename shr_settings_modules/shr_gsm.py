@@ -56,9 +56,9 @@ class GSMstateContener:
         if self.dbus_state==1:
             return self.gsm_device_iface.GetInfo()
 
-    def gsmnetwork_ListProviders(self):
+    def gsmnetwork_ListProviders(self, handler, error):
         if self.dbus_state==1:
-            return self.gsm_network_iface.ListProviders()
+            return self.gsm_network_iface.ListProviders(reply_handler=handler, error_handler=error)
 
     def gsmnetwork_RegisterWithProvider(self, b):
         if self.dbus_state==1:
@@ -170,8 +170,25 @@ class Gsm(module.AbstractModule):
         self.thread = threading.Thread(target=self.operatorsList)
         self.thread.start()
 
+    def nothing(self,obj,event, *args, **kargs):
+        print "nothing called"
+
     def operatorsList(self, obj, event, *args, **kargs):
+        obj.label_set("Please wait...")
+        obj.clicked=self.nothing
+        self.gsmsc.gsmnetwork_ListProviders(self.operatorsList2, self.operatorsListError)        
+
+    def operatorsListError(self, why):
+        print "operatorsListError!"
+        self.opebt.label_set("Operators")
+        self.opebt.clicked=self.operatorsList
+        return 0
+
+    def operatorsList2(self,l):
         print "GSM operatorsList [inf]"
+        self.opebt.label_set("Operators")
+        self.opebt.clicked=self.operatorsList
+
         self.winope = elementary.Window("listProviders", elementary.ELM_WIN_BASIC)
         self.winope.title_set("List Providers")
         self.winope.autodel_set(True)
@@ -211,7 +228,7 @@ class Gsm(module.AbstractModule):
         box1.show()
 
         print "GSM operatorsList [inf] get list"
-        l = self.gsmsc.gsmnetwork_ListProviders()
+        #l = self.gsmsc.gsmnetwork_ListProviders()
         for i in l:
             print "GSM operatorsList [inf] add operator to list - "+str(i[2])+" - "+str(i[1])+" - "+str(i[0])
             opeAvbt = Button2(self.winope)
