@@ -110,28 +110,28 @@ class Timeouts(module.AbstractModule):
             stal.show()
             self.box1.pack_start(stal)
         else:
+            # create a table that display states, values and buttons
+            tout_table = elementary.Table(self.box1)
+            tout_table.size_hint_align_set(-1.0, 0.5)
 
+            row = 0
             for i in self.timeouts:
                 if not str(i) in ("awake","busy","none"):
-                    boxS = elementary.Box(self.window)
-                    boxS.horizontal_set(True)
-                    boxS.size_hint_align_set(-1.0, 0.5)
-                    boxS.size_hint_weight_set(1.0, 1.0)
-
-
+                    row += 1
                     namel = elementary.Label(self.window)
-                    namel.size_hint_align_set(-1.0, -1.0)
+                    namel.size_hint_align_set(-1.0, 0.5)
                     namel.size_hint_weight_set(1.0, 1.0)
                     namel.label_set(str(i).replace("_"," "))
                     namel.show()
-                    boxS.pack_start(namel)
+                    tout_table.pack(namel,1,row,1,1)
 
                     cur_val = int(self.timeouts[i])
                     valuel  = ValueLabel(self.window)
-                    valuel.size_hint_align_set(0.5, 0.0)
+                    valuel.size_hint_align_set(0.5, 0.5)
                     valuel.label_set(str(cur_val))
                     valuel.set_value(cur_val) #implicitely sets label too
                     valuel.show()
+                    tout_table.pack(valuel,4,row,1,1)
 
                     # the -10 button
                     mintenbt = AddButton(self.window)
@@ -140,6 +140,7 @@ class Timeouts(module.AbstractModule):
                     mintenbt.label_set("-10")
                     mintenbt.size_hint_align_set(-1.0, 0.0)
                     mintenbt.show()
+                    tout_table.pack(mintenbt,2,row,1,1)
 
                     # the -1 button
                     minonebt = AddButton(self.window)
@@ -148,6 +149,7 @@ class Timeouts(module.AbstractModule):
                     minonebt.label_set("-1")
                     minonebt.size_hint_align_set(-1.0, 0.0)
                     minonebt.show()
+                    tout_table.pack(minonebt,3,row,1,1)
 
                     # the +1 button
                     addonebt = AddButton(self.window)
@@ -156,6 +158,7 @@ class Timeouts(module.AbstractModule):
                     addonebt.label_set("+1")
                     addonebt.size_hint_align_set(-1.0, 0.0)
                     addonebt.show()
+                    tout_table.pack(addonebt,5,row,1,1)
 
 
                     # the +10 button
@@ -165,17 +168,10 @@ class Timeouts(module.AbstractModule):
                     addtenbt.label_set("+10")
                     addtenbt.size_hint_align_set(-1.0, 0.0)
                     addtenbt.show()
+                    tout_table.pack(addtenbt,6,row,1,1)
 
-
-                    boxS.pack_end(mintenbt)
-                    boxS.pack_end(minonebt)
-                    boxS.pack_end(valuel)
-                    boxS.pack_end(addonebt)
-                    boxS.pack_end(addtenbt)
-
-                    # add the "<name> [-]val[+]" box
-                    boxS.show()
-                    self.box1.pack_start(boxS)
-            
+            # finally show the table
+            tout_table.show()
+            self.box1.pack_start(tout_table)
         
         return self.box1
