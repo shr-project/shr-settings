@@ -1,7 +1,7 @@
 import elementary, module, ecore
 import dbus
 import array
-from dbus.mainloop.glib import DBusGMainLoop
+#from dbus.mainloop.glib import DBusGMainLoop
 
 
 class Toggle2( elementary.Toggle ):
@@ -17,31 +17,29 @@ class Toggle2( elementary.Toggle ):
 class Profile(module.AbstractModule):
     name = "Profile"
 
+    def error(self, result):
+        print "async dbus error"
 
-    def defbt_click(self, obj, event):
-        if self.stan!="":
-            self.pr_iface.SetProfile('default')
-            self.cur.label_set('default')
-
-    def silbt_click(self, obj, event):
-        if self.stan!="":
-            self.pr_iface.SetProfile('silent')
-            self.cur.label_set('silent')
-
-
-    def guiUpdate(self):
+    def callback(self, result):
         if self.stan!="":
             print "guiUpdate"
-            self.stan = self.pr_iface.GetProfile()
             for obj in self.toggleArray:
                 toggle_name = obj.getProfile_name()
-                if toggle_name==self.stan:
+                if toggle_name==result:
                     set = 1
                 else:
                     set = 0
                 obj.state_set(set)
         if self.guiUpdates:
             ecore.timer_add( 1.3, self.guiUpdate)
+
+
+
+    def guiUpdate(self):
+        if self.stan!="":
+            print "guiUpdate"
+            self.stan = self.pr_iface.GetProfile(reply_handler=self.callback,error_handler=self.error)
+        #TODO - change to dbus event listener
 
 
     def toggle0bt_Click(self, obj, event):
@@ -55,9 +53,11 @@ class Profile(module.AbstractModule):
         print "act 0"
         if s == 1:
             print "act 1"
-            self.pr_iface.SetProfile(profile)
+            self.pr_iface.SetProfile(profile,reply_handler=self.nothing,error_handler=self.error)
             print "act 2"
             
+    def nothing(self):
+        print "nothing called"
 
     def createView(self):
         self.guiUpdates = 1
@@ -108,24 +108,6 @@ class Profile(module.AbstractModule):
                 self.toggleArray.append(toggle0)
             self.guiUpdate()
                 
-        """
-        defbt = elementary.Button(self.window)
-        defbt.clicked = self.defbt_click
-        defbt.label_set("default" )
-        defbt.size_hint_align_set(-1.0, 0.0)
-        defbt.show()
-        boxh.pack_end(defbt)
-
-        silbt = elementary.Button(self.window)
-        silbt.clicked = self.silbt_click
-        silbt.label_set("silent" )
-        silbt.size_hint_align_set(-1.0, 0.0)
-        silbt.show()
-        boxh.pack_end(silbt)
-        """
-
-       
-
         return boxh
 
 
