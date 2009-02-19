@@ -52,7 +52,7 @@ class ModulesWindow:
         
         #add background to module window
         bg = elementary.Background(self.win2)
-        self.win.resize_object_add(bg)
+        self.win2.resize_object_add(bg)
         bg.size_hint_weight_set(1.0, 1.0)
         bg.show()
 
