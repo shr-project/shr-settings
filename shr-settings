@@ -2,11 +2,11 @@
 import elementary
 import ecore
 import dbus, e_dbus
-import os
+import os, traceback
 
 from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_test, shr_gps, shr_sim
 
-class Button2(elementary.Button):
+class CategoryButton(elementary.Button):
     def set_modules(self, modules):
         self.modules = modules
     def get_modules(self):
@@ -40,7 +40,7 @@ class ModulesWindow:
                     else:
                         print " error! module %s method createView() return's nothing!" % mod2
             except:
-                print "module %s can't be loaded!" % mod
+                print "module %s can't be loaded!\n%s" % (mod,traceback.format_exc())
         self.loading.hide()
         return None
 
@@ -50,12 +50,11 @@ class ModulesWindow:
         self.win2.title_set(modulesList[0])
         self.win2.destroy = self.destroy2
         
-
-        self.bg2 = elementary.Background(self.win2)
-        self.win2.resize_object_add(self.bg2)
-        self.bg2.size_hint_weight_set(1.0, 1.0)
-        self.bg2.show()
-
+        #add background to module window
+        bg = elementary.Background(self.win2)
+        self.win.resize_object_add(bg)
+        bg.size_hint_weight_set(1.0, 1.0)
+        bg.show()
 
         box02 = elementary.Box(self.win2)
         box02.size_hint_weight_set(1.0, 1.0)
@@ -136,7 +135,6 @@ class MainWindow:
         self.win.destroy = self.destroy
 
 
-
         #dbus init:
         mainloop = e_dbus.DBusEcoreMainLoop()
         #dbus_session = dbus.SessionBus(mainloop=self.mainloop) - we don't need atm
@@ -144,39 +142,38 @@ class MainWindow:
        
         self.m = ModulesWindow()
 
-        self.bg = elementary.Background(self.win)
-        self.win.resize_object_add(self.bg)
-        self.bg.size_hint_weight_set(1.0, 1.0)
-        self.bg.show()
+        #add background to main window
+        bg = elementary.Background(self.win)
+        self.win.resize_object_add(bg)
+        bg.size_hint_weight_set(1.0, 1.0)
+        bg.show()
 
-        box0 = elementary.Box(self.win)
-        box0.size_hint_weight_set(1.0, 1.0)
-        self.win.resize_object_add(box0)
-        box0.show()
+        # main container contains a scroller and the Quit button
+        mainbox = elementary.Box(self.win)
+        mainbox.size_hint_weight_set(1.0, 1.0)
+        self.win.resize_object_add(mainbox)
+        mainbox.show()
 
-
-
-    #    toolbar = elementary.Toolbar(win)
-    #    box0.pack_start(toolbar)
-    #    toolbar.show()
-
-        sc = elementary.Scroller(self.win)
+        # scroller that contains the table with buttons
+        sc = elementary.Scroller(mainbox)
         sc.size_hint_weight_set(1.0, 1.0)
         sc.size_hint_align_set(-1.0, -1.0)
-        box0.pack_end(sc)
+        mainbox.pack_end(sc)
         sc.show()
 
-        quitbt = elementary.Button(self.win)
+        # quit button
+        quitbt = elementary.Button(mainbox)
         quitbt.clicked = self.destroy
         quitbt.label_set("Quit")
         quitbt.size_hint_align_set(-1.0, 0.0)
         quitbt.show()
-        box0.pack_end(quitbt)
+        mainbox.pack_end(quitbt)
 
-        box1 = elementary.Box(self.win)
-        box1.size_hint_weight_set(1.0, -1.0)
-        sc.content_set(box1)
-        box1.show()
+        # table containing category buttons
+        cat_table = elementary.Table(sc)
+        cat_table.size_hint_weight_set(1.0, 1.0)
+        sc.content_set(cat_table)
+        cat_table.show()
 
         #loading modules
 
@@ -185,7 +182,7 @@ class MainWindow:
                     ["Internet","ico_internet_32_32.png",              [ shr_wifi.Wifi, shr_gprs.Gprs ] ],
                     ["Profiles","ico_profile_32_32.png",               [ shr_profile.Profile ] ],
                     ["Date/time","ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
-                    ["Power management","ico_powermanager_32_32.png",  [ shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
+                    ["Power","ico_powermanager_32_32.png",  [ shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
                     ["USB","ico_usb_32_32.png",                        [ shr_usb.Usb ] ],
                     ["Services","ico_initd_32_32.png",                 [ shr_services.Services ] ],
                     ["Others", "ico_others_32_32.png",                 [ shr_gps.Gps ] ],
@@ -193,47 +190,28 @@ class MainWindow:
             ]
 
 
-        for d in dirs:
-            bt = Button2(self.win)
+        for (i,d) in enumerate(dirs):
+            bt = CategoryButton(cat_table)
             bt.set_modules( d )
 
             bt.clicked = self.displayModulesWin
-            bt.size_hint_align_set(-1.0, 0.0)
-            bt.label_set( str(d[0]) )
+            bt.size_hint_weight_set(1.0, 1.0)
+            bt.size_hint_align_set(-1.0, -1.0)
+            bt.label_set( d[0] )
             bt.show()
 
-
-            try:
-                f = open("data/icons/"+str(d[1]), "r")
-                ic = elementary.Icon(self.win)
-                ic.file_set("data/"+str(d[1]) )
-                ic.scale_set(0, 0)
-                bt.icon_set(ic)
-                ic.show()
-
-            except:
-                try:
-                    f = open("/usr/share/pixmaps/"+str(d[1]), "r")
-                    ic = elementary.Icon(self.win)
-                    ic.file_set("/usr/share/pixmaps/"+str(d[1]) )
-                    ic.scale_set(0, 0)
+            icon_paths = [ "data/icons/"+str(d[1]), "/usr/share/pixmaps/"+str(d[1])]
+            for i_path in icon_paths:
+                if os.path.exists(i_path):
+                    ic = elementary.Icon(bt)
+                    ic.file_set( i_path )
+                    ic.scale_set(1, 1)
                     bt.icon_set(ic)
                     ic.show()
-                except:
-                    bt.label_set( str(d[0]) )
+                    break
 
-            box1.pack_end(bt)
-
-
-
-
-        #for mod in modules:
-        #    print "loading %s" % mod
-        #    load_module(mod, win, dbus_system)
-
-        #end of loading modules
-
-
+            (row, col) = divmod(i,2)
+            cat_table.pack(bt,col,row,1,1)
 
         self.win.show()
         
