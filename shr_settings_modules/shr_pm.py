@@ -1,106 +1,49 @@
+import elementary
+import module
+import dbus
 
-import module, os, re, sys, elementary, ecore
-import threading
+def getDbusObject (bus, busname , objectpath , interface):
+        dbusObject = bus.get_object(busname, objectpath)
+        return dbus.Interface(dbusObject, dbus_interface=interface)
+
 
 class Pm(module.AbstractModule):
     name = "Power"
 
-    def refreshAct(self):
-        self.apml.label_set( os.popen("apm").read().replace("\n","") )
-        vol = "1234"
-        temp = "1234"
-        cur = "1234"
-        cap = "100"
+    def request(self, name, state):
+        if state:
+            self.ophonekitd.RequestResource(name)
+        else:
+            self.ophonekitd.ReleaseResource(name)
 
+    def cpurequest(self, obj, event):
+        self.request('CPU',not(obj.state_get()))
+
+    def displayrequest(self, obj, event):
+        self.request('Display',not(obj.state_get()))
+    
+    def isEnabled(self):
         try:
-            vol =  os.popen("cat /sys/class/power_sup*ly/bat*/voltage_now").readline().replace("\n","")
-            temp = os.popen("cat /sys/class/power_sup*ly/bat*/temp").readline().replace("\n","")
-            cur =  int(os.popen("cat /sys/class/power_su*ply/bat*/current_now").readline().replace("\n",""))/1000
-            sta = os.popen("cat /sys/class/power_su*ply/bat*/status").readline().replace("\n","")
-            cap = os.popen("cat /sys/class/power_su*ply/bat*/capacity").readline().replace("\n","")
-
-            self.voll.label_set("Voltage: "+str(vol)[0]+"."+str(vol)[1]+str(vol)[2]+str(vol)[3]+" V")
-            self.templ.label_set("Temperature: "+str(temp)[0]+str(temp)[1]+"."+str(temp)[2]+" 'C")
-            self.curl.label_set("Current: "+str(cur)+" mA")
-            self.stal.label_set("Status: "+sta)
-            self.capl.label_set("Capacity: "+cap+" %")
-
-            #FIXME: if it does not work.. we should try again?
-            if self.guiUpdate:
-                ecore.timer_add( 2.3, self.refreshAct)
-
+            self.ophonekitd = getDbusObject (self.dbus, "org.shr.ophonekitd.Usage", "/org/shr/ophonekitd/Usage", "org.shr.ophonekitd.Usage")
+            return 1
         except:
-            print ":("
+            return 0
+
 
     def createView(self):
-        self.guiUpdate = 1
-        self.box1 = elementary.Box(self.window)
-
-
-        boxOp = elementary.Box(self.window)
-        boxOp.size_hint_weight_set(1.0, 1.0)
-        boxOp.size_hint_align_set(-1.0, 0.0)
-
-        self.apml = elementary.Label(self.window)
-    	self.apml.size_hint_align_set(-1.0, 0.0)
-    	self.apml.show()
-    	boxOp.pack_start(self.apml)
-
-        fo = elementary.Frame(self.window)
-        fo.label_set( "apm:" )
-        fo.size_hint_align_set(-1.0, 0.0)
-        fo.show()
-        fo.content_set( boxOp )
-
-        boxOp.show()
-        self.box1.pack_end(fo)
-
-
-
-        box1p = elementary.Box(self.window)
-        box1p.size_hint_weight_set(1.0, 1.0)
-        box1p.size_hint_align_set(-1.0, 0.0)
-
-        self.stal = elementary.Label(self.window)
-    	self.stal.size_hint_align_set(-1.0, 0.0)
-    	self.stal.show()
-    	box1p.pack_start(self.stal)
-
-        self.voll = elementary.Label(self.window)
-    	self.voll.size_hint_align_set(-1.0, 0.0)
-    	self.voll.show()
-    	box1p.pack_start(self.voll)
-
-        self.templ = elementary.Label(self.window)
-    	self.templ.size_hint_align_set(-1.0, 0.0)
-    	self.templ.show()
-    	box1p.pack_start(self.templ)
-
-        self.curl = elementary.Label(self.window)
-    	self.curl.size_hint_align_set(-1.0, 0.0)
-    	self.curl.show()
-    	box1p.pack_start(self.curl)
-
-        self.capl = elementary.Label(self.window)
-    	self.capl.size_hint_align_set(-1.0, 0.0)
-    	self.capl.show()
-    	box1p.pack_start(self.capl)
-
-        fo = elementary.Frame(self.window)
-        fo.label_set( "battery:" )
-        fo.size_hint_align_set(-1.0, 0.0)
-        fo.show()
-        fo.content_set( box1p )
-
-        box1p.show()
-        self.box1.pack_end(fo)
-
-
-        self.refreshAct()
-
-        return self.box1
-
-    def stopUpdate(self):
-        print "PM desktructor"
-        self.guiUpdate = 0
-
+    	self.main = elementary.Box(self.window)
+        cpu = elementary.Toggle(self.window)
+        cpu.label_set("Auto-suspend:")
+        cpu.changed = self.cpurequest
+        self.main.pack_start(cpu)
+        cpu.size_hint_align_set(-1.0, 0.0)
+        cpu.state_set(not(self.ophonekitd.GetResourceState('CPU')))
+        cpu.show()
+        display = elementary.Toggle(self.window)
+        display.label_set("Auto-dimming:")
+        display.changed = self.displayrequest
+        self.main.pack_start(display)
+        display.size_hint_align_set(-1.0, 0.0)
+        display.state_set(not(self.ophonekitd.GetResourceState('Display')))
+        display.show()
+        return self.main

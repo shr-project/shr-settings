@@ -149,7 +149,7 @@ class Gsm(module.AbstractModule):
 
         c = open( "/var/log/ophonekitd.log", "r" )
         while 1:
-            line = c.readline()
+            line = c.readline().replace("\n","")
             if not line:
                 break
             print "line ["+line+"]"
