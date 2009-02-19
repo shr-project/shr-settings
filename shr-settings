@@ -4,7 +4,7 @@ import ecore
 import dbus, e_dbus
 import os
 
-from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_test, shr_gps, shr_sim
+from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_test, shr_gps, shr_sim, shr_battery
 
 class Button2(elementary.Button):
     def set_modules(self, modules):
@@ -100,6 +100,14 @@ class ModulesWindow:
         self.loading.show()
 
         self.modList = []
+        #DEBUG
+        #for mod in modulesList[2]:
+        #
+        #    print "debug loading %s" % mod
+        #    debugmod=mod(self.win2, bus)
+        #    if debugmod.isEnabled():
+        #        debugmod.createView()
+        #END OF DEBUG
         ecore.idler_add(self.renderModules, modulesList, bus)
         self.win2.show()
 
@@ -185,7 +193,7 @@ class MainWindow:
                     ["Internet","ico_internet_32_32.png",              [ shr_wifi.Wifi, shr_gprs.Gprs ] ],
                     ["Profiles","ico_profile_32_32.png",               [ shr_profile.Profile ] ],
                     ["Date/time","ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
-                    ["Power management","ico_powermanager_32_32.png",  [ shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
+                    ["Power management","ico_powermanager_32_32.png",  [ shr_battery.Battery, shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
                     ["USB","ico_usb_32_32.png",                        [ shr_usb.Usb ] ],
                     ["Services","ico_initd_32_32.png",                 [ shr_services.Services ] ],
                     ["Others", "ico_others_32_32.png",                 [ shr_gps.Gps ] ],
