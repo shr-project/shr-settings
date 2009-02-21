@@ -86,16 +86,27 @@ class ModulesWindow:
         sc2.content_set(self.box12)
         self.box12.show()
 
-        
-        self.loading = elementary.Frame(self.win2)
+        self.loading = elementary.Box(self.win2)
+        loadingframe = elementary.Frame(self.win2)
+        loadingframe.style_set("outdent_bottom")
+        loadingframe2 = elementary.Frame(self.win2)
+        loadingframe2.style_set("outdent_top")
+        loadingframe2.size_hint_weight_set(0.0, 0.0)
+        loadingframe2.size_hint_align_set(0.5, 0.5)
         loadinglabel = elementary.Label(self.win2)
-        loadinglabel.label_set("Please wait...")
-        self.loading.label_set("Loading modules...")
-        self.loading.content_set(loadinglabel)
+        modulescount = len(modulesList[2])
+        modulesform = ""
+        if modulescount > 1:
+            modulesform = "s"
+        loadinglabel.label_set("Please wait...<br>Loading %(ile)d module%(s)s..." % {"ile":modulescount, "s":modulesform})
+
+        loadingframe.content_set(loadingframe2)
+        loadingframe2.content_set(loadinglabel)
         self.win2.resize_object_add(self.loading)
-        loadinglabel.size_hint_weight_set(0.0, 0.0) # i *don't* like you, ugly
-        loadinglabel.size_hint_align_set(0.5, 0.5)   # size and weight hints!!!
+        self.loading.pack_start(loadingframe)
         loadinglabel.show()
+        loadingframe.show()
+        loadingframe2.show()
         self.loading.show()
 
         self.modList = []
