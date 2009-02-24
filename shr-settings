@@ -111,12 +111,12 @@ class ModulesWindow:
 
         self.modList = []
         #DEBUG
-        for mod in modulesList[2]:
-        
-            print "debug loading %s" % mod
-            debugmod=mod(self.win2, bus)
-            if debugmod.isEnabled():
-                debugmod.createView()
+        #for mod in modulesList[2]:
+        #
+        #    print "debug loading %s" % mod
+        #    debugmod=mod(self.win2, bus)
+        #    if debugmod.isEnabled():
+        #        debugmod.createView()
         #END OF DEBUG
         ecore.idler_add(self.renderModules, modulesList, bus)
         self.win2.show()
