@@ -101,33 +101,20 @@ class Services(module.AbstractModule):
         box0 = elementary.Box(self.window)
         print "services 2"
 
-        sc = elementary.Scroller(self.window)
-        sc.size_hint_weight_set(1.0, 1.0)
-        sc.size_hint_align_set(-1.0, 0.0)
-        box0.pack_end(sc)
-        sc.show()
-
-        box1 = elementary.Box(self.window)
-        box1.size_hint_align_set(-1.0, 0.0)
-        box1.size_hint_weight_set(-1.0, 0.0)
-        sc.content_set(box1)
-        box1.show()
-
         servicesList = dircache.listdir("/etc/init.d/")
         servicesList.sort()
         for i in servicesList:
-            #how to make horizontal box?
             print "add:"+i
             boxSSS = elementary.Box(self.window)
             boxSSS.horizontal_set(True)
-            boxSSS.size_hint_align_set(-1.0, 0.0)
+            #boxSSS.size_hint_align_set(-1.0, 0.0)
             boxSSS.show()
 
             startbt = ButtonServer(self.window)
             startbt.set_osCmd("/etc/init.d/"+i+" start")
             startbt.clicked = self.startbtClick
             startbt.label_set("start")
-            startbt.size_hint_align_set(-1.0, 0.0)
+            #startbt.size_hint_align_set(-1.0, 0.0)
             startbt.show()
             boxSSS.pack_start(startbt)
 
@@ -135,7 +122,7 @@ class Services(module.AbstractModule):
             restartbt.set_osCmd("/etc/init.d/"+i+" restart")
             restartbt.clicked = self.startbtClick
             restartbt.label_set("restart")
-            restartbt.size_hint_align_set(-1.0, 0.0)
+            #restartbt.size_hint_align_set(-1.0, 0.0)
             restartbt.show()
             boxSSS.pack_end(restartbt)
 
@@ -143,7 +130,7 @@ class Services(module.AbstractModule):
             stopbt.set_osCmd("/etc/init.d/"+i+" stop")
             stopbt.clicked = self.startbtClick
             stopbt.label_set("stop")
-            stopbt.size_hint_align_set(-1.0, 0.0)
+            #stopbt.size_hint_align_set(-1.0, 0.0)
             stopbt.show()
             boxSSS.pack_end(stopbt)
 
@@ -154,9 +141,6 @@ class Services(module.AbstractModule):
             fo.content_set( boxSSS )
 
             box0.pack_end(fo)
-
-
-
 
         
         print "services 5"
