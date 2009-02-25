@@ -19,12 +19,18 @@ class Battery(module.AbstractModule):
             cur =  int(os.popen("cat /sys/class/power_su*ply/bat*/current_now").readline().replace("\n",""))/1000
             sta = os.popen("cat /sys/class/power_su*ply/bat*/status").readline().replace("\n","")
             cap = os.popen("cat /sys/class/power_su*ply/bat*/capacity").readline().replace("\n","")
+            if sta=="Charging":
+                time = os.popen("cat /sys/class/power_su*ply/bat*/time_to_full_now").readline().replace("\n","")
+            else:
+                time = os.popen("cat /sys/class/power_su*ply/bat*/time_to_empty_now").readline().replace("\n","")
 
             self.voll.label_set("Voltage: "+str(vol)[0]+"."+str(vol)[1]+str(vol)[2]+str(vol)[3]+" V")
             self.templ.label_set("Temperature: "+str(temp)[0]+str(temp)[1]+"."+str(temp)[2]+" 'C")
             self.curl.label_set("Current: "+str(cur)+" mA")
             self.stal.label_set("Status: "+sta)
             self.capl.label_set("Capacity: "+cap+" %")
+            self.timel.label_set("Remaining time: "+str(int(int(time) / 60))+" min")
+
 
             #FIXME: if it does not work.. we should try again?
             if self.guiUpdate:
@@ -66,6 +72,12 @@ class Battery(module.AbstractModule):
     	self.capl.size_hint_align_set(-1.0, 0.0)
     	self.capl.show()
     	box1p.pack_start(self.capl)
+
+        self.timel = elementary.Label(self.window)
+        self.timel.size_hint_align_set(-1.0, 0.0)
+        self.timel.show()
+        box1p.pack_start(self.timel)
+
 
         box1p.show()
         self.box1.pack_end(box1p)
