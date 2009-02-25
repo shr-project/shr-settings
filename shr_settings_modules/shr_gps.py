@@ -72,12 +72,12 @@ class Gps(module.AbstractModule):
             self.toggle1.show()
         self.toggle1.state_set(self.gps.GetResourceState("GPS"))
 
-        picklebtn = elementary.Button(self.window)
-        picklebtn.label_set("Remove ogpsd.pickle file")
-        box1.pack_end(picklebtn)
-        picklebtn.size_hint_align_set(-1.0, 0.0)
-        picklebtn.clicked = self.rempickle
         if os.path.exists("/etc/freesmartphone/persist/ogpsd.pickle"):
+            picklebtn = elementary.Button(self.window)
+            picklebtn.label_set("Remove ogpsd.pickle file")
+            box1.pack_end(picklebtn)
+            picklebtn.size_hint_align_set(-1.0, 0.0)
+            picklebtn.clicked = self.rempickle
             picklebtn.show()
         
         return box1
