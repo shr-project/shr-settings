@@ -7,6 +7,12 @@ def getDbusObject (bus, busname , objectpath , interface):
 class Gps(module.AbstractModule):
     name = "GPS"
 
+    def error(self, result):
+        print "async dbus error"
+
+    def callback(self):
+        print "async dbus callback"
+
     def rempickle(self, obj, event):
         os.system("rm /etc/freesmartphone/persist/ogpsd.pickle")
         obj.hide()
@@ -18,23 +24,23 @@ class Gps(module.AbstractModule):
        if self.gps.GetResourceState("GPS")==obj.state_get():
             return 0
        if obj.state_get(): 
-           self.gps.SetResourcePolicy("GPS","enabled")
+           self.gps.SetResourcePolicy("GPS","enabled",reply_handler=self.callback,error_handler=self.error)
            obj.state_set(1)
        else:
-           self.gps.SetResourcePolicy("GPS","disabled")
+           self.gps.SetResourcePolicy("GPS","disabled",reply_handler=self.callback,error_handler=self.error)
            obj.state_set(0)
 
 
     def res_handle(self, obj, event):
         if obj.state_get():
-            self.gps.SetResourcePolicy("GPS","auto")
+            self.gps.SetResourcePolicy("GPS","auto",reply_handler=self.callback,error_handler=self.error)
             self.toggle1.hide()
         else:
             if self.gps.GetResourceState("GPS"):
-                self.gps.SetResourcePolicy("GPS","enabled")
+                self.gps.SetResourcePolicy("GPS","enabled",reply_handler=self.callback,error_handler=self.error)
                 self.toggle1.state_set(1)
             else:
-                self.gps.SetResourcePolicy("GPS","disabled")
+                self.gps.SetResourcePolicy("GPS","disabled",reply_handler=self.callback,error_handler=self.error)
                 self.toggle1.state_set(0)
             self.toggle1.show()
 
