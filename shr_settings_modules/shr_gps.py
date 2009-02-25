@@ -7,6 +7,10 @@ def getDbusObject (bus, busname , objectpath , interface):
 class Gps(module.AbstractModule):
     name = "GPS"
 
+    def rempickle(self, obj, event):
+        os.system("rm /etc/freesmartphone/persist/ogpsd.pickle")
+        obj.hide()
+
     def isEnabled(self):
         return True
     
@@ -67,5 +71,13 @@ class Gps(module.AbstractModule):
             toggle0.state_set(0)
             self.toggle1.show()
         self.toggle1.state_set(self.gps.GetResourceState("GPS"))
+
+        picklebtn = elementary.Button(self.window)
+        picklebtn.label_set("Remove ogpsd.pickle file")
+        box1.pack_end(picklebtn)
+        picklebtn.size_hint_align_set(-1.0, 0.0)
+        picklebtn.clicked = self.rempickle
+        if os.path.exists("/etc/freesmartphone/persist/ogpsd.pickle"):
+            picklebtn.show()
         
         return box1
