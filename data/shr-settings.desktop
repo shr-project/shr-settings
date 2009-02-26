@@ -2,9 +2,11 @@
 Version=1.0
 Encoding=UTF-8
 Name=Settings
+Name[pl]=Ustawienia
 TryExec=shr-settings
 GenericName=SHR Settings
 Comment=Settings of SHR based Openmoko phone
+Comment[pl]=Ustawienia systemu SHR dla telefonów Openmoko
 StartupNotify=true
 Exec=shr-settings
 Terminal=false
