@@ -5,6 +5,16 @@ import threading
 class Battery(module.AbstractModule):
     name = "Battery"
 
+    def sectotime(self, sec):
+        minutes = int(str(sec/60))
+        hours = int(str(minutes/60))
+        min = minutes - (hours*60)
+        if min<10:
+            strmin="0"+str(min)
+        else:
+            strmin=str(min)
+        return str(hours) + " h " + strmin + " min"
+
     def refreshAct(self):
 #        self.apml.label_set( os.popen("apm").read().replace("\n","") )
         vol = "1234"
@@ -29,7 +39,7 @@ class Battery(module.AbstractModule):
             self.curl.label_set("Current: "+str(cur)+" mA")
             self.stal.label_set("Status: "+sta)
             self.capl.label_set("Capacity: "+cap+" %")
-            self.timel.label_set("Remaining time: "+str(int(int(time) / 60))+" min")
+            self.timel.label_set("Remaining time: "+self.sectotime(int(time)))
 
 
             #FIXME: if it does not work.. we should try again?
