@@ -1,7 +1,6 @@
 - shr-settings
     make version with toolbar
     load modules categories dynamicly
-    provide easy way to share dbus objects
 - shr_bt.py
     fix showing and hiding services toggles
 - shr_gprs.py
@@ -10,7 +9,7 @@
     use hoversel or something else better than toggles
 - shr_usb.py
     fix to work with gta01
-- shr_services.py
-    maybe find better way to display returned message to user
 - module.py
     do it in the most flexible way (init, destroy etc.) and prepare all modules to use it
+- TODO
+    sync with good ideas from SHR wiki :)
