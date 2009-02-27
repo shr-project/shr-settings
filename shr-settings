@@ -198,14 +198,14 @@ class MainWindow:
 
         dirs = [    ["GSM","ico_gsm_32_32.png",                        [ shr_gsm.Gsm, shr_call.Call, shr_sim.Sim ] ],
                     ["Bluetooth","ico_bt_32_32.png",                   [ shr_bt.Bt ] ],
-                    ["Internet","ico_internet_32_32.png",              [ shr_wifi.Wifi, shr_gprs.Gprs ] ],
+                    ["Internet","ico_internet_32_32.png",              [ shr_wifi.Wifi ] ],
                     ["Profiles","ico_profile_32_32.png",               [ shr_profile.Profile, shr_currentprofile.CurrentProfile ] ],
                     ["Date/time","ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
                     ["Power","ico_powermanager_32_32.png",  [ shr_battery.Battery, shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
                     ["USB","ico_usb_32_32.png",                        [ shr_usb.Usb ] ],
                     ["Services","ico_initd_32_32.png",                 [ shr_services.Services ] ],
                     ["Others", "ico_others_32_32.png",                 [ shr_gps.Gps ] ],
-                    ["Test", "",                                       [ shr_test.Test ] ]
+                    ["Test", "",                                       [ shr_test.Test, shr_gprs.Gprs ] ]
             ]
 
 
