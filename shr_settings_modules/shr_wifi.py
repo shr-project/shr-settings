@@ -69,20 +69,20 @@ class Wifi(module.AbstractModule):
         toggle0.state_set(self.wifi.GetPower())
         toggle0.show()
         
-        try:
-            networks = self.scan_wifi()
-#            print networks
-            for net in networks:
-                btn1 = elementary.Button(self.window)
-                btn1.label_set(net)
-                box1.pack_end(btn1)
-                btn1.show()
-        except:
-            label1 = elementary.Label(self.window)
-            global iwlibs_present
-            if iwlibs_present == 1:
-                label1.label_set("unable to scan")
-                box1.pack_end(label1)
-                label1.show()
+#        try:
+#            networks = self.scan_wifi()
+##            print networks
+#            for net in networks:
+#                btn1 = elementary.Button(self.window)
+#                btn1.label_set(net)
+#                box1.pack_end(btn1)
+#                btn1.show()
+#        except:
+#            label1 = elementary.Label(self.window)
+#            global iwlibs_present
+#            if iwlibs_present == 1:
+#                label1.label_set("unable to scan")
+#                box1.pack_end(label1)
+#                label1.show()
 
         return box1
