@@ -4,6 +4,16 @@ import os
 import datetime, time
 import dbus
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 #changelog:
 # 1.01.2009 - hiciu - cleaning code
 
@@ -15,8 +25,8 @@ def getDbusObject (bus, busname , objectpath , interface):
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class Clock(module.AbstractModule):
-    name = "Time"
-    section = "Other"
+    name = _("Time")
+    section = _("Other")
 
     def clockset(self, obj, event):
 	    if self.editable:
@@ -24,11 +34,11 @@ class Clock(module.AbstractModule):
                 #TODO - set time by fso dbus request
                 os.system("date "+str(now.month).zfill(2)+str(now.day).zfill(2)+str(self.cl.time_get()[0]).zfill(2)+str(self.cl.time_get()[1]).zfill(2)+str(now.year)+"."+str(self.cl.time_get()[2]).zfill(2))
                 self.cl.edit_set(False)
-                obj.label_set("Set time")
+                obj.label_set(_("Set time"))
                 self.editable = False
             else:
                 self.cl.edit_set(True)
-                obj.label_set("OK")
+                obj.label_set(_("OK"))
                 self.editable = True
 
     def createView(self):
@@ -39,7 +49,7 @@ class Clock(module.AbstractModule):
         box0.pack_end(self.cl)
         self.cl.show()
         self.but = elementary.Button(self.window)
-        self.but.label_set("Set time")
+        self.but.label_set(_("Set time"))
         self.but.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(self.but)
         self.but.clicked = self.clockset

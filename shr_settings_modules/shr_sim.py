@@ -3,6 +3,16 @@ import module
 import elementary, ecore
 import os
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 """
 - gta01
 /sys/devices/platform/s3c2410-i2c/i2c-adapter/i2c-0/0-0008/neo1973-pm-bt.0/
@@ -114,7 +124,7 @@ class PhbookInfoFrame(elementary.Frame):
         print "async book "+ self.booktype +" arrived"
         #frame
         frameBook = elementary.Frame(self.tableobj)
-        frameBook.label_set("Book "+ self.booktype)
+        frameBook.label_set(_("Book ")+ self.booktype)
         (row,col) = divmod(PhbookInfoFrame.table_pos, 2)
         self.tableobj.pack(frameBook, col, row, 1, 1)
         frameBook.size_hint_weight_set(0.5, 0.5)
@@ -169,8 +179,8 @@ class PhbookInfoFrame(elementary.Frame):
 
 
 class Sim(module.AbstractModule):
-    name = "SIM"
-    section = "Connectivity"
+    name = _("SIM")
+    section = _("Connectivity")
     # no of displayed books, so we can put the next in the right table cell
 
     def cleanMessageBookClick(self, obj, event):
@@ -222,7 +232,7 @@ class Sim(module.AbstractModule):
         print "async Msg book arrived"
 
         frameBook = elementary.Frame(self.window)
-        frameBook.label_set("Message book")
+        frameBook.label_set(_("Message book"))
         self.books_table.pack(frameBook, 0, 0, 1, 1)
         frameBook.size_hint_weight_set(1.0, 1.0)
         frameBook.size_hint_align_set(-1.0, -1.0)
@@ -264,7 +274,7 @@ class Sim(module.AbstractModule):
         # clear TODO
         cleanbt = elementary.Button(self.window)
         cleanbt.clicked = self.cleanMessageBookClick
-        cleanbt.label_set("clean")
+        cleanbt.label_set(_("clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
         boxS.pack_end(cleanbt)
@@ -291,7 +301,7 @@ class Sim(module.AbstractModule):
         # If we can't connect to the right DBus object crap out here
         if self.simmc.getDbusState==0:
             label =elementary.Label(self.window)
-            label.label_set("Cannot connect to dbus")
+            label.label_set(_("Cannot connect to dbus"))
             label.size_hint_align_set(-1.0, 0.0)
             label.show()
             box1.pack_start(label)
@@ -333,7 +343,7 @@ class Sim(module.AbstractModule):
         )
 
         frameInfo = elementary.Frame(self.window)
-        frameInfo.label_set("SIM information:")
+        frameInfo.label_set(_("SIM information:"))
         box1.pack_end(frameInfo)
         frameInfo.size_hint_align_set(-1.0, 0.0)
         frameInfo.show()

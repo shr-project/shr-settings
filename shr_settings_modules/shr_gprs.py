@@ -1,6 +1,16 @@
 import elementary
 import module
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 __author__ = "hiciu"
 
 #
@@ -18,8 +28,8 @@ __author__ = "hiciu"
 #
 
 class Gprs(module.AbstractModule):
-    name = "GPRS"
-    section = "networking"
+    name = _("GPRS")
+    section = _("networking")
     
     #enter your apn, login && password here:
     apn, login, password = "INTERNET", "INTERNET", "INTERNET"
@@ -37,19 +47,19 @@ class Gprs(module.AbstractModule):
     	self.main = elementary.Box(self.window)
     	
         #connection status..
-        self.laConnection = self.newLabel("Connection status: UNKNOWN")
-        self.laTransferred = self.newLabel("Transferred bytes (RX/TX): UNKNOWN")
+        self.laConnection = self.newLabel(_("Connection status: UNKNOWN"))
+        self.laTransferred = self.newLabel(_("Transferred bytes (RX/TX): UNKNOWN"))
                 
         #there is no elementary.Entry so far..
         #here is: LOGIN, PASSWORD, APN
-        self.laLogin = self.newLabel("Your login: '%s'" % self.login)
+        self.laLogin = self.newLabel(_("Your login: '%s'" % self.login))
         #should this one be hidden? "Your password: '********'"?
-        self.laPassword = self.newLabel("Your password: '%s'" % self.password)
-        self.laApn = self.newLabel("Your APN: '%s'" % self.apn)
+        self.laPassword = self.newLabel(_("Your password: '%s'") % self.password)
+        self.laApn = self.newLabel(_("Your APN: '%s'") % self.apn)
         
         #CONNECT / DISCONNECT button
         self.btConnectDisconnect = elementary.Button(self.window)
-        self.btConnectDisconnect.label_set("UNKNOWN")
+        self.btConnectDisconnect.label_set(_("UNKNOWN"))
         self.btConnectDisconnect.show()
         self.main.pack_end(self.btConnectDisconnect)
 

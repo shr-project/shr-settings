@@ -4,6 +4,15 @@ import threading
 import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
 """
 source
 - freesmartphone framework
@@ -85,7 +94,7 @@ class GSMstateContener:
 
 
 class Gsm(module.AbstractModule):
-    name = "GSM"
+    name = _("GSM")
 
     def goto_settingsbtClick(self, obj, event, *args, **kargs):
         self.wininfo.hide()
@@ -101,7 +110,7 @@ class Gsm(module.AbstractModule):
     def view_ophonekitd_log(self, obj, event, *args, **kargs):        
         print "ophonekitd log"
         self.windeb = elementary.Window("ophonekitdLog", elementary.ELM_WIN_BASIC )
-        self.windeb.title_set("ophonekitd log")
+        self.windeb.title_set(_("ophonekitd log"))
         self.windeb.autodel_set(True)
         self.bgdeb = elementary.Background(self.windeb)
         self.windeb.resize_object_add(self.bgdeb)
@@ -114,7 +123,7 @@ class Gsm(module.AbstractModule):
         box0.show()
 
         fr = elementary.Frame(self.windeb)
-        fr.label_set("ophonekitd log")
+        fr.label_set(_("ophonekitd log"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -127,14 +136,14 @@ class Gsm(module.AbstractModule):
 
         cleanbt = elementary.Button(self.windeb)
         cleanbt.clicked = self.clean_ophonekitd_log   
-        cleanbt.label_set("Clean")
+        cleanbt.label_set(_("Clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
         box0.pack_end(cleanbt)
 
         cancelbt = elementary.Button(self.windeb)
         cancelbt.clicked = self.destroyDebug
-        cancelbt.label_set("Close")
+        cancelbt.label_set(_("Close"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
         box0.pack_end(cancelbt)
@@ -174,23 +183,23 @@ class Gsm(module.AbstractModule):
         print "nothing called"
 
     def operatorsList(self, obj, event, *args, **kargs):
-        obj.label_set("Please wait...")
+        obj.label_set(_("Please wait..."))
         obj.clicked=self.nothing
         self.gsmsc.gsmnetwork_ListProviders(self.operatorsList2, self.operatorsListError)        
 
     def operatorsListError(self, why):
         print "operatorsListError!"
-        self.opebt.label_set("Operators")
+        self.opebt.label_set(_("Operators"))
         self.opebt.clicked=self.operatorsList
         return 0
 
     def operatorsList2(self,l):
         print "GSM operatorsList [inf]"
-        self.opebt.label_set("Operators")
+        self.opebt.label_set(_("Operators"))
         self.opebt.clicked=self.operatorsList
 
         self.winope = elementary.Window("listProviders", elementary.ELM_WIN_BASIC)
-        self.winope.title_set("List Providers")
+        self.winope.title_set(_("List Providers"))
         self.winope.autodel_set(True)
 
         self.bg = elementary.Background(self.winope)
@@ -204,7 +213,7 @@ class Gsm(module.AbstractModule):
         box0.show()
 
         fr = elementary.Frame(self.winope)
-        fr.label_set("List Providers")
+        fr.label_set(_("List Providers"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -217,7 +226,7 @@ class Gsm(module.AbstractModule):
 
         cancelbt = elementary.Button(self.winope)
         cancelbt.clicked = self.goto_settingsbtClick
-        cancelbt.label_set("Cancel")
+        cancelbt.label_set(_("Cancel"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
         box0.pack_end(cancelbt)
@@ -283,7 +292,7 @@ class Gsm(module.AbstractModule):
     def informationbt(self, obj, event, *args, **kargs):
         print "GSM infobt [inf]"
         self.wininfo = elementary.Window("deviceInfo", elementary.ELM_WIN_BASIC)
-        self.wininfo.title_set("GSM modem information")
+        self.wininfo.title_set(_("GSM modem information"))
         self.wininfo.autodel_set(True)
 
         self.bginfo = elementary.Background(self.wininfo)
@@ -297,7 +306,7 @@ class Gsm(module.AbstractModule):
         box0.show()
 
         fr = elementary.Frame(self.wininfo)
-        fr.label_set("GSM modem information")
+        fr.label_set(_("GSM modem information"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -310,7 +319,7 @@ class Gsm(module.AbstractModule):
 
         cancelbt = elementary.Button(self.wininfo)
         cancelbt.clicked = self.goto_settingsbtClick
-        cancelbt.label_set("Cancel")
+        cancelbt.label_set(_("Cancel"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
         box0.pack_end(cancelbt)
@@ -369,7 +378,7 @@ class Gsm(module.AbstractModule):
             print self.gsmsc.gsmnetwork_GetStatus()
 
             self.toggle0 = elementary.Toggle(self.window)
-            self.toggle0.label_set("GSM antenna:")
+            self.toggle0.label_set(_("GSM antenna:"))
             self.toggle0.size_hint_align_set(-1.0, 0.0)
             self.toggle0.states_labels_set("On","Off")
             self.toggle0.show()
@@ -377,13 +386,13 @@ class Gsm(module.AbstractModule):
 
             self.opebt = elementary.Button(self.window)
             self.opebt.clicked = self.operatorsList
-            self.opebt.label_set("Operators" )
+            self.opebt.label_set(_("Operators"))
             self.opebt.size_hint_align_set(-1.0, 0.0)
             self.box1.pack_end(self.opebt)
 
             self.infobt = elementary.Button(self.window)
             self.infobt.clicked = self.informationbt
-            self.infobt.label_set("Modem information" )
+            self.infobt.label_set(_("Modem information"))
             self.infobt.size_hint_align_set(-1.0, 0.0)
             self.infobt.show()
             self.box1.pack_end(self.infobt)
@@ -394,7 +403,7 @@ class Gsm(module.AbstractModule):
         except:
             print "GSM view [info] can't connect to dbus"
             errlab = elementary.Label(self.window)
-            errlab.label_set("can't connect to dbus")
+            errlab.label_set(_("can't connect to dbus"))
             errlab.size_hint_align_set(-1.0, 0.0)
             errlab.show()
             self.box1.pack_end( errlab )
@@ -406,28 +415,28 @@ class Gsm(module.AbstractModule):
                 boxOp.size_hint_align_set(-1.0, 0.0)
 
                 label = elementary.Label(self.window)
-                label.label_set("It's not running! Start it?")
+                label.label_set(_("It's not running! Start it?"))
                 label.size_hint_align_set(-1.0, 0.0)
                 label.show()
                 boxOp.pack_start( label )
 
                 startbt = elementary.Button(self.window)
                 startbt.clicked = self.start_ophonekitd_btClick
-                startbt.label_set("Yes")
+                startbt.label_set(_("Yes"))
                 startbt.size_hint_align_set(-1.0, 0.0)
                 startbt.show()
                 boxOp.pack_end(startbt)
 
                 logbt = elementary.Button(self.window)
                 logbt.clicked = self.view_ophonekitd_log
-                logbt.label_set("View log")
+                logbt.label_set(_("View log"))
                 logbt.size_hint_align_set(-1.0, 0.0)
                 logbt.show()
                 boxOp.pack_end(logbt)
 
 
                 fo = elementary.Frame(self.window)
-                fo.label_set( "ophonekitd" )
+                fo.label_set( _("ophonekitd") )
                 fo.size_hint_align_set(-1.0, 0.0)
                 fo.show()
                 fo.content_set( boxOp )

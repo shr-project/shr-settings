@@ -3,6 +3,16 @@ import dbus
 import array
 #from dbus.mainloop.glib import DBusGMainLoop
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 
 class Toggle2( elementary.Toggle ):
     def setProfile_name( self, i ):
@@ -15,7 +25,7 @@ class Toggle2( elementary.Toggle ):
 
 
 class Profile(module.AbstractModule):
-    name = "Profile"
+    name = _("Profile")
 
     def error(self, result):
         print "async dbus error"
@@ -79,7 +89,7 @@ class Profile(module.AbstractModule):
         boxh.size_hint_weight_set(1.0, -1.0)
 
         """la = elementary.Label(self.window)
-        la.label_set("Current profile:")
+        la.label_set(_("Current profile:"))
         la.show()
         boxh.pack_start(la)"""
         self.cur = elementary.Label(self.window)
@@ -96,7 +106,7 @@ class Profile(module.AbstractModule):
                 toggle0.label_set(i)
                 toggle0.setProfile_name(i)
                 toggle0.size_hint_align_set(-1.0, 0.0)
-                toggle0.states_labels_set("On","Off")
+                toggle0.states_labels_set(_("On"),_("Off"))
                 toggle0.changed = self.toggle0bt_Click
                 if i==self.stan:
                     stanTog = 1

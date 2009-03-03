@@ -1,6 +1,15 @@
 import dircache, re
 import module, elementary, os
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
 
 class ButtonServer( elementary.Button ):
     def set_osCmd( self, cmd ):
@@ -10,7 +19,7 @@ class ButtonServer( elementary.Button ):
         return self.osCmd
 
 class Services(module.AbstractModule):
-    name = "Services"
+    name = _("Services")
 
     def reloadbtClick(self, obj, event, *args, **kargs):
         self.winser.hide()
@@ -30,7 +39,7 @@ class Services(module.AbstractModule):
     def startDebugWin(self, cmd):
         print "Services startDebugWin [info]"
         self.windeb = elementary.Window("servicesDebug", elementary.ELM_WIN_BASIC)
-        self.windeb.title_set("Services start|stop debug")
+        self.windeb.title_set(_("Services start|stop debug"))
         self.windeb.autodel_set(True)
 
         self.bgdeb = elementary.Background(self.windeb)
@@ -44,7 +53,7 @@ class Services(module.AbstractModule):
         box0.show()
 
         fr = elementary.Frame(self.windeb)
-        fr.label_set("Services start|stop debug")
+        fr.label_set(_("Services start|stop debug"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -57,7 +66,7 @@ class Services(module.AbstractModule):
 
         cancelbt = elementary.Button(self.windeb)
         cancelbt.clicked = self.destroyDebug
-        cancelbt.label_set("Close")
+        cancelbt.label_set(_("Close"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
         box0.pack_end(cancelbt)
@@ -145,3 +154,4 @@ class Services(module.AbstractModule):
         
         print "services 5"
         return box0
+

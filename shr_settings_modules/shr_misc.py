@@ -1,10 +1,20 @@
 import elementary, module
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 class Misc(module.AbstractModule):
-    name = "Miscellaneous"
+    name = _("Miscellaneous")
     
     def createView(self):
         la = elementary.Label(self.window)
-        la.label_set("Suspend, dim time and etc.")
+        la.label_set(_("Suspend, dim time and etc."))
         return la
 

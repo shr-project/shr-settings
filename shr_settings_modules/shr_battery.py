@@ -2,8 +2,18 @@
 import module, os, re, sys, elementary, ecore
 import threading
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 class Battery(module.AbstractModule):
-    name = "Battery"
+    name = _("Battery")
 
     def sectotime(self, sec):
         minutes = int(str(sec/60))
@@ -34,12 +44,12 @@ class Battery(module.AbstractModule):
             else:
                 time = os.popen("cat /sys/class/power_su*ply/bat*/time_to_empty_now").readline().replace("\n","")
 
-            self.voll.label_set("Voltage: "+str(vol)[0]+"."+str(vol)[1]+str(vol)[2]+str(vol)[3]+" V")
-            self.templ.label_set("Temperature: "+str(temp)[0]+str(temp)[1]+"."+str(temp)[2]+" 'C")
-            self.curl.label_set("Current: "+str(cur)+" mA")
-            self.stal.label_set("Status: "+sta)
-            self.capl.label_set("Capacity: "+cap+" %")
-            self.timel.label_set("Remaining time: "+self.sectotime(int(time)))
+            self.voll.label_set(_("Voltage: ")+str(vol)[0]+"."+str(vol)[1]+str(vol)[2]+str(vol)[3]+" V")
+            self.templ.label_set(_("Temperature: ")+str(temp)[0]+str(temp)[1]+"."+str(temp)[2]+" 'C")
+            self.curl.label_set(_("Current: ")+str(cur)+" mA")
+            self.stal.label_set(_("Status: ")+sta)
+            self.capl.label_set(_("Capacity: ")+cap+" %")
+            self.timel.label_set(_("Remaining time: ")+self.sectotime(int(time)))
 
 
             #FIXME: if it does not work.. we should try again?

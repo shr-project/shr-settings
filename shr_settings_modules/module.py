@@ -32,11 +32,21 @@ __date__ ="$2008-12-27 21:53:00$"
 #=================
 """
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 class AbstractModule(object):
-    name = "OhMy! I have no name!"
+    name = _("OhMy! I have no name!")
     """name displayed to user"""
 
-    section = "main"
+    section = _("main")
     """a toolbar section. If it is new section it will be created"""
 
     def __init__(self, window, dbus):

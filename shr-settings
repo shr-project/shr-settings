@@ -4,6 +4,15 @@ import ecore
 import dbus, e_dbus
 import os
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
 from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_test, shr_gps, shr_sim, shr_battery, shr_currentprofile, shr_call
 
 class CategoryButton(elementary.Button):
@@ -29,7 +38,7 @@ class ModulesWindow:
 
                     frame = elementary.Frame(self.win2)
 
-                    frame.label_set(mod2.getName()+" settings")
+                    frame.label_set(_("%s settings") % mod2.getName())
                     self.box12.pack_end(frame)
                     frame.size_hint_align_set(-1.0, 0.0)
                     frame.show()
@@ -75,7 +84,7 @@ class ModulesWindow:
 
         quitbt2 = elementary.Button(self.win2)
         quitbt2.clicked = self.destroy2
-        quitbt2.label_set("Quit")
+        quitbt2.label_set(_("Quit"))
         quitbt2.size_hint_align_set(-1.0, 0.0)
         quitbt2.show()
         box02.pack_end(quitbt2)
@@ -95,10 +104,7 @@ class ModulesWindow:
         loadingframe2.size_hint_align_set(0.5, 0.5)
         loadinglabel = elementary.Label(self.win2)
         modulescount = len(modulesList[2])
-        modulesform = ""
-        if modulescount > 1:
-            modulesform = "s"
-        loadinglabel.label_set("Please wait...<br>Loading %(ile)d module%(s)s..." % {"ile":modulescount, "s":modulesform})
+        loadinglabel.label_set(_("Please wait...<br>Loading %d modules...") % modulescount)
 
         loadingframe.content_set(loadingframe2)
         loadingframe2.content_set(loadinglabel)
@@ -150,7 +156,7 @@ class MainWindow:
     def __init__(self):
         elementary.init()
         self.win = elementary.Window("settings", elementary.ELM_WIN_BASIC)
-        self.win.title_set("Settings")
+        self.win.title_set(_("Settings"))
         self.win.destroy = self.destroy
 
 
@@ -183,7 +189,7 @@ class MainWindow:
         # quit button
         quitbt = elementary.Button(mainbox)
         quitbt.clicked = self.destroy
-        quitbt.label_set("Quit")
+        quitbt.label_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         quitbt.show()
         mainbox.pack_end(quitbt)
@@ -196,16 +202,16 @@ class MainWindow:
 
         #loading modules
 
-        dirs = [    ["GSM","ico_gsm_32_32.png",                        [ shr_gsm.Gsm, shr_call.Call, shr_sim.Sim ] ],
-                    ["Bluetooth","ico_bt_32_32.png",                   [ shr_bt.Bt ] ],
-                    ["Internet","ico_internet_32_32.png",              [ shr_wifi.Wifi ] ],
-                    ["Profiles","ico_profile_32_32.png",               [ shr_profile.Profile, shr_currentprofile.CurrentProfile ] ],
-                    ["Date/time","ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
-                    ["Power","ico_powermanager_32_32.png",  [ shr_battery.Battery, shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
-                    ["USB","ico_usb_32_32.png",                        [ shr_usb.Usb ] ],
-                    ["Services","ico_initd_32_32.png",                 [ shr_services.Services ] ],
-                    ["Others", "ico_others_32_32.png",                 [ shr_gps.Gps ] ],
-                    ["Test", "",                                       [ shr_test.Test, shr_gprs.Gprs ] ]
+        dirs = [    [_("GSM"),"ico_gsm_32_32.png",                        [ shr_gsm.Gsm, shr_call.Call, shr_sim.Sim ] ],
+                    [_("Bluetooth"),"ico_bt_32_32.png",                   [ shr_bt.Bt ] ],
+                    [_("Internet"),"ico_internet_32_32.png",              [ shr_wifi.Wifi ] ],
+                    [_("Profiles"),"ico_profile_32_32.png",               [ shr_profile.Profile, shr_currentprofile.CurrentProfile ] ],
+                    [_("Date/time"),"ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
+                    [_("Power"),"ico_powermanager_32_32.png",  [ shr_battery.Battery, shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
+                    [_("USB"),"ico_usb_32_32.png",                        [ shr_usb.Usb ] ],
+                    [_("Services"),"ico_initd_32_32.png",                 [ shr_services.Services ] ],
+                    [_("Others"), "ico_others_32_32.png",                 [ shr_gps.Gps ] ],
+                    [_("Test"), "",                                       [ shr_test.Test, shr_gprs.Gprs ] ]
             ]
 
 

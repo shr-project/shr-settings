@@ -3,6 +3,15 @@ import threading
 import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
 
 class ValueLabel( elementary.Label ):
     """ Label that displays current timeout """
@@ -36,7 +45,7 @@ class AddButton( elementary.Button ):
 
 
 class Timeouts(module.AbstractModule):
-    name = "Timeouts"
+    name = _("Timeouts")
 
 
     #----------------------------------------------------------------------------#
@@ -106,7 +115,7 @@ class Timeouts(module.AbstractModule):
         if self.dbus_state == 0:
             stal = elementary.Label(self.window)
             stal.size_hint_align_set(-1.0, 0.0)
-            stal.label_set("can't connect to dbus")
+            stal.label_set(_("can't connect to dbus"))
             stal.show()
             self.box1.pack_start(stal)
         else:

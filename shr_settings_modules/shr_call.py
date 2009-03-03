@@ -1,11 +1,21 @@
 import elementary, module, os, dbus
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class Call(module.AbstractModule):
-    name = "Call"
+    name = _("Call")
 
     def error(self, result):
         print "async dbus error"
@@ -47,22 +57,22 @@ class Call(module.AbstractModule):
             self.gps = getDbusObject (self.dbus, "org.freesmartphone.ogsmd", "/org/freesmartphone/GSM/Device", "org.freesmartphone.GSM.Network") 
         except:
             label = elementary.Label(self.window)
-            label.label_set("can't connect to dbus")
+            label.label_set(_("can't connect to dbus"))
             return label
 
         box1 = elementary.Box(self.window)
 
         toggle0 = elementary.Toggle(self.window)
-        toggle0.label_set("Show my number:")
+        toggle0.label_set(_("Show my number:"))
         toggle0.size_hint_align_set(-1.0, 0.0)
-        toggle0.states_labels_set("By network","Manual")
+        toggle0.states_labels_set(_("By network"),_("Manual"))
         toggle0.changed = self.res_handle
         box1.pack_start(toggle0)
         toggle0.show()
 
         self.toggle1 = elementary.Toggle(self.window)
         self.toggle1.size_hint_align_set(-1.0, 0.0)
-        self.toggle1.states_labels_set("On","Off")
+        self.toggle1.states_labels_set(_("On"),_("Off"))
         self.toggle1.changed = self.power_handle
         box1.pack_end(self.toggle1)
 

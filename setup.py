@@ -16,12 +16,13 @@ dist = setup( name='shr-settings',
     author_email='seba.dos1@gmail.com',
     description='Modular settings application for SHR based on python-elementary',
     url='http://shr-project.org/',
-    download_url='svn://openmoko.opendevice.org/trunk/shr-settings',
+    download_url='git://git.shr-project.org/repo/shr-settings.git',
     license='GNU GPL',
     packages=['shr_settings_modules'],
     scripts=['shr-settings'],
     data_files=[('applications', ['data/shr-settings.desktop']),
-		('pixmaps' , glob("data/*.png"))
+		('pixmaps' , glob("data/*.png")),
+                ('locale/pl/LC_MESSAGES', ['po/pl.mo'])
         ]
 )
 

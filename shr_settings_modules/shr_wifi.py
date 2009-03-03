@@ -6,12 +6,22 @@ except:
     print "from pythonwifi.iwlibs import Wireless, getNICnames import error - not present"
     iwlibs_present = 0
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class Wifi(module.AbstractModule):
-    name = "WiFi"
+    name = _("WiFi")
 
     def isEnabled(self):
         if os.popen("cat /proc/cpuinfo | grep Hardware |  awk '{ print $3 }'").read()=="GTA01\n":
@@ -55,15 +65,15 @@ class Wifi(module.AbstractModule):
                 self.wifi = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/PowerControl/WiFi", "org.freesmartphone.Device.PowerControl")
         except:
             label = elementary.Label(self.window)
-            label.label_set("can't connect to dbus")
+            label.label_set(_("can't connect to dbus"))
             return label
 
         box1 = elementary.Box(self.window)
 
         toggle0 = elementary.Toggle(self.window)
-        toggle0.label_set("WiFi radio:")
+        toggle0.label_set(_("WiFi radio:"))
         toggle0.size_hint_align_set(-1.0, 0.0)
-        toggle0.states_labels_set("On","Off")
+        toggle0.states_labels_set(_("On"),_("Off"))
         toggle0.changed = self.power_handle
         box1.pack_start(toggle0)
         toggle0.state_set(self.wifi.GetPower())
@@ -81,7 +91,7 @@ class Wifi(module.AbstractModule):
 #            label1 = elementary.Label(self.window)
 #            global iwlibs_present
 #            if iwlibs_present == 1:
-#                label1.label_set("unable to scan")
+#                label1.label_set(_("unable to scan"))
 #                box1.pack_end(label1)
 #                label1.show()
 

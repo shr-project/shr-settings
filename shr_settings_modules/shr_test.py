@@ -1,5 +1,15 @@
 import elementary, module
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 class Test(module.AbstractModule):
     def totest(self, obj, event, *argns, **kargs):
         print event
@@ -14,13 +24,13 @@ class Test(module.AbstractModule):
 
 	box = elementary.Box(self.window)
 	label = elementary.Label(self.window)
-	label.label_set("test")
+	label.label_set(_("test"))
 	box.pack_end(label)
 	label.show()
 
         bt = elementary.Button(self.window)
         bt.clicked = self.totest
-        bt.label_set("Just for fun")
+        bt.label_set(_("Just for fun"))
         bt.size_hint_align_set(-1.0, 0.0)
         bt.show()
 

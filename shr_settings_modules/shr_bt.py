@@ -4,6 +4,16 @@ import elementary, ecore
 import os
 import dbus
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
@@ -75,8 +85,8 @@ class BtMstateContener:
 
 
 class Bt(module.AbstractModule):
-    name = "Bluetooth"
-    section = "Connectivity"
+    name = _("Bluetooth")
+    section = _("Connectivity")
 
     def BtmodGUIupdate(self):
         s = self.btmc.getPower()
@@ -177,7 +187,7 @@ class Bt(module.AbstractModule):
             self.buspower = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/PowerControl/Bluetooth", "org.freesmartphone.Device.PowerControl" )
         except:
             label =elementary.Label(self.window)
-            label.label_set("can't connect to dbus")
+            label.label_set(_("can't connect to dbus"))
             label.size_hint_align_set(-1.0, 0.0)
             label.show()
             box1.pack_start(label)
@@ -189,17 +199,17 @@ class Bt(module.AbstractModule):
 
 
         self.toggle0 = elementary.Toggle(self.window)
-        self.toggle0.label_set("Bluetooth radio:")
+        self.toggle0.label_set(_("Bluetooth radio:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
-        self.toggle0.states_labels_set("On","Off")
+        self.toggle0.states_labels_set(_("On"),_("Off"))
         box1.pack_start(self.toggle0)
         self.toggle0.show()
         self.toggle0.changed = self.toggle0Click
 
         self.toggle1 = elementary.Toggle(self.window)
-        self.toggle1.label_set("Visibility")
+        self.toggle1.label_set(_("Visibility"))
         self.toggle1.size_hint_align_set(-1.0, 0.0)
-        self.toggle1.states_labels_set("On","Off")
+        self.toggle1.states_labels_set(_("On"),_("Off"))
         self.toggle1.state_set(vi)
         box1.pack_end(self.toggle1)
         self.toggle1.changed = self.toggle1Click
@@ -207,17 +217,17 @@ class Bt(module.AbstractModule):
 
             
         self.toggle2 = elementary.Toggle(self.window)
-        self.toggle2.label_set("Services (spi, hci):")
+        self.toggle2.label_set(_("Services (spi, hci):"))
         self.toggle2.size_hint_align_set(-1.0, 0.0)
-        self.toggle2.states_labels_set("On","Off")
+        self.toggle2.states_labels_set(_("On"),_("Off"))
         box1.pack_end(self.toggle2)
         self.toggle2.changed = self.toggle2Click
 
 
         self.toggle3 = elementary.Toggle(self.window)
-        self.toggle3.label_set("Services (ObexFTPd):")
+        self.toggle3.label_set(_("Services (ObexFTPd):"))
         self.toggle3.size_hint_align_set(-1.0, 0.0)
-        self.toggle3.states_labels_set("On","Off")
+        self.toggle3.states_labels_set(_("On"),_("Off"))
         if os.popen("obexftpd --help | grep [O]bexFTPd").read().replace("\n","")!="":
             self.toggle3.show()
             box1.pack_end(self.toggle3)

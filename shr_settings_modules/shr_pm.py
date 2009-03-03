@@ -2,13 +2,23 @@ import elementary
 import module
 import dbus
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
 
 class Pm(module.AbstractModule):
-    name = "Power"
+    name = _("Power")
 
     def request(self, name, state):
         if state:
@@ -33,14 +43,14 @@ class Pm(module.AbstractModule):
     def createView(self):
     	self.main = elementary.Box(self.window)
         cpu = elementary.Toggle(self.window)
-        cpu.label_set("Auto-suspend:")
+        cpu.label_set(_("Auto-suspend:"))
         cpu.changed = self.cpurequest
         self.main.pack_start(cpu)
         cpu.size_hint_align_set(-1.0, 0.0)
         cpu.state_set(not(self.ophonekitd.GetResourceState('CPU')))
         cpu.show()
         display = elementary.Toggle(self.window)
-        display.label_set("Auto-dimming:")
+        display.label_set(_("Auto-dimming:"))
         display.changed = self.displayrequest
         self.main.pack_start(display)
         display.size_hint_align_set(-1.0, 0.0)

@@ -4,6 +4,16 @@ import module
 import dbus
 import os
 
+# Locale support
+import gettext
+
+try:
+    cat = gettext.Catalog("shr-settings")
+    _ = cat.gettext
+except IOError:
+    _ = lambda x: x
+
+
 def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
@@ -17,7 +27,7 @@ class FileButton(elementary.Button):
         return self.filename
 
 class CurrentProfile(module.AbstractModule):
-    name = "Current profile"    
+    name = _("Current profile")    
 
     def setringtone(self, obj, event):
         self.dbusobj.SetValue('ring-tone',obj.get_filename())
@@ -31,14 +41,14 @@ class CurrentProfile(module.AbstractModule):
         self.win = elementary.Window("change-ringtone",elementary.ELM_WIN_BASIC)
         bg = elementary.Background(self.win)
         self.win.resize_object_add(bg)
-        self.win.title_set("Change ringtone")
+        self.win.title_set(_("Change ringtone"))
         bg.show()
         self.win.autodel_set(1)
         box = elementary.Box(self.win)
         fr = elementary.Frame(self.win)
-        fr.label_set("Select ringtone")
+        fr.label_set(_("Select ringtone"))
         lab = elementary.Label(self.win)
-        lab.label_set("Ringtones are placed in /usr/share/sounds/")
+        lab.label_set(_("Ringtones are placed in /usr/share/sounds/"))
         fr.content_set(lab)
         lab.show()
         fr.show()
@@ -49,7 +59,7 @@ class CurrentProfile(module.AbstractModule):
         scr.size_hint_align_set(-1.0, -1.0)
         box.pack_end(scr)
         exitbtn = elementary.Button(self.win)
-        exitbtn.label_set("Quit")
+        exitbtn.label_set(_("Quit"))
         exitbtn.size_hint_weight_set(1.0, 0.0)
         exitbtn.size_hint_align_set(-1.0, -1.0)
         exitbtn.clicked = self.destroy
@@ -94,7 +104,7 @@ class CurrentProfile(module.AbstractModule):
                     table.size_hint_weight_set(1.0, 1.0)
                     label.size_hint_align_set(-1.0, 0.0)
                     tonebtn = elementary.Button(self.window)
-                    tonebtn.label_set("change")
+                    tonebtn.label_set(_("change"))
                     tonebtn.clicked = self.tonegui
                     tonebtn.size_hint_align_set(-1.0, 0.0)
                     tonebtn.show()
