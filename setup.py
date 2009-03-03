@@ -11,7 +11,7 @@ import commands
 
 
 dist = setup( name='shr-settings',
-    version='0.0.1',
+    version='0.1.0',
     author='dos',
     author_email='seba.dos1@gmail.com',
     description='Modular settings application for SHR based on python-elementary',
