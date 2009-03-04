@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-04 19:43+0100\n"
+"POT-Creation-Date: 2009-03-04 20:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,62 +20,55 @@ msgstr ""
 msgid "%s settings"
 msgstr ""
 
-#: ../shr-settings:87 ../shr-settings:192
+#: ../shr-settings:87 ../shr-settings:197
 #: ../shr_settings_modules/shr_currentprofile.py:62
 msgid "Quit"
 msgstr ""
 
-#: ../shr-settings:107
+#: ../shr-settings:112
 #, python-format
 msgid "Please wait...<br>Loading %d modules..."
 msgstr ""
 
-#: ../shr-settings:159
+#: ../shr-settings:164
 msgid "Settings"
 msgstr ""
 
-#: ../shr-settings:205 ../shr_settings_modules/shr_gsm.py:97
-msgid "GSM"
+#: ../shr-settings:215
+msgid "Phone"
 msgstr ""
 
-#: ../shr-settings:206 ../shr_settings_modules/shr_bt.py:88
-msgid "Bluetooth"
+#: ../shr-settings:216 ../shr_settings_modules/shr_bt.py:89
+#: ../shr_settings_modules/shr_sim.py:183
+msgid "Connectivity"
 msgstr ""
 
-#: ../shr-settings:207
-msgid "Internet"
+#: ../shr-settings:217 ../shr_settings_modules/shr_gps.py:18
+msgid "GPS"
 msgstr ""
 
-#: ../shr-settings:208
+#: ../shr-settings:218
 msgid "Profiles"
 msgstr ""
 
-#: ../shr-settings:209
+#: ../shr-settings:219
 msgid "Date/time"
 msgstr ""
 
-#: ../shr-settings:210 ../shr_settings_modules/shr_pm.py:21
+#: ../shr-settings:220 ../shr_settings_modules/shr_pm.py:21
 msgid "Power"
 msgstr ""
 
-#: ../shr-settings:211 ../shr_settings_modules/shr_usb.py:18
-msgid "USB"
-msgstr ""
-
-#: ../shr-settings:212 ../shr_settings_modules/shr_services.py:22
+#: ../shr-settings:221 ../shr_settings_modules/shr_services.py:22
 msgid "Services"
 msgstr ""
 
-#: ../shr-settings:213
+#: ../shr-settings:222
 msgid "Others"
 msgstr ""
 
-#: ../shr-settings:214
-msgid "Test"
-msgstr ""
-
-#: ../shr_settings_modules/shr_bt.py:89 ../shr_settings_modules/shr_sim.py:183
-msgid "Connectivity"
+#: ../shr_settings_modules/shr_bt.py:88
+msgid "Bluetooth"
 msgstr ""
 
 #: ../shr_settings_modules/shr_bt.py:190 ../shr_settings_modules/shr_gps.py:62
@@ -118,10 +111,6 @@ msgstr ""
 
 #: ../shr_settings_modules/shr_bt.py:228
 msgid "Services (ObexFTPd):"
-msgstr ""
-
-#: ../shr_settings_modules/shr_gps.py:18
-msgid "GPS"
 msgstr ""
 
 #: ../shr_settings_modules/shr_gps.py:68
@@ -238,6 +227,10 @@ msgstr ""
 msgid "By network"
 msgstr ""
 
+#: ../shr_settings_modules/shr_gsm.py:97
+msgid "GSM"
+msgstr ""
+
 #: ../shr_settings_modules/shr_gsm.py:113
 #: ../shr_settings_modules/shr_gsm.py:126
 msgid "ophonekitd log"
@@ -316,6 +309,10 @@ msgstr ""
 
 #: ../shr_settings_modules/shr_test.py:33
 msgid "Just for fun"
+msgstr ""
+
+#: ../shr_settings_modules/shr_usb.py:18
+msgid "USB"
 msgstr ""
 
 #: ../shr_settings_modules/shr_usb.py:26 ../shr_settings_modules/shr_usb.py:59

@@ -86,6 +86,11 @@ class ModulesWindow:
         quitbt2.clicked = self.destroy2
         quitbt2.label_set(_("Quit"))
         quitbt2.size_hint_align_set(-1.0, 0.0)
+        ic = elementary.Icon(quitbt2)
+        ic.file_set( "/usr/share/pixmaps/icon_quit.png" )
+        ic.scale_set(0,0)
+        ic.smooth_set(1)
+        quitbt2.icon_set(ic)
         quitbt2.show()
         box02.pack_end(quitbt2)
 
@@ -191,6 +196,11 @@ class MainWindow:
         quitbt.clicked = self.destroy
         quitbt.label_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
+        ic = elementary.Icon(quitbt)
+        ic.file_set( "/usr/share/pixmaps/icon_quit.png" )
+        ic.smooth_set(1)
+        ic.scale_set(0, 0)
+        quitbt.icon_set(ic)
         quitbt.show()
         mainbox.pack_end(quitbt)
 
@@ -202,16 +212,14 @@ class MainWindow:
 
         #loading modules
 
-        dirs = [    [_("GSM"),"ico_gsm_32_32.png",                        [ shr_gsm.Gsm, shr_call.Call, shr_sim.Sim ] ],
-                    [_("Bluetooth"),"ico_bt_32_32.png",                   [ shr_bt.Bt ] ],
-                    [_("Internet"),"ico_internet_32_32.png",              [ shr_wifi.Wifi ] ],
-                    [_("Profiles"),"ico_profile_32_32.png",               [ shr_profile.Profile, shr_currentprofile.CurrentProfile ] ],
-                    [_("Date/time"),"ico_timeset_32_32.png",                  [ shr_clock.Clock ] ],
-                    [_("Power"),"ico_powermanager_32_32.png",  [ shr_battery.Battery, shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
-                    [_("USB"),"ico_usb_32_32.png",                        [ shr_usb.Usb ] ],
-                    [_("Services"),"ico_initd_32_32.png",                 [ shr_services.Services ] ],
-                    [_("Others"), "ico_others_32_32.png",                 [ shr_gps.Gps ] ],
-                    [_("Test"), "",                                       [ shr_test.Test, shr_gprs.Gprs ] ]
+        dirs = [    [_("Phone"),"icon_phone.png",                        [ shr_gsm.Gsm, shr_call.Call, shr_sim.Sim ] ],
+                    [_("Connectivity"),"icon_connectivity.png",              [ shr_wifi.Wifi, shr_usb.Usb, shr_bt.Bt ] ],
+                    [_("GPS"), "icon_gps.png",                 [ shr_gps.Gps ] ],
+                    [_("Profiles"),"icon_profiles.png",               [ shr_profile.Profile, shr_currentprofile.CurrentProfile ] ],
+                    [_("Date/time"),"icon_datetime.png",                  [ shr_clock.Clock ] ],
+                    [_("Power"),"icon_power.png",  [ shr_battery.Battery, shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
+                    [_("Services"),"icon_services.png",                 [ shr_services.Services ] ],
+                    [_("Others"), "icon_others.png",                                       [ shr_test.Test, shr_gprs.Gprs ] ]
             ]
 
 
