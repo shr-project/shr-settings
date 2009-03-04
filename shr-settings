@@ -213,9 +213,9 @@ class MainWindow:
         #loading modules
 
         dirs = [    [_("Phone"),"icon_phone.png",                        [ shr_gsm.Gsm, shr_call.Call, shr_sim.Sim ] ],
+                    [_("Profiles"),"icon_profiles.png",               [ shr_profile.Profile, shr_currentprofile.CurrentProfile ] ],
                     [_("Connectivity"),"icon_connectivity.png",              [ shr_wifi.Wifi, shr_usb.Usb, shr_bt.Bt ] ],
                     [_("GPS"), "icon_gps.png",                 [ shr_gps.Gps ] ],
-                    [_("Profiles"),"icon_profiles.png",               [ shr_profile.Profile, shr_currentprofile.CurrentProfile ] ],
                     [_("Date/time"),"icon_datetime.png",                  [ shr_clock.Clock ] ],
                     [_("Power"),"icon_power.png",  [ shr_battery.Battery, shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
                     [_("Services"),"icon_services.png",                 [ shr_services.Services ] ],
