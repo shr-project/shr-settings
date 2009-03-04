@@ -168,7 +168,7 @@ class PhbookInfoFrame(elementary.Frame):
         cleanbt = Button2(boxS)
         cleanbt.set_name( self.booktype )
         cleanbt.clicked = self.simclass.cleanPhoneBookClick
-        cleanbt.label_set("clean")
+        cleanbt.label_set(_("clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
         boxS.pack_end(cleanbt)

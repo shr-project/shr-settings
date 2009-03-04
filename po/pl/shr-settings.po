@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SHR Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-03-03 21:16+0100\n"
-"PO-Revision-Date: 2009-03-03 21:16+0100\n"
+"POT-Creation-Date: 2009-03-04 19:43+0100\n"
+"PO-Revision-Date: 2009-03-04 19:44+0100\n"
 "Last-Translator: Sebastian Krzyszkowiak <seba.dos1@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -390,6 +390,11 @@ msgstr "Profile"
 msgid "Book "
 msgstr "Książka "
 
+#: ../shr_settings_modules/shr_sim.py:171
+#: ../shr_settings_modules/shr_sim.py:277
+msgid "clean"
+msgstr "wyczyść"
+
 #: ../shr_settings_modules/shr_sim.py:182
 msgid "SIM"
 msgstr "SIM"
@@ -397,10 +402,6 @@ msgstr "SIM"
 #: ../shr_settings_modules/shr_sim.py:235
 msgid "Message book"
 msgstr "Wiadomości"
-
-#: ../shr_settings_modules/shr_sim.py:277
-msgid "clean"
-msgstr "wyczyść"
 
 #: ../shr_settings_modules/shr_sim.py:304
 msgid "Cannot connect to dbus"
