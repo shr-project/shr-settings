@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: SHR Settings\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-04 19:43+0100\n"
-"PO-Revision-Date: 2009-03-04 19:44+0100\n"
+"PO-Revision-Date: 2009-03-04 19:46+0100\n"
 "Last-Translator: Sebastian Krzyszkowiak <seba.dos1@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "nie można połączyć się z dbusem"
 
 #: ../shr_settings_modules/shr_bt.py:202
 msgid "Bluetooth radio:"
-msgstr "Bluetooth:"
+msgstr "Antena Bluetooth:"
 
 #: ../shr_settings_modules/shr_bt.py:204
 #: ../shr_settings_modules/shr_bt.py:212
@@ -164,7 +164,7 @@ msgstr "WiFi"
 
 #: ../shr_settings_modules/shr_wifi.py:74
 msgid "WiFi radio:"
-msgstr "WiFi:"
+msgstr "Antena WiFi:"
 
 #: ../shr_settings_modules/shr_pm.py:46
 msgid "Auto-suspend:"
