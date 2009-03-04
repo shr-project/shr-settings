@@ -22,7 +22,7 @@ dist = setup( name='shr-settings',
     scripts=['shr-settings'],
     data_files=[('applications', ['data/shr-settings.desktop']),
 		('pixmaps' , glob("data/*.png")),
-                ('locale/pl/LC_MESSAGES', glob("po/pl/*"))
+                ('locale/pl/LC_MESSAGES', ['data/po/pl/shr-settings.mo'])
         ]
 )
 
