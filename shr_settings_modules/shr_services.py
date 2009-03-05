@@ -1,4 +1,4 @@
-import dircache, re
+import dircache
 import module, elementary, os
 
 # Locale support
@@ -34,6 +34,9 @@ class Services(module.AbstractModule):
         self.windeb.hide()
 
     def startbtClick(self, obj, event, *args, **kargs):
+        """ Callback when start/stop/reload has been pressed """
+        # delete the hover with Start/stop buttons
+        self.ser_hover.delete()
         self.startDebugWin( obj.get_osCmd() )
 
     def startDebugWin(self, cmd):
@@ -101,9 +104,47 @@ class Services(module.AbstractModule):
                 return 1
         return 0
 
-   
+
+    def clicked_serviceBox(self, win, event):
+        service = win.name_get()
+
+        self.ser_hover = elementary.Hover(self.window)
+        self.ser_hover.size_hint_align_set(0.0, 0.0)
+        self.ser_hover.style_set("hoversel_vertical")
+        self.ser_hover.show()
+
+        ser_box = elementary.Box(self.ser_hover)       
+        ser_box.show()
+        self.ser_hover.content_set("swallow?!", ser_box)
+
+        startbt = ButtonServer(self.window)
+        startbt.set_osCmd("/etc/init.d/" + service + " start")
+        startbt.clicked = self.startbtClick
+        startbt.label_set("start")
+        startbt.size_hint_align_set(-1.0, 0.0)
+        startbt.show()
+        ser_box.pack_start(startbt)
+
+        restartbt = ButtonServer(self.window)
+        restartbt.set_osCmd("/etc/init.d/"+ service +" restart")
+        restartbt.clicked = self.startbtClick
+        restartbt.label_set("restart")
+        #restartbt.size_hint_align_set(-1.0, 0.0)
+        restartbt.show()
+        ser_box.pack_end(restartbt)
+
+        stopbt = ButtonServer(self.window)
+        stopbt.set_osCmd("/etc/init.d/"+ service +" stop")
+        stopbt.clicked = self.startbtClick
+        stopbt.label_set("stop")
+        #stopbt.size_hint_align_set(-1.0, 0.0)
+        stopbt.show()
+        ser_box.pack_end(stopbt)
+
+
 
     def createView(self):
+        """ main entry to the module that creates and returns the view """
         self.editable = False
 
         print "services 1"
@@ -114,42 +155,23 @@ class Services(module.AbstractModule):
         servicesList.sort()
         for i in servicesList:
             print "add:"+i
-            boxSSS = elementary.Box(self.window)
-            boxSSS.horizontal_set(True)
-            #boxSSS.size_hint_align_set(-1.0, 0.0)
+            boxSSS = elementary.Button(self.window)
+            boxSSS.label_set(i)
+            boxSSS.name = i
+            #boxSSS.horizontal_set(True)
+            boxSSS.size_hint_align_set(-1.0, -1.0)
+            boxSSS.size_hint_weight_set(1.0, 1.0)
+            boxSSS.clicked = self.clicked_serviceBox
             boxSSS.show()
+            box0.pack_end(boxSSS)
+             
+            #fo = elementary.Frame(self.window)
+            #fo.label_set( i )
+            #fo.size_hint_align_set(-1.0, 0.0)
+            #fo.show()
+            #fo.content_set( boxSSS )
 
-            startbt = ButtonServer(self.window)
-            startbt.set_osCmd("/etc/init.d/"+i+" start")
-            startbt.clicked = self.startbtClick
-            startbt.label_set("start")
-            #startbt.size_hint_align_set(-1.0, 0.0)
-            startbt.show()
-            boxSSS.pack_start(startbt)
-
-            restartbt = ButtonServer(self.window)
-            restartbt.set_osCmd("/etc/init.d/"+i+" restart")
-            restartbt.clicked = self.startbtClick
-            restartbt.label_set("restart")
-            #restartbt.size_hint_align_set(-1.0, 0.0)
-            restartbt.show()
-            boxSSS.pack_end(restartbt)
-
-            stopbt = ButtonServer(self.window)
-            stopbt.set_osCmd("/etc/init.d/"+i+" stop")
-            stopbt.clicked = self.startbtClick
-            stopbt.label_set("stop")
-            #stopbt.size_hint_align_set(-1.0, 0.0)
-            stopbt.show()
-            boxSSS.pack_end(stopbt)
-
-            fo = elementary.Frame(self.window)
-            fo.label_set( i )
-            fo.size_hint_align_set(-1.0, 0.0)
-            fo.show()
-            fo.content_set( boxSSS )
-
-            box0.pack_end(fo)
+            #box0.pack_end(fo)
 
         
         print "services 5"
