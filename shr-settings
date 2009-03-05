@@ -13,7 +13,6 @@ try:
 except IOError:
     _ = lambda x: x
 
-from shr_settings_modules import shr_gsm, shr_device_timeouts,shr_pm, shr_bt, shr_wifi, shr_gprs, shr_usb, shr_clock, shr_profile, shr_services, shr_test, shr_gps, shr_sim, shr_battery, shr_currentprofile, shr_call
 
 class CategoryButton(elementary.Button):
     def set_modules(self, modules):
@@ -26,11 +25,19 @@ class CategoryButton(elementary.Button):
 class ModulesWindow:
     def renderModules(self, modulesList, bus):
         print "idler"
-        for mod in modulesList[2]:
+        for modname in modulesList[2]:
 
-            print "loading %s" % mod
+            print "loading module %s" % modname
             try:
-                mod2 = mod(self.win2, bus)
+                # modname: 'shr_gsm.GSM'. Import "shr_settings_modules.shr_gsm"
+                # dynamically and instantiate class "GSM"
+                # TODO don't split stuff into module.class here, 
+                # TODO rather use one standard class name for all modules?
+                (submodname, classname) = modname.split('.',1)
+                module   = __import__('shr_settings_modules.' + submodname, 
+                                      globals(), locals(), classname)
+                ModClass = module.__getattribute__(classname)
+                mod2 = ModClass(self.win2, bus)
                 self.modList.append(mod2)
 
                 if mod2.isEnabled():
@@ -49,7 +56,7 @@ class ModulesWindow:
                     else:
                         print " error! module %s method createView() return's nothing!" % mod2
             except:
-                print "module %s can't be loaded!" % mod
+                print "module %s can't be loaded!" % modname
         self.loading.hide()
         return None
 
@@ -212,14 +219,14 @@ class MainWindow:
 
         #loading modules
 
-        dirs = [    [_("Phone"),"icon_phone.png",                        [ shr_gsm.Gsm, shr_call.Call, shr_sim.Sim ] ],
-                    [_("Profiles"),"icon_profiles.png",               [ shr_profile.Profile, shr_currentprofile.CurrentProfile ] ],
-                    [_("Connectivity"),"icon_connectivity.png",              [ shr_wifi.Wifi, shr_usb.Usb, shr_bt.Bt ] ],
-                    [_("GPS"), "icon_gps.png",                 [ shr_gps.Gps ] ],
-                    [_("Date/time"),"icon_datetime.png",                  [ shr_clock.Clock ] ],
-                    [_("Power"),"icon_power.png",  [ shr_battery.Battery, shr_pm.Pm , shr_device_timeouts.Timeouts ] ],
-                    [_("Services"),"icon_services.png",                 [ shr_services.Services ] ],
-                    [_("Others"), "icon_others.png",                                       [ shr_test.Test, shr_gprs.Gprs ] ]
+        dirs = [    [_("Phone"),"icon_phone.png",                     [ 'shr_gsm.Gsm', 'shr_call.Call', 'shr_sim.Sim' ] ],
+                    [_("Profiles"),"icon_profiles.png",               [ 'shr_profile.Profile', 'shr_currentprofile.CurrentProfile' ] ],
+                    [_("Connectivity"),"icon_connectivity.png",              [ 'shr_wifi.Wifi', 'shr_usb.Usb', 'shr_bt.Bt' ] ],
+                    [_("GPS"), "icon_gps.png",                 [ 'shr_gps.Gps' ] ],
+                    [_("Date/time"),"icon_datetime.png",                  [ 'shr_clock.Clock' ] ],
+                    [_("Power"),"icon_power.png",  [ 'shr_battery.Battery', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
+                    [_("Services"),"icon_services.png",                 [ 'shr_services.Services' ] ],
+                    [_("Others"), "icon_others.png",                                       [ 'shr_test.Test', 'shr_gprs.Gprs' ] ]
             ]
 
 
