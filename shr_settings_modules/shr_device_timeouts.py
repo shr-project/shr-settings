@@ -74,7 +74,7 @@ class Timeouts(module.AbstractModule):
 
 
     #----------------------------------------------------------------------------#   
-    def addbtClick(self, obj, event):
+    def addbtClick(self, obj, event, *args, **kargs):
     #----------------------------------------------------------------------------#
         """ Callback function when +-[1,10] timeout buttons have been pressed """
         label   = obj.get_labelObj()

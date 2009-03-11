@@ -157,7 +157,7 @@ class MainWindow:
         print "DEBUG: window destroy callback called! kabum!"
         elementary.exit()
 
-    def displayModulesWin(self, obj,event):
+    def displayModulesWin(self, obj, event, *args, **kargs):
         #odulesWindow:
         #def makeGui(self, dbus_system, modules):
         print "displayModulesWin 1"

@@ -17,7 +17,7 @@ def getDbusObject (bus, busname , objectpath , interface):
 class Usb(module.AbstractModule):
     name = _("USB")
 
-    def mode_handle(self, obj, event):
+    def mode_handle(self, obj, event, *args, **kargs):
 	if self.usbhost.GetPower()!=obj.state_get():
 		return 0
         usbpower=obj.state_get()

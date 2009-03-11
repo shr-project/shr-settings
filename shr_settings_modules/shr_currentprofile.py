@@ -29,15 +29,15 @@ class FileButton(elementary.Button):
 class CurrentProfile(module.AbstractModule):
     name = _("Current profile")    
 
-    def setringtone(self, obj, event):
+    def setringtone(self, obj, event, *args, **kargs):
         self.dbusobj.SetValue('ring-tone',obj.get_filename())
         self.destroy(obj, event)
         self.update()
 
-    def destroy(self, obj, event):
+    def destroy(self, obj, event, *args, **kargs):
         self.win.hide()
 
-    def tonegui(self, obj, event):
+    def tonegui(self, obj, event, *args, **kargs):
         self.win = elementary.Window("change-ringtone",elementary.ELM_WIN_BASIC)
         bg = elementary.Background(self.win)
         self.win.resize_object_add(bg)

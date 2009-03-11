@@ -55,7 +55,7 @@ class Wifi(module.AbstractModule):
                 found_aps[results.essid] = {'essid':results.essid, 'enc':enc_type, 'connected': (essid == results.essid)}
         return found_aps
 
-    def power_handle(self, obj, event):
+    def power_handle(self, obj, event, *args, **kargs):
 	if self.wifi.GetPower()==obj.state_get():
 		return 0
 	self.wifi.SetPower(obj.state_get())

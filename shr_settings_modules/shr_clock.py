@@ -28,7 +28,7 @@ class Clock(module.AbstractModule):
     name = _("Time")
     section = _("Other")
 
-    def clockset(self, obj, event):
+    def clockset(self, obj, event, *args, **kargs):
 	    if self.editable:
                 now = datetime.datetime.now()
                 #TODO - set time by fso dbus request

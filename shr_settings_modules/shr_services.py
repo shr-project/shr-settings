@@ -94,7 +94,7 @@ class Services(module.AbstractModule):
             lb.show()
 
 
-    def sssbtClick(self, obj, event):
+    def sssbtClick(self, obj, event, *args, **kargs):
         print "Services sssbtClick [info]"
         self.makeWindowOrList()
 
@@ -105,7 +105,7 @@ class Services(module.AbstractModule):
         return 0
 
 
-    def clicked_serviceBox(self, win, event):
+    def clicked_serviceBox(self, win, event, *args, **kargs):
         service = win.name_get()
 
         self.ser_hover = elementary.Hover(self.window)

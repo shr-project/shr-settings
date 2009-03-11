@@ -32,7 +32,7 @@ class Call(module.AbstractModule):
     def isEnabled(self):
         return True
     
-    def power_handle(self, obj, event):
+    def power_handle(self, obj, event, *args, **kargs):
        #if self.onoff(self.gps.GetCallingIdentification())==obj.state_get():
        #     return 0
        if obj.state_get(): 
@@ -43,7 +43,7 @@ class Call(module.AbstractModule):
            obj.state_set(0)
 
 
-    def res_handle(self, obj, event):
+    def res_handle(self, obj, event, *args, **kargs):
         if obj.state_get():
             self.gps.SetCallingIdentification("network",reply_handler=self.callback,error_handler=self.error)
             self.toggle1.hide()

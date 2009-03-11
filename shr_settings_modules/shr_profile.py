@@ -52,7 +52,7 @@ class Profile(module.AbstractModule):
         #TODO - change to dbus event listener
 
 
-    def toggle0bt_Click(self, obj, event):
+    def toggle0bt_Click(self, obj, event, *args, **kargs):
         print "1"
         profile = obj.getProfile_name()
         print "2"

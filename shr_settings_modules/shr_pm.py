@@ -26,10 +26,10 @@ class Pm(module.AbstractModule):
         else:
             self.ophonekitd.ReleaseResource(name)
 
-    def cpurequest(self, obj, event):
+    def cpurequest(self, obj, event, *args, **kargs):
         self.request('CPU',not(obj.state_get()))
 
-    def displayrequest(self, obj, event):
+    def displayrequest(self, obj, event, *args, **kargs):
         self.request('Display',not(obj.state_get()))
     
     def isEnabled(self):

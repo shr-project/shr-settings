@@ -23,14 +23,14 @@ class Gps(module.AbstractModule):
     def callback(self):
         print "async dbus callback"
 
-    def rempickle(self, obj, event):
+    def rempickle(self, obj, event, *args, **kargs):
         os.system("rm /etc/freesmartphone/persist/ogpsd.pickle")
         obj.hide()
 
     def isEnabled(self):
         return True
     
-    def power_handle(self, obj, event):
+    def power_handle(self, obj, event, *args, **kargs):
        if self.gps.GetResourceState("GPS")==obj.state_get():
             return 0
        if obj.state_get(): 
@@ -41,7 +41,7 @@ class Gps(module.AbstractModule):
            obj.state_set(0)
 
 
-    def res_handle(self, obj, event):
+    def res_handle(self, obj, event, *args, **kargs):
         if obj.state_get():
             self.gps.SetResourcePolicy("GPS","auto",reply_handler=self.callback,error_handler=self.error)
             self.toggle1.hide()

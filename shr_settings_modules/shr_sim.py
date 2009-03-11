@@ -183,10 +183,10 @@ class Sim(module.AbstractModule):
     section = _("Connectivity")
     # no of displayed books, so we can put the next in the right table cell
 
-    def cleanMessageBookClick(self, obj, event):
+    def cleanMessageBookClick(self, obj, event, *args, **kargs):
         self.simmc.MessageBookClean()
 
-    def cleanPhoneBookClick(self, obj, event):
+    def cleanPhoneBookClick(self, obj, event, *args, **kargs):
         name = obj.get_name()
         print "clean phone book: ["+str(name)+"]"
         self.simmc.PhoneBookClean( name )

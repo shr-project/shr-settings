@@ -11,7 +11,7 @@ except IOError:
 
 
 class Test(module.AbstractModule):
-    def totest(self, obj, event, *argns, **kargs):
+    def totest(self, obj, event, *args, **kargs):
         print event
         print "it works!"
         obj.label_set("lol")
