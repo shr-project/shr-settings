@@ -2,7 +2,7 @@
 import elementary
 import ecore
 import dbus, e_dbus
-import os
+import os.path
 
 # Locale support
 import gettext
@@ -240,14 +240,13 @@ class MainWindow:
             bt.label_set( d[0] )
             bt.show()
 
-            icon_paths = [ "data/icons/"+str(d[1]), "/usr/share/pixmaps/"+str(d[1])]
+            icon_paths = [ "/usr/share/pixmaps/"+str(d[1]), "data/icons/"+str(d[1])]
             for i_path in icon_paths:
                 if os.path.exists(i_path):
                     ic = elementary.Icon(bt)
                     ic.file_set( i_path )
                     ic.scale_set(1, 1)
                     bt.icon_set(ic)
-                    ic.show()
                     break
 
             (row, col) = divmod(i,2)
