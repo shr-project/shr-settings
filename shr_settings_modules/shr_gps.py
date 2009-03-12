@@ -1,6 +1,5 @@
 import elementary, module, os, dbus
-
-# Locale support
+from datetime import datetime
 import gettext
 
 try:
@@ -14,7 +13,134 @@ def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
+
+#-------------------------------------------------------------------
+class GpsInfoBox(elementary.Table):
+    """ Displays a box with GPS and updates it. Extents elementary.Table """
+
+    items =  [{'cap':'Time', 'iface':'org.freedesktop.Gypsy.Time', 'method':'GetTime', 'signal':'TimeChanged'},
+              {'cap':'Fix', 'iface':'org.freedesktop.Device', 'method':'GetFixStatus', 'signal':'FixStatusChanged'},
+              {'cap':'Lat', 'iface':'org.freedesktop.Gypsy.Position', 'signal': 'PositionChanged', 'method':'GetPosition'},
+              {'cap':'Lon', 'signal': 'LonChanged'},     # set with Lat
+              {'cap':'Alt', 'signal': 'AltChanged'},     # set with Lat
+              {'cap':'Accuracy', 'iface':'org.freedesktop.Gypsy.Accuracy', 'signal': 'AccuracyChanged', 'method':'GetAccuracy'},
+              {'cap':'Satellites', 'iface':'org.freedesktop.Gypsy.Satellites', 'signal': 'SatellitesChanged', 'method':'GetSatellites'},
+              {'cap':'Heading', 'iface':'org.freedesktop.Gypsy.Course', 'signal': 'CourseChanged', 'method':'GetCourse'},
+              {'cap':'Speed', 'signal': 'SpeedChanged'}, # set with Heading
+              {'cap':'Descend', 'signal': 'ClimbChanged'}, # set with Heading
+             ]
+
+    #TODO start/stop updating with updateGUI var
+    #TODO on init fill in values once (at least 'fix') and not only when changed
+    #use org.freedesktop.Gypsy.Device.GetConnectionStatus == True
+
+    def on_gypsy_signal(self, *args, **kwargs):
+        signal = kwargs['signal']
+
+        # Timestamp has changed
+        if signal == 'TimeChanged':
+            self.values['tstamp'] = args[0]
+            t = datetime.utcfromtimestamp(self.values['tstamp']).strftime('%H:%M:%S')
+            self.value_labels[signal].label_set(t)
+
+        # Course has changed
+        elif signal == 'CourseChanged':
+            #args: validity bitfield, tstamp, speed, in knots, heading, -climb
+            for (i, val) in enumerate([
+                                       'SpeedChanged','CourseChanged',
+                                       'ClimbChanged'
+                                      ]):
+                # if the bitfield indicates a valid value
+                if args[0] & (1 << i):
+                    # then update
+                    self.values[val] = args[i+2]
+                    self.value_labels[val].label_set(str(round(args[i+2],2)))
+
+        # Position has changed
+        elif signal == 'PositionChanged':
+            #args: validity bitfield, tstamp, lat, lon, alt
+            for (i, val) in enumerate([
+                                       'PositionChanged','LonChanged',
+                                       'AltChanged'
+                                      ]):
+                # if the bitfield indicates a valid value
+                if args[0] & (1 << i):
+                    # then update
+                    self.values[val] = args[i+2]
+                    self.value_labels[val].label_set(str(round(args[i+2],2)))
+
+        #Accuracy has changed
+        elif signal == 'AccuracyChanged':
+            #args: validity bitfield, pdop, hdop, vdop
+            label_str = []
+            for (i,val) in enumerate(['pdop','hdop','vdop']):
+                # if the bitfield indicates a valid value
+                if args[0] & (1 << i):
+                    self.values[val] = args[i+1]
+                print str(val)
+                label_str.append(str(round(self.values[val],1)))
+
+            # update label
+            self.value_labels[signal].label_set('/'.join(label_str))
+
+        # FixStatus has changed
+        elif signal == 'FixStatusChanged':
+            #args: 0: invalid 1:no fix 2:2d fix 3:3d fix
+            status = ['invalid','no fix','2D fix', '3D fix']
+            # update label
+            self.value_labels[signal].label_set(status[args[0]])
+
+        # Satellites have changed
+        elif signal == 'SatellitesChanged':
+            #args: array(SVID, in_use, Elev, Azim, CNO)
+            satellites = args[0]
+            inuse = filter(lambda x: x[1] == True, satellites)
+            #satnums = map(lambda x: x[0], inuse)
+            #satnums.sort()
+            #sats = '/' + ','.join(map(lambda x: str(x), satnums))
+            total = str(len(satellites))
+            self.value_labels[signal].label_set(str(len(inuse)) + '/' + total)
+
+        else:
+            print "unhandled signal"
+            print str(args)
+            print str(kwargs)
+
+    def __init__(self, parent, dbus):
+	self.values = dict(zip(['pdop','hdop','vdop'],[None]))
+        """ contains items['name']=value mapping)"""
+        self.value_labels = {}
+        """ contains items['signal']=valuelabel mapping """
+
+        self.gypsy = dbus.get_object('org.freedesktop.Gypsy', '/org/freedesktop/Gypsy')
+        super(GpsInfoBox, self).__init__(parent)
+    
+        # create a 'caption' and a 'value' label for all values in table cells
+        for (i, item) in enumerate(GpsInfoBox.items):
+            # put caption label in cell
+            cap_l = elementary.Label(self)
+            cap_l.size_hint_align_set(-1.0, 0.0)
+            cap_l.label_set(item['cap'] + ':')
+            (row, col) = divmod(i,2)
+            self.pack(cap_l, col*2, row, 1, 1)
+            cap_l.show()
+
+            # put value label in cell
+            val_l = elementary.Label(self)
+            val_l.size_hint_align_set(-1.0, 0.0)
+            cap_l.size_hint_weight_set(1.0, -1.0)
+            val_l.label_set('<i>unknown</i>')
+            val_l.show()
+            self.pack(val_l, col*2 +1, row, 1, 1)
+            self.value_labels[item['signal']] = val_l
+
+        # catch all gypsy signals and udate values            
+        dbus.add_signal_receiver(self.on_gypsy_signal, bus_name='org.freedesktop.Gypsy', interface_keyword='iface', member_keyword='signal')
+
+
+#-------------------------------------------------------------------
 class Gps(module.AbstractModule):
+    """ Main GPS Module """
     name = _("GPS")
 
     def error(self, result):
@@ -31,7 +157,8 @@ class Gps(module.AbstractModule):
         return True
     
     def power_handle(self, obj, event, *args, **kargs):
-       if self.gps.GetResourceState("GPS")==obj.state_get():
+       # if ResourceState already equals off/on setting do nothing
+       if self.gps.GetResourceState("GPS") == obj.state_get():
             return 0
        if obj.state_get(): 
            self.gps.SetResourcePolicy("GPS","enabled",reply_handler=self.callback,error_handler=self.error)
@@ -43,9 +170,11 @@ class Gps(module.AbstractModule):
 
     def res_handle(self, obj, event, *args, **kargs):
         if obj.state_get():
+            # slider has been moved to 'Auto'
             self.gps.SetResourcePolicy("GPS","auto",reply_handler=self.callback,error_handler=self.error)
             self.toggle1.hide()
         else:
+            # slider has been moved to 'Manual'
             if self.gps.GetResourceState("GPS"):
                 self.gps.SetResourcePolicy("GPS","enabled",reply_handler=self.callback,error_handler=self.error)
                 self.toggle1.state_set(1)
@@ -79,14 +208,25 @@ class Gps(module.AbstractModule):
         self.toggle1.changed = self.power_handle
         box1.pack_end(self.toggle1)
 
-
-        if self.gps.GetResourcePolicy("GPS")=="auto":
+        gpsstate =  self.gps.GetResourcePolicy("GPS")
+        if gpsstate == "auto":
             toggle0.state_set(1)
             self.toggle1.hide()
         else:
             toggle0.state_set(0)
             self.toggle1.show()
-        self.toggle1.state_set(self.gps.GetResourceState("GPS"))
+        self.toggle1.state_set(gpsstate)
+
+        gpsinfo_f = elementary.Frame(box1)
+        gpsinfo_f.label_set('GPS info')
+        gpsinfo_f.size_hint_align_set(-1.0, 0.0)
+        gpsinfo_f.size_hint_weight_set(1.0, 1.0)
+        gpsinfo_f.show()
+
+        self.gpsinfo = GpsInfoBox(gpsinfo_f, self.dbus)
+        self.gpsinfo.show()
+        gpsinfo_f.content_set(self.gpsinfo)
+        box1.pack_end(gpsinfo_f)
 
         if os.path.exists("/etc/freesmartphone/persist/ogpsd.pickle"):
             picklebtn = elementary.Button(self.window)
