@@ -1,10 +1,6 @@
 #!/usr/bin/env python
-import elementary
-import ecore
-import dbus, e_dbus
+import elementary, ecore
 import os.path
-
-# Locale support
 import gettext
 
 try:
@@ -15,6 +11,7 @@ except IOError:
 
 
 class CategoryButton(elementary.Button):
+    """ extends e.button with list of modules that belong to it """
     def set_modules(self, modules):
         self.modules = modules
     def get_modules(self):
@@ -31,8 +28,6 @@ class ModulesWindow:
             try:
                 # modname: 'shr_gsm.GSM'. Import "shr_settings_modules.shr_gsm"
                 # dynamically and instantiate class "GSM"
-                # TODO don't split stuff into module.class here, 
-                # TODO rather use one standard class name for all modules?
                 (submodname, classname) = modname.split('.',1)
                 module   = __import__('shr_settings_modules.' + submodname, 
                                       globals(), locals(), classname)
@@ -158,25 +153,29 @@ class MainWindow:
         elementary.exit()
 
     def displayModulesWin(self, obj, event, *args, **kargs):
-        #odulesWindow:
-        #def makeGui(self, dbus_system, modules):
         print "displayModulesWin 1"
-        print "displayModulesWin 2"
+        if self.dbus_system == None:
+           print ("idler had not inited dbus yet, do it now")
+           self.init_dbus_idler()
         self.m.makeGui(  obj.get_modules(), self.dbus_system )
-        print "displayModulesWin 3"
+        print "displayModulesWin 2"
+
+    def init_dbus_idler(self):
+        # dbus init if not done before:
+        if self.dbus_system == None:
+            import dbus, e_dbus
+            mainloop = e_dbus.DBusEcoreMainLoop()
+            #self.dbus_session = dbus.SessionBus(mainloop=self.mainloop) - we don't need atm
+            self.dbus_system = dbus.SystemBus(mainloop=mainloop)
+            return False  #don't call idler again
 
     def __init__(self):
+        self.dbus_system = None
         elementary.init()
         self.win = elementary.Window("settings", elementary.ELM_WIN_BASIC)
         self.win.title_set(_("Settings"))
         self.win.destroy = self.destroy
 
-
-        #dbus init:
-        mainloop = e_dbus.DBusEcoreMainLoop()
-        #dbus_session = dbus.SessionBus(mainloop=self.mainloop) - we don't need atm
-        self.dbus_system = dbus.SystemBus(mainloop=mainloop)
-       
         self.m = ModulesWindow()
 
         #add background to main window
@@ -253,7 +252,8 @@ class MainWindow:
             cat_table.pack(bt,col,row,1,1)
 
         self.win.show()
-        
+        ecore.idler_add(self.init_dbus_idler)        
+
 
 if __name__ == "__main__":
     
