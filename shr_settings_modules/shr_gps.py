@@ -208,13 +208,14 @@ class Gps(module.AbstractModule):
         self.toggle1.changed = self.power_handle
         box1.pack_end(self.toggle1)
 
-        gpsstate =  self.gps.GetResourcePolicy("GPS")
-        if gpsstate == "auto":
+        gpspolicy =  self.gps.GetResourcePolicy("GPS")
+        if gpspolicy == "auto":
             toggle0.state_set(1)
             self.toggle1.hide()
         else:
             toggle0.state_set(0)
             self.toggle1.show()
+        gpsstate =  self.gps.GetResourceState("GPS")
         self.toggle1.state_set(gpsstate)
 
         gpsinfo_f = elementary.Frame(box1)
