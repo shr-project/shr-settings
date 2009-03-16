@@ -18,6 +18,7 @@ def getDbusObject (bus, busname , objectpath , interface):
 class GpsInfoBox(elementary.Table):
     """ Displays a box with GPS and updates it. Extents elementary.Table """
 
+    sigMatch = None  #Contains instance variable with signal listener
     items =  [{'cap':'Time', 'iface':'org.freedesktop.Gypsy.Time', 'method':'GetTime', 'signal':'TimeChanged'},
               {'cap':'Fix', 'iface':'org.freedesktop.Device', 'method':'GetFixStatus', 'signal':'FixStatusChanged'},
               {'cap':'Lat', 'iface':'org.freedesktop.Gypsy.Position', 'signal': 'PositionChanged', 'method':'GetPosition'},
@@ -135,8 +136,12 @@ class GpsInfoBox(elementary.Table):
             self.value_labels[item['signal']] = val_l
 
         # catch all gypsy signals and udate values            
-        dbus.add_signal_receiver(self.on_gypsy_signal, bus_name='org.freedesktop.Gypsy', interface_keyword='iface', member_keyword='signal')
+        self.sigMatch = dbus.add_signal_receiver(self.on_gypsy_signal, bus_name='org.freedesktop.Gypsy', interface_keyword='iface', member_keyword='signal')
 
+    def stopUpdate(self):
+        # if we listen to all gypsy signals, remove those listeners now
+        if self.sigMatch != None:
+            self.sigMatch.remove()
 
 #-------------------------------------------------------------------
 class Gps(module.AbstractModule):
@@ -238,3 +243,8 @@ class Gps(module.AbstractModule):
             picklebtn.show()
         
         return box1
+
+    def stopUpdate(self):
+        """ stop the GUI update and remove signal handlers and such """
+        # remove the gypsy signal listeners
+        self.gpsinfo.stopUpdate()

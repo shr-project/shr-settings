@@ -29,6 +29,10 @@ __date__ ="$2008-12-27 21:53:00$"
             self.toggle0.states_labels_set("On","Off")
             self.box1.pack_start(toggle0)
             return self.box1
+
+        def stopUpdate(self):
+            #called when we hide the window, stop GUI updates here etc
+            pass
 #=================
 """
 
@@ -116,4 +120,9 @@ class AbstractModule(object):
                 self.box1.pack_start(toggle0)
                 return self.box1
         """
+        pass
+
+
+    def stopUpdate(self):
+        """ called when we hide the window, stop GUI updates here """
         pass
