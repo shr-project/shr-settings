@@ -15,6 +15,52 @@ def getDbusObject (bus, busname , objectpath , interface):
 
 
 #-------------------------------------------------------------------
+class SatDetails():
+    """ Displays a window with GPS details """
+    def __init__(self, parent):
+       self.satlab = [] #contains the satellite labels
+       self.win = elementary.Window("Satellite details", elementary.ELM_WIN_DIALOG_BASIC)
+       self.win.show()
+       self.win.destroy = self.destroy
+
+       bg = elementary.Background(self.win)
+       bg.show()
+       self.win.resize_object_add(bg)
+
+       self.tab = elementary.Table(self.win)
+       self.tab.size_hint_weight_set(1.0, 1.0)
+       self.tab.size_hint_align_set (-1.0, -1.0)
+       self.win.resize_object_add(self.tab)
+       self.tab.show()
+
+    def update(self, sats):
+       print "update satellites"
+       sats.sort()
+       for row in range(0,12):
+         if len(self.satlab) <= row:
+             self.satlab.append(elementary.Label(self.tab))
+             self.satlab[row].size_hint_align_set (-1.0, -1.0)
+             self.satlab[row].show()
+             self.tab.pack(self.satlab[row], 1, row, 1, 1)
+
+         if row < len(sats):
+           (prn, inuse, ele, azi, srn) = sats[row]
+           if inuse:
+               self.satlab[row].color_set(1,100,1,200)
+           else:
+               self.satlab[row].color_set(100,1,1,100)
+           self.satlab[row].label_set("%d (%d,%d) %d" % (prn, ele, azi, srn))
+
+         else:
+           # delete empty rows 
+           self.satlab[row].label_set("")
+
+    def destroy(self, win, *args, **kargs):
+       win.delete()
+       self.win = None
+       del self
+
+#-------------------------------------------------------------------
 class GpsInfoBox(elementary.Table):
     """ Displays a box with GPS and updates it. Extents elementary.Table """
 
@@ -34,6 +80,11 @@ class GpsInfoBox(elementary.Table):
     #TODO start/stop updating with updateGUI var
     #TODO on init fill in values once (at least 'fix') and not only when changed
     #use org.freedesktop.Gypsy.Device.GetConnectionStatus == True
+
+    def cb_show_sat_details(self, bt, event, *args):
+        self.satdetails = SatDetails(self)
+        if self.values.has_key('sats'):
+            self.satdetails.update(self.values['sats'])
 
     def on_gypsy_signal(self, *args, **kwargs):
         signal = kwargs['signal']
@@ -78,7 +129,6 @@ class GpsInfoBox(elementary.Table):
                 # if the bitfield indicates a valid value
                 if args[0] & (1 << i):
                     self.values[val] = args[i+1]
-                print str(val)
                 label_str.append(str(round(self.values[val],1)))
 
             # update label
@@ -94,13 +144,16 @@ class GpsInfoBox(elementary.Table):
         # Satellites have changed
         elif signal == 'SatellitesChanged':
             #args: array(SVID, in_use, Elev, Azim, CNO)
-            satellites = args[0]
+            self.values['sats'] = satellites = args[0]
             inuse = filter(lambda x: x[1] == True, satellites)
             #satnums = map(lambda x: x[0], inuse)
             #satnums.sort()
             #sats = '/' + ','.join(map(lambda x: str(x), satnums))
             total = str(len(satellites))
             self.value_labels[signal].label_set(str(len(inuse)) + '/' + total)
+            #update the satellite detail window if necessary
+            if self.satdetails and self.satdetails.win: 
+                self.satdetails.update(satellites)
 
         else:
             print "unhandled signal"
@@ -112,6 +165,7 @@ class GpsInfoBox(elementary.Table):
         """ contains items['name']=value mapping)"""
         self.value_labels = {}
         """ contains items['signal']=valuelabel mapping """
+        self.satdetails = None # widget that displays sat details
 
         self.gypsy = dbus.get_object('org.freedesktop.Gypsy', '/org/freedesktop/Gypsy')
         super(GpsInfoBox, self).__init__(parent)
@@ -135,6 +189,13 @@ class GpsInfoBox(elementary.Table):
             self.pack(val_l, col*2 +1, row, 1, 1)
             self.value_labels[item['signal']] = val_l
 
+        row = len(GpsInfoBox.items) // 2 + 1
+        sat_details_bt = elementary.Button(self)
+        sat_details_bt.label_set(_("Satellite details"))
+        sat_details_bt.show()
+        sat_details_bt.clicked = self.cb_show_sat_details
+        self.pack(sat_details_bt, 1, row, 2, 1)
+        
         # catch all gypsy signals and udate values            
         self.sigMatch = dbus.add_signal_receiver(self.on_gypsy_signal, bus_name='org.freedesktop.Gypsy', interface_keyword='iface', member_keyword='signal')
 
