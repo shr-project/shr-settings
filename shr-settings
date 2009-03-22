@@ -191,11 +191,11 @@ class MainWindow:
         mainbox.show()
 
         # scroller that contains the table with buttons
-        sc = elementary.Scroller(mainbox)
-        sc.size_hint_weight_set(1.0, 1.0)
-        sc.size_hint_align_set(-1.0, -1.0)
-        mainbox.pack_end(sc)
-        sc.show()
+        #sc = elementary.Scroller(mainbox)
+        #sc.size_hint_weight_set(1.0, 1.0)
+        #sc.size_hint_align_set(-1.0, -1.0)
+        #mainbox.pack_end(sc)
+        #sc.show()
 
         # quit button
         quitbt = elementary.Button(mainbox)
@@ -211,9 +211,10 @@ class MainWindow:
         mainbox.pack_end(quitbt)
 
         # table containing category buttons
-        cat_table = elementary.Table(sc)
+        cat_table = elementary.Table(mainbox)
         cat_table.size_hint_weight_set(1.0, 1.0)
-        sc.content_set(cat_table)
+        cat_table.size_hint_align_set(-1.0, -1.0)
+        mainbox.pack_start(cat_table)
         cat_table.show()
 
         #loading modules
