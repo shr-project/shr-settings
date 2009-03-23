@@ -131,6 +131,11 @@ class ModulesWindow:
         #    if debugmod.isEnabled():
         #        debugmod.createView()
         #END OF DEBUG
+        #from shr_settings_modules import shr_display
+        #debugmod=shr_display.Display(self.win2, bus)
+        #if debugmod.isEnabled():
+        #    debugmod.createView()
+        #END OF SECOND DEBUG
         ecore.idler_add(self.renderModules, modulesList, bus)
         self.win2.show()
 
@@ -224,7 +229,7 @@ class MainWindow:
                     [_("Connectivity"),"icon_connectivity.png",              [ 'shr_wifi.Wifi', 'shr_gprs.Gprs', 'shr_usb.Usb', 'shr_bt.Bt' ] ],
                     [_("GPS"), "icon_gps.png",                 [ 'shr_gps.Gps' ] ],
                     [_("Date/time"),"icon_datetime.png",                  [ 'shr_clock.Clock' ] ],
-                    [_("Power"),"icon_power.png",  [ 'shr_battery.Battery', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
+                    [_("Power"),"icon_power.png",  [ 'shr_battery.Battery', 'shr_display.Display', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
                     [_("Services"),"icon_services.png",                 [ 'shr_services.Services' ] ],
                     [_("Others"), "icon_others.png",                                       [ 'shr_test.Test' ] ]
             ]
