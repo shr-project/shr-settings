@@ -49,7 +49,7 @@ class Display(module.AbstractModule):
         #slider.size_hint_align_set(0, 0.5)
         #slider.size_hint_weight_set(0, 1)
         self.slider.unit_format_set(" %3.0f%% ")
-        self.slider.min_max_set(0, 100)
+        self.slider.min_max_set(2, 100)
         self.value = self.getbacklight()
         self.slider.value = self.value
         self.slider.show()
