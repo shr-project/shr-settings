@@ -33,10 +33,15 @@ class Services(module.AbstractModule):
     def destroyDebug(self, obj, event, *args, **kargs):
         self.windeb.hide()
 
+    def hover_hide(self, obj, event, *args, **kargs):
+        self.ser_hover.delete()
+#        self.ser_box.delete()
+
     def startbtClick(self, obj, event, *args, **kargs):
         """ Callback when start/stop/reload has been pressed """
         # delete the hover with Start/stop buttons
         self.ser_hover.delete()
+#        self.ser_box.delete()
         self.startDebugWin( obj.get_osCmd() )
 
     def startDebugWin(self, cmd):
@@ -109,19 +114,27 @@ class Services(module.AbstractModule):
         service = win.name_get()
 
         self.ser_hover = elementary.Hover(self.window)
-        self.ser_hover.size_hint_align_set(0.0, 0.0)
-        self.ser_hover.style_set("hoversel_vertical")
+        self.ser_hover.size_hint_align_set(-1.0, -1.0)
+        self.ser_hover.size_hint_weight_set(1.0, 1.0)
+#        self.ser_hover.style_set("hoversel_vertical")
         self.ser_hover.show()
+        self.ser_hover.clicked = self.hover_hide
+#        self.window.resize_object_add(self.ser_hover)
 
         ser_box = elementary.Box(self.ser_hover)       
         ser_box.show()
+        ser_box.size_hint_align_set(-1.0, -1.0)
+        ser_box.size_hint_weight_set(1.0, 1.0)
         self.ser_hover.content_set("swallow?!", ser_box)
+        self.ser_hover.parent_set(self.window)
+        self.ser_hover.target_set(win)
 
         startbt = ButtonServer(self.window)
         startbt.set_osCmd("/etc/init.d/" + service + " start")
         startbt.clicked = self.startbtClick
         startbt.label_set("start")
         startbt.size_hint_align_set(-1.0, 0.0)
+#        startbt.size_hint_weight_set(1.0, 1.0)
         startbt.show()
         ser_box.pack_start(startbt)
 
@@ -129,7 +142,7 @@ class Services(module.AbstractModule):
         restartbt.set_osCmd("/etc/init.d/"+ service +" restart")
         restartbt.clicked = self.startbtClick
         restartbt.label_set("restart")
-        #restartbt.size_hint_align_set(-1.0, 0.0)
+        restartbt.size_hint_align_set(-1.0, 0.0)
         restartbt.show()
         ser_box.pack_end(restartbt)
 
@@ -137,10 +150,11 @@ class Services(module.AbstractModule):
         stopbt.set_osCmd("/etc/init.d/"+ service +" stop")
         stopbt.clicked = self.startbtClick
         stopbt.label_set("stop")
-        #stopbt.size_hint_align_set(-1.0, 0.0)
+        stopbt.size_hint_align_set(-1.0, 0.0)
         stopbt.show()
         ser_box.pack_end(stopbt)
-
+#        self.ser_box = ser_box
+#        self.window.resize_object_add(self.ser_box)
 
 
     def createView(self):
@@ -162,6 +176,8 @@ class Services(module.AbstractModule):
             boxSSS.size_hint_align_set(-1.0, -1.0)
             boxSSS.size_hint_weight_set(1.0, 1.0)
             boxSSS.clicked = self.clicked_serviceBox
+#    def clicked_serviceBox(self, win, event, *args, **kargs):
+#            self.clicked_serviceBox(boxSSS, "clicked")
             boxSSS.show()
             box0.pack_end(boxSSS)
              
