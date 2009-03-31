@@ -130,9 +130,9 @@ class Timeouts(module.AbstractModule):
                     namel = elementary.Label(self.window)
                     namel.size_hint_align_set(-1.0, 0.5)
                     namel.size_hint_weight_set(1.0, 1.0)
-                    namel.label_set(str(i).replace("_"," "))
+                    namel.label_set(" "+str(i).replace("_"," ")+" ")
                     namel.show()
-                    tout_table.pack(namel,1,row,1,1)
+                    #tout_table.pack(namel,1,row,1,1)
 
                     cur_val = int(self.timeouts[i])
                     valuel  = ValueLabel(self.window)
@@ -140,7 +140,12 @@ class Timeouts(module.AbstractModule):
                     valuel.label_set(str(cur_val))
                     valuel.set_value(cur_val) #implicitely sets label too
                     valuel.show()
-                    tout_table.pack(valuel,4,row,1,1)
+
+                    boxbox = elementary.Box(self.window)
+                    boxbox.pack_start(namel)
+                    boxbox.pack_end(valuel)
+                    boxbox.show()
+                    tout_table.pack(boxbox,3,row,1,1)
 
                     # the -10 button
                     mintenbt = AddButton(self.window)
@@ -149,7 +154,7 @@ class Timeouts(module.AbstractModule):
                     mintenbt.label_set("-10")
                     mintenbt.size_hint_align_set(-1.0, 0.0)
                     mintenbt.show()
-                    tout_table.pack(mintenbt,2,row,1,1)
+                    tout_table.pack(mintenbt,1,row,1,1)
 
                     # the -1 button
                     minonebt = AddButton(self.window)
@@ -158,7 +163,7 @@ class Timeouts(module.AbstractModule):
                     minonebt.label_set("-1")
                     minonebt.size_hint_align_set(-1.0, 0.0)
                     minonebt.show()
-                    tout_table.pack(minonebt,3,row,1,1)
+                    tout_table.pack(minonebt,2,row,1,1)
 
                     # the +1 button
                     addonebt = AddButton(self.window)
@@ -167,7 +172,7 @@ class Timeouts(module.AbstractModule):
                     addonebt.label_set("+1")
                     addonebt.size_hint_align_set(-1.0, 0.0)
                     addonebt.show()
-                    tout_table.pack(addonebt,5,row,1,1)
+                    tout_table.pack(addonebt,4,row,1,1)
 
 
                     # the +10 button
@@ -177,7 +182,7 @@ class Timeouts(module.AbstractModule):
                     addtenbt.label_set("+10")
                     addtenbt.size_hint_align_set(-1.0, 0.0)
                     addtenbt.show()
-                    tout_table.pack(addtenbt,6,row,1,1)
+                    tout_table.pack(addtenbt,5,row,1,1)
 
             # finally show the table
             tout_table.show()
