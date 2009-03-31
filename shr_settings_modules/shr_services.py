@@ -106,7 +106,8 @@ class Services(module.AbstractModule):
     def chk_if_needToByDisplay(self, servicesList, name):
         for i in servicesList:
             if i == name:
-                return 1
+                if name.pos('.sh')==2:
+                    return 1
         return 0
 
 
@@ -165,31 +166,25 @@ class Services(module.AbstractModule):
         box0 = elementary.Box(self.window)
         print "services 2"
 
+        dontshow = ["rc", "rcS", "reboot", "halt", "umountfs", "sendsigs", "rmnologin", "functions"]
+ 
         servicesList = dircache.listdir("/etc/init.d/")
         servicesList.sort()
         for i in servicesList:
-            print "add:"+i
-            boxSSS = elementary.Button(self.window)
-            boxSSS.label_set(i)
-            boxSSS.name = i
-            #boxSSS.horizontal_set(True)
-            boxSSS.size_hint_align_set(-1.0, -1.0)
-            boxSSS.size_hint_weight_set(1.0, 1.0)
-            boxSSS.clicked = self.clicked_serviceBox
-#    def clicked_serviceBox(self, win, event, *args, **kargs):
-#            self.clicked_serviceBox(boxSSS, "clicked")
-            boxSSS.show()
-            box0.pack_end(boxSSS)
+            print "check:"+i
+            if ((len(i.split(".sh"))==1) and (not(i in dontshow))):
+                print "add:"+i
+                boxSSS = elementary.Button(self.window)
+                boxSSS.label_set(i)
+                boxSSS.name = i
+                #boxSSS.horizontal_set(True)
+                boxSSS.size_hint_align_set(-1.0, -1.0)
+                boxSSS.size_hint_weight_set(1.0, 1.0)
+                boxSSS.clicked = self.clicked_serviceBox
+                boxSSS.show()
+                box0.pack_end(boxSSS)
+            print "end"
              
-            #fo = elementary.Frame(self.window)
-            #fo.label_set( i )
-            #fo.size_hint_align_set(-1.0, 0.0)
-            #fo.show()
-            #fo.content_set( boxSSS )
-
-            #box0.pack_end(fo)
-
-        
         print "services 5"
         return box0
 
