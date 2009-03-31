@@ -45,7 +45,7 @@ class Clock(module.AbstractModule):
         self.editable = False
         box0 = elementary.Box(self.window)
         self.cl = elementary.Clock(self.window)
-        self.cl.show_seconds_set(True)
+        #self.cl.show_seconds_set(True)
         box0.pack_end(self.cl)
         self.cl.show()
         self.but = elementary.Button(self.window)
