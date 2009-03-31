@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import elementary, ecore
 import os.path
+import sys
 import gettext
 
 try:
@@ -55,11 +56,18 @@ class ModulesWindow:
         self.loading.hide()
         return None
 
-    def makeGui(self,  modulesList, bus):
+    def makeGui(self,  modulesList, bus, fromcli = False):
+
+        print "makeGUI!!!"
+        print modulesList
 
         self.win2 = elementary.Window("settingsMods", elementary.ELM_WIN_BASIC)
         self.win2.title_set(modulesList[0])
-        self.win2.destroy = self.destroy2
+        if fromcli:
+            self.win2.destroy = self.destroy
+        else:
+            self.win2.autodel_set(True)
+            self.win2.destroy = self.destroy2
         
         #add background to module window
         bg = elementary.Background(self.win2)
@@ -85,7 +93,10 @@ class ModulesWindow:
         sc2.show()
 
         quitbt2 = elementary.Button(self.win2)
-        quitbt2.clicked = self.destroy2
+        if fromcli:
+            quitbt2.clicked = self.destroy
+        else:
+            quitbt2.clicked = self.destroy2
         quitbt2.label_set(_("Quit"))
         quitbt2.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt2)
@@ -147,7 +158,9 @@ class ModulesWindow:
             except:
                 pass
         
-
+    def destroy(self, obj, event, *args, **kargs):
+        print "DEBUG: window destroy callback called! kabum!"
+        elementary.exit()
 
 
 
@@ -176,7 +189,6 @@ class MainWindow:
 
     def __init__(self):
         self.dbus_system = None
-        elementary.init()
         self.win = elementary.Window("settings", elementary.ELM_WIN_BASIC)
         self.win.title_set(_("Settings"))
         self.win.destroy = self.destroy
@@ -263,7 +275,31 @@ class MainWindow:
 
 if __name__ == "__main__":
     
-    MainWindow()
+    elementary.init()
+    if len(sys.argv[1:])>0:
+        modlista = [];
+        if sys.argv[1] in ("-h", "--help"):
+                print "SHR Settings"
+                print "Settings for SHR based Openmoko phone."
+                print "--------------------------------------"
+                print "Call it without any argument to open"
+                print "main menu with categories."
+                print "Call it with modules names, to open"
+                print "only typed modules in one window."
+                print "--------------------------------------"
+                print "http://shr-project.org/"        
+                exit(0)
+        else:
+            modlista.append(sys.argv[1])
+            modlista.append('')
+            modlista.append(sys.argv[2:])
+        modwin = ModulesWindow()
+        import dbus, e_dbus
+        mainloop = e_dbus.DBusEcoreMainLoop()
+        dbus_system = dbus.SystemBus(mainloop=mainloop)
+        modwin.makeGui(modlista, dbus_system, True)
+    else:
+        MainWindow()
     elementary.run()
     elementary.shutdown()
 
