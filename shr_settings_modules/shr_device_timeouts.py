@@ -141,8 +141,13 @@ class Timeouts(module.AbstractModule):
                     valuel.set_value(cur_val) #implicitely sets label too
                     valuel.show()
 
+                    framel = elementary.Frame(self.window)
+                    framel.style_set("outdent_top")
+                    framel.content_set(namel)
+                    framel.show()
+
                     boxbox = elementary.Box(self.window)
-                    boxbox.pack_start(namel)
+                    boxbox.pack_start(framel)
                     boxbox.pack_end(valuel)
                     boxbox.show()
                     tout_table.pack(boxbox,3,row,1,1)
