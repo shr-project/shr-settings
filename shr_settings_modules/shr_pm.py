@@ -48,6 +48,7 @@ class Pm(module.AbstractModule):
         self.main.pack_start(cpu)
         cpu.size_hint_align_set(-1.0, 0.0)
         cpu.state_set(not(self.ophonekitd.GetResourceState('CPU')))
+        cpu.states_labels_set(_("On"),_("Off"))
         cpu.show()
         display = elementary.Toggle(self.window)
         display.label_set(_("Auto-dimming:"))
@@ -55,5 +56,6 @@ class Pm(module.AbstractModule):
         self.main.pack_start(display)
         display.size_hint_align_set(-1.0, 0.0)
         display.state_set(not(self.ophonekitd.GetResourceState('Display')))
+        display.states_labels_set(_("On"),_("Off"))
         display.show()
         return self.main
