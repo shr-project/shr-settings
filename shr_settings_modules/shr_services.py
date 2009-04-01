@@ -89,7 +89,7 @@ class Services(module.AbstractModule):
 
         c = os.popen( cmd, "r" )
         while 1:
-            line = c.readline()
+            line = c.readline().replace("\n","")
             if not line:
                 break
             print "line ["+line+"]"
