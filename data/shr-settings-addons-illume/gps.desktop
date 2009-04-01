@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=GPS settings
+StartupNotify=true
+Exec=shr-settings GPS shr_gps.Gps
+Terminal=false
+Type=Application
+Categories=Settings;System;
+Icon=shr_settings.png

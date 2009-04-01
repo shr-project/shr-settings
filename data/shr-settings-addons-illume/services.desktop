@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Services settings
+StartupNotify=true
+Exec=shr-settings Services shr_services.Services
+Terminal=false
+Type=Application
+Categories=Settings;System;
+Icon=shr_settings.png

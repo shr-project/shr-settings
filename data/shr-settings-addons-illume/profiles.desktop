@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Profiles settings
+StartupNotify=true
+Exec=shr-settings Profiles shr_profile.Profile shr_currentprofile.CurrentProfile
+Terminal=false
+Type=Application
+Categories=Settings;System;
+Icon=shr_settings.png
