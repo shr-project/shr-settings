@@ -297,7 +297,7 @@ class Gps(module.AbstractModule):
 
         if os.path.exists("/etc/freesmartphone/persist/ogpsd.pickle"):
             picklebtn = elementary.Button(self.window)
-            picklebtn.label_set(_("Remove ogpsd.pickle file"))
+            picklebtn.label_set(_("Remove AGPS data"))
             box1.pack_end(picklebtn)
             picklebtn.size_hint_align_set(-1.0, 0.0)
             picklebtn.clicked = self.rempickle
