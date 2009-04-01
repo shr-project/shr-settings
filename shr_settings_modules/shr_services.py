@@ -171,9 +171,7 @@ class Services(module.AbstractModule):
         servicesList = dircache.listdir("/etc/init.d/")
         servicesList.sort()
         for i in servicesList:
-            print "check:"+i
             if ((len(i.split(".sh"))==1) and (not(i in dontshow))):
-                print "add:"+i
                 boxSSS = elementary.Button(self.window)
                 boxSSS.label_set(i)
                 boxSSS.name = i
@@ -183,7 +181,6 @@ class Services(module.AbstractModule):
                 boxSSS.clicked = self.clicked_serviceBox
                 boxSSS.show()
                 box0.pack_end(boxSSS)
-            print "end"
              
         print "services 5"
         return box0
