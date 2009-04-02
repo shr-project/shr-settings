@@ -23,14 +23,14 @@ class Usb(module.AbstractModule):
         usbpower=obj.state_get()
 	#usbpower = self.usbhost.GetPower()
         if usbpower:
-            self.toggle1.label_set(_("Device mode:"))
-            self.toggle1.states_labels_set(_("Ethernet"),_("Mass storage"))
-            self.toggle1.state_set(1)
+        #    self.toggle1.label_set(_("Device mode:"))
+        #    self.toggle1.states_labels_set(_("Ethernet"),_("Mass storage"))
+        #    self.toggle1.state_set(1)
 	    self.usbhost.SetPower(False)
         else:
-            self.toggle1.label_set(_("Host powered:"))
-            self.toggle1.states_labels_set(_("Yes"),_("No"))
-            self.toggle1.state_set(1)
+        #    self.toggle1.label_set(_("Host powered:"))
+        #    self.toggle1.states_labels_set(_("Yes"),_("No"))
+        #    self.toggle1.state_set(1)
 	    self.usbhost.SetPower(True)
 	#obj.state_set(usbpower)
 
@@ -55,18 +55,18 @@ class Usb(module.AbstractModule):
         box1.pack_start(self.toggle0)
         self.toggle0.show()
 
-	self.toggle1 = elementary.Toggle(self.window)
-	self.toggle1.label_set(_("Device mode:"))
-	self.toggle1.size_hint_align_set(-1.0, 0.0)
-        self.toggle1.states_labels_set(_("Ethernet"),_("Mass storage"))
-	self.toggle1.state_set(1)
-        box1.pack_end(self.toggle1)
-        self.toggle1.show()
+	#self.toggle1 = elementary.Toggle(self.window)
+	#self.toggle1.label_set(_("Device mode:"))
+	#self.toggle1.size_hint_align_set(-1.0, 0.0)
+        #self.toggle1.states_labels_set(_("Ethernet"),_("Mass storage"))
+	#self.toggle1.state_set(1)
+        #box1.pack_end(self.toggle1)
+        #self.toggle1.show()
 
-	if self.usbpower:
-            self.toggle1.label_set(_("Host powered:"))
-            self.toggle1.states_labels_set(_("Yes"),_("No"))
-            self.toggle1.state_set(1)
+	#if self.usbpower:
+        #    self.toggle1.label_set(_("Host powered:"))
+        #    self.toggle1.states_labels_set(_("Yes"),_("No"))
+        #    self.toggle1.state_set(1)
 
         return box1
         
