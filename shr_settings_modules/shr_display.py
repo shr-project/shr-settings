@@ -26,7 +26,7 @@ def error(msg):
 class Display(module.AbstractModule):
     name = _("Display")
 
-    def setbacklight(self):
+    def setbacklight(self, obj, event, *args, **kargs):
         if self.value != self.slider.value:
             self.display.SetBrightness(self.slider.value, reply_handler=handler, error_handler=error)
             self.value = self.slider.value
@@ -53,5 +53,5 @@ class Display(module.AbstractModule):
         self.value = self.getbacklight()
         self.slider.value = self.value
         self.slider.show()
-        ecore.timer_add(1, self.setbacklight)
+        self.slider._callback_add("changed", self.setbacklight)
         return self.slider
