@@ -1,0 +1,30 @@
+#!/usr/bin/env python
+
+import e_dbus, dbus, elementary
+print "SHR: import"
+from shr_settings_modules import shr_profile
+
+def close(obj, event, *args, **kargs):
+    elementary.shutdown()
+
+elementary.init()
+mainloop = e_dbus.DBusEcoreMainLoop()
+bus = dbus.SystemBus(mainloop=mainloop)
+win = elementary.Window("lol", elementary.ELM_WIN_BASIC)
+win.show()
+bg = elementary.Background(win)
+win.resize_object_add(bg)
+bg.show()
+
+print "SHR: constructor"
+mod = shr_profile.Profile(win, bus)
+print "SHR: isEnabled"
+mod.isEnabled()
+print "SHR: createView"
+view = mod.createView()
+win.resize_object_add(view)
+view.show()
+win.destroy = close
+
+elementary.run()
+elementary.exit()
