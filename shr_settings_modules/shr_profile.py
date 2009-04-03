@@ -33,13 +33,12 @@ class Profile(module.AbstractModule):
     def callback(self, result):
         if self.stan!="":
             print "guiUpdate"
-            for obj in self.toggleArray:
-                toggle_name = obj.getProfile_name()
-                if toggle_name==result:
-                    set = 1
-                else:
-                    set = 0
-                obj.state_set(set)
+            nr=0
+            for i in self.profiles:
+                if i==result:
+                    self.togglegroup.value_set(nr)
+                nr=nr+1
+
         if self.guiUpdates:
             ecore.timer_add( 1.3, self.guiUpdate)
 
@@ -53,18 +52,18 @@ class Profile(module.AbstractModule):
 
 
     def toggle0bt_Click(self, obj, event, *args, **kargs):
-        print "1"
-        profile = obj.getProfile_name()
-        print "2"
-        s = obj.state_get()
-        print "3"
+#        print "1"
+#        profile = obj.getProfile_name()
+#        print "2"
+#        s = obj.state_get()
+#        print "3"
         #print "action on:"+str(profile)+" state:"+str(state)
 
-        print "act 0"
-        if s == 1:
-            print "act 1"
-            self.pr_iface.SetProfile(profile,reply_handler=self.nothing,error_handler=self.error)
-            print "act 2"
+#        print "act 0"
+#        if s == 1:
+#            print "act 1"
+        self.pr_iface.SetProfile(self.profiles[self.togglegroup.value_get()],reply_handler=self.nothing,error_handler=self.error)
+#            print "act 2"
             
     def nothing(self):
         print "nothing called"
@@ -100,19 +99,24 @@ class Profile(module.AbstractModule):
 
         if self.dbus_status == 1:
             self.toggleArray = []
-            profiles = self.pr_iface.GetProfiles()
-            for i in profiles:
-                toggle0 = Toggle2(self.window)
+            self.profiles = self.pr_iface.GetProfiles()
+            profilenr = 0
+            for i in self.profiles:
+                toggle0 = elementary.Radio(self.window)
                 toggle0.label_set(i)
-                toggle0.setProfile_name(i)
                 toggle0.size_hint_align_set(-1.0, 0.0)
-                toggle0.states_labels_set(_("On"),_("Off"))
-                toggle0.changed = self.toggle0bt_Click
+                toggle0._callback_add("changed", self.toggle0bt_Click)
                 if i==self.stan:
                     stanTog = 1
                 else:
                     stanTog = 0
-                toggle0.state_set( stanTog )
+                #toggle0.state_set( stanTog )
+                toggle0.state_value_set(profilenr)
+                profilenr=profilenr+1
+                if profilenr==1:
+                    self.togglegroup=toggle0
+                else:
+                    toggle0.group_add(self.togglegroup)
                 toggle0.show()
                 boxh.pack_start(toggle0)
                 self.toggleArray.append(toggle0)
