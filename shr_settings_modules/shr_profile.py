@@ -118,7 +118,7 @@ class Profile(module.AbstractModule):
                 else:
                     toggle0.group_add(self.togglegroup)
                 toggle0.show()
-                boxh.pack_start(toggle0)
+                boxh.pack_end(toggle0)
                 self.toggleArray.append(toggle0)
             self.guiUpdate()
                 
