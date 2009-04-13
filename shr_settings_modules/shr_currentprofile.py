@@ -356,6 +356,7 @@ class CurrentProfile(module.AbstractModule):
 
     def update(self):
         keys = self.dbusObj.GetKeys()
+        keys.sort()
         for i in keys:
             typ = self.dbusObj.GetType(i)
             profilable = self.dbusObj.IsProfilable(i)
@@ -387,7 +388,7 @@ class CurrentProfile(module.AbstractModule):
                     frame.size_hint_weight_set(1.0, 1.0)
                     frame.show()
 
-                    self.main.pack_end(frame)
+                    self.main.pack_start(frame)
         return 1
                 
     def createView(self):
