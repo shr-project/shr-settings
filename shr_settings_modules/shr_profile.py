@@ -1,10 +1,13 @@
 import elementary, module, ecore
 import dbus
 import array
-#from dbus.mainloop.glib import DBusGMainLoop
 
 # Locale support
 import gettext
+
+## Testing
+from functools import partial
+
 
 try:
     cat = gettext.Catalog("shr-settings")
@@ -13,120 +16,78 @@ except IOError:
     _ = lambda x: x
 
 
-
-class Toggle2( elementary.Toggle ):
-    def setProfile_name( self, i ):
-        self.profile_name = i
-
-    def getProfile_name( self ):
-        return self.profile_name
-
-
+def getDbusObject (bus, busname , objectpath , interface):
+        dbusObject = bus.get_object(busname, objectpath)
+        return dbus.Interface(dbusObject, dbus_interface=interface)
 
 
 class Profile(module.AbstractModule):
     name = _("Profile")
 
-    def error(self, result):
-        print "async dbus error"
+    def error(self):
+        """
+        Report the DBus is fsck'd
+        """
+        label = elementary.Label(self.window)
+        label.label_set("DBus is borked")
+        self.main.pack_start(label)
+        label.show()
 
-    def callback(self, result):
-        if self.stan!="":
-            print "guiUpdate"
-            nr=0
-            for i in self.profiles:
-                if i==result:
-                    self.togglegroup.value_set(nr)
-                nr=nr+1
+    def setCurrentProfile(self, obj, event, name, *args, **kargs):
+        """
+        Set the current profile to `name`
+        """
+        self.dbusObj.SetProfile(name)
+        self.ProfileNameUpdate()
 
-        if self.guiUpdates:
-            ecore.timer_add( 1.3, self.guiUpdate)
+    def ProfileNameUpdate(self):
+        """
+        Updates the displayed value of the current profile
+        """
+        self.currentProfile = self.dbusObj.GetProfile().title()
+        self.hoverSel.label_set("Profiles (%s)" % self.currentProfile)
 
+    def listProfiles(self):
+        """
+        Displays the profiles Hoversel
+        """
+        self.main.size_hint_weight_set(1.0, -1.0)
 
+        # Available Profiles 
+        self.profiles = self.dbusObj.GetProfiles()
 
-    def guiUpdate(self):
-        if self.stan!="":
-            print "guiUpdate"
-            self.stan = self.pr_iface.GetProfile(reply_handler=self.callback,error_handler=self.error)
-        #TODO - change to dbus event listener
+        # Listing HoverSelect
+        self.hoverSel = elementary.Hoversel(self.window)
+        self.hoverSel.hover_parent_set(self.window)
+        self.hoverSel.size_hint_weight_set(-1.0, 0.0)
+        self.hoverSel.size_hint_align_set(-1.0, 0.0)
+        self.main.pack_end(self.hoverSel)
+        self.hoverSel.show()
+        
+        # Set current profile name to the hoverSel label
+        self.ProfileNameUpdate()
 
-
-    def toggle0bt_Click(self, obj, event, *args, **kargs):
-#        print "1"
-#        profile = obj.getProfile_name()
-#        print "2"
-#        s = obj.state_get()
-#        print "3"
-        #print "action on:"+str(profile)+" state:"+str(state)
-
-#        print "act 0"
-#        if s == 1:
-#            print "act 1"
-        self.pr_iface.SetProfile(self.profiles[self.togglegroup.value_get()],reply_handler=self.nothing,error_handler=self.error)
-#            print "act 2"
-            
-    def nothing(self):
-        print "nothing called"
+        # Add HoversleItems
+        # The callback is a bit of functools.partial magic
+        for i in self.profiles:
+            self.hoverSel.item_add(str(i).title(), 
+                "arrow_down", 
+                elementary.ELM_ICON_STANDARD, 
+                partial( self.setCurrentProfile, name = i ))
 
     def createView(self):
-        self.guiUpdates = 1
-        self.stan = ""
+
+        self.main = elementary.Box(self.window)
         
         try:
-            #DBusGMainLoop(set_as_default=True)
-            #bus = dbus.SystemBus()
-            pr_device_obj = self.dbus.get_object( "org.freesmartphone.opreferencesd", "/org/freesmartphone/Preferences" )
-            self.pr_iface = dbus.Interface(pr_device_obj, "org.freesmartphone.Preferences" )
-            self.stan = self.pr_iface.GetProfile()
-            self.dbus_status = 1
+            self.dbusObj = getDbusObject(self.dbus, 
+                "org.freesmartphone.opreferencesd", 
+                "/org/freesmartphone/Preferences", 
+                "org.freesmartphone.Preferences" )
+            print "Loading Profiles"
+            self.listProfiles()
+            
         except:
-            self.dbus_status = 0
-            print "can't connect to dbus :/"
+            self.error()
 
-
-        boxh = elementary.Box(self.window)
-        boxh.size_hint_weight_set(1.0, -1.0)
-
-        """la = elementary.Label(self.window)
-        la.label_set(_("Current profile:"))
-        la.show()
-        boxh.pack_start(la)"""
-        self.cur = elementary.Label(self.window)
-        if self.stan=="":
-            self.cur.label_set("dbus error")
-            self.cur.show()
-            boxh.pack_end(self.cur)
-
-        if self.dbus_status == 1:
-            self.toggleArray = []
-            self.profiles = self.pr_iface.GetProfiles()
-            profilenr = 0
-            for i in self.profiles:
-                toggle0 = elementary.Radio(self.window)
-                toggle0.label_set(i)
-                toggle0.size_hint_align_set(-1.0, 0.0)
-                toggle0._callback_add("changed", self.toggle0bt_Click)
-                if i==self.stan:
-                    stanTog = 1
-                else:
-                    stanTog = 0
-                #toggle0.state_set( stanTog )
-                toggle0.state_value_set(profilenr)
-                profilenr=profilenr+1
-                if profilenr==1:
-                    self.togglegroup=toggle0
-                else:
-                    toggle0.group_add(self.togglegroup)
-                toggle0.show()
-                boxh.pack_end(toggle0)
-                self.toggleArray.append(toggle0)
-            self.guiUpdate()
-                
-        return boxh
-
-
-    def stopUpdate(self):
-        print "Profile desktructor"
-        self.guiUpdates = 0
-
-
+        return self.main
