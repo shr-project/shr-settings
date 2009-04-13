@@ -268,7 +268,7 @@ class ToneChangeBox(PreferenceBox):
         """ 
         Callback function to display the file selection window 
         """
-        self.FLBWin = elementary.Window("Change Tone",elementary.ELM_WIN_BASIC)
+        self.FLBWin = elementary.Window(_("Change ringtone"),elementary.ELM_WIN_BASIC)
         bg = elementary.Background(self.FLBWin)
         self.FLBWin.resize_object_add(bg)
         self.FLBWin.title_set(_("Change ringtone"))
