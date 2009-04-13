@@ -358,34 +358,36 @@ class CurrentProfile(module.AbstractModule):
         keys = self.dbusObj.GetKeys()
         for i in keys:
             typ = self.dbusObj.GetType(i)
-            
-            try:
-                # If self.contents[i] exists, then run the update()
-                # for that object
-                self.contents[i].update()
-            except:
-                # If self.contents[i] fails, assume the object doesn't
-                # exist and create it
-                frame = elementary.Frame(self.window)
-                frameTitle = str(i).replace("-"," ").title()
-                frame.label_set(frameTitle)
+            profilable = self.dbusObj.IsProfilable(i)
 
-                if i=='ring-tone' or i == 'message-tone':
-                    box = ToneChangeBox(self.window, self.dbusObj, i)
-                elif typ == 'bool':
-                    box = RadioOnOffBox(self.window, self.dbusObj, i)
-                elif typ == 'int':
-                    box = IncDecButtonBox(self.window, self.dbusObj, i)
-                else:
-                    box = PreferenceBox(self.window, self.dbusObj, i)
+            if profilable:            
+                try:
+                    # If self.contents[i] exists, then run the update()
+                    # for that object
+                    self.contents[i].update()
+                except:
+                    # If self.contents[i] fails, assume the object doesn't
+                    # exist and create it
+                    frame = elementary.Frame(self.window)
+                    frameTitle = str(i).replace("-"," ").title()
+                    frame.label_set(frameTitle)
 
-                self.contents[i] = box
-                frame.content_set(box)
-                frame.size_hint_align_set(-1.0, 0.0)
-                frame.size_hint_weight_set(1.0, 1.0)
-                frame.show()
+                    if i=='ring-tone' or i == 'message-tone':
+                        box = ToneChangeBox(self.window, self.dbusObj, i)
+                    elif typ == 'bool':
+                        box = RadioOnOffBox(self.window, self.dbusObj, i)
+                    elif typ == 'int':
+                        box = IncDecButtonBox(self.window, self.dbusObj, i)
+                    else:
+                        box = PreferenceBox(self.window, self.dbusObj, i)
 
-                self.main.pack_start(frame)
+                    self.contents[i] = box
+                    frame.content_set(box)
+                    frame.size_hint_align_set(-1.0, 0.0)
+                    frame.size_hint_weight_set(1.0, 1.0)
+                    frame.show()
+
+                    self.main.pack_end(frame)
         return 1
                 
     def createView(self):
