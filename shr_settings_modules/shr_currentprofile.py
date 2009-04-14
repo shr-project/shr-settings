@@ -220,7 +220,7 @@ class RadioOnOffBox(PreferenceBox):
         radioOn = elementary.Radio(self.window)
         radioOn.label_set(_("On"))
         radioOn.size_hint_weight_set(1.0, 0.0)
-        radioOn.size_hint_align_set(-1.0, 0.0)
+        radioOn.size_hint_align_set(0.5, 0.0)
         radioOn.state_value_set(True)
         radioOn._callback_add("changed", self.OnOffClick)
         radioOn.show()
@@ -228,7 +228,7 @@ class RadioOnOffBox(PreferenceBox):
         radioOff = elementary.Radio(self.window)
         radioOff.label_set(_("Off"))
         radioOff.size_hint_weight_set(1.0, 0.0)
-        radioOff.size_hint_align_set(1.0, 0.0)
+        radioOff.size_hint_align_set(0.5, 0.0)
         radioOff.state_value_set(False)
         radioOff._callback_add("changed", self.OnOffClick)
         radioOff.show()
@@ -354,6 +354,12 @@ class CurrentProfile(module.AbstractModule):
         label.label_set("Dbus is borked")
         self.main.pack_start(label)
 
+    def profileChanged(self, profile):
+        """
+        Signal Handler for profile updates
+        """
+        self.update()
+
     def update(self):
         keys = self.dbusObj.GetKeys()
         keys.sort()
@@ -395,14 +401,24 @@ class CurrentProfile(module.AbstractModule):
         self.main = elementary.Box(self.window)
 
         try:
+            # Preferences.Service DBus interface
             self.dbusObj = getDbusObject(self.dbus,
                 "org.freesmartphone.opreferencesd",
                 "/org/freesmartphone/Preferences/phone",
                 "org.freesmartphone.Preferences.Service")
+
+            # Preferences DBus interface (For Signals)
+            self.SignalsDbusObj = getDbusObject(self.dbus,
+                "org.freesmartphone.opreferencesd",
+                "/org/freesmartphone/Preferences",
+                "org.freesmartphone.Preferences" )
+            self.SignalsDbusObj.connect_to_signal("Notify",
+                self.profileChanged)
+
             self.contents = {} # named array of contents, for updating
             self.update()
             #self.dbus.add_signal_receiver(self.update, "
-            ecore.timer_add( 5, self.update)
+            #ecore.timer_add( 5, self.update)
         except:
             self.error()
 
