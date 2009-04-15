@@ -19,7 +19,7 @@ class SatDetails():
     """ Displays a window with GPS details """
     def __init__(self, parent):
        self.satlab = [] #contains the satellite labels
-       self.win = elementary.Window("Satellite details", elementary.ELM_WIN_DIALOG_BASIC)
+       self.win = elementary.Window("Satellite details", elementary.ELM_WIN_BASIC)
        self.win.title_set(_("Satellite details"))
        self.win.show()
        self.win.destroy = self.destroy
@@ -28,11 +28,33 @@ class SatDetails():
        bg.show()
        self.win.resize_object_add(bg)
 
+       self.box = elementary.Box(self.win)
+
        self.tab = elementary.Table(self.win)
        self.tab.size_hint_weight_set(1.0, 1.0)
        self.tab.size_hint_align_set (-1.0, -1.0)
-       self.win.resize_object_add(self.tab)
        self.tab.show()
+       
+       self.box.pack_start(self.tab)
+
+       self.quit_button = elementary.Button(self.win)
+       self.quit_button.label_set(_("Quit"))
+       self.quit_button.size_hint_weight_set(1.0, 0.0)
+       self.quit_button.size_hint_align_set(-1.0, -1.0)
+       self.quit_button.clicked = self.quit
+       self.quit_button.show()
+       ic = elementary.Icon(self.quit_button)
+       ic.file_set( "/usr/share/pixmaps/icon_quit.png" )
+       ic.smooth_set(1)
+       ic.scale_set(0, 0)
+       self.quit_button.icon_set(ic)
+
+
+
+       self.box.pack_end(self.quit_button)
+    
+       self.box.show()
+       self.win.resize_object_add(self.box)
 
     def update(self, sats):
        print "update satellites"
@@ -60,6 +82,9 @@ class SatDetails():
        win.delete()
        self.win = None
        del self
+
+    def quit(self,win, *args, **kargs):
+       self.destroy(self.win)
 
 #-------------------------------------------------------------------
 class GpsInfoBox(elementary.Table):
