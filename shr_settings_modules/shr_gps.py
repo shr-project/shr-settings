@@ -19,7 +19,7 @@ class SatDetails():
     """ Displays a window with GPS details """
     def __init__(self, parent):
        self.satlab = [] #contains the satellite labels
-       self.win = elementary.Window("Satellite details", elementary.ELM_WIN_BASIC)
+       self.win = elementary.Window("sat-details", elementary.ELM_WIN_BASIC)
        self.win.title_set(_("Satellite details"))
        self.win.show()
        self.win.destroy = self.destroy
