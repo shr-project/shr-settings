@@ -417,8 +417,6 @@ class CurrentProfile(module.AbstractModule):
 
             self.contents = {} # named array of contents, for updating
             self.update()
-            #self.dbus.add_signal_receiver(self.update, "
-            #ecore.timer_add( 5, self.update)
         except:
             self.error()
 
