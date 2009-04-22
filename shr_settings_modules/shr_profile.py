@@ -33,6 +33,16 @@ class Profile(module.AbstractModule):
         self.main.pack_start(label)
         label.show()
 
+    def profileChanged(self, profile):
+        """
+        Signal Handler for profile updates
+
+        This is rare, but just in case the profile updates from
+        elsewhere while this module is open, we need to capture
+        the signal and update the current profile name
+        """
+        self.ProfileNameUpdate()
+
     def setCurrentProfile(self, obj, event, name, *args, **kargs):
         """
         Set the current profile to `name`
@@ -80,11 +90,19 @@ class Profile(module.AbstractModule):
         self.main = elementary.Box(self.window)
         
         try:
+            # create dbus object
             self.dbusObj = getDbusObject(self.dbus, 
                 "org.freesmartphone.opreferencesd", 
                 "/org/freesmartphone/Preferences", 
                 "org.freesmartphone.Preferences" )
-            print "Loading Profiles"
+
+            # creat signal listener for profile updates
+            #   This is rare, but just in case the profile updates from
+            #   elsewhere while this module is open, we need to capture
+            #   the signal and update the current profile name
+            self.dbusObj.connect_to_signal("Notify",
+                self.profileChanged)
+
             self.listProfiles()
             
         except:
