@@ -166,7 +166,7 @@ class Services(module.AbstractModule):
         box0 = elementary.Box(self.window)
         print "services 2"
 
-        dontshow = ["rc", "rcS", "reboot", "halt", "umountfs", "sendsigs", "rmnologin", "functions", "shr-splash", "usb-gadget"]
+        dontshow = ["rc", "rcS", "reboot", "halt", "umountfs", "sendsigs", "rmnologin", "functions", "shr-splash.sh", "usb-gadget"]
  
         servicesList = dircache.listdir("/etc/init.d/")
         servicesList.sort()
