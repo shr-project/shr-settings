@@ -331,7 +331,7 @@ class ToneChangeBox(PreferenceBox):
         cur_tone = self.dbusObj.GetValue(self.item_name)
     
         self.horizontal_set(True)
-        
+
         self.label = elementary.Label(self.window)
         self.label.label_set(str(cur_tone))    
         self.label.size_hint_weight_set(1.0, 0.0)
@@ -396,7 +396,7 @@ class CurrentProfile(module.AbstractModule):
 
                     self.main.pack_start(frame)
         return 1
-                
+
     def createView(self):
         self.main = elementary.Box(self.window)
 
