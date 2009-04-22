@@ -68,7 +68,7 @@ class IncDecButton(elementary.Button):
 
     def set_Delta(self, delta):
         self._delta = delta
-        self.label_set("%+i" % delta)
+        self.label_set("{0:+d}".format(delta))
         
 
     def get_Delta( self ):
@@ -107,12 +107,12 @@ class PreferenceBox(elementary.Box):
         """
         initialize the box and load objects
         """
-        
+
         super(PreferenceBox, self).__init__(win)
         self.window = win
         self.item_name = item_name
         self.dbusObj = dbusObj
-        
+
         self.setup()
 
 
@@ -147,7 +147,7 @@ class IncDecButtonBox(PreferenceBox):
         """
         Function to show a increment/decrement button set to alter int
         Preferences values
-        
+
         Layout developed from shr_device_timeouts.py
         """
 
@@ -173,7 +173,7 @@ class IncDecButtonBox(PreferenceBox):
             btn.clicked = self.IncDecButtonClick
             btn.size_hint_align_set(-1.0, 0.0)
             btn.show()
-            
+
             buttons.append(btn)
 
         self.pack_end(buttons[0])
