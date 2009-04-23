@@ -3,12 +3,12 @@ import elementary
 import dbus
 import e_dbus
 
-def dialog(content):
-  global win
-  dia = elementary.Inwin(win)
-  dia.content_set(content)
-  win.resize_object_add(dia)
-  return dia
+#def dialog(content):
+#  global win
+#  dia = elementary.Inwin(win)
+#  dia.content_set(content)
+#  win.resize_object_add(dia)
+#  return dia
 
 def shutdown(obj, event, *args, **kargs):
   elementary.exit()
