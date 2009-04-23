@@ -20,9 +20,13 @@ def getDbusObject (bus, busname , objectpath , interface):
 def error_callback(err):
   print str(err)
 
+def disconnect2(obj, event, networkbus, *args, **kargs):
+  networkbus.Disconnect(reply_handler=connect_callback,error_handler=error_callback)
+  pager.content_pop()
+
 def disconnect(obj, event, networkbus, *args, **kargs):
   print "disconnect"
-  networkbus.Disconnect(reply_handler=connect_callback,error_handler=error_callback)
+  disconnect2(obj, event, networkbus, args, kargs)
   disconnecting = elementary.Label(pager)
   disconnecting.label_set("Disconnecting...")
   disconnecting.show()
@@ -36,28 +40,47 @@ def disconnect(obj, event, networkbus, *args, **kargs):
 def connect_callback():
   print "connect_callback()"
   #pager.content_pop()
-  #update_networks(dev.GetProperties()['Networks'])
+  #update_networksdev.GetProperties()['Networks'])
   #dev.ProposeScan()  
+
+def close_passphrase(obj, event, *args, **kargs):
+  pager.content_pop()
 
 def get_passphrase(obj, event, array, *args, **kargs):
   pager.content_pop()
   entry=array[1]
   networkbus=array[0]
-  networkbus.SetProperty('WiFi.Passphrase','YOUR-PASSPHRASE') # hardcode your passphrase here
+  networkbus.SetProperty('WiFi.Passphrase',entry.entry_get()) # hardcode your passphrase here
   networkbus.Connect(reply_handler=connect_callback,error_handler=error_callback)
 
 def request_for_passphrase(networkbus):
+  network=networkbus.GetProperties()
   box=elementary.Box(pager)
   label = elementary.Label(pager)
-  label.label_set("Please enter passphrase (unimplemented :P)")
+  label.label_set("Please enter passphrase:")
   label.show()
   box.pack_end(label)
   button = elementary.Button(pager)
   button.label_set("Connect")
-  box.pack_end(button)
   button.show()
   entry = elementary.Entry(pager)
+  try:
+    entry.entry_set(network['WiFi.Passphrase'])
+  except:
+    entry.entry_set("type passphrase here")
+  entry.single_line_set(True)
+  entry.show()
+  entry.focus_set(1) # FIXME: why it doesn't work?
+  box.pack_end(entry)
+  box.pack_end(button)  
   button._callback_add("clicked", (get_passphrase, [networkbus, entry]))
+  
+  close = elementary.Button(pager)
+  close.label_set("Close")
+  close.show()
+  close.clicked = close_passphrase
+  box.pack_end(close)
+
   pager.content_push(box)
 
 def connect(obj, event, networkbus, *args, **kargs):
@@ -80,7 +103,7 @@ def connect(obj, event, networkbus, *args, **kargs):
 
   btn_disconnect = elementary.Button(pager)
   btn_disconnect.label_set("Disconnect")
-  btn_disconnect._callback_add("clicked", (disconnect, networkbus))
+  btn_disconnect._callback_add("clicked", (disconnect2, networkbus))
 
   box = elementary.Box(pager)
   box.show()                  
@@ -97,14 +120,14 @@ def connect(obj, event, networkbus, *args, **kargs):
   scanpage = pager.content_push(box)
 
   #networkbus.SetProperty('WiFi.Passphrase','YOUR-PASSPHRASE')
-  if network['WiFi.Security']=='None':
+  if network['WiFi.Security']=='none':
     networkbus.Connect(reply_handler=connect_callback,error_handler=error_callback)
   else:
-    try:
-      print network['WiFi.Passphrase']
-      networkbus.Connect(reply_handler=connect_callback,error_handler=error_callback)
-    except:
-      request_for_passphrase(networkbus)
+  #  try:
+  #    print network['WiFi.Passphrase']
+  #    networkbus.Connect(reply_handler=connect_callback,error_handler=error_callback)
+  #  except:
+    request_for_passphrase(networkbus)
 
 def update_networks(networks):
   global items
