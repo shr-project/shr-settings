@@ -85,11 +85,12 @@ def request_for_passphrase(networkbus):
 
 def connect(obj, event, networkbus, *args, **kargs):
   network = networkbus.GetProperties()
-  print "connecting to " + network['Name'] + "..."
   connecting = elementary.Label(pager)
   try:
+    print "connecting to " + network['Name'] + "..."
     connecting.label_set("Connecting with "+ network['Name'] +"...")
   except:
+    print "connecting to hidden network..."
     connecting.label_set("Connecting with hidden network...")
 
   encryption = elementary.Label(pager)
@@ -156,7 +157,10 @@ def update_networks(networks):
       strength=''
     item = li.item_append(name + " (" + encryption + strength +")", None, but, None)
     items.append(item)
-    print "i have network " + x + " with name " + netprops['Name']
+    try:
+      print "i have network " + x + " with name " + netprops['Name']
+    except:
+      print "i have network " + x + " with hidden ssid"
   li.go()
   return 1
 
