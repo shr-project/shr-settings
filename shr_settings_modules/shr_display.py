@@ -53,5 +53,5 @@ class Display(module.AbstractModule):
         self.value = self.getbacklight()
         self.slider.value = self.value
         self.slider.show()
-        self.slider._callback_add("changed", self.setbacklight)
+        self.slider._callback_add("delay,changed", self.setbacklight)
         return self.slider
