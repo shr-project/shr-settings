@@ -1,12 +1,8 @@
 - shr-settings
     make version with toolbar
     load modules categories dynamicly
-- shr_bt.py
-    fix showing and hiding services toggles
 - shr_gprs.py
-    make it useful :)
-- shr_profile.py
-    use hoversel or something else better than toggles
+    store apn/login/pass somewhere
 - shr_usb.py
     fix to work with gta01
 - module.py
