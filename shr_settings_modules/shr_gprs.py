@@ -4,6 +4,9 @@ import module
 import dbus
 import ecore
 
+import os
+import pickle
+
 # Locale support
 import gettext
 
@@ -14,14 +17,14 @@ except IOError:
     _ = lambda x: x
 
 
-__author__ = "hiciu"
+__author__ = "hiciu, Toaster`"
 
 #
 # ok:
-# 
+#
 # ---
 #  Status polaczenia: up / down / connecting
-#  Ilosc przeslanych danych: 
+#  Ilosc przeslanych danych:
 # ---
 #  Login:
 #  Haslo:
@@ -30,46 +33,155 @@ __author__ = "hiciu"
 #  Polacz / Rozlacz
 #
 
+def getDbusObject (bus, busname , objectpath , interface):
+        dbusObject = bus.get_object(busname, objectpath)
+        return dbus.Interface(dbusObject, dbus_interface=interface)
+
+
+class GPRSLabelBox(elementary.Box):
+    """
+    Class for GPRS connection status
+    """
+    def label_get(self):
+        return self.gprsStatus.label_get()
+
+    def label_set(self, value):
+        return self.gprsStatus.label_set(value.title())
+
+    def __init__(self, win, label, value):
+        """
+        """
+
+        super(GPRSLabelBox, self).__init__(win)
+        self.horizontal_set(True)
+
+        self.window = win
+        self.label  = label
+        self.value  = value
+
+        self.gprsLabel = elementary.Label(self.window)
+        self.gprsLabel.label_set(self.label)
+        self.gprsLabel.show()
+
+        self.gprsStatus = elementary.Label(self.window)
+        self.gprsStatus.label_set(self.value)
+        self.gprsStatus.show()
+
+        self.pack_start(self.gprsLabel)
+        self.pack_end(self.gprsStatus)
+        self.show()
+
+
+class GPRSEntryBox(elementary.Box):
+    """
+    Class for GPRS info entry
+    """
+
+    def entry_get(self):
+        return self.gprsEntry.entry_get()
+
+    def entry_set(self, value):
+        return self.gprsEntry.entry_set(value)
+
+    def __init__(self, win, label, value):
+        """
+        """
+
+        super(GPRSEntryBox, self).__init__(win)
+        self.horizontal_set(True)
+
+        self.window = win
+        self.label  = label
+        self.value  = value
+
+        self.gprsLabel = elementary.Label(self.window)
+        self.gprsLabel.size_hint_align_set(0.0, -1.0)
+        self.gprsLabel.label_set(self.label)
+        self.gprsLabel.show()
+
+        self.gprsEntry = elementary.Entry(self.window)
+        self.gprsEntry.single_line_set(True)
+        self.gprsEntry.entry_set(self.value)
+        self.gprsEntry.show()
+
+        self.grpsEntryFrame = elementary.Frame(self.window)
+        self.grpsEntryFrame.style_set("outdent_top")
+        self.grpsEntryFrame.content_set(self.gprsEntry)
+        self.grpsEntryFrame.show()
+
+        self.pack_start(self.gprsLabel)
+        self.pack_end(self.grpsEntryFrame)
+        self.show()
+
+
 class Gprs(module.AbstractModule):
     name = _("GPRS")
     section = _("networking")
-    
-    #enter your apn, login && password here: - TODO - store that somewhere, maybe in opreferencesd
-    apn, login, password = "internet", "internet", "internet"
-    
-    def isEnabled(self):
-        try:
-            self.gsm = self.dbus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
-            self.gprs = dbus.Interface( self.gsm, dbus_interface = 'org.freesmartphone.GSM.PDP' )
-            return 1
-        except:
-            return 0
+
+    # persistent data file, until something is available in opreferencesd
+    persistData = '/etc/freesmartphone/persist/gprs.pickle'
+
+    def error(self):
+        label = elementary.Label(self.window)
+        label.label_set("Dbus is borked")
+        label.show()
+        self.main.pack_start(label)
+
+    def getEntryData(self):
+        """
+        Returns clean values for the text entries
+        """
+        apn         = self.entryAPN.entry_get().replace("<br>","")
+        login       = self.entryLogin.entry_get().replace("<br>","")
+        password    = self.entryPassword.entry_get().replace("<br>","")
+
+        return apn,login,password
+
+    def loadConnectionData(self):
+        """
+        Read pickled connection data from the persistData file
+        """
+        # defaults
+        apn = login = password = "Internet"
+
+        if os.path.exists(self.persistData):
+            pickleFile = open(self.persistData, "w")
+            apn, login, password = pickle.load(pickleFile)
+
+        return apn, login, password
+
+    def saveConnectionData(self):
+        """
+        Write pickled connection data to the persistData file.
+        `/etc/freesmartphone/persist/` is assumed to exist
+        """
+
+        # Assume connection was made, therefore is good data, so pickle it
+        pickleData = self.getEntryData()
+        pickleFile = open(self.persistData, "w")
+        pickle.dump(pickleData,pickleFile)
+        pickleFile.close()
 
     def dbusnothing(self):
         return 0
 
     def connect(self, obj, event, *args, **kargs):
-        self.gprs.ActivateContext(self.entryAPN.entry_get().replace("<br>",""), self.entryLogin.entry_get().replace("<br>",""), self.entryPassword.entry_get().replace("<br>","") , reply_handler = self.dbusnothing, error_handler = self.dbusnothing)
+        apn, login, password = self.getEntryData()
+        self.dbusObj.ActivateContext(apn, login, password,
+            reply_handler = self.dbusnothing,
+            error_handler = self.dbusnothing)
         return 0
 
     def disconnect(self, obj, event, *args, **kargs):
-        self.gprs.DeactivateContext()
+        self.dbusObj.DeactivateContext()
         return 0
 
     def nothing(self, obj, event, *args, **kargs):
         print "nothing called"
         return 0
 
-    #a little helper..
-    def newLabel(self, labelText):
-    	obj = elementary.Label(self.window)
-    	obj.label_set(labelText)
-    	obj.show()
-    	self.main.pack_end(obj)
-    	return obj
-
-    def updateStatus(self):
-        gprs_status = self.gprs.GetContextStatus()
+    def updateStatus(self, *args, **kargs):
+        gprs_status = self.dbusObj.GetContextStatus()
         if gprs_status == 'release':
             status=_("disconnected")
             self.btConnectDisconnect.label_set(_("Connect"))
@@ -78,6 +190,8 @@ class Gprs(module.AbstractModule):
             status=_("connected")
             self.btConnectDisconnect.label_set(_("Disconnect"))
             self.btConnectDisconnect.clicked = self.disconnect
+            # Since connection was successful, save login data
+            self.saveConnectionData()
         elif gprs_status == 'outgoing':
             status=_("connecting")
             self.btConnectDisconnect.label_set(_("Disconnect"))
@@ -86,67 +200,55 @@ class Gprs(module.AbstractModule):
             status=_("UNKNOWN")+" ("+gprs_status+")"
             self.btConnectDisconnect.label_set(_("UNKNOWN"))
             self.btConnectDisconnect.clicked = self.nothing
-        self.laConnection.label_set(_("Connection status: ")+status)
+        self.labelStatus.label_set(status)
         return True
 
     def createView(self):
-    	#gui
-    	self.main = elementary.Box(self.window)
-    	
-        self.entryAPN = elementary.Entry(self.window)
-        self.entryAPN.single_line_set(True)
-        self.entryAPN.entry_set(self.apn)
-        self.entryAPN.show()
-        self.boxAPN = elementary.Box(self.window)
-        self.laAPN = elementary.Label(self.window)
-        self.laAPN.label_set(_("Your APN: "))
-        self.boxAPN.horizontal_set(True)
-        self.boxAPN.pack_start(self.laAPN)
-        self.laAPN.show()
-        self.boxAPN.pack_end(self.entryAPN)
-        self.boxAPN.show()
-        self.main.pack_end(self.boxAPN)
+        """
+        Create main box then try loading dbus, if successful, load the rest,
+        on exception load error message
+        """
 
-        self.entryLogin = elementary.Entry(self.window)
-        self.entryLogin.single_line_set(True)
-        self.entryLogin.entry_set(self.login)
-        self.entryLogin.show()
-        self.boxLogin = elementary.Box(self.window)
-        self.laLogin = elementary.Label(self.window)
-        self.laLogin.label_set(_("Your login: "))
-        self.boxLogin.horizontal_set(True)
-        self.boxLogin.pack_start(self.laLogin)
-        self.laLogin.show()
-        self.boxLogin.pack_end(self.entryLogin)
-        self.boxLogin.show()
-        self.main.pack_end(self.boxLogin)
+        self.main = elementary.Box(self.window)
 
-        self.entryPassword = elementary.Entry(self.window)
-        self.entryPassword.single_line_set(True)
-        self.entryPassword.entry_set(self.password)
-        self.entryPassword.show()
-        self.boxPassword = elementary.Box(self.window)
-        self.laPassword = elementary.Label(self.window)
-        self.laPassword.label_set(_("Your password: "))
-        self.boxPassword.horizontal_set(True)
-        self.boxPassword.pack_start(self.laPassword)
-        self.laPassword.show()
-        self.boxPassword.pack_end(self.entryPassword)
-        self.boxPassword.show()
-        self.main.pack_end(self.boxPassword)
+        try:
+            # GSM.PDP DBus interface
+            self.dbusObj = getDbusObject(self.dbus,
+                "org.freesmartphone.ogsmd",
+                "/org/freesmartphone/GSM/Device",
+                "org.freesmartphone.GSM.PDP")
 
-        self.laConnection = self.newLabel(_("Connection status: ")+_("UNKNOWN"))
-        #self.laTransferred = self.newLabel(_("Transferred bytes (RX/TX): UNKNOWN"))
+            # GSM.PDP.ContextStatus(isa{sv}) DBus Signal
+            self.dbusObj.connect_to_signal("ContextStatus", self.updateStatus)
 
-        #CONNECT / DISCONNECT button
-        self.btConnectDisconnect = elementary.Button(self.window)
-        self.btConnectDisconnect.label_set(_("UNKNOWN"))
-        self.btConnectDisconnect.show()
-        self.btConnectDisconnect.size_hint_align_set(-1.0, 0.0)
-        self.main.pack_end(self.btConnectDisconnect)
- 
-        self.updateStatus()
+            # Check for and load persisted data
+            self.apn, self.login, self.password = self.loadConnectionData()
 
-        ecore.timer_add( 1, self.updateStatus)
+            # connection_name, apn, login, password entries
+            self.entryAPN       = GPRSEntryBox(self.window, _("Your APN: "), self.apn)
+            self.entryLogin     = GPRSEntryBox(self.window, _("Your login: "), self.login)
+            self.entryPassword  = GPRSEntryBox(self.window, _("Your password: "), self.password)
+            self.labelStatus    = GPRSLabelBox(self.window, _("Connection status: "),_("UNKNOWN"))
+            #self.laTransferred = self.newLabel(_("Transferred bytes (RX/TX): UNKNOWN"))
+
+            self.main.pack_end(self.entryAPN)
+            self.main.pack_end(self.entryLogin)
+            self.main.pack_end(self.entryPassword)
+            self.main.pack_end(self.labelStatus)
+
+            #CONNECT / DISCONNECT button
+            self.btConnectDisconnect = elementary.Button(self.window)
+            self.btConnectDisconnect.label_set(_("UNKNOWN"))
+            self.btConnectDisconnect.show()
+            self.btConnectDisconnect.size_hint_align_set(-1.0, 0.0)
+            self.main.pack_end(self.btConnectDisconnect)
+
+            self.updateStatus()
+
+        except:
+            # This needs expansion, error reason etc...
+            self.error()
+
+        self.main.show()
 
         return self.main
