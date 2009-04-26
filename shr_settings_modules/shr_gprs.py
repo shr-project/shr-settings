@@ -142,10 +142,10 @@ class Gprs(module.AbstractModule):
         Read pickled connection data from the persistData file
         """
         # defaults
-        apn = login = password = "Internet"
+        apn = login = password = "internet"
 
         if os.path.exists(self.persistData):
-            pickleFile = open(self.persistData, "w")
+            pickleFile = open(self.persistData, "r")
             apn, login, password = pickle.load(pickleFile)
 
         return apn, login, password
