@@ -419,13 +419,14 @@ if __name__ == "__main__":
                 print "main menu with categories."
                 print "Call it with modules names, to open"
                 print "only typed modules in one window."
+                print "First argument is window title."
                 print "--------------------------------------"
                 print "http://shr-project.org/"        
                 exit(0)
         else:
-            modlista.append(sys.argv[1])
-            modlista.append('')
-            modlista.append(sys.argv[2:])
+            modlista.append(sys.argv[1]) # title
+            modlista.append('') # TODO: icon
+            modlista.append(sys.argv[2:]) # list of modules
         modwin = ModulesWindow()
         import dbus, e_dbus
         mainloop = e_dbus.DBusEcoreMainLoop()
