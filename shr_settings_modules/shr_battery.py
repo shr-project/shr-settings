@@ -54,7 +54,7 @@ class Battery(module.AbstractModule):
             if sta=="Charging":
                 time = int(os.popen("cat /sys/class/power_su*ply/bat*/time_to_full_now").readline())
                 try:
-                    rate = int(os.popen("cat /sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/usb_curlim").readline())
+                    rate = int(os.popen("cat /sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/chg_curlim").readline())
                     rate = " (%s mA)" % rate
                 except:
                     pass
@@ -70,13 +70,14 @@ class Battery(module.AbstractModule):
 
 
             #FIXME: if it does not work.. we should try again?
-            #   Is there no way to use dbus? 
-            #   Timers seem to lock up the GUI
-            #               - Cameron
             if self.guiUpdate:
-                ecore.timer_add( 5, self.refreshAct)
+                return 1
+            else:
+                return 0
 
         except:
+            #FIXME: if it does not work.. should we try again?
+            return 1
             print ":("
 
     def createView(self):
@@ -107,6 +108,10 @@ class Battery(module.AbstractModule):
         self.box.show()
 
         self.refreshAct()
+            #   Is there no way to use dbus?
+            #   Timers seem to lock up the GUI
+            #               - Cameron
+        ecore.timer_add( 10, self.refreshAct)
 
         return self.box
 
