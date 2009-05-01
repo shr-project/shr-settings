@@ -193,6 +193,23 @@ def onsignal (*args, **kargs):
     print "Unknown signal: " + str(kargs['signal'])
   return True
 
+def show_connmand_error():
+  msg = elementary.Label(pager)
+  msg.label_set("connman daemon is not responding.")
+  btn = elementary.Button(pager)
+  btn.label_set("OK")
+  btn._callback_add("clicked", shutdown)
+  box = elementary.Box(pager)
+  box.show()
+  box.pack_end(msg)
+  box.pack_end(btn)
+  msg.show()
+  btn.show()
+  pager.content_push(box)
+  elementary.run()
+  elementary.shutdown()
+  exit(0)
+
 elementary.init()
 
 items=[]
@@ -209,6 +226,17 @@ bg = elementary.Background(win)
 win.resize_object_add(bg)
 bg.show()
 
+pager = elementary.Pager(win)
+pager.show()
+win.resize_object_add(pager)
+
+try:
+  connman = getDbusObject (bus, "org.moblin.connman", "/", "org.moblin.connman.Manager")
+except dbus.exceptions.DBusException, e:
+  print "connmand is not responding."
+  show_connmand_error()
+
+
 scanning = elementary.Label(win)
 scanning.label_set("Scanning now...")
 
@@ -217,20 +245,16 @@ scanning.label_set("Scanning now...")
 box = elementary.Box(win)
 box.show()
 
+
 li = elementary.List(win)
 li.show()
 
-pager = elementary.Pager(win)
-pager.show()
-win.resize_object_add(pager)
 pager.content_push(li)
 
 
 box.pack_end(scanning)
 #win.resize_object_add(box)
 li.go()
-
-connman = getDbusObject (bus, "org.moblin.connman", "/", "org.moblin.connman.Manager")
 properties = connman.GetProperties()
 
 device = ''
