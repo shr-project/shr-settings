@@ -50,7 +50,7 @@ def get_passphrase(obj, event, array, *args, **kargs):
   pager.content_pop()
   entry=array[1]
   networkbus=array[0]
-  networkbus.SetProperty('WiFi.Passphrase',entry.entry_get()) # hardcode your passphrase here
+  networkbus.SetProperty('WiFi.Passphrase',entry.entry_get().replace("<br>",""))
   networkbus.Connect(reply_handler=connect_callback,error_handler=error_callback)
 
 def request_for_passphrase(networkbus):
