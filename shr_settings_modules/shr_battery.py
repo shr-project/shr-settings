@@ -111,6 +111,15 @@ class Battery(module.AbstractModule):
             #   Is there no way to use dbus?
             #   Timers seem to lock up the GUI
             #               - Cameron
+
+            #   There is:
+            #   org.freesmartphone.odeviced
+            #   /org/freesmartphone/Device/PowerSupply/battery
+            #   org.freesmartphone.Device.PowerSupply.GetInfo
+            #   And two signals: Capacity and PowerStatus.
+            #   TODO: We should use it.
+            #               - dos
+
         ecore.timer_add( 10, self.refreshAct)
 
         return self.box
