@@ -55,7 +55,7 @@ class Battery(module.AbstractModule):
                 time = int(os.popen("cat /sys/class/power_su*ply/bat*/time_to_full_now").readline())
                 try:
                     rate = int(os.popen("cat /sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/chg_curlim").readline())
-                    rate = " (%s mA)" % rate
+                    rate = " ({0} mA)".format(rate)
                 except:
                     pass
             else:
