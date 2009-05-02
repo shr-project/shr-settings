@@ -47,10 +47,10 @@ class IncDecButtonBox(elementary.Box):
     Object which shows an increment/decrement button set to alter int
     Preferences values
     """
-    
+
     def IncDecButtonClick(self, obj, event, *args, **kargs):
-        """ 
-        Callback function when +-[1,10] timeout buttons have been pressed 
+        """
+        Callback function when +-[1,10] timeout buttons have been pressed
         """
         cur_val = self.cur_value
         delta  = obj.get_Delta()
@@ -84,7 +84,7 @@ class IncDecButtonBox(elementary.Box):
 
         itemLabel = elementary.Label(self.window)
         itemLabel.size_hint_weight_set(1.0, 0.0)
-        itemLabel.label_set(self.item_name)
+        itemLabel.label_set(self.item_name.replace("_"," ").title())
         itemLabel.show()
 
         itemFrame = elementary.Frame(self.window)
@@ -141,7 +141,7 @@ class Timeouts(module.AbstractModule):
         label.label_set("Dbus is borked")
         self.main.pack_start(label)
 
-    def createView(self): 
+    def createView(self):
         self.main = elementary.Box(self.window)
 
         self.dbus_state = 0
