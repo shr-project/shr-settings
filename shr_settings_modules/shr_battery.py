@@ -51,41 +51,74 @@ class Battery(module.AbstractModule):
         self.main.pack_start(label)
         label.show()
 
+    def getValue(self,nodePath, scale = 1):
+        """
+        Given a /sys node path and scaling factor,
+        return the intelligent result (int, float, str)
+
+        Bool is not covered or required currently,
+        but is implicit with int values
+        """
+        # retrieve raw value
+        value = os.popen("cat "+nodePath).readline().strip()
+
+        # try some intelligent filtering
+        try:
+            # if int(a) == float(a), assume valid int value
+            value = float(value) * scale
+            if int(value) == float(value):
+                return int(value)
+            # otherwise, assume valid float value
+            else:
+                return float(value)
+        # ValueError means that value was neither int() or float(),
+        #   therefore assume str().
+        except ValueError, e:
+            return str(value)
+
     def sectotime(self, sec):
+        """
+        Takes a time in seconds
+        Returns tuple of ( hours, minutes )
+        """
         hours   = int( sec / 3600 )
         min     = int( ( sec % 3600 ) / 60 )
         return ( hours, min )
 
     def refreshAct(self, signalData = None):
-        vol     = "1234"
-        temp    = "1234"
-        cur     = "1234"
-        cap     = "1234"
-        time    = "1234"
-        rate    = ""
+        """
+        Update the data displayed in BatteryLabel
+        """
 
         try:
-            cap     = os.popen("cat /sys/class/power_su*ply/bat*/capacity").readline().strip()
-            cur     = int(os.popen("cat /sys/class/power_su*ply/bat*/current_now").readline())/1000
-            temp    = float(os.popen("cat /sys/class/power_sup*ly/bat*/temp").readline())/10
-            vol     = float(os.popen("cat /sys/class/power_sup*ly/bat*/voltage_now").readline())/(1000*1000)
-            sta     = os.popen("cat /sys/class/power_su*ply/bat*/status").readline().strip()
+
+            # read data from /sys nodes
+            cap     = self.getValue("/sys/class/power_su*ply/bat*/capacity")
+            cur     = self.getValue("/sys/class/power_su*ply/bat*/current_now", 1e-3)
+            temp    = self.getValue("/sys/class/power_sup*ly/bat*/temp", 1e-1)
+            vol     = self.getValue("/sys/class/power_sup*ly/bat*/voltage_now", 1e-6)
+            sta     = self.getValue("/sys/class/power_su*ply/bat*/status")
             if sta == "Charging":
-                time = int(os.popen("cat /sys/class/power_su*ply/bat*/time_to_full_now").readline())
+                time = self.getValue("/sys/class/power_su*ply/bat*/time_to_full_now")
                 try:
-                    rate = int(os.popen("cat /sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/chg_curlim").readline())
+                    rate = self.getValue("/sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/chg_curlim")
                     rate = " ({0} mA)".format(rate)
+                    sta += rate
                 except:
                     pass
             else:
-                time = int(os.popen("cat /sys/class/power_su*ply/bat*/time_to_empty_now").readline())
+                time = self.getValue("/sys/class/power_su*ply/bat*/time_to_empty_now")
 
-            self.timel.setLabel(self.sectotime(time))
+            # calculate hours and minutes from the found time value
+            time = self.sectotime(time)
+
+            # set the displayed labels
+            self.timel.setLabel(time)
             self.capl.setLabel(cap)
             self.curl.setLabel(cur)
             self.templ.setLabel(temp)
             self.voll.setLabel(vol)
-            self.stal.setLabel(sta+rate)
+            self.stal.setLabel(sta)
 
         except:
             return 1
@@ -94,9 +127,9 @@ class Battery(module.AbstractModule):
     def createView(self):
 
         # create the box
-        self.box = elementary.Box(self.window)
-        self.box.size_hint_weight_set(1.0, 1.0)
-        self.box.size_hint_align_set(-1.0, 0.0)
+        self.main = elementary.Box(self.window)
+        self.main.size_hint_weight_set(1.0, 1.0)
+        self.main.size_hint_align_set(-1.0, 0.0)
 
         try:
 
@@ -110,31 +143,31 @@ class Battery(module.AbstractModule):
             self.dbusObj.connect_to_signal("Capacity",      self.refreshAct)
             self.dbusObj.connect_to_signal("PowerStatus",   self.refreshAct)
 
-            # create labels
+            # create labels, setting the display formats and static labels
             self.stal   = BatteryLabel(self.window, "{0}{1}",                       _("Status: "))
             self.voll   = BatteryLabel(self.window, "{0}{1:.3f} V",                 _("Voltage: "))
             self.templ  = BatteryLabel(self.window, "{0}{1:.1f} 'C",                _("Temperature: "))
-            self.curl   = BatteryLabel(self.window, "{0}{1} mA",                    _("Current: "))
+            self.curl   = BatteryLabel(self.window, "{0}{1:.0f} mA",                _("Current: "))
             self.capl   = BatteryLabel(self.window, "{0}{1} %",                     _("Capacity: "))
             self.timel  = BatteryLabel(self.window, "{0}{1[0]:d} h {1[1]:02d} min", _("Remaining time: "))
 
             # pack labels into the box
-            self.box.pack_start(self.stal)
-            self.box.pack_start(self.voll)
-            self.box.pack_start(self.templ)
-            self.box.pack_start(self.curl)
-            self.box.pack_start(self.capl)
-            self.box.pack_start(self.timel)
+            self.main.pack_start(self.stal)
+            self.main.pack_start(self.voll)
+            self.main.pack_start(self.templ)
+            self.main.pack_start(self.curl)
+            self.main.pack_start(self.capl)
+            self.main.pack_start(self.timel)
 
             # update the labels
             self.refreshAct()
 
-            self.box.show()
+            self.main.show()
 
         except dbus.exceptions.DBusException, e:
 
             print "DBus is not running", repr(e)
             self.error()
 
-        return self.box
+        return self.main
 
