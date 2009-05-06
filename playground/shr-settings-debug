@@ -1,10 +1,20 @@
 #!/usr/bin/env python
-# TODO: load module passed by commandline
 
 print "SHR: initializing..."
 import e_dbus, dbus, elementary
-print "SHR: import"
-from shr_settings_modules import shr_pim
+from sys import argv
+
+if len(argv)==1:
+  print "SHR: module is not passed in arguments. Aborting..."
+  exit(0)
+
+modname = argv[1]
+
+(submodname, classname) = modname.split('.',1)
+
+print "SHR: import "+classname+" from "+submodname
+module   = __import__('shr_settings_modules.' + submodname, globals(), locals(), classname)
+ModClass = module.__getattribute__(classname)
 
 def close(obj, event, *args, **kargs):
     print "SHR: stopUpdate"
@@ -14,17 +24,18 @@ def close(obj, event, *args, **kargs):
     print "SHR: closing..."
     elementary.exit()
 
+
 elementary.init()
 mainloop = e_dbus.DBusEcoreMainLoop()
 bus = dbus.SystemBus(mainloop=mainloop)
-win = elementary.Window("lol", elementary.ELM_WIN_BASIC)
+win = elementary.Window("shr-settings-debug", elementary.ELM_WIN_BASIC)
 win.show()
 bg = elementary.Background(win)
 win.resize_object_add(bg)
 bg.show()
 
 print "SHR: constructor"
-mod = shr_pim.Pim(win, bus)
+mod = ModClass(win, bus)
 print "SHR: isEnabled"
 print "SHR: enabled = "+str(mod.isEnabled())
 print "SHR: createView"
