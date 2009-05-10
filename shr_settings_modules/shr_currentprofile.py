@@ -19,11 +19,11 @@ Notes
          1.0    = right-justified
     vert_align:
         -1.0    =
-        -0.5    = 
+        -0.5    =
          0.0    =
          0.5    = middle
-         1.0    = 
-"""       
+         1.0    =
+"""
 
 
 try:
@@ -69,7 +69,7 @@ class IncDecButton(elementary.Button):
     def set_Delta(self, delta):
         self._delta = delta
         self.label_set("{0:+d}".format(delta))
-        
+
 
     def get_Delta( self ):
         return self._delta
@@ -83,7 +83,7 @@ class PreferenceBox(elementary.Box):
     def update(self):
         """
         This is where each decendant class provides it's own updating code
-        
+
         Defaults to updating default setup label
         """
         cur_value = self.dbusObj.GetValue(self.item_name)
@@ -92,17 +92,17 @@ class PreferenceBox(elementary.Box):
     def setup(self):
         """
         This is where each decendant class provides its own look
-        
+
         Defaults to displaying a label of the current value
         """
         cur_value = self.dbusObj.GetValue(self.item_name)
 
         self.label = elementary.Label(self.window)
         self.label.label_set(str(cur_value))
-        
+
         self.pack_start(self.label)
         self.label.show()
-    
+
     def __init__(self, win, dbusObj, item_name):
         """
         initialize the box and load objects
@@ -120,13 +120,13 @@ class IncDecButtonBox(PreferenceBox):
     """
     Object which shows an increment/decrement button set to alter int
     Preferences values
-    
+
     Layout derived taken from shr_device_timeouts.py
     """
-    
+
     def IncDecButtonClick(self, obj, event, *args, **kargs):
-        """ 
-        Callback function when +-[1,10] timeout buttons have been pressed 
+        """
+        Callback function when +-[1,10] timeout buttons have been pressed
         """
         cur_val = self.cur_value
         delta  = obj.get_Delta()
@@ -187,16 +187,16 @@ class IncDecButtonBox(PreferenceBox):
 
 class RadioOnOffBox(PreferenceBox):
     """
-    Object which shows an On/Off Radio Button 
+    Object which shows an On/Off Radio Button
     object for Boolean Preferences items
-    
+
     """
-    
+
     togglegroup = {}
 
     def OnOffClick(self, obj, event, *args, **kargs):
-        """ 
-        Callback function either radio button has been selected 
+        """
+        Callback function either radio button has been selected
         """
         self.dbusObj.SetValue(self.item_name,bool(obj.value_get()))
         self.update()
@@ -224,7 +224,7 @@ class RadioOnOffBox(PreferenceBox):
         radioOn.state_value_set(True)
         radioOn._callback_add("changed", self.OnOffClick)
         radioOn.show()
-        
+
         radioOff = elementary.Radio(self.window)
         radioOff.label_set(_("Off"))
         radioOff.size_hint_weight_set(1.0, 0.0)
@@ -232,7 +232,7 @@ class RadioOnOffBox(PreferenceBox):
         radioOff.state_value_set(False)
         radioOff._callback_add("changed", self.OnOffClick)
         radioOff.show()
-        
+
         self.togglegroup[self.item_name] = radioOn
         radioOff.group_add(self.togglegroup[self.item_name])
 
@@ -240,33 +240,33 @@ class RadioOnOffBox(PreferenceBox):
 
         self.pack_start(radioOn)
         self.pack_end(radioOff)
-        
+
         self.show()
 
 
 class ToneChangeBox(PreferenceBox):
     """
-    Object which shows a file selctor object to allow for changing of string 
-    Preferences items, specifically 'message-tone' and 'ring-tone'    
+    Object which shows a file selctor object to allow for changing of string
+    Preferences items, specifically 'message-tone' and 'ring-tone'
     """
 
     def destroy(self, obj, event, *args, **kargs):
-        """ 
+        """
         Callback function to destroy the FileListBox window
         """
         self.FLBWin.hide()
 
     def ChangeTone(self, obj, event, *args, **kargs):
-        """ 
-        Callback function to change the tone file name in the settings 
+        """
+        Callback function to change the tone file name in the settings
         """
         self.dbusObj.SetValue(self.item_name,str(obj.get_filename()))
         self.destroy(obj, event)
         self.update()
 
     def FileListBox(self, obj, event, *args, **kargs):
-        """ 
-        Callback function to display the file selection window 
+        """
+        Callback function to display the file selection window
         """
         self.FLBWin = elementary.Window(_("Change ringtone"),elementary.ELM_WIN_BASIC)
         bg = elementary.Background(self.FLBWin)
@@ -308,7 +308,9 @@ class ToneChangeBox(PreferenceBox):
         box1.size_hint_weight_set(1.0, 0.0)
         box1.show()
 
-        for filename in os.listdir("/usr/share/sounds"):
+        sndFiles = [f for f in os.listdir("/usr/share/sounds") if os.path.isfile(f)]
+
+        for filename in sndFiles:
             filebtn = FileButton(self.FLBWin)
             filebtn.set_filename(filename)
             filebtn.clicked = self.ChangeTone
@@ -321,7 +323,7 @@ class ToneChangeBox(PreferenceBox):
         Updates the displayed value to the current profile
         """
         cur_tone = self.dbusObj.GetValue(self.item_name)
-        self.label.label_set(str(cur_tone))    
+        self.label.label_set(str(cur_tone))
 
     def setup(self):
         """
@@ -329,13 +331,13 @@ class ToneChangeBox(PreferenceBox):
         FileListBox to set the tone Preferences values
         """
         cur_tone = self.dbusObj.GetValue(self.item_name)
-    
+
         self.horizontal_set(True)
 
         self.label = elementary.Label(self.window)
-        self.label.label_set(str(cur_tone))    
+        self.label.label_set(str(cur_tone))
         self.label.size_hint_weight_set(1.0, 0.0)
-        self.label.size_hint_align_set(0.5, 0.5) 
+        self.label.size_hint_align_set(0.5, 0.5)
         self.pack_start(self.label)
         self.label.show()
 
@@ -367,7 +369,7 @@ class CurrentProfile(module.AbstractModule):
             typ = self.dbusObj.GetType(i)
             profilable = self.dbusObj.IsProfilable(i)
 
-            if profilable:            
+            if profilable:
                 try:
                     # If self.contents[i] exists, then run the update()
                     # for that object
@@ -399,6 +401,7 @@ class CurrentProfile(module.AbstractModule):
 
     def createView(self):
         self.main = elementary.Box(self.window)
+        self.main.size_hint_weight_set(1.0, 1.0)
 
         try:
             # Preferences.Service DBus interface
