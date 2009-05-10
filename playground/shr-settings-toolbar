@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import elementary, ecore
 import dbus, e_dbus
 import sys, os
@@ -127,8 +129,8 @@ class Settings(object):
         self.dbus_system = dbus.SystemBus(mainloop=mainloop)
 
         # Create window
-        self.win = elementary.Window("Testing", elementary.ELM_WIN_BASIC)
-        self.win.title_set("Testing")
+        self.win = elementary.Window("settings", elementary.ELM_WIN_BASIC)
+        self.win.title_set("SHR Settings")
         self.win.destroy = (self.quit, None)
 
         # Background Widget
