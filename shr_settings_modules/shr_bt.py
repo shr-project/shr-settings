@@ -18,21 +18,22 @@ def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
+
 class BtMstateContener:
     def __init__(self, busres, buspower):
         self.state = 0
-        self.busres = busres
-        self.buspower = buspower
+        self.dbusObjBT = busres
+        self.dbusObjPower = buspower
 
     def setPower(self, b ):
         if b:
-            self.busres.Enable()
+            self.dbusObjBT.Enable()
         else:
-            self.busres.Disable()
-        self.buspower.SetPower(b)
+            self.dbusObjBT.Disable()
+        self.dbusObjPower.SetPower(b)
 
     def getPower(self):
-        return self.buspower.GetPower()
+        return self.dbusObjPower.GetPower()
 
     def setVisibility(self, b):
         if b:
@@ -67,17 +68,21 @@ class BtMstateContener:
         if self.iscan==1:
             return 1
         return 0
-        
 
 
 class Bt(module.AbstractModule):
     name = _("Bluetooth")
     section = _("Connectivity")
 
-    def BtmodGUIupdate(self):
+    def error(self):
+        label = elementary.Label(self.window)
+        label.label_set("Dbus is borked")
+        self.main.pack_start(label)
+
+    def update(self):
         s = self.btmc.getPower()
         v = self.btmc.getVisibility()
-        print "BT BtmodGUIupdate [info] power:"+str(s)+"; visibility:"+str(v)
+        print "BT update [info] power:"+str(s)+"; visibility:"+str(v)
         if s == 1:
             self.toggle1.show()
             if v:
@@ -91,80 +96,59 @@ class Bt(module.AbstractModule):
             self.toggle1.hide()
             self.toggle0.state_set( 0 )
 
-        if self.guiUpdate:
-            ecore.timer_add( 5.4, self.BtmodGUIupdate)
-
     def toggle0Click(self, obj, event, *args, **kargs):
-#        if self.btmc.getPower():
-	if self.btmc.getPower()==obj.state_get():
-		return 0
-	if obj.state_get()==0:
-            print "Bt toggle0Click BT set OFF"
-            self.btmc.setPower( 0 )
-            #self.toggle1.hide()
-        else:
-            print "Bt toggle0Click BT set ON"
-            self.btmc.setPower( 1 )
-            #self.toggle1.show()
-        self.BtmodGUIupdate()
-
-        
-        
+        if not self.btmc.getPower() == obj.state_get():
+            self.btmc.setPower( obj.state_get() )
+            self.update()
 
     def toggle1Click(self, obj, event, *args, **kargs):
-        print "BT toggle1Cleck set Visibility"
-        if self.btmc.getVisibility()==obj.state_get():
-            return 0
-    #        s = self.btmc.getVisibility()
-    #        print str(s)
-    #        if s:
-        if obj.state_get()==0:
-            print "Turn off"
-            self.btmc.setVisibility(0)
-        else:
-            print "Turn on"
-            self.btmc.setVisibility(1)
-        self.BtmodGUIupdate()
+        if not self.btmc.getVisibility() == obj.state_get():
+            self.btmc.setVisibility( obj.state_get() )
+            self.update()
 
     def createView(self):
-        box1 = elementary.Box(self.window)
+        self.main = elementary.Box(self.window)
 
         try:
-            self.busres = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/PowerControl/Bluetooth", "org.freesmartphone.Resource" ) 
-            self.buspower = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/PowerControl/Bluetooth", "org.freesmartphone.Device.PowerControl" )
-        except:
-            label =elementary.Label(self.window)
-            label.label_set(_("can't connect to dbus"))
-            label.size_hint_align_set(-1.0, 0.0)
-            label.show()
-            box1.pack_start(label)
-            return box1
 
-        self.guiUpdate = 1
-        self.btmc = BtMstateContener(self.busres, self.buspower)
-        vi = self.btmc.getVisibility()
+            # connect to dbus
+            self.dbusObjBT = getDbusObject (self.dbus,
+                "org.freesmartphone.odeviced",
+                "/org/freesmartphone/Device/PowerControl/Bluetooth",
+                "org.freesmartphone.Resource" )
 
+            self.dbusObjPower = getDbusObject (self.dbus,
+                "org.freesmartphone.odeviced",
+                "/org/freesmartphone/Device/PowerControl/Bluetooth",
+                "org.freesmartphone.Device.PowerControl" )
 
-        self.toggle0 = elementary.Toggle(self.window)
-        self.toggle0.label_set(_("Bluetooth radio:"))
-        self.toggle0.size_hint_align_set(-1.0, 0.0)
-        self.toggle0.states_labels_set(_("On"),_("Off"))
-        box1.pack_start(self.toggle0)
-        self.toggle0.show()
-        self.toggle0.changed = self.toggle0Click
+            # set update triggers
+            self.dbusObjBT.connect_to_signal("Power",      self.update)
 
-        self.toggle1 = elementary.Toggle(self.window)
-        self.toggle1.label_set(_("Visibility:"))
-        self.toggle1.size_hint_align_set(-1.0, 0.0)
-        self.toggle1.states_labels_set(_("On"),_("Off"))
-        self.toggle1.state_set(vi)
-        box1.pack_end(self.toggle1)
-        self.toggle1.changed = self.toggle1Click
+            self.btmc = BtMstateContener(self.dbusObjBT, self.dbusObjPower)
 
-        self.BtmodGUIupdate()
+            self.toggle0 = elementary.Toggle(self.window)
+            self.toggle0.label_set(_("Bluetooth radio:"))
+            self.toggle0.size_hint_align_set(-1.0, 0.0)
+            self.toggle0.states_labels_set(_("On"),_("Off"))
+            self.toggle0.show()
+            self.toggle0.changed = self.toggle0Click
 
-        return box1
+            self.toggle1 = elementary.Toggle(self.window)
+            self.toggle1.label_set(_("Visibility:"))
+            self.toggle1.size_hint_align_set(-1.0, 0.0)
+            self.toggle1.states_labels_set(_("On"),_("Off"))
+            self.toggle1.state_set(self.btmc.getVisibility())
+            self.toggle1.changed = self.toggle1Click
 
-    def stopUpdate(self):
-        print "BT destructor"
-        self.guiUpdate = 0
+            self.main.pack_start(self.toggle0)
+            self.main.pack_end(self.toggle1)
+
+            self.update()
+
+        except dbus.exceptions.DBusException, e:
+
+            print "DBus is not running", repr(e)
+            self.error()
+
+        return self.main
