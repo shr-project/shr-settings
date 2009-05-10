@@ -308,7 +308,7 @@ class ToneChangeBox(PreferenceBox):
         box1.size_hint_weight_set(1.0, 0.0)
         box1.show()
 
-        sndFiles = [f for f in os.listdir("/usr/share/sounds") if os.path.isfile(f)]
+        sndFiles = [f for f in os.listdir("/usr/share/sounds") if os.path.isfile("/usr/share/sounds/"+f)]
 
         for filename in sndFiles:
             filebtn = FileButton(self.FLBWin)
