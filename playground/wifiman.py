@@ -233,8 +233,11 @@ win.resize_object_add(pager)
 try:
   connman = getDbusObject (bus, "org.moblin.connman", "/", "org.moblin.connman.Manager")
 except dbus.exceptions.DBusException, e:
-  print "connmand is not responding."
-  show_connmand_error()
+  try:
+    connman = getDbusObject (bus, "org.moblin.connman", "/", "org.moblin.connman.Manager")
+  except dbus.exceptions.DBusException, e:
+    print "connmand is not responding."
+    show_connmand_error()
 
 
 scanning = elementary.Label(win)
