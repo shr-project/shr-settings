@@ -1,8 +1,5 @@
 - shr-settings
-    make version with toolbar
     load modules categories dynamicly
-- shr_gprs.py
-    store apn/login/pass somewhere
 - shr_usb.py
     fix to work with gta01
 - module.py

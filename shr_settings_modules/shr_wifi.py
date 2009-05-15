@@ -129,7 +129,7 @@ class Wifi(module.AbstractModule):
         """
         """
         self.wifiToggle.update()
-        self.wifiManage.update()
+##        self.wifiManage.update()
 
     def createView(self):
         self.main = elementary.Box(self.window)
