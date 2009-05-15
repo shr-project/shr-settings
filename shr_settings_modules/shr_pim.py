@@ -65,12 +65,12 @@ class Pim(module.AbstractModule):
 
         label = elementary.Label(pager)
         #label.label_set(backendname + "<br>(domain: "+domain+")")
-        label.label_set(_("%s<br>(domain: %s)") % (backendname, domain))
+        label.label_set(_("%(backend)s<br>(domain: %(domain)s)") % {'backend':backendname, 'domain':domain})
         label.show()
         box.pack_start(label)
  
         check = elementary.Check(pager)
-        check.label_set("enabled")
+        check.label_set(_("enabled"))
         check._callback_add("changed", (self.enableOrDisable, backend))
 
         check.state_set(backend.GetEnabled())
@@ -131,7 +131,7 @@ class Pim(module.AbstractModule):
             if domain in backend.GetSupportedPIMDomains():
                 checkbox = elementary.Check(win)
                 button = elementary.Button(win)
-                button.label_set("Options")
+                button.label_set(_("Options"))
                 button._callback_add("clicked", (self.backendOptions, [backend, domain, pager, defaultbackend]))
                 default = ""
                 name = backend.GetName()

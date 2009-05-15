@@ -91,16 +91,16 @@ class GpsInfoBox(elementary.Table):
     """ Displays a box with GPS and updates it. Extents elementary.Table """
 
     sigMatch = None  #Contains instance variable with signal listener
-    items =  [{'cap':'Time', 'iface':'org.freedesktop.Gypsy.Time', 'method':'GetTime', 'signal':'TimeChanged'},
-              {'cap':'Fix', 'iface':'org.freedesktop.Device', 'method':'GetFixStatus', 'signal':'FixStatusChanged'},
-              {'cap':'Lat', 'iface':'org.freedesktop.Gypsy.Position', 'signal': 'PositionChanged', 'method':'GetPosition'},
-              {'cap':'Lon', 'signal': 'LonChanged'},     # set with Lat
-              {'cap':'Alt', 'signal': 'AltChanged'},     # set with Lat
-              {'cap':'Accuracy', 'iface':'org.freedesktop.Gypsy.Accuracy', 'signal': 'AccuracyChanged', 'method':'GetAccuracy'},
-              {'cap':'Satellites', 'iface':'org.freedesktop.Gypsy.Satellites', 'signal': 'SatellitesChanged', 'method':'GetSatellites'},
-              {'cap':'Heading', 'iface':'org.freedesktop.Gypsy.Course', 'signal': 'CourseChanged', 'method':'GetCourse'},
-              {'cap':'Speed', 'signal': 'SpeedChanged'}, # set with Heading
-              {'cap':'Descend', 'signal': 'ClimbChanged'}, # set with Heading
+    items =  [{'cap':_('Time'), 'iface':'org.freedesktop.Gypsy.Time', 'method':'GetTime', 'signal':'TimeChanged'},
+              {'cap':_('Fix'), 'iface':'org.freedesktop.Device', 'method':'GetFixStatus', 'signal':'FixStatusChanged'},
+              {'cap':_('Lat'), 'iface':'org.freedesktop.Gypsy.Position', 'signal': 'PositionChanged', 'method':'GetPosition'},
+              {'cap':_('Lon'), 'signal': 'LonChanged'},     # set with Lat
+              {'cap':_('Alt'), 'signal': 'AltChanged'},     # set with Lat
+              {'cap':_('Accuracy'), 'iface':'org.freedesktop.Gypsy.Accuracy', 'signal': 'AccuracyChanged', 'method':'GetAccuracy'},
+              {'cap':_('Satellites'), 'iface':'org.freedesktop.Gypsy.Satellites', 'signal': 'SatellitesChanged', 'method':'GetSatellites'},
+              {'cap':_('Heading'), 'iface':'org.freedesktop.Gypsy.Course', 'signal': 'CourseChanged', 'method':'GetCourse'},
+              {'cap':_('Speed'), 'signal': 'SpeedChanged'}, # set with Heading
+              {'cap':_('Descend'), 'signal': 'ClimbChanged'}, # set with Heading
              ]
 
     #TODO start/stop updating with updateGUI var
