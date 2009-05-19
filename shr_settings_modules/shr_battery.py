@@ -213,9 +213,9 @@ class Battery(module.AbstractModule):
             #   !!! This needs improvement !!!
             #   !!! Anyone have suggestions on presentation?
             #
-            chargeFormat    = "{0}{1[0]}%, ({1[1][0]:d}:{1[1][1]:02d})"
+            chargeFormat    = "{0}{1[0]}%, ({1[1][0]:d}h {1[1][1]:02d}m)"
             powerFormat     = "{0}{1[0]:.0f} mA; {1[1]:.3f} V"
-            statusFormat    = "{0}{1[0]} @ {1[1]:.1f} 'C"
+            statusFormat    = "{0}{1[0]}; {1[1]:.1f} 'C"
 
             self.charge = BatteryLabel(self.window, chargeFormat,   _("Charge: "))
             self.power  = BatteryLabel(self.window, powerFormat,    _("Power Info: "))
