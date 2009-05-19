@@ -20,13 +20,18 @@ class WifiManageBox(elementary.Box):
     Class for Wifi Manager Button
     """
 
+    def doNothing(self, obj, event, *args, **kargs):
+        print "Nothing Done"
+
     def update(self):
         """
         """
         if self.dbusObj.GetPower():
-            self.show()
+            self.button.label_set(_("WiFi Manager"))
+            self.button.clicked = self.buttonClicked
         else:
-            self.hide()
+            self.button.label_set(_("WiFi Manager")+" (Off)")
+            self.button.clicked = self.doNothing
 
     def buttonClicked(self, obj, event, *args, **kargs):
         """
@@ -37,8 +42,8 @@ class WifiManageBox(elementary.Box):
         Maybe in the future this will do something; currently it's GNDN.
         Must be adapted to your personal settings
         """
-##        print "Running wifiman.py"
-##        os.system("/home/root/Programs/wifiman.py")
+        print "Running wifiman.py"
+        os.system("/home/root/Programs/wifiman.py")
         pass
 
     def __init__(self, win, dbusObj):
@@ -52,9 +57,6 @@ class WifiManageBox(elementary.Box):
         self.dbusObj = dbusObj
 
         self.button = elementary.Button(self.window)
-##        self.button.label_set(_("WiFi Manager"))
-        self.button.label_set(_("WiFi Manager")+" (GNDN)")
-        self.button.clicked = self.buttonClicked
         self.button.size_hint_align_set(-1.0, 0.0)
         self.button.show()
 
@@ -83,7 +85,7 @@ class WifiToggleBox(elementary.Box):
         Update the toggles to match current system settings
         """
         self.dbusObj.SetPower(obj.state_get())
-        #self.update()
+        self.update()
 
     def __init__(self, win, dbusObj):
         """
@@ -120,7 +122,8 @@ class Wifi(module.AbstractModule):
         self.main.pack_start(label)
 
     def isEnabled(self):
-        if os.popen("cat /proc/cpuinfo | grep Hardware |  awk '{ print $3 }'").read()=="GTA01\n":
+        sysCmd = "cat /proc/cpuinfo | grep Hardware |  awk '{ print $3 }'"
+        if os.popen(sysCmd).read()=="GTA01\n":
             return False
         else:
             return True
