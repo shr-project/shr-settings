@@ -28,15 +28,15 @@ MODULES = [ [_("Power"),        "icon_power.png",        [ 'shr_battery.Battery'
     ]
 
 
-class MessageFrame(elementary.Frame):
+class MessageBox(elementary.Box):
     """
     """
-    def __init__(self, window, string):
+    def __init__(self, window, string = ""):
         """
         """
         self.win = window
 
-        super(MessageFrame, self).__init__(self.win)
+        super(MessageBox, self).__init__(self.win)
 
         self.label = elementary.Label(self.win)
         self.label.label_set(string)
@@ -44,7 +44,7 @@ class MessageFrame(elementary.Frame):
 
         self.size_hint_weight_set(0.0, 0.0)
         self.size_hint_align_set(0.5, 0.5)
-        self.content_set(self.label)
+        self.pack_end(self.label)
         self.show()
 
     def label_set(self,string):
@@ -55,15 +55,16 @@ class MessageFrame(elementary.Frame):
 class ModuleBox(elementary.Box):
     """
     """
-    def __init__(self, window, dbus, id):
+    def __init__(self, window, dbus, id, subid = None):
         """
         """
 
         self.win = window
         self.dbus = dbus
         self.id = id
+        self.subid = subid
 
-        self.module = MODULES[self.id]
+        self.module = MODULES[id]
         self.isLoaded = False
 
         super(ModuleBox, self).__init__(self.win)
@@ -81,12 +82,38 @@ class ModuleBox(elementary.Box):
     def loadModule(self):
         """
         """
-        print "loading %s" % self.module[0]
+        message = "Please wait:\n  Loading {0}".format(self.module[0])
+        print message
 
+##        # loading box
+##        loadingWin = elementary.InnerWindow(self.win)
+##        loadingWin.style_set("minimal")
+####        loadingWin.activate()
+##        loadingWin.show()
+##
+##        messageBox = MessageBox(loadingWin, message)
+##        messageBox.size_hint_align_set(-1.0, 0.0)
+##        messageBox.size_hint_weight_set(1.0, 1.0)
+##        loadingWin.resize_object_add(messageBox)
+
+        # prep output box
         moduleContents = elementary.Box(self.win)
         moduleContents.size_hint_align_set(-1.0, 0.0)
         moduleContents.size_hint_weight_set(1.0, 1.0)
-        for modname in self.module[2]:
+
+        # check for debug mode
+        if not self.subid == None:
+            moduleList = [ self.module[2][self.subid] ]
+        else:
+            moduleList = self.module[2]
+
+        # update messageBox
+        message += "\n  with {0} sub-modules".format(len(moduleList))
+        print message
+##        messageBox.label_set(message)
+
+        # load sub-modules
+        for modname in moduleList:
             try:
                 # modname: 'shr_gsm.GSM'. Import "shr_settings_modules.shr_gsm"
                 # dynamically and instantiate class "GSM"
@@ -111,16 +138,17 @@ class ModuleBox(elementary.Box):
                     if cont != None:
                         frame.content_set(cont)
                         cont.show()
+                        self.isLoaded = True
                     else:
                         print " error! module %s method createView() returns nothing!" % modObject
-                self.isLoaded = True
             except:
                 print "module %s can't be loaded!" % modname
         self.scroller.content_set(moduleContents)
+##        loadingWin.delete()
         return None
 
 class Settings(object):
-    def __init__(self, startId = 0):
+    def __init__(self, startId = None, startSubId = None):
         """
         """
 
@@ -132,6 +160,8 @@ class Settings(object):
         self.win = elementary.Window("settings", elementary.ELM_WIN_BASIC)
         self.win.title_set("SHR Settings")
         self.win.destroy = (self.quit, None)
+        self.win.resize(480, 640)
+        self.win.show()
 
         # Background Widget
         bg = elementary.Background(self.win)
@@ -145,37 +175,46 @@ class Settings(object):
         box.size_hint_weight_set(1, 1)
         box.show()
 
-        # Toolbar widget
-        tb = elementary.Toolbar(self.win)
-        tb.size_hint_weight_set(0, 0)
-        tb.size_hint_align_set(-1.0, -1.0)
+        if not startId == None :
+            # if startId is given, assume debug mode
+            debugBox = ModuleBox(self.win, self.dbus_system, startId, startSubId)
+            debugBox.size_hint_weight_set(1.0, 1.0)
+            debugBox.size_hint_align_set(-1.0, -1.0)
+            debugBox.loadModule()
+            box.pack_end(debugBox)
 
-        tbItems = []
-        for i,m in enumerate(MODULES):
-            ic = elementary.Icon(self.win)
-            ic.file_set(IMAGE_DIR+m[1])
-            tbItems.append(tb.item_add(ic, m[0], partial(self.click, id=i)))
+        else:
+            # if startSubID == None, load normally
 
-        box.pack_end(tb)
-        tb.show()
+            # Toolbar widget
+            tb = elementary.Toolbar(self.win)
+            tb.size_hint_weight_set(0, 0)
+            tb.size_hint_align_set(-1.0, -1.0)
 
-        # Pager widget
-        self.pager = elementary.Pager(self.win)
-        self.pager.size_hint_weight_set(1.0, 1.0)
-        self.pager.size_hint_align_set(-1.0, -1.0)
-        box.pack_end(self.pager)
-        self.pager.show()
+            tbItems = []
+            for i,m in enumerate(MODULES):
+                ic = elementary.Icon(self.win)
+                ic.file_set(IMAGE_DIR+m[1])
+                tbItems.append(tb.item_add(ic, m[0], partial(self.click, id=i)))
 
-        self.pages = []
-        for id,m in enumerate(MODULES):
-            self.pages.append(ModuleBox(self.win, self.dbus_system, id))
-            self.pager.content_push(self.pages[id])
+            box.pack_end(tb)
+            tb.show()
 
-        # set pager to first page, or start page if launched as such
-        tbItems[startId].select()
+            # Pager widget
+            self.pager = elementary.Pager(self.win)
+            self.pager.size_hint_weight_set(1.0, 1.0)
+            self.pager.size_hint_align_set(-1.0, -1.0)
+            box.pack_end(self.pager)
+            self.pager.show()
 
-        self.win.resize(480, 640)
-        self.win.show()
+            self.pages = []
+            for id,m in enumerate(MODULES):
+                self.pages.append(ModuleBox(self.win, self.dbus_system, id))
+                self.pager.content_push(self.pages[id])
+
+            # set pager to first page
+            tbItems[0].select()
+
 
 
     def click(self, obj, event, id):
@@ -204,29 +243,42 @@ if __name__ == "__main__":
     elementary.init()
     if len(sys.argv[1:])>0:
         if sys.argv[1] in ("-h", "--help"):
-                print "SHR Settings - Toolbar Edition"
-                print "Settings for SHR based Openmoko phone."
-                print "--------------------------------------"
-                print "Call it without any argument to open"
-                print "standard menu."
-                print "Call it with modules names, to open"
-                print "directly to typed modules in one window."
-                print ""
-                print "Available modules:"
-                for m in MODULES:
-                    print "\t{0}".format(m[0])
-                print ""
-                print "Eg:"
-                print "\t{0} {1}".format(sys.argv[0], MODULES[0][0])
-                print "--------------------------------------"
-                print "http://shr-project.org/"
-                exit(0)
+            print "SHR Settings - Toolbar Edition"
+            print "Settings for SHR based Openmoko phone."
+            print "--------------------------------------"
+            print "Call it without any argument to open the standard menu."
+            print "Call it with modules names, to open directly to typed"
+            print "modules in one window."
+            print ""
+            print "Available modules:"
+            print ""
+            for m in MODULES:
+                print "  {0}".format(m[0])
+                smods = ", ".join([ str(sm.split(".")[1]) for sm in m[2] ])
+                print "    {0}".format(smods)
+            print ""
+            print "Eg:"
+            print "  Normal"
+            print "    {0}".format(sys.argv[0])
+            print "  Single module only"
+            print "    {0} {1}".format(sys.argv[0], MODULES[0][0])
+            print "  Specific Sub-Module only"
+            print "    {0} {1} {2}".format(sys.argv[0], MODULES[0][0], MODULES[0][2][0].split(".")[1])
+            print "--------------------------------------"
+            print "http://shr-project.org/"
+            exit(0)
         else:
             try:
                 id = [ m[0] for m in MODULES ].index(sys.argv[1])
+                if len(sys.argv) == 3:
+                    subid = [ sm.split(".")[1] for sm in MODULES[id][2] ].index(sys.argv[2])
+                else:
+                    subid = None
+                print id, subid
             except ValueError:
-                id = 0 # no match, start at begining
-            Settings(id)
+                id      = 0 # no match, start at begining
+                subid   = None # no match, show all
+            Settings(id, subid)
     else:
         Settings()
     elementary.run()
