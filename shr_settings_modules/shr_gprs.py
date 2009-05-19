@@ -115,7 +115,7 @@ class GPRSEntryBox(elementary.Box):
 
 
 class Gprs(module.AbstractModule):
-    name = _("GPRS")
+    name = _("GPRS settings")
     section = _("networking")
 
     # persistent data file, until something is available in opreferencesd

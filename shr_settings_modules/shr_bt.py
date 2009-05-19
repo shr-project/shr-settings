@@ -71,7 +71,7 @@ class BtMstateContener:
 
 
 class Bt(module.AbstractModule):
-    name = _("Bluetooth")
+    name = _("Bluetooth settings")
     section = _("Connectivity")
 
     def error(self):

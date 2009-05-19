@@ -179,7 +179,7 @@ class PhbookInfoFrame(elementary.Frame):
 
 
 class Sim(module.AbstractModule):
-    name = _("SIM")
+    name = _("SIM settings")
     section = _("Connectivity")
     # no of displayed books, so we can put the next in the right table cell
 

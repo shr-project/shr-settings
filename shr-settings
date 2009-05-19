@@ -41,7 +41,7 @@ class ModulesWindow:
 
                     frame = elementary.Frame(self.win2)
 
-                    frame.label_set(_("%s settings") % mod2.getName())
+                    frame.label_set(mod2.getName())
                     self.box12.pack_end(frame)
                     frame.size_hint_align_set(-1.0, 0.0)
                     frame.show()

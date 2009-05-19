@@ -233,7 +233,7 @@ class GpsInfoBox(elementary.Table):
 #-------------------------------------------------------------------
 class Gps(module.AbstractModule):
     """ Main GPS Module """
-    name = _("GPS")
+    name = _("GPS settings")
 
     def error(self, result):
         print "async dbus error"

@@ -25,7 +25,7 @@ def getDbusObject (bus, busname , objectpath , interface):
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class Clock(module.AbstractModule):
-    name = _("Time")
+    name = _("Time settings")
     section = _("Other")
 
     def clockset(self, obj, event, *args, **kargs):

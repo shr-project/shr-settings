@@ -134,7 +134,7 @@ class IncDecButtonBox(elementary.Box):
         self.setup()
 
 class Timeouts(module.AbstractModule):
-    name = _("Timeouts")
+    name = _("Timeouts settings")
 
     def error(self):
         label = elementary.Label(self.window)

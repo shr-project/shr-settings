@@ -94,7 +94,7 @@ class GSMstateContener:
 
 
 class Gsm(module.AbstractModule):
-    name = _("GSM")
+    name = _("GSM settings")
 
     def goto_settingsbtClick(self, obj, event, *args, **kargs):
         self.wininfo.hide()

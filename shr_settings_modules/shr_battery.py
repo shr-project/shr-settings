@@ -40,7 +40,7 @@ class BatteryLabel(elementary.Label):
 
 
 class Battery(module.AbstractModule):
-    name = _("Battery")
+    name = _("Battery settings")
 
     def error(self):
         """

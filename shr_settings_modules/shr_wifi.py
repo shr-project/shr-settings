@@ -111,7 +111,7 @@ class WifiToggleBox(elementary.Box):
 
 
 class Wifi(module.AbstractModule):
-    name = _("WiFi")
+    name = _("WiFi settings")
 
     def error(self):
         label = elementary.Label(self.window)

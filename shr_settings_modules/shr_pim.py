@@ -22,7 +22,7 @@ def getDbusObject (bus, busname , objectpath , interface):
 
 
 class Pim(module.AbstractModule):
-    name = _("PIM")
+    name = _("PIM settings")
 
     def error(self):
         """

@@ -15,7 +15,7 @@ def getDbusObject (bus, busname , objectpath , interface):
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class Call(module.AbstractModule):
-    name = _("Call")
+    name = _("Call settings")
 
     def isEnabled(self):
         return True

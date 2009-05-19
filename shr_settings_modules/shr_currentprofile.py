@@ -349,7 +349,7 @@ class ToneChangeBox(PreferenceBox):
 
 
 class CurrentProfile(module.AbstractModule):
-    name = _("Current profile")
+    name = _("Current profile settings")
 
     def error(self):
         label = elementary.Label(self.window)

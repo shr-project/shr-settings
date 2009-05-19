@@ -22,7 +22,7 @@ def getDbusObject (bus, busname , objectpath , interface):
 
 
 class Profile(module.AbstractModule):
-    name = _("Profile")
+    name = _("Profile settings")
 
     def error(self):
         """

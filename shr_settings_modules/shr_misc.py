@@ -11,7 +11,7 @@ except IOError:
 
 
 class Misc(module.AbstractModule):
-    name = _("Miscellaneous")
+    name = _("Miscellaneous settings")
     
     def createView(self):
         la = elementary.Label(self.window)

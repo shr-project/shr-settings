@@ -65,7 +65,7 @@ class ResourceToggleBox(elementary.Box):
 
 
 class Pm(module.AbstractModule):
-    name = _("Power")
+    name = _("Power settings")
 
     def error(self):
         """

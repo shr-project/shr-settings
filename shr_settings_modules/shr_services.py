@@ -19,7 +19,7 @@ class ButtonServer( elementary.Button ):
         return self.osCmd
 
 class Services(module.AbstractModule):
-    name = _("Services")
+    name = _("Services settings")
 
     def reloadbtClick(self, obj, event, *args, **kargs):
         self.winser.hide()
