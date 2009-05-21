@@ -94,7 +94,7 @@ class FastChargeBox(elementary.Box):
         self.usbNodePath    = SYSNODE["usb_limit"][0]
 
         self.toggle = elementary.Toggle(self.window)
-        self.toggle.label_set("USB Charging Rate")
+        self.toggle.label_set(_("USB charging rate:"))
         self.toggle.states_labels_set("500 mA","100 mA")
         self.toggle.changed = self.toggleChanged
         self.toggle.size_hint_align_set(-1.0, 0.0)
@@ -213,9 +213,9 @@ class Battery(module.AbstractModule):
             #   !!! This needs improvement !!!
             #   !!! Anyone have suggestions on presentation?
             #
-            chargeFormat    = "{0}{1[0]}%, ({1[1][0]:d}h {1[1][1]:02d}m)"
+            chargeFormat    = "{0}{1[0]}% ({1[1][0]:d}h {1[1][1]:02d}m)"
             powerFormat     = "{0}{1[0]:.0f} mA; {1[1]:.3f} V"
-            statusFormat    = "{0}{1[0]}; {1[1]:.1f} 'C"
+            statusFormat    = "{0}{1[0]} ({1[1]:.1f} 'C)"
 
             self.charge = BatteryLabel(self.window, chargeFormat,   _("Charge: "))
             self.power  = BatteryLabel(self.window, powerFormat,    _("Power Info: "))
