@@ -37,6 +37,9 @@ class GSMstateContener:
             gsm_device_obj = bus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
             self.gsm_network_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.GSM.Network')
             self.gsm_device_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.GSM.Device')
+
+            opkd_device_obj = bus.get_object( 'org.shr.ophonekitd.Usage', '/org/shr/ophonekitd/Usage' )
+            self.opkd_device_iface = dbus.Interface(opkd_device_obj, 'org.shr.ophonekitd.Usage')
             #test
             #self.gsm_device_iface.GetAntennaPower()
             #test end
@@ -53,13 +56,21 @@ class GSMstateContener:
             return 0
         else:
             try:
-                tr = self.gsm_device_iface.GetAntennaPower()
+                tr = self.opkd_device_iface.GetResourceState('GSM')
             except:
                 tr = 0
             return tr
+
     def gsmdevice_setAntennaPower(self, b):
         if self.dbus_state==1:
-            self.gsm_device_iface.SetAntennaPower(b)
+            if b:
+                self.opkd_device_iface.RequestResource('GSM')
+                try:
+                    self.gsm_device_iface.SetAntennaPower(True)
+                except:
+                    pass
+            else:
+                self.opkd_device_iface.ReleaseResource('GSM')
 
     def gsmdevice_GetInfo(self):
         if self.dbus_state==1:
@@ -97,8 +108,14 @@ class Gsm(module.AbstractModule):
     name = _("GSM settings")
 
     def goto_settingsbtClick(self, obj, event, *args, **kargs):
-        self.wininfo.hide()
-        self.winope.hide()
+        try:
+            self.wininfo.hide()
+        except:
+            pass
+        try:
+            self.winope.hide()
+        except:
+            pass
 
     def destroyDebug(self, obj, event, *args, **kargs):
         self.windeb.hide()
@@ -274,11 +291,13 @@ class Gsm(module.AbstractModule):
             print "GSM set off"
             self.gsmsc.gsmdevice_setAntennaPower(0)
             self.opebt.hide()
+            self.infobt.hide()
 #            obj.state_set( 0 )
         else:
             print "GSM set on"
             self.gsmsc.gsmdevice_setAntennaPower(1)
             self.opebt.show()
+            self.infobt.show()
 #            obj.state_set( 1 )
 
         try:
