@@ -87,6 +87,7 @@ class ModulesWindow:
     #    toolbar.show()
 
         sc2 = elementary.Scroller(self.win2)
+        sc2.bounce_set(0, 0)
         sc2.size_hint_weight_set(1.0, 1.0)
         sc2.size_hint_align_set(-1.0, -1.0)
         box02.pack_end(sc2)
