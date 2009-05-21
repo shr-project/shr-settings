@@ -42,6 +42,7 @@ print "SHR: createView"
 view = mod.createView()
 scroll = elementary.Scroller(win)
 win.resize_object_add(scroll)
+scroll.bounce_set(0, 1)
 scroll.show()
 
 frame = elementary.Frame(win)
