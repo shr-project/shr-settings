@@ -2,7 +2,7 @@ import elementary
 import ecore
 import module
 import dbus
-import os
+import os, re
 
 # Locale support
 import gettext
@@ -23,6 +23,12 @@ Notes
          0.0    =
          0.5    = middle
          1.0    =
+
+ SID Files:
+    Magic numbers: +00  = 0x50534944 (PSID)
+                        = 0x52534944 (RSID)
+    Track Count Location = +0E-0F (1-256)
+
 """
 
 
@@ -260,8 +266,10 @@ class ToneChangeBox(PreferenceBox):
         """
         Callback function to change the tone file name in the settings
         """
-        self.dbusObj.SetValue(self.item_name,str(obj.get_filename()))
+        self.tonefile = str(obj.get_filename())
+        self.dbusObj.SetValue(self.item_name, self.tonefile)
         self.destroy(obj, event)
+
         self.update()
 
     def FileListBox(self, obj, event, *args, **kargs):
@@ -318,35 +326,159 @@ class ToneChangeBox(PreferenceBox):
             box1.pack_end(filebtn)
             filebtn.show()
 
+    def SidButtonClick(self, obj, event, *args, **kargs):
+        """
+        Callback function when +-1 SID track buttons have been pressed
+        """
+        cur_val = self.sidValue
+        delta  = obj.get_Delta()
+        new_val = max(-1, cur_val + delta)
+        if self.sidTracks:
+            if new_val > self.sidTracks:
+                self.sidValue = 1
+            elif new_val < 1:
+                self.sidValue = self.sidTracks
+            else:
+                self.sidValue = new_val
+
+        new_tone = self.tonefile + ";tune=" + str(self.sidValue)
+        print "setting:", new_tone
+
+        self.dbusObj.SetValue(self.item_name, new_tone)
+        self.update()
+
+    def PlayTone(self, obj, event, *args, **kargs):
+        pass
+        # Wierdness happens here... we need a cleaner way to play sounds
+##        if self.sidValue:
+##            play_tone = self.tonefile + ";tune=" + str(self.sidValue)
+##        else:
+##            play_tone = self.tonefile
+##
+##        print "playing:", play_tone
+##
+##        self.testBtn.label_set(_("Stop"))
+##        self.testBtn.clicked = self.StopTone
+##
+##        if self.sidTracks:
+####            self.AudioDbusObj.PlaySound("/usr/share/sounds/"+self.tonefile, 0, 3)
+##            os.system('mdbus -s org.freesmartphone.odeviced /org/freesmartphone/Device/Audio org.freesmartphone.Device.Audio.PlaySound "/usr/share/sounds/'+play_tone+'" 0 5')
+##        else:
+####            self.AudioDbusObj.PlaySound("/usr/share/sounds/"+self.tonefile, 0, 0)
+##            os.system('mdbus -s org.freesmartphone.odeviced /org/freesmartphone/Device/Audio org.freesmartphone.Device.Audio.PlaySound "/usr/share/sounds/'+play_tone+'" 0 0')
+##        print "Done playing:", play_tone
+##
+##        self.testBtn.label_set(_("Play"))
+##        self.testBtn.clicked = self.PlayTone
+
+    def StopTone(self, obj, event, *args, **kargs):
+        pass
+        # crude
+##        os.system('mdbus -s org.freesmartphone.odeviced /org/freesmartphone/Device/Audio org.freesmartphone.Device.Audio.StopAllSounds')
+##        self.testBtn.label_set(_("Play"))
+
+
     def update(self):
         """
         Updates the displayed value to the current profile
         """
-        cur_tone = self.dbusObj.GetValue(self.item_name)
-        self.label.label_set(str(cur_tone))
+        self.tonefile = str(self.dbusObj.GetValue(self.item_name))
+        self.label.label_set(self.tonefile)
+
+        isSid = re.match(r'(.*sid)(;tune=(.+))?',self.tonefile)
+        if isSid: # no magic numbers for now
+            self.tonefile = str(isSid.group(1))
+            sidFile = open("/usr/share/sounds/"+self.tonefile, "rb")
+            sidFile.seek(0x0E)
+            self.sidTracks = int("0x"+repr(sidFile.read(2)).replace("'","").replace('\\x',''),16)
+            sidFile.close()
+
+            if isSid.group(3):
+                self.sidValue = int(isSid.group(3))
+            else:
+                self.sidValue = 1
+
+            self.label.label_set(self.tonefile + ";tune=" + str(self.sidValue))
+
+            self.sidDnBtn.show()
+            self.sidUpBtn.show()
+        else:
+            self.sidValue = 0
+            self.sidTracks = 0
+            self.sidDnBtn.hide()
+            self.sidUpBtn.hide()
 
     def setup(self):
         """
         Function to show the current profile tone and a button to trigger
         FileListBox to set the tone Preferences values
         """
-        cur_tone = self.dbusObj.GetValue(self.item_name)
+##
+##        # Currently broken
+##
+##        try:
+##            self.AudioDbusObj = getDbusObject(self.dbus,
+##                "org.freesmartphone.odeviced",
+##                "/org/freesmartphone/Device/Audio",
+##                "org.freesmartphone.Device.Audio" )
+##
+##        except:
+##            print "Audio DBus is not running"
 
-        self.horizontal_set(True)
-
+        # Tone name label
         self.label = elementary.Label(self.window)
-        self.label.label_set(str(cur_tone))
         self.label.size_hint_weight_set(1.0, 0.0)
         self.label.size_hint_align_set(0.5, 0.5)
-        self.pack_start(self.label)
         self.label.show()
 
+        # Button container
+        self.buttonBox = elementary.Box(self.window)
+        self.buttonBox.horizontal_set(True)
+        self.buttonBox.size_hint_align_set(-1.0, 0.0)
+        self.buttonBox.size_hint_weight_set(1.0, 0.0)
+        self.buttonBox.show()
+
+        # Tone Test button
+        self.testBtn = elementary.Button(self.window)
+        self.testBtn.label_set(_("Test"))
+        self.testBtn.size_hint_align_set(-1.0, 0.0)
+        self.testBtn.size_hint_weight_set(1.0, 0.0)
+        self.testBtn.clicked = self.PlayTone
+        self.testBtn.show()
+
+        # Controls for sid files
+        self.sidDnBtn = IncDecButton(self.window)
+        self.sidDnBtn.set_Delta( -1 )
+        self.sidDnBtn.clicked = self.SidButtonClick
+        self.sidDnBtn.size_hint_align_set(-1.0, 0.0)
+        self.sidDnBtn.show()
+
+        self.sidUpBtn = IncDecButton(self.window)
+        self.sidUpBtn.set_Delta( 1 )
+        self.sidUpBtn.clicked = self.SidButtonClick
+        self.sidUpBtn.size_hint_align_set(-1.0, 0.0)
+        self.sidUpBtn.show()
+
+        # Tone change button
         changeBtn = elementary.Button(self.window)
         changeBtn.label_set(_("Change"))
+        changeBtn.size_hint_align_set(-1.0, 0.0)
+        changeBtn.size_hint_weight_set(1.0, 0.0)
         changeBtn.clicked = self.FileListBox
-        self.pack_end(changeBtn)
         changeBtn.show()
 
+        # pack the button box
+        self.buttonBox.pack_start(self.testBtn)
+        self.buttonBox.pack_end(self.sidDnBtn)
+        self.buttonBox.pack_end(self.sidUpBtn)
+        self.buttonBox.pack_end(changeBtn)
+
+        # pack the main box
+        self.pack_start(self.label)
+        self.pack_end(self.buttonBox)
+
+        self.show()
+        self.update()
 
 class CurrentProfile(module.AbstractModule):
     name = _("Current profile settings")
