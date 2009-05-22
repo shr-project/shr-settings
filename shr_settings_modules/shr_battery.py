@@ -218,7 +218,7 @@ class Battery(module.AbstractModule):
             statusFormat    = "{0}{1[0]} ({1[1]:.1f} 'C)"
 
             self.charge = BatteryLabel(self.window, chargeFormat,   _("Charge: "))
-            self.power  = BatteryLabel(self.window, powerFormat,    _("Power Info: "))
+            self.power  = BatteryLabel(self.window, powerFormat,    _("Power info: "))
             self.status = BatteryLabel(self.window, statusFormat,   _("Status: "))
 
             self.fastChargeToggle = FastChargeBox(self.window)
