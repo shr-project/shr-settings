@@ -348,35 +348,80 @@ class ToneChangeBox(PreferenceBox):
         self.update()
 
     def PlayTone(self, obj, event, *args, **kargs):
-        pass
-        # Wierdness happens here... we need a cleaner way to play sounds
-##        if self.sidValue:
-##            play_tone = self.tonefile + ";tune=" + str(self.sidValue)
-##        else:
-##            play_tone = self.tonefile
-##
-##        print "playing:", play_tone
-##
-##        self.testBtn.label_set(_("Stop"))
-##        self.testBtn.clicked = self.StopTone
-##
-##        if self.sidTracks:
-####            self.AudioDbusObj.PlaySound("/usr/share/sounds/"+self.tonefile, 0, 3)
-##            os.system('mdbus -s org.freesmartphone.odeviced /org/freesmartphone/Device/Audio org.freesmartphone.Device.Audio.PlaySound "/usr/share/sounds/'+play_tone+'" 0 5')
-##        else:
-####            self.AudioDbusObj.PlaySound("/usr/share/sounds/"+self.tonefile, 0, 0)
-##            os.system('mdbus -s org.freesmartphone.odeviced /org/freesmartphone/Device/Audio org.freesmartphone.Device.Audio.PlaySound "/usr/share/sounds/'+play_tone+'" 0 0')
-##        print "Done playing:", play_tone
-##
-##        self.testBtn.label_set(_("Play"))
-##        self.testBtn.clicked = self.PlayTone
+
+        # prep play parameters
+        if self.sidValue:
+            # Need to specificy the sid track
+            play_tone = "/usr/share/sounds/"+self.tonefile + ";tune=" + str(self.sidValue)
+            # Need to specificy the sid length (Maybe infer from the file?)
+            duration = 3
+        else:
+            play_tone = "/usr/share/sounds/"+ self.tonefile
+            duration = 0
+
+        #
+        # [framework.git] / framework / subsystems / odeviced / audio.py
+        # 1) Fails to handle .wav files:
+        #   - no signals thrown
+        #   - dbus doesn't know when a file is finished playing
+        #
+        # 2) Doesn't throw signals properly for all formats
+        #   - sends two signals on status change, total of four (2 'playing,
+        #     2 'stopped')
+        #
+        # So we need to clear all playing sounds here, before we can
+        #  successfully play wav's a second time.
+        # Using self.AudioDbusObj.StopSound() does not work here
+        #
+        # !!! This may lockup the wav file, possibily preventing ringing !!!
+        # !!! during a call or message.  This is still being looked at   !!!
+        # !!! though it seems to "Work For Me"(tm)                       !!!
+        #
+        #       -- Toaster
+        #
+
+        self.AudioDbusObj.StopAllSounds()
+
+        # Play the tone
+        self.AudioDbusObj.PlaySound(play_tone, 0, duration)
 
     def StopTone(self, obj, event, *args, **kargs):
-        pass
-        # crude
-##        os.system('mdbus -s org.freesmartphone.odeviced /org/freesmartphone/Device/Audio org.freesmartphone.Device.Audio.StopAllSounds')
-##        self.testBtn.label_set(_("Play"))
+        """
+        Stop a playing tone
+        """
+##        # Not sure if this works
+##        self.AudioDbusObj.StopSound(self.tonefile)
+        # Crude, but effective
+        self.AudioDbusObj.StopAllSounds()
 
+    def StartStopSound(self, id, status, properties):
+        """
+        Signal handler for SoundStatus signals
+        """
+        # Debug output
+        print "Status 'id','status:", id, status
+
+        # With the notes above, adding these lines does what I want it to do,
+        #  ie: toggle the 'play'/'stop' button, but some very weird behaviour
+        #  is created:
+        #
+        #   first play/stop cycle: all is good
+        #   second: tone is played/stopped twice
+        #   third:  tone is played/stoped four times
+        #   etc...
+        #
+        # I read this to mean that the button is being triggered many times,
+        # being held as clicked through the self.testBtn.clicked changes,
+        # registering each time.
+        #
+        # Suggestions on how can this be avoided?
+        #
+##        if status == 'stopped':
+##            self.testBtn.label_set(_("Play"))
+##            self.testBtn.clicked = self.PlayTone
+##        else:
+##            self.testBtn.label_set(_("Stop"))
+##            self.testBtn.clicked = self.StopTone
 
     def update(self):
         """
@@ -386,7 +431,8 @@ class ToneChangeBox(PreferenceBox):
         self.label.label_set(self.tonefile)
 
         isSid = re.match(r'(.*sid)(;tune=(.+))?',self.tonefile)
-        if isSid: # no magic numbers for now
+
+        if isSid:
             self.tonefile = str(isSid.group(1))
             sidFile = open("/usr/share/sounds/"+self.tonefile, "rb")
             sidFile.seek(0x0E)
@@ -398,7 +444,7 @@ class ToneChangeBox(PreferenceBox):
             else:
                 self.sidValue = 1
 
-            self.label.label_set(self.tonefile + ";tune=" + str(self.sidValue))
+            self.label.label_set("{0}  {1}/{2}".format(self.tonefile,self.sidValue, self.sidTracks))
 
             self.sidDnBtn.show()
             self.sidUpBtn.show()
@@ -413,17 +459,10 @@ class ToneChangeBox(PreferenceBox):
         Function to show the current profile tone and a button to trigger
         FileListBox to set the tone Preferences values
         """
-##
-##        # Currently broken
-##
-##        try:
-##            self.AudioDbusObj = getDbusObject(self.dbus,
-##                "org.freesmartphone.odeviced",
-##                "/org/freesmartphone/Device/Audio",
-##                "org.freesmartphone.Device.Audio" )
-##
-##        except:
-##            print "Audio DBus is not running"
+
+        self.dbusObj, self.AudioDbusObj = self.dbusObj
+        self.AudioDbusObj.connect_to_signal("SoundStatus",
+            self.StartStopSound)
 
         # Tone name label
         self.label = elementary.Label(self.window)
@@ -440,7 +479,7 @@ class ToneChangeBox(PreferenceBox):
 
         # Tone Test button
         self.testBtn = elementary.Button(self.window)
-        self.testBtn.label_set(_("Test"))
+        self.testBtn.label_set(_(" Play "))
         self.testBtn.size_hint_align_set(-1.0, 0.0)
         self.testBtn.size_hint_weight_set(1.0, 0.0)
         self.testBtn.clicked = self.PlayTone
@@ -514,7 +553,7 @@ class CurrentProfile(module.AbstractModule):
                     frame.label_set(frameTitle)
 
                     if i=='ring-tone' or i == 'message-tone':
-                        box = ToneChangeBox(self.window, self.dbusObj, i)
+                        box = ToneChangeBox(self.window, (self.dbusObj, self.AudioDbusObj), i)
                     elif typ == 'bool':
                         box = RadioOnOffBox(self.window, self.dbusObj, i)
                     elif typ == 'int':
@@ -549,6 +588,12 @@ class CurrentProfile(module.AbstractModule):
                 "org.freesmartphone.Preferences" )
             self.SignalsDbusObj.connect_to_signal("Notify",
                 self.profileChanged)
+
+            # Audio DBus interface (For Ringtone testing)
+            self.AudioDbusObj = getDbusObject(self.dbus,
+                "org.freesmartphone.odeviced",
+                "/org/freesmartphone/Device/Audio",
+                "org.freesmartphone.Device.Audio" )
 
             self.contents = {} # named array of contents, for updating
             self.update()
