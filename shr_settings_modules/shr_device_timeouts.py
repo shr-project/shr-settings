@@ -79,9 +79,6 @@ class IncDecButtonBox(elementary.Box):
         self.size_hint_align_set(-1.0, 0.0)
         self.size_hint_weight_set(1.0, 0.0)
 
-        timeouts = self.dbusObj.GetTimeouts()
-        self.cur_value = timeouts[self.item_name]
-
         itemLabel = elementary.Label(self.window)
         itemLabel.size_hint_weight_set(1.0, 0.0)
         itemLabel.label_set(self.item_name.replace("_"," ").title())
@@ -122,7 +119,7 @@ class IncDecButtonBox(elementary.Box):
 
         self.show()
 
-    def __init__(self, win, dbusObj, item_name):
+    def __init__(self, win, dbusObj, item_name, initial_value):
         """
         initialize the box and load objects
         """
@@ -130,6 +127,7 @@ class IncDecButtonBox(elementary.Box):
         self.window = win
         self.dbusObj = dbusObj
         self.item_name = item_name
+        self.cur_value = initial_value
 
         self.setup()
 
@@ -159,7 +157,7 @@ class Timeouts(module.AbstractModule):
         if self.dbus_state:
             for i in self.timeouts:
                 if not str(i) in ("awake","busy","none"):
-                    box = IncDecButtonBox(self.window, self.dbusObj, i)
+                    box = IncDecButtonBox(self.window, self.dbusObj, i, self.timeouts[i])
                     box.show()
                     self.main.pack_end(box)
             self.main.show()
