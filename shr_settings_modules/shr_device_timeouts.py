@@ -158,7 +158,6 @@ class Timeouts(module.AbstractModule):
             for i in self.timeouts:
                 if not str(i) in ("awake","busy","none"):
                     box = IncDecButtonBox(self.window, self.dbusObj, i, self.timeouts[i])
-                    box.show()
                     self.main.pack_end(box)
             self.main.show()
 
