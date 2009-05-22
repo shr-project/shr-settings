@@ -70,6 +70,7 @@ class ModuleBox(elementary.Box):
         super(ModuleBox, self).__init__(self.win)
 
         self.scroller = elementary.Scroller(self.win)
+        self.scroller.bounce_set(0,0)
         self.scroller.size_hint_weight_set(1.0, 1.0)
         self.scroller.size_hint_align_set(-1.0, -1.0)
         self.scroller.content_min_limit(480, 640)
