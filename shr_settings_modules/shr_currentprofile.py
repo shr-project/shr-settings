@@ -354,7 +354,7 @@ class ToneChangeBox(PreferenceBox):
             # Need to specificy the sid track
             play_tone = self.tonepath + ";tune=" + str(self.sidValue)
             # Need to specificy the sid length (Maybe infer from the file?)
-            duration = 3
+            duration = 60 # As we have Stop button, we can let it playing long
         else:
             play_tone = self.tonepath
             duration = 0
