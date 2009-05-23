@@ -410,6 +410,8 @@ class ToneChangeBox(PreferenceBox):
 
         if isSid:
             self.tonefile = str(isSid.group(1))
+            self.tonepath = SND_DIR + self.tonefile
+
             sidFile = open(self.tonepath, "rb")
             sidFile.seek(0x0E)
             self.sidTracks = int("0x"+repr(sidFile.read(2)).replace("'","").replace('\\x',''),16)
@@ -522,7 +524,7 @@ class CurrentProfile(module.AbstractModule):
                     # If self.contents[i] exists, then run the update()
                     # for that object
                     self.contents[i].update()
-                except:
+                except KeyError:
                     # If self.contents[i] fails, assume the object doesn't
                     # exist and create it
                     frame = elementary.Frame(self.window)
