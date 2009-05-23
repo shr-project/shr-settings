@@ -31,6 +31,7 @@ Notes
 
 """
 
+SND_DIR = "/usr/share/sounds/"
 
 try:
     cat = gettext.Catalog("shr-settings")
@@ -348,93 +349,68 @@ class ToneChangeBox(PreferenceBox):
         self.update()
 
     def PlayTone(self, obj, event, *args, **kargs):
-
         # prep play parameters
         if self.sidValue:
             # Need to specificy the sid track
-            play_tone = "/usr/share/sounds/"+self.tonefile + ";tune=" + str(self.sidValue)
+            play_tone = self.tonepath + ";tune=" + str(self.sidValue)
             # Need to specificy the sid length (Maybe infer from the file?)
             duration = 3
         else:
-            play_tone = "/usr/share/sounds/"+ self.tonefile
+            play_tone = self.tonepath
             duration = 0
 
-        #
-        # [framework.git] / framework / subsystems / odeviced / audio.py
-        # 1) Fails to handle .wav files:
-        #   - no signals thrown
-        #   - dbus doesn't know when a file is finished playing
-        #
-        # 2) Doesn't throw signals properly for all formats
-        #   - sends two signals on status change, total of four (2 'playing,
-        #     2 'stopped')
-        #
-        # So we need to clear all playing sounds here, before we can
-        #  successfully play wav's a second time.
-        # Using self.AudioDbusObj.StopSound() does not work here
-        #
-        # !!! This may lockup the wav file, possibily preventing ringing !!!
-        # !!! during a call or message.  This is still being looked at   !!!
-        # !!! though it seems to "Work For Me"(tm)                       !!!
-        #
-        #       -- Toaster
-        #
-
-        self.AudioDbusObj.StopAllSounds()
+        # Stop the tone if playing
+        if self.playStatus:
+            print self.item_name,"- Stopping:", self.tonefile
+            self.AudioDbusObj.StopAllSounds()
 
         # Play the tone
+        print self.item_name,"- Playing:", self.tonefile
         self.AudioDbusObj.PlaySound(play_tone, 0, duration)
 
     def StopTone(self, obj, event, *args, **kargs):
         """
         Stop a playing tone
         """
-##        # Not sure if this works
-##        self.AudioDbusObj.StopSound(self.tonefile)
-        # Crude, but effective
-        self.AudioDbusObj.StopAllSounds()
+        # Stop the tone if playing
+        if self.playStatus:
+            print self.item_name,"- Stopping:", self.tonefile
+            self.AudioDbusObj.StopAllSounds()
 
     def StartStopSound(self, id, status, properties):
         """
         Signal handler for SoundStatus signals
+
+        Only a status of 'stopped' is considered
         """
         # Debug output
-        print "Status 'id','status:", id, status
+        print self.item_name,"- Status 'id','status:", id, status
 
-        # With the notes above, adding these lines does what I want it to do,
-        #  ie: toggle the 'play'/'stop' button, but some very weird behaviour
-        #  is created:
-        #
-        #   first play/stop cycle: all is good
-        #   second: tone is played/stopped twice
-        #   third:  tone is played/stoped four times
-        #   etc...
-        #
-        # I read this to mean that the button is being triggered many times,
-        # being held as clicked through the self.testBtn.clicked changes,
-        # registering each time.
-        #
-        # Suggestions on how can this be avoided?
-        #
-##        if status == 'stopped':
-##            self.testBtn.label_set(_("Play"))
-##            self.testBtn.clicked = self.PlayTone
-##        else:
-##            self.testBtn.label_set(_("Stop"))
-##            self.testBtn.clicked = self.StopTone
+        if id == self.tonepath:
+            if status == 'stopped': # tone has stopped
+                # Reset Play button
+                self.testBtn.label_set(_("Play"))
+                self.testBtn.clicked = self.PlayTone
+                self.playStatus = False
+            elif status == 'playing': # tone is playing
+                # Reset Play button
+                self.testBtn.label_set(_("Stop"))
+                self.testBtn.clicked = self.StopTone
+                self.playStatus = True
 
     def update(self):
         """
         Updates the displayed value to the current profile
         """
         self.tonefile = str(self.dbusObj.GetValue(self.item_name))
+        self.tonepath = SND_DIR + self.tonefile
         self.label.label_set(self.tonefile)
 
         isSid = re.match(r'(.*sid)(;tune=(.+))?',self.tonefile)
 
         if isSid:
             self.tonefile = str(isSid.group(1))
-            sidFile = open("/usr/share/sounds/"+self.tonefile, "rb")
+            sidFile = open(self.tonepath, "rb")
             sidFile.seek(0x0E)
             self.sidTracks = int("0x"+repr(sidFile.read(2)).replace("'","").replace('\\x',''),16)
             sidFile.close()
@@ -460,6 +436,7 @@ class ToneChangeBox(PreferenceBox):
         FileListBox to set the tone Preferences values
         """
 
+        self.playStatus = False
         self.dbusObj, self.AudioDbusObj = self.dbusObj
         self.AudioDbusObj.connect_to_signal("SoundStatus",
             self.StartStopSound)
