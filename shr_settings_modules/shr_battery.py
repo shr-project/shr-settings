@@ -1,6 +1,5 @@
 import module, os, re, sys, elementary, ecore
 import dbus
-import threading
 
 # Locale support
 import gettext
