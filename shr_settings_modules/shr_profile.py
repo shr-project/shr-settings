@@ -1,6 +1,5 @@
 import elementary, module, ecore
 import dbus
-import array
 
 # Locale support
 import gettext
@@ -63,7 +62,7 @@ class Profile(module.AbstractModule):
         """
         self.main.size_hint_weight_set(1.0, -1.0)
 
-        # Available Profiles 
+        # Available Profiles
         self.profiles = self.dbusObj.GetProfiles()
 
         # Listing HoverSelect
@@ -73,27 +72,27 @@ class Profile(module.AbstractModule):
         self.hoverSel.size_hint_align_set(-1.0, 0.0)
         self.main.pack_end(self.hoverSel)
         self.hoverSel.show()
-        
+
         # Set current profile name to the hoverSel label
         self.ProfileNameUpdate()
 
         # Add HoversleItems
         # The callback is a bit of functools.partial magic
         for i in self.profiles:
-            self.hoverSel.item_add(str(i).title(), 
-                "arrow_down", 
-                elementary.ELM_ICON_STANDARD, 
+            self.hoverSel.item_add(str(i).title(),
+                "arrow_down",
+                elementary.ELM_ICON_STANDARD,
                 partial( self.setCurrentProfile, name = i ))
 
     def createView(self):
 
         self.main = elementary.Box(self.window)
-        
+
         try:
             # create dbus object
-            self.dbusObj = getDbusObject(self.dbus, 
-                "org.freesmartphone.opreferencesd", 
-                "/org/freesmartphone/Preferences", 
+            self.dbusObj = getDbusObject(self.dbus,
+                "org.freesmartphone.opreferencesd",
+                "/org/freesmartphone/Preferences",
                 "org.freesmartphone.Preferences" )
 
             # creat signal listener for profile updates
@@ -104,7 +103,7 @@ class Profile(module.AbstractModule):
                 self.profileChanged)
 
             self.listProfiles()
-            
+
         except:
             self.error()
 
