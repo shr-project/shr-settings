@@ -386,14 +386,18 @@ class ToneChangeBox(PreferenceBox):
         # Debug output
         print self.item_name,"- Status 'id','status:", id, status
 
-        if id == self.tonepath:
+        tone = self.tonepath + ";tune=" + str(self.sidValue) if self.sidValue else self.tonepath
+
+        if id == tone:
             if status == 'stopped': # tone has stopped
                 # Reset Play button
+##                print "Stopped: Resetting to 'Play'"
                 self.testBtn.label_set(_("Play"))
                 self.testBtn.clicked = self.PlayTone
                 self.playStatus = False
             elif status == 'playing': # tone is playing
                 # Reset Play button
+##                print "Playing: Resetting to 'Stop'"
                 self.testBtn.label_set(_("Stop"))
                 self.testBtn.clicked = self.StopTone
                 self.playStatus = True
