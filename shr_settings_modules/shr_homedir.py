@@ -1,4 +1,4 @@
-import module, elementary, os
+import module, elementary, os, time
 
 from functools import partial
 
@@ -232,8 +232,12 @@ class HomeDir(module.AbstractModule):
         1) Tar the contents of /home/${USER} to ${ARCHIVE}
         2) Store in ${ARCHIVE_DIR}
         """
-        time = "Some_date_stamp"
-        print self.archiveDir[0]+self.archiveFile[0].format(time)
+        t = time.strftime("%d-%m-%Y-%H:%M")
+        outfile =  self.archiveDir[0]+self.archiveFile[0].format(t)
+        files = [ '"'+i+'"' for i in os.listdir(self.userdir) if i not in DIRECTORY_BLACKLIST]
+
+        archive_cmd = "tar --same-owner -C " + self.userdir + "-cpf " + outfile + " " + " ".join(files)
+        print repr(archive_cmd)
 
     def restore(self, obj, event, *args, **kargs):
         """
