@@ -153,6 +153,9 @@ class Battery(module.AbstractModule):
         min     = int( ( sec % 3600 ) / 60 )
         return ( hours, min )
 
+    def doupdate(self, obj, event, *args, **kargs):
+        self.update()
+
     def update(self, signalData = None):
         """
         Update the data displayed in BatteryLabel
@@ -222,11 +225,34 @@ class Battery(module.AbstractModule):
 
             self.fastChargeToggle = FastChargeBox(self.window)
 
-            # pack labels into the box
-            self.main.pack_end(self.charge)
-            self.main.pack_end(self.power)
-            self.main.pack_end(self.status)
+            # pack labels into the labels box
+            labels_box = elementary.Box(self.window)
+            labels_box.size_hint_weight_set(1.0, 0.0)
+            labels_box.size_hint_align_set(-1.0, 0.0)
+            labels_box.show()
 
+            labels_box.pack_end(self.charge)
+            labels_box.pack_end(self.power)
+            labels_box.pack_end(self.status)
+
+            # pack labels_box and update button into a box
+            status_box = elementary.Box(self.window)
+            status_box.horizontal_set(True)
+            status_box.size_hint_weight_set(1.0, 0.0)
+            status_box.size_hint_align_set(-1.0, 0.0)
+            status_box.show()
+
+            update_button = elementary.Button(self.window)
+            update_button.size_hint_weight_set(0.0, 1.0)
+            update_button.size_hint_align_set(0.0, -1.0)
+            update_button.clicked = self.doupdate
+            update_button.label_set(_("Update"))
+            update_button.show()
+
+            status_box.pack_end(labels_box)
+            status_box.pack_end(update_button)
+
+            self.main.pack_end(status_box)
             self.main.pack_end(self.fastChargeToggle)
 
             # update the labels
