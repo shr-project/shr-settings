@@ -30,13 +30,9 @@ class Clock(module.AbstractModule):
 
     def clockset(self, obj, event, *args, **kargs):
 	    if self.editable:
-                d = datetime.date.today()
-                t = datetime.time(self.cl.time_get()[0], self.cl.time_get()[1], self.cl.time_get()[2])
-                dt = datetime.datetime.combine(d,t)
-                
-                clock = getDbusObject( self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/RealTimeClock/rtc0", "org.freesmartphone.Device.RealTimeClock" )
-                clock.SetCurrentTime(int(dt.strftime("%s")))
-                
+                now = datetime.datetime.now()
+                #TODO - set time by fso dbus request
+                os.system("date "+str(now.month).zfill(2)+str(now.day).zfill(2)+str(self.cl.time_get()[0]).zfill(2)+str(self.cl.time_get()[1]).zfill(2)+str(now.year)+"."+str(self.cl.time_get()[2]).zfill(2))
                 self.cl.edit_set(False)
                 obj.label_set(_("Set time"))
                 self.editable = False
