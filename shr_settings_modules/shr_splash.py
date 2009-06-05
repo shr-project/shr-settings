@@ -14,29 +14,21 @@ except IOError:
     _ = lambda x: x
 
 
-def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
-
-
 class Splash(module.AbstractModule):
     name = _("Splash settings")
 
     def setTheme(self, obj, event, path, *args, **kargs):
         """
-        Set the current profile to `name`
+        Set the current theme to `path`
         """
-        #self.dbusObj.SetProfile(name)
         os.system('rm /usr/share/shr-splash/theme') # do we really need THAT?
         os.system('update-alternatives --install /usr/share/shr-splash/theme shr-splash-theme '+path+' '+str(self.max_prio+1))
         self.ThemeNameUpdate()
 
     def ThemeNameUpdate(self):
         """
-        Updates the displayed value of the current profile
+        Updates the displayed value of the current theme
         """
-        #self.currentProfile = self.dbusObj.GetProfile().title()
-#        file = os.popen('cat /usr/lib/opkg/alternatives/shr-splash-theme | grep 11')
         file = open('/usr/lib/opkg/alternatives/shr-splash-theme', 'r' )
 
         self.themes = {} # items: 'name' : ('path', priority)
@@ -46,12 +38,10 @@ class Splash(module.AbstractModule):
         while s:
             line = file.readline()
             if not line:
-                self.currentProfile = '[nothing ;p]'
                 s = 0
             else:
                 s = line.split(" ")
                 if len(s)==2:
-#                    self.currentProfile = s[0]
                      try:
                          namefile = open(s[0]+'/name')
                          name = namefile.readline().replace('\n','')
@@ -78,7 +68,7 @@ class Splash(module.AbstractModule):
 
     def listThemes(self):
         """
-        Displays the profiles Hoversel
+        Displays the themes Hoversel
         """
         self.main.size_hint_weight_set(1.0, -1.0)
 
@@ -90,7 +80,7 @@ class Splash(module.AbstractModule):
         self.main.pack_end(self.hoverSel)
         self.hoverSel.show()
         
-        # Set current profile name to the hoverSel label
+        # Set current theme name to the hoverSel label
         self.ThemeNameUpdate()
 
         # Add HoversleItems
