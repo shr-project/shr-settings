@@ -181,6 +181,7 @@ class ModulesWindow:
             log ("deleting module \"" + m.getName() + "\"" , logtype.DEBUG)
             del m
         log ("deleting window object", logtype.DEBUG)
+        self.win2.delete()
         del self.win2
         
     def destroy(self, obj, event, *args, **kargs):
