@@ -178,6 +178,10 @@ class ModulesWindow:
                 m.stopUpdate()
             except:
                 pass
+            log ("deleting module \"" + m.getName() + "\"" , logtype.DEBUG)
+            del m
+        log ("deleting window object", logtype.DEBUG)
+        del self.win2
         
     def destroy(self, obj, event, *args, **kargs):
         log( "window destroy callback called! kabum!", logtype.DEBUG)
