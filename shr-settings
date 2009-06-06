@@ -1,15 +1,33 @@
 #!/usr/bin/env python
+
+from time import time
+
+starttime=time()
+
+class logtype:
+    HEADER = '\033[95m'
+    INFO = '\033[94m'
+    OK = '\033[92m'
+    DEBUG = '\033[90mDEBUG: \033[0m';
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    RESET = '\033[0m'
+
+def log(text, type=logtype.INFO):
+    print type + text + logtype.RESET
+
+log('SHR Settings', logtype.HEADER)
+
 import elementary, ecore
 import os.path
-import sys
-import gettext
+from sys import argv
+from gettext import Catalog
 
 try:
-    cat = gettext.Catalog("shr-settings")
+    cat = Catalog("shr-settings")
     _ = cat.gettext
 except IOError:
     _ = lambda x: x
-
 
 class CategoryButton(elementary.Button):
     """ extends e.button with list of modules that belong to it """
@@ -22,10 +40,10 @@ class CategoryButton(elementary.Button):
 
 class ModulesWindow:
     def renderModules(self, modulesList, bus):
-        print "idler"
+        nowtime = time()
         for modname in modulesList[2]:
-
-            print "loading module %s" % modname
+            thistime = time()
+            log("Loading module %s..." % modname, logtype.INFO)
             try:
                 # modname: 'shr_gsm.GSM'. Import "shr_settings_modules.shr_gsm"
                 # dynamically and instantiate class "GSM"
@@ -49,17 +67,18 @@ class ModulesWindow:
                     if cont != None:
                         frame.content_set(cont)
                         cont.show()
+                        log("Module "+modname+" loaded in %.2f sec" % (time() - thistime), logtype.OK)
                     else:
-                        print " error! module %s method createView() return's nothing!" % mod2
+                        log("error! module %s method createView() return's nothing!" % mod2, logtype.FAIL)
             except:
-                print "module %s can't be loaded!" % modname
+                log("Module %s can't be loaded!" % modname, logtype.FAIL)
         self.loading.hide()
+        log("Page loaded in %.2f sec" % (time() - nowtime), logtype.OK)
         return None
 
     def makeGui(self,  modulesList, bus, fromcli = False):
 
-        print "makeGUI!!!"
-        print modulesList
+        log( "creating window: " + str(modulesList), logtype.DEBUG)
 
         self.win2 = elementary.Window("settingsMods", elementary.ELM_WIN_BASIC)
         self.win2.title_set(modulesList[0])
@@ -152,6 +171,7 @@ class ModulesWindow:
         self.win2.show()
 
     def destroy2(self,obj, event, *args, **kargs):
+        log ( "closing modules window...", logtype.DEBUG)
         self.win2.hide()
         for m in self.modList:
             try:
@@ -160,7 +180,7 @@ class ModulesWindow:
                 pass
         
     def destroy(self, obj, event, *args, **kargs):
-        print "DEBUG: window destroy callback called! kabum!"
+        log( "window destroy callback called! kabum!", logtype.DEBUG)
         elementary.exit()
 
 
@@ -168,16 +188,16 @@ class ModulesWindow:
 class MainWindow:
 
     def destroy(self, obj, event, *args, **kargs):
-        print "DEBUG: window destroy callback called! kabum!"
+        log("window destroy callback called! kabum!", logtype.DEBUG)
         elementary.exit()
 
     def displayModulesWin(self, obj, event, *args, **kargs):
-        print "displayModulesWin 1"
+        #print "displayModulesWin 1"
         if self.dbus_system == None:
-           print ("idler had not inited dbus yet, do it now")
+           log( "idler had not inited dbus yet, do it now", logtype.WARN)
            self.init_dbus_idler()
         self.m.makeGui(  obj.get_modules(), self.dbus_system )
-        print "displayModulesWin 2"
+        #print "displayModulesWin 2"
 
     def start_ophonekitd(self, obj, event, *args, **kargs):
         os.system( "DISPLAY=:0 ophonekitd >> /var/log/ophonekitd.log 2>&1 &" )
@@ -191,7 +211,7 @@ class MainWindow:
         self.destroyDebug(self, obj, event, *args, **kargs)
 
     def view_ophonekitd_log(self, obj, event, *args, **kargs):
-        print "ophonekitd log"
+        #print "ophonekitd log"
         self.windeb = elementary.Window("ophonekitdLog", elementary.ELM_WIN_BASIC )
         self.windeb.title_set(_("ophonekitd log"))
         self.windeb.autodel_set(True)
@@ -244,7 +264,7 @@ class MainWindow:
             line = c.readline().replace("\n","")
             if not line:
                 break
-            print "line ["+line+"]"  
+            #print "line ["+line+"]"
             lb = elementary.Label(self.windeb)
             lb.label_set(line)
             box1.pack_end(lb)
@@ -261,6 +281,7 @@ class MainWindow:
             mainloop = e_dbus.DBusEcoreMainLoop()
             #self.dbus_session = dbus.SessionBus(mainloop=self.mainloop) - we don't need atm
             self.dbus_system = dbus.SystemBus(mainloop=mainloop)
+            log('Dbus inited successfully', logtype.OK)
             return False  #don't call idler again
 
     def __init__(self):
@@ -408,11 +429,10 @@ class MainWindow:
 
 
 if __name__ == "__main__":
-    
     elementary.init()
-    if len(sys.argv[1:])>0:
+    if len(argv[1:])>0:
         modlista = [];
-        if sys.argv[1] in ("-h", "--help"):
+        if argv[1] in ("-h", "--help"):
                 print "SHR Settings"
                 print "Settings for SHR based Openmoko phone."
                 print "--------------------------------------"
@@ -425,9 +445,9 @@ if __name__ == "__main__":
                 print "http://shr-project.org/"        
                 exit(0)
         else:
-            modlista.append(sys.argv[1]) # title
+            modlista.append(argv[1]) # title
             modlista.append('') # TODO: icon
-            modlista.append(sys.argv[2:]) # list of modules
+            modlista.append(argv[2:]) # list of modules
         modwin = ModulesWindow()
         import dbus, e_dbus
         mainloop = e_dbus.DBusEcoreMainLoop()
@@ -435,7 +455,7 @@ if __name__ == "__main__":
         modwin.makeGui(modlista, dbus_system, True)
     else:
         MainWindow()
+    log('Launcher loaded in %.2f sec' % (time() - starttime), logtype.OK)
     elementary.run()
     elementary.shutdown()
-
-    
+    log('Bye bye!', logtype.INFO)
