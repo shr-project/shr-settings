@@ -19,7 +19,7 @@ NOTES:
 """
 
 # Directories in /home/${USER} that are to be ignored during archive
-DIRECTORY_BLACKLIST = ['.e', 'restoreTest']
+DIRECTORY_BLACKLIST = ['.e', ] # 'restoreTest']
 
 # Defaults
 ARCHIVE_DIR  = "/media/card/"
@@ -342,7 +342,7 @@ class HomeDir(module.AbstractModule):
         """
         1) untar the contents of ${ARCHIVE_DIR}/${ARCHIVE} to /home/${USER}
         """
-        restore_cmd = "tar -xf \"" + self.restoreFile[0] + "\" -C /home/root/restoreTest"
+        restore_cmd = "tar -xf \"" + self.restoreFile[0] + "\" -C /home/root"#/restoreTest"
         # print repr(restore_cmd)
 
         self.restoreBox.status_set(_("Restoring to") + self.userdir + " ...")
