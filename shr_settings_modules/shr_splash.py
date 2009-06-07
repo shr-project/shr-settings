@@ -1,4 +1,4 @@
-import elementary, module, os
+import elementary, module, os, ecore
 
 # Locale support
 import gettext
@@ -31,8 +31,8 @@ class Splash(module.AbstractModule):
         """
         file = open('/usr/lib/opkg/alternatives/shr-splash-theme', 'r' )
 
-        self.themes = {} # items: 'name' : ('path', priority)
-        self.priority_idx = {} # items: priority : [theme names]
+        self.themes = {} # items: 'path' : ('name', priority)
+        self.priority_idx = {} # items: priority : [theme paths]
 
         s=1
         while s:
@@ -65,6 +65,25 @@ class Splash(module.AbstractModule):
         self.hoverSel.label_set(_("Themes (%s)" % self.currentProfile))
 
         self.max_prio = max_prio
+        self.currentTheme = self.priority_idx[max_prio][len(self.priority_idx[max_prio])-1]
+
+    def preview_close(self):
+        self.prevwin.hide()
+        self.prevwin.delete()
+        del self.prevwin
+        return False
+
+    def preview(self, obj, event, *args, **kwargs):
+#        print self.currentTheme
+        self.prevwin = elementary.Window('preview', 0)
+        bg = elementary.Background(self.prevwin)
+        bg.file_set(self.currentTheme + '/preview.png')
+        bg.show()
+        self.prevwin.resize_object_add(bg)
+        self.prevwin.autodel_set(True)
+        self.prevwin.fullscreen_set(True)
+        self.prevwin.show()
+        ecore.timer_add(5, self.preview_close)
 
     def listThemes(self):
         """
@@ -72,14 +91,29 @@ class Splash(module.AbstractModule):
         """
         self.main.size_hint_weight_set(1.0, -1.0)
 
+        hozBox = elementary.Box(self.window)
+        hozBox.horizontal_set(True)
+        hozBox.size_hint_weight_set(1.0, 0.0)
+        hozBox.size_hint_align_set(-1.0, 0.0)
+        hozBox.show()
+        self.main.pack_end(hozBox)
+
         # Listing HoverSelect
         self.hoverSel = elementary.Hoversel(self.window)
         self.hoverSel.hover_parent_set(self.window)
-        self.hoverSel.size_hint_weight_set(-1.0, 0.0)
+        self.hoverSel.size_hint_weight_set(1.0, 0.0)
         self.hoverSel.size_hint_align_set(-1.0, 0.0)
-        self.main.pack_end(self.hoverSel)
+        hozBox.pack_end(self.hoverSel)
         self.hoverSel.show()
-        
+
+        # Preview button
+        previewbtn = elementary.Button(self.window)
+        previewbtn.label_set("Preview")
+        previewbtn.clicked = self.preview
+        previewbtn.show()
+        previewbtn.size_hint_align_set(-1.0, 0.0)
+        hozBox.pack_end(previewbtn)        
+
         # Set current theme name to the hoverSel label
         self.ThemeNameUpdate()
 
