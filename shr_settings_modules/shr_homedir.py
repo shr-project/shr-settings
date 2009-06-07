@@ -19,11 +19,11 @@ NOTES:
 """
 
 # Directories in /home/${USER} that are to be ignored during archive
-DIRECTORY_BLACKLIST = ['.e']
+DIRECTORY_BLACKLIST = ['.e', 'restoreTest']
 
 # Defaults
 ARCHIVE_DIR  = "/media/card/"
-ARCHIVE_FILE = "archive-{0}.tar" # {0} to be the date, filled in later
+ARCHIVE_FILE = "home_archive-{0}.tar" # {0} to be the date, filled in later
 
 try:
     cat = gettext.Catalog("shr-settings")
@@ -35,6 +35,15 @@ except IOError:
 class FileButton(elementary.Button):
     def set_filename( self, filename ):
         self.filename = filename
+
+        # deal with long file paths
+        while len(filename) > 35:
+            filename = filename.split('/')
+            if len(filename) == 2 :
+                filename = '.../' + '/'.join(filename[1:])
+                break
+            filename = '.../' + '/'.join(filename[2:])
+
         self.label_set(filename)
 
     def get_filename( self ):
@@ -42,12 +51,13 @@ class FileButton(elementary.Button):
 
 
 class SelectWindow(elementary.Window):
-    def __init__(self, title, dir, lab, isFiles, obj, event, *args, **kargs):
+    def __init__(self, title, dir, lab, status_set, isFiles, obj, event, *args, **kargs):
 
         self.parentObj = dir
         self.currentSelection = self.parentObj[0]
         self.parentLabel = lab
         self.title = title
+        self.status_set = status_set
         self.isFiles = isFiles
 
         super(SelectWindow, self).__init__(title, elementary.ELM_WIN_BASIC)
@@ -120,17 +130,31 @@ class SelectWindow(elementary.Window):
         self.update()
 
     def update(self):
+        # clear status message on new selection
+        self.status_set(" ")
+
         cs = self.currentSelection
         self.parentObj[0] = cs
-        self.parentLabel.label_set(_("Current Selection is:")+"<br>"+cs)
-        self.lab.label_set(_("Current Selection is:")+"<br>"+cs)
+        label_cs = cs
+
+        # deal with long file paths
+        while len(label_cs) > 40:
+            label_cs = label_cs.split('/')
+            if len(label_cs) == 2:
+                label_cs = '.../' + '/'.join(label_cs[1:])
+                break
+            label_cs = '.../' + '/'.join(label_cs[2:])
+
+        self.parentLabel.label_set(self.title+":"+"<br>"+label_cs)
+        self.lab.label_set(self.title+":"+"<br>"+label_cs)
 
         if os.path.isdir(cs):
             if not self.isFiles:
-                files = [ cs+f+"/" for f in os.listdir(cs) if os.path.isdir(cs+f) ]
+                files = sorted([ cs+f+"/" for f in os.listdir(cs) if os.path.isdir(cs+f) ])
             else:
-                files = [ cs+f+"/" for f in os.listdir(cs) if os.path.isdir(cs+f)]
-                files.extend([cs+f for f in os.listdir(cs) if os.path.isfile(cs+f) ])
+                files = sorted([ cs+f+"/" for f in os.listdir(cs) if os.path.isdir(cs+f)])
+                dirs  = sorted([ cs+f for f in os.listdir(cs) if os.path.isfile(cs+f) ])
+                files.extend(dirs)
 
             for f in self.filebuttons:
                 f.delete()
@@ -174,6 +198,50 @@ class SelectWindow(elementary.Window):
         self.delete()
 
 
+class OptionsBox(elementary.Box):
+    def __init__(self, window, dir):
+        self.window = window
+        self.dir = dir
+
+        super(OptionsBox, self).__init__(self.window)
+        self.size_hint_weight_set(1.0, 0.0)
+        self.size_hint_align_set(-1.0, 0.0)
+        self.show()
+
+        # Options Frame
+        frame = elementary.Frame(self.window)
+        frame.label_set("Options")
+        frame.size_hint_weight_set(1.0, 0.0)
+        frame.size_hint_align_set(-1.0, 0.0)
+        frame.show()
+
+        # Options H Box
+        vbox = elementary.Box(self.window)
+        vbox.size_hint_weight_set(1.0, 0.0)
+        vbox.size_hint_align_set(-1.0, 0.0)
+        vbox.horizontal_set(True)
+        vbox.show()
+
+        # Options ClearAll Archives Button
+        clearAll = FileButton(self.window)
+        clearAll.size_hint_weight_set(1.0, 0.0)
+        clearAll.size_hint_align_set(-1.0, 0.0)
+        clearAll.set_filename(self.dir[0])
+        clearAll.label_set(_("Delete Archives"))
+        clearAll.clicked = self.clearAllArchives
+        clearAll.size_hint_align_set(-1.0, 0.0)
+        clearAll.show()
+
+        vbox.pack_end(clearAll)
+
+        frame.content_set(vbox)
+
+        self.pack_end(frame)
+
+    def clearAllArchives(self, obj, event, *args, **kargs):
+        deleteCmd = "rm " + self.dir[0] + "home_archive-*.tar"
+        os.system(deleteCmd)
+
 class ArchiveBox(elementary.Box):
     def __init__(self, window, dir, title, callback, isFiles = False):
         self.window = window
@@ -186,6 +254,20 @@ class ArchiveBox(elementary.Box):
         self.size_hint_align_set(-1.0, 0.0)
         self.show()
 
+        # Archive Frame
+        frame = elementary.Frame(self.window)
+        frame.label_set(self.title)
+        frame.size_hint_weight_set(1.0, 0.0)
+        frame.size_hint_align_set(-1.0, 0.0)
+        frame.show()
+
+        # Archive V Box
+        vbox = elementary.Box(self.window)
+        vbox.size_hint_weight_set(1.0, 0.0)
+        vbox.size_hint_align_set(-1.0, 0.0)
+        vbox.horizontal_set(False)
+        vbox.show()
+
         # Archive Label
         label = elementary.Label(self.window)
         label.size_hint_weight_set(1.0, 0.0)
@@ -193,12 +275,19 @@ class ArchiveBox(elementary.Box):
         label.label_set(self.title+":<br>"+self.dir[0])
         label.show()
 
+        # Archive Status
+        self.status = elementary.Label(self.window)
+        self.status.size_hint_weight_set(1.0, 0.0)
+        self.status.size_hint_align_set(-1.0, 0.0)
+        self.status.label_set(" ")
+        self.status.show()
+
         # Archive H Box
-        box = elementary.Box(self.window)
-        box.size_hint_weight_set(1.0, 0.0)
-        box.size_hint_align_set(-1.0, 0.0)
-        box.horizontal_set(True)
-        box.show()
+        hbox = elementary.Box(self.window)
+        hbox.size_hint_weight_set(1.0, 0.0)
+        hbox.size_hint_align_set(-1.0, 0.0)
+        hbox.horizontal_set(True)
+        hbox.show()
 
         # Archive Change Button
         change = FileButton(self.window)
@@ -206,7 +295,7 @@ class ArchiveBox(elementary.Box):
         change.size_hint_align_set(-1.0, 0.0)
         change.set_filename(self.dir[0])
         change.label_set(_("Change"))
-        change.clicked = partial(SelectWindow, self.title, self.dir, label, isFiles)
+        change.clicked = partial(SelectWindow, self.title, self.dir, label, self.status_set, isFiles)
         change.size_hint_align_set(-1.0, 0.0)
         change.show()
 
@@ -217,11 +306,18 @@ class ArchiveBox(elementary.Box):
         do.size_hint_align_set(-1.0, 0.0)
         do.show()
 
-        box.pack_end(change)
-        box.pack_end(do)
+        hbox.pack_end(change)
+        hbox.pack_end(do)
 
-        self.pack_end(label)
-        self.pack_end(box)
+        vbox.pack_end(label)
+        vbox.pack_end(hbox)
+        vbox.pack_end(self.status)
+
+        frame.content_set(vbox)
+        self.pack_end(frame)
+
+    def status_set(self, status):
+        self.status.label_set(status)
 
 
 class HomeDir(module.AbstractModule):
@@ -236,15 +332,22 @@ class HomeDir(module.AbstractModule):
         outfile =  self.archiveDir[0]+self.archiveFile[0].format(t)
         files = [ '"'+i+'"' for i in os.listdir(self.userdir) if i not in DIRECTORY_BLACKLIST]
 
-        archive_cmd = "tar --same-owner -C " + self.userdir + "-cpf " + outfile + " " + " ".join(files)
-        print repr(archive_cmd)
+        archive_cmd = "cd /home/root; tar -cf " + outfile + " " + " ".join(files)
+        # print repr(archive_cmd)
+        self.archiveBox.status_set(_("Archiving to ") + self.archiveDir[0] + " ...")
+        os.system(archive_cmd)
+        self.archiveBox.status_set(_("Archiving Complete."))
 
     def restore(self, obj, event, *args, **kargs):
         """
-        1) Clean out /home/${USER}, except for 'DIRECTORY_BLACKLIST'
-        2) untar the contents of ${ARCHIVE_DIR}/${ARCHIVE} to /home/${USER}
+        1) untar the contents of ${ARCHIVE_DIR}/${ARCHIVE} to /home/${USER}
         """
-        print self.restoreFile[0]
+        restore_cmd = "tar -xf \"" + self.restoreFile[0] + "\" -C /home/root/restoreTest"
+        # print repr(restore_cmd)
+
+        self.restoreBox.status_set(_("Restoring to") + self.userdir + " ...")
+        os.system(restore_cmd)
+        self.restoreBox.status_set(_("Restoration Complete."))
 
     def createView(self):
 
@@ -257,16 +360,20 @@ class HomeDir(module.AbstractModule):
         self.restoreFile = [ARCHIVE_DIR]
         self.userdir = os.environ['HOME']
 
-        # create the box
+        # create the main box
         self.main = elementary.Box(self.window)
         self.main.size_hint_weight_set(1.0, 1.0)
         self.main.size_hint_align_set(-1.0, 0.0)
 
-        archiveBox = ArchiveBox(self.window, self.archiveDir, "Archive Directory", self.archive)
-        restoreBox = ArchiveBox(self.window, self.restoreFile, "Restore File", self.restore, True)
+        # create the box
+        self.archiveBox = ArchiveBox(self.window, self.archiveDir, "Archive Directory", self.archive)
+        self.restoreBox = ArchiveBox(self.window, self.restoreFile, "Restore File", self.restore, True)
+        ## self.optionsBox = OptionsBox(self.window, self.archiveDir) # This line has some concerns
 
-        self.main.pack_end(archiveBox)
-        self.main.pack_end(restoreBox)
+        # pack the boxes
+        self.main.pack_end(self.archiveBox)
+        self.main.pack_end(self.restoreBox)
+        ## self.main.pack_end(self.optionsBox) # This line has some concerns
 
         self.main.show()
 
