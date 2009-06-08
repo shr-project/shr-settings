@@ -86,7 +86,7 @@ class ModulesWindow:
             self.win2.destroy = self.destroy
         else:
             self.win2.autodel_set(True)
-            self.win2.destroy = self.destroy2
+            self.win2._callback_add('destroy', (self.destroy2, self.win2))
         
         #add background to module window
         bg = elementary.Background(self.win2)
@@ -116,7 +116,7 @@ class ModulesWindow:
         if fromcli:
             quitbt2.clicked = self.destroy
         else:
-            quitbt2.clicked = self.destroy2
+            quitbt2._callback_add('clicked', (self.destroy2, self.win2))
         quitbt2.label_set(_("Quit"))
         quitbt2.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt2)
@@ -170,9 +170,9 @@ class ModulesWindow:
         ecore.idler_add(self.renderModules, modulesList, bus)
         self.win2.show()
 
-    def destroy2(self,obj, event, *args, **kargs):
+    def destroy2(self,obj, event, win, *args, **kargs):
         log ( "closing modules window...", logtype.DEBUG)
-        self.win2.hide()
+        win.hide()
         for m in self.modList:
             try:
                 m.stopUpdate()
@@ -181,8 +181,8 @@ class ModulesWindow:
             log ("deleting module \"" + m.getName() + "\"" , logtype.DEBUG)
             del m
         log ("deleting window object", logtype.DEBUG)
-        self.win2.delete()
-        del self.win2
+        win.delete()
+        del win
         
     def destroy(self, obj, event, *args, **kargs):
         log( "window destroy callback called! kabum!", logtype.DEBUG)
@@ -269,7 +269,7 @@ class MainWindow:
             line = c.readline().replace("\n","")
             if not line:
                 break
-            #print "line ["+line+"]"
+            #print "line ["+line+"]"  
             lb = elementary.Label(self.windeb)
             lb.label_set(line)
             box1.pack_end(lb)
@@ -345,7 +345,7 @@ class MainWindow:
                     [_("Date/time"),"icon_datetime.png",                  [ 'shr_clock.Clock' ] ],
                     [_("Power"),"icon_power.png",  [ 'shr_battery.Battery', 'shr_display.Display', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
                     [_("Services"),"icon_services.png",                 [ 'shr_services.Services' ] ],
-                    [_("Others"), "icon_others.png",                                       [ 'shr_splash.Splash', 'shr_pim.Pim', 'shr_homedir.HomeDir' ] ]
+                    [_("Others"), "icon_others.png",                                       [ 'shr_splash.Splash', 'shr_pim.Pim' ] ]
             ]
 
 
@@ -464,3 +464,5 @@ if __name__ == "__main__":
     elementary.run()
     elementary.shutdown()
     log('Bye bye!', logtype.INFO)
+    
+
