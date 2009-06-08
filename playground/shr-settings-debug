@@ -31,6 +31,7 @@ bus = dbus.SystemBus(mainloop=mainloop)
 win = elementary.Window("shr-settings-debug", elementary.ELM_WIN_BASIC)
 win.show()
 bg = elementary.Background(win)
+bg.size_hint_min_set(200,300)
 win.resize_object_add(bg)
 bg.show()
 
