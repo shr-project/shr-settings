@@ -16,12 +16,12 @@ NOTES:
 """
 
 # Directories in /home/${USER} that are to be ignored during archive
-DIRECTORY_BLACKLIST = ['.e', ] # 'restoreTest'] # for testing
+DIRECTORY_BLACKLIST = [ '.e', ] # 'restoreTest'] # for testing
 
 # Defaults
 ARCHIVE_DIR  = "/media/card/"
 ARCHIVE_FILE = "archive-{0}.tar" # {0} to be the date, filled in later
-DATE_FORMAT  = "%d%m%y-%H%M" # rather dense, but long archive names screw up the display
+DATE_FORMAT  = "%Y%m%d-%H%M" # rather dense, but long archive names screw up the display
 
 try:
     cat = gettext.Catalog("shr-settings")
@@ -45,7 +45,7 @@ class FileButton(elementary.Button):
     def set_valueLink( self, obj ):
         self.linked_value = obj
 
-    def get_trunc_path( self, length = 35 ):
+    def get_trunc_path( self, length = 32 ):
         # deal with long file paths
         s = self.filename
         while len( s ) > length:
@@ -155,13 +155,13 @@ class SelectWindow(elementary.Window):
         self.targetObj[0] = cs
 
         self.parentObj.set_filename(cs)
-        self.lab.label_set(self.title +":<br>"+ self.parentObj.get_trunc_path(45))
+        self.lab.label_set(self.title +":<br>"+ self.parentObj.get_trunc_path(40))
 
         if os.path.isdir(cs):
             dirs = sorted([ cs+f+"/" for f in os.listdir(cs) if os.path.isdir(cs+f) ])
             if self.isFiles:
                 dirs  = sorted([ cs+f+"/" for f in os.listdir(cs) if os.path.isdir(cs+f)])
-                files = sorted([ cs+f for f in os.listdir(cs) if os.path.isfile(cs+f) and str(cs+f)[-4:] == '.tar'])
+                files = sorted([ cs+f for f in os.listdir(cs) if os.path.isfile(cs+f) and str(cs+f)[-4:] == '.tar'], reverse=True)
                 dirs.extend(files)
 
             for f in self.filebuttons:
@@ -335,27 +335,33 @@ class HomeDir(module.AbstractModule):
         1) Tar the contents of /home/${USER} to ${ARCHIVE}
         2) Store in ${ARCHIVE_DIR}
         """
-        t = time.strftime(DATE_FORMAT)
-        outfile =  self.activeFile[0]+self.archiveFile.format(t)
-        files = [ '"'+i+'"' for i in os.listdir(self.userdir) if i not in DIRECTORY_BLACKLIST]
+        if os.path.isdir(self.activeFile[0]):
+            t = time.strftime(DATE_FORMAT)
+            outfile =  self.activeFile[0]+self.archiveFile.format(t)
+            files = [ '"'+i+'"' for i in os.listdir(self.userdir) if i not in DIRECTORY_BLACKLIST]
 
-        archive_cmd = "cd /home/root; tar -cf \"" + outfile + "\" " + " ".join(files)
-
-        self.status_set(_("Archiving to ") + self.activeFile[0] + " ...")
-        os.system(archive_cmd)
-##        print 'ArchiveCmd:', archive_cmd
-        self.status_set(_("Archiving Complete."))
+            cmd = "cd "+self.userdir+"; tar -cf \"" + outfile + "\" " + " ".join(files)
+            self.run_command(cmd, "Archiving")
+        else:
+            self.status_set(_("Directory required."))
 
     def restore(self):
         """
         1) untar the contents of ${ARCHIVE_DIR}/${ARCHIVE} to /home/${USER}
         """
-        restore_cmd = "tar -xf \"" + self.activeFile[0] + "\" -C /home/root" # /restoreTest" # testing target
+        if os.path.isfile(self.activeFile[0]):
+            cmd = "tar -xf \"" + self.activeFile[0] + "\" -C " + self.userdir # +"/restoreTest" # testing target
+            self.run_command(cmd, "Restoring")
+        else:
+            self.status_set(_("File required."))
 
-        self.status_set(_("Restoring to") + self.userdir + " ...")
-        os.system(restore_cmd)
-##        print 'RestoreCmd:', restore_cmd
-        self.status_set(_("Restoration Complete."))
+    def run_command(self, cmd, status_string):
+        c = os.popen(cmd)
+        exitCode = c.close()
+        if not exitCode:
+            self.status_set(_(status_string+" Complete."))
+        else:
+            self.status_set(_(status_string+" Failed. "+os.WEXITSTATUS(exitCode)))
 
     def update(self):
         if self.mode:
