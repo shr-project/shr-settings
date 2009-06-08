@@ -108,7 +108,7 @@ class Splash(module.AbstractModule):
 
         # Preview button
         previewbtn = elementary.Button(self.window)
-        previewbtn.label_set("Preview")
+        previewbtn.label_set(_("Preview"))
         previewbtn.clicked = self.preview
         previewbtn.show()
         previewbtn.size_hint_align_set(-1.0, 0.0)
