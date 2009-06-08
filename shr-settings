@@ -90,6 +90,7 @@ class ModulesWindow:
         
         #add background to module window
         bg = elementary.Background(self.win2)
+        bg.size_hint_min_set(200,300)
         self.win2.resize_object_add(bg)
         bg.size_hint_weight_set(1.0, 1.0)
         bg.show()
@@ -223,6 +224,7 @@ class MainWindow:
         self.bgdeb = elementary.Background(self.windeb)
         self.windeb.resize_object_add(self.bgdeb)
         self.bgdeb.size_hint_weight_set(1.0, 1.0)
+        self.bgdeb.size_hint_min_set(200,300)
         self.bgdeb.show()
 
         box0 = elementary.Box(self.windeb)
@@ -301,6 +303,7 @@ class MainWindow:
         bg = elementary.Background(self.win)
         self.win.resize_object_add(bg)
         bg.size_hint_weight_set(1.0, 1.0)
+        bg.size_hint_min_set(200,300)
         bg.show()
 
         # main container contains a scroller and the Quit button
