@@ -1,0 +1,13 @@
+# SHR-Settings userspace backup blacklist file
+#
+# This is a comment line, blank lines are also ignored
+#
+# list one file or directory (full path) per line to exclude it from the
+#   whitelist in ./backup.whitelist.  Shell expansion is supported, via
+#   via python glob.glob, os.path.expanduser, and os.path.expandvars.
+#
+
+~/.e
+/usr/share/sounds/purple
+/usr/share/sounds/Arkanoid_PSID.sid
+/usr/share/sounds/ringtone_ringnroll.wav

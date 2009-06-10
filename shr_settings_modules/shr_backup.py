@@ -1,4 +1,5 @@
-import module, elementary, os, time
+import module, elementary, os, time, re
+from glob import glob
 
 from functools import partial
 
@@ -15,13 +16,16 @@ NOTES:
     current /home/${USER}
 """
 
-# Directories in /home/${USER} that are to be ignored during archive
-DIRECTORY_BLACKLIST = [ '.e', ] # 'restoreTest'] # for testing
-
 # Defaults
 ARCHIVE_DIR  = "/media/card/"
 ARCHIVE_FILE = "archive-{0}.tar" # {0} to be the date, filled in later
 DATE_FORMAT  = "%Y%m%d-%H%M" # rather dense, but long archive names screw up the display
+
+CONFIG_LIST = {
+    'conf'      : '/etc/shr/settings/backup.conf',
+    'whitelist' : '/etc/shr/settings/backup.whitelist',
+    'blacklist' : '/etc/shr/settings/backup.blacklist',
+    }
 
 try:
     cat = gettext.Catalog("shr-settings")
@@ -256,6 +260,8 @@ class ArchiveBox(elementary.Box):
         self.target = None
         self.title = [""]
 
+
+
         super(ArchiveBox, self).__init__(self.window)
         self.size_hint_weight_set(1.0, 0.0)
         self.size_hint_align_set(-1.0, 0.0)
@@ -327,8 +333,95 @@ class ArchiveBox(elementary.Box):
         self.change.set_valueLink( filesBool )
 
 
-class HomeDir(module.AbstractModule):
-    name = _("Home Directory")
+class Backup(module.AbstractModule):
+    name = _("Userspace Backup")
+
+    def expand( self, path ):
+        return glob( os.path.expanduser( os.path.expandvars( path ) ) )
+
+    def file_filter(self, f):
+        reCommentBlank = re.compile(r'^\s*(#|$)')
+        output = []
+
+        with open( f, 'r' ) as file:
+            for line in file:
+                line = line.strip()
+                if not re.match( reCommentBlank, line ):
+                    output.append(line)
+        return output
+
+    def set_config(self):
+        """
+        Get config data from config files
+        """
+
+        # defaults
+        #   yes, self.activeFile is a unitary list.
+        #   This is to allow for interclass communication.
+        #   Anyone know a better way?
+
+        self.blacklist      = []                    # list of blacklist files/dirs
+        self.whitelist      = []                    # files to include
+        self.date_format    = DATE_FORMAT
+        self.archiveFile    = ARCHIVE_FILE
+        self.activeFile     = [ ARCHIVE_DIR ]       # double duty as archive dir and restore file
+        self.userdir        = os.environ[ 'HOME' ]
+        self.mode           = True                  # True:False == Archive:Restore
+
+
+        # Read whitelist
+        whitelist = self.file_filter(CONFIG_LIST['whitelist'])
+        for line in whitelist:
+            self.add_to_list( line, self.whitelist )
+
+        # Read blacklists
+        blacklist = self.file_filter(CONFIG_LIST['blacklist'])
+        for line in blacklist:
+            self.add_to_list( line, self.blacklist )
+
+        # Read config
+        conf = self.file_filter(CONFIG_LIST['conf'])
+        for c in conf:
+            conf_item, conf_value   = c.split(':')
+
+            conf_item   = conf_item.strip()
+            conf_value  = conf_value.strip()
+
+            if conf_item == 'DATE':
+                self.date_format = conf_value
+
+            elif conf_item == 'ARCHIVE_FILE':
+                self.archiveFile = conf_value
+
+            elif conf_item == 'WHITELISTS':
+                for files in conf_value.split(','):
+                    for file in self.expand(files):
+                        if os.path.isfile(file):
+                            with open(file) as line:
+                                self.add_to_list( line, self.whitelist )
+
+            elif conf_item == 'BLACKLISTS':
+                for files in conf_value.split(','):
+                    for file in self.expand(files):
+                        if os.path.isfile(file):
+                            with open(file) as line:
+                                self.add_to_list( line, self.blacklist )
+
+        # whitelist minus blacklists
+        self.whitelist = [ path for path in self.whitelist if not path in self.blacklist]
+
+        print "Config Loaded, Black/Whitelists read"
+
+    def add_to_list( self, input , output ):
+        input = input.strip()
+        for e in self.expand(input):
+            if os.path.isfile( e ) and not e in output:
+                output.append( e )
+            elif os.path.islink( e ) and not e in output:
+                output.append( e )
+            elif os.path.isdir( e ):
+                for files in os.listdir( e ):
+                    self.add_to_list( e.rstrip( '/' ) + '/' + files, output )
 
     def archive(self):
         """
@@ -336,11 +429,12 @@ class HomeDir(module.AbstractModule):
         2) Store in ${ARCHIVE_DIR}
         """
         if os.path.isdir(self.activeFile[0]):
-            t = time.strftime(DATE_FORMAT)
+            t = time.strftime(self.date_format)
             outfile =  self.activeFile[0]+self.archiveFile.format(t)
-            files = [ '"'+i+'"' for i in os.listdir(self.userdir) if i not in DIRECTORY_BLACKLIST]
 
-            cmd = "cd "+self.userdir+"; tar -cf \"" + outfile + "\" " + " ".join(files)
+            files = ' '.join( [ '"' + f + '"' for f in self.whitelist ] )
+
+            cmd = 'tar -cf "' + outfile + '" ' + files
             self.run_command(cmd, "Archiving")
         else:
             self.status_set(_("Directory required."))
@@ -350,12 +444,14 @@ class HomeDir(module.AbstractModule):
         1) untar the contents of ${ARCHIVE_DIR}/${ARCHIVE} to /home/${USER}
         """
         if os.path.isfile(self.activeFile[0]):
-            cmd = "tar -xf \"" + self.activeFile[0] + "\" -C " + self.userdir # +"/restoreTest" # testing target
+            cmd = 'tar -xf "' + self.activeFile[0] + '"'  + " -C /"# + self.userdir + "/restoreTest" # testing target
             self.run_command(cmd, "Restoring")
         else:
             self.status_set(_("File required."))
 
     def run_command(self, cmd, status_string):
+##        print cmd
+        self.status_set(_(status_string+" In Progress."))
         c = os.popen(cmd)
         exitCode = c.close()
         if not exitCode:
@@ -387,14 +483,8 @@ class HomeDir(module.AbstractModule):
 
     def createView(self):
 
-        # defaults
-        #   yes, self.activeFile is a unitary list.
-        #   This is to allow for interclass communication.
-        #   Anyone know a better way?
-        self.archiveFile = ARCHIVE_FILE
-        self.activeFile = [ ARCHIVE_DIR ] # double duty as archive dir and restore file
-        self.userdir = os.environ[ 'HOME' ]
-        self.mode = True
+        # setup config
+        self.set_config()
 
         # create the main box
         self.main = elementary.Box( self.window )

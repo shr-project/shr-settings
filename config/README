@@ -1,0 +1,6 @@
+SHR-Settings Configuration README
+
+Unless otherwise decreed, all configs should be placed in /etc/shr/settings/<module>.<descriptive_extension>
+
+
+Last updated by Toaster (10-06-2009)
