@@ -348,6 +348,7 @@ class Backup(module.AbstractModule):
                 line = line.strip()
                 if not re.match( reCommentBlank, line ):
                     output.append(line)
+        # print 'From',f,output
         return output
 
     def set_config(self):
@@ -397,15 +398,17 @@ class Backup(module.AbstractModule):
                 for files in conf_value.split(','):
                     for file in self.expand(files):
                         if os.path.isfile(file):
-                            with open(file) as line:
+                            for line in self.file_filter(file):
                                 self.add_to_list( line, self.whitelist )
+                # print 'Whitelist',self.whitelist
 
             elif conf_item == 'BLACKLISTS':
                 for files in conf_value.split(','):
                     for file in self.expand(files):
                         if os.path.isfile(file):
-                            with open(file) as line:
+                            for line in self.file_filter(file):
                                 self.add_to_list( line, self.blacklist )
+                # print 'Blacklist',self.blacklist
 
         # whitelist minus blacklists
         self.whitelist = [ path for path in self.whitelist if not path in self.blacklist]
