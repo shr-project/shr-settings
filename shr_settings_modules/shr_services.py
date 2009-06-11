@@ -95,6 +95,7 @@ class Services(module.AbstractModule):
             print "line ["+line+"]"
             lb = elementary.Label(self.windeb)
             lb.label_set(line)
+            lb.size_hint_align_set(-1.0, 0.0)
             box1.pack_end(lb)
             lb.show()
 
