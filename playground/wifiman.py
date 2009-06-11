@@ -20,13 +20,15 @@ def getDbusObject (bus, busname , objectpath , interface):
 def error_callback(err):
   print str(err)
 
+def disconnect_callback():
+  #pager.content_pop()
+  print "Disconnected"
+
 def disconnect2(obj, event, networkbus, *args, **kargs):
-  networkbus.Disconnect(reply_handler=connect_callback,error_handler=error_callback)
-  pager.content_pop()
+  networkbus.Disconnect(reply_handler=disconnect_callback,error_handler=disconnect_callback)
 
 def disconnect(obj, event, networkbus, *args, **kargs):
   print "disconnect"
-  disconnect2(obj, event, networkbus, args, kargs)
   disconnecting = elementary.Label(pager)
   disconnecting.label_set("Disconnecting...")
   disconnecting.show()
@@ -34,6 +36,7 @@ def disconnect(obj, event, networkbus, *args, **kargs):
   box.pack_end(disconnecting)
   box.show()
   pager.content_push(box)
+  disconnect2(obj, event, networkbus, args, kargs)
   #update_networks(dev.GetProperties()['Networks'])
   #dev.ProposeScan()
 

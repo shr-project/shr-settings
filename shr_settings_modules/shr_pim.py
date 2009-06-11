@@ -1,6 +1,5 @@
-import elementary, module, ecore
+import elementary, module
 import dbus
-import array
 
 # Locale support
 import gettext
@@ -99,6 +98,7 @@ class Pim(module.AbstractModule):
         win = elementary.Window("domain", elementary.ELM_WIN_BASIC)
         win.show()
         win.autodel_set(1)
+        win.title_set(domain)
         bg = elementary.Background(win)
         win.resize_object_add(bg)
         bg.show()
@@ -156,20 +156,28 @@ class Pim(module.AbstractModule):
 
             self.domains = self.dbusObj.GetDomains()
 
-            label = elementary.Label(self.main)
-            label.label_set(_("Domains:"))
-            self.main.pack_start(label)
-            label.size_hint_align_set(-1.0, 0.0)
-            label.show()
+            self.hoverSel = elementary.Hoversel(self.window)
+            self.hoverSel.hover_parent_set(self.window)
+            self.hoverSel.label_set(_("Domains"))
+            self.hoverSel.size_hint_weight_set(-1.0, 0.0)
+            self.hoverSel.size_hint_align_set(-1.0, 0.0)
+            self.main.pack_end(self.hoverSel)
+            self.hoverSel.show()
 
             for domain in self.domains:
-                dombutton = elementary.Button(self.main)
-                dombutton.label_set(domain)
-                dombutton.size_hint_align_set(-1.0, -1.0)
-                dombutton.size_hint_weight_set(1.0, 1.0)
-                dombutton._callback_add("clicked", (self.domainWindow, domain))
-                self.main.pack_end(dombutton)
-                dombutton.show()
+#                dombutton = elementary.Button(self.main)
+#                dombutton.label_set(domain)
+#                dombutton.size_hint_align_set(-1.0, -1.0)
+#                dombutton.size_hint_weight_set(1.0, 1.0)
+#                dombutton._callback_add("clicked", (self.domainWindow, domain))
+#                self.main.pack_end(dombutton)
+#                dombutton.show()
+
+                self.hoverSel.item_add(domain,
+                "arrow_right",
+                elementary.ELM_ICON_STANDARD,
+                partial( self.domainWindow, domain = domain ))
+
 
         except:
             self.error()

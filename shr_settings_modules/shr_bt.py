@@ -1,6 +1,5 @@
-import time
 import module
-import elementary, ecore
+import elementary
 import os
 import dbus
 

@@ -24,7 +24,7 @@ MODULES = [ [_("Power"),        "icon_power.png",        [ 'shr_battery.Battery'
             [_("GPS"),          "icon_gps.png",          [ 'shr_gps.Gps' ] ],
             [_("Date/time"),    "icon_datetime.png",     [ 'shr_clock.Clock' ] ],
             [_("Services"),     "icon_services.png",     [ 'shr_services.Services' ] ],
-            [_("Others"),       "icon_others.png",       [ 'shr_pim.Pim', 'shr_test.Test' ] ] #, 'shr_homedir.HomeDir' ] ],
+            [_("Others"),       "icon_others.png",       [ 'shr_splash.Splash', 'shr_pim.Pim', 'shr_backup.Backup' ] ],
             [_("About"),        "icon_about.png",        [ 'shr_about.About', 'shr_help.Help' ] ],
     ]
 
