@@ -274,6 +274,7 @@ class MainWindow:
             #print "line ["+line+"]"
             lb = elementary.Label(self.windeb)
             lb.label_set(line)
+            lb.size_hint_align_set(-1.0, 0.0)
             box1.pack_end(lb)
             lb.show()
 
@@ -376,8 +377,9 @@ class MainWindow:
 
         #ophonekitd not running?
         if os.popen("ps -A | grep [o]phonekitd").read() == "":
-            self.opkframe = elementary.Frame(self.win)
+            log('ophonekitd is not running!', logtype.FAIL)
 
+            self.opkframe = elementary.Frame(self.win)
 
             opkbox = elementary.Box(self.win)
             opklabbox = elementary.Box(opkbox)
