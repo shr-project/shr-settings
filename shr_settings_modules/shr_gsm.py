@@ -117,73 +117,6 @@ class Gsm(module.AbstractModule):
         except:
             pass
 
-    def destroyDebug(self, obj, event, *args, **kargs):
-        self.windeb.hide()
-
-    def clean_ophonekitd_log(self, obj, event, *args, **kargs):
-        os.system("echo \"\" >  /var/log/ophonekitd.log")
-        self.destroyDebug(self, obj, event, *args, **kargs) 
-       
-    def view_ophonekitd_log(self, obj, event, *args, **kargs):        
-        print "ophonekitd log"
-        self.windeb = elementary.Window("ophonekitdLog", elementary.ELM_WIN_BASIC )
-        self.windeb.title_set(_("ophonekitd log"))
-        self.windeb.autodel_set(True)
-        self.bgdeb = elementary.Background(self.windeb)
-        self.windeb.resize_object_add(self.bgdeb)
-        self.bgdeb.size_hint_weight_set(1.0, 1.0)
-        self.bgdeb.show()
-
-        box0 = elementary.Box(self.windeb)
-        box0.size_hint_weight_set(1.0, 1.0)
-        self.windeb.resize_object_add(box0)
-        box0.show()
-
-        fr = elementary.Frame(self.windeb)
-        fr.label_set(_("ophonekitd log"))
-        fr.size_hint_align_set(-1.0, 0.0)
-        box0.pack_end(fr)
-        fr.show()
-
-        sc = elementary.Scroller(self.windeb)
-        sc.size_hint_weight_set(1.0, 1.0)
-        sc.size_hint_align_set(-1.0, -1.0)
-        box0.pack_end(sc)
-        sc.show()
-
-        cleanbt = elementary.Button(self.windeb)
-        cleanbt.clicked = self.clean_ophonekitd_log   
-        cleanbt.label_set(_("Clean"))
-        cleanbt.size_hint_align_set(-1.0, 0.0)
-        cleanbt.show()
-        box0.pack_end(cleanbt)
-
-        cancelbt = elementary.Button(self.windeb)
-        cancelbt.clicked = self.destroyDebug
-        cancelbt.label_set(_("Close"))
-        cancelbt.size_hint_align_set(-1.0, 0.0)
-        cancelbt.show()
-        box0.pack_end(cancelbt)
-
-        box1 = elementary.Box(self.windeb)
-        box1.size_hint_weight_set(1.0, -1.0)
-        sc.content_set(box1)
-        box1.show()
-
-        self.windeb.show()
-        
-
-        c = open( "/var/log/ophonekitd.log", "r" )
-        while 1:
-            line = c.readline().replace("\n","")
-            if not line:
-                break
-            print "line ["+line+"]"
-            lb = elementary.Label(self.windeb)
-            lb.label_set(line)
-            box1.pack_end(lb)
-            lb.show()
-
 
     def operatorSelect(self, obj, event, *args, **kargs):
         #os.popen("echo \"gsmnetwork.RegisterWithProvider( "+obj.get_opeNr()+" )\" | cli-framework", "r");
@@ -191,10 +124,6 @@ class Gsm(module.AbstractModule):
         self.gsmsc.gsmnetwork_RegisterWithProvider( obj.get_opeNr() )
         self.winope.hide()
         print "clik"
-
-    def operatorsListbt(self, obj, event, *args, **kargs):
-        self.thread = threading.Thread(target=self.operatorsList)
-        self.thread.start()
 
     def nothing(self,obj,event, *args, **kargs):
         print "nothing called"
@@ -238,6 +167,7 @@ class Gsm(module.AbstractModule):
         sc = elementary.Scroller(self.winope)
         sc.size_hint_weight_set(1.0, 1.0)
         sc.size_hint_align_set(-1.0, -1.0)
+        sc.bounce_set(0,1)
         box0.pack_end(sc)
         sc.show()
 
@@ -333,6 +263,7 @@ class Gsm(module.AbstractModule):
         sc = elementary.Scroller(self.wininfo)
         sc.size_hint_weight_set(1.0, 1.0)
         sc.size_hint_align_set(-1.0, -1.0)
+        sc.bounce_set(0,1)
         box0.pack_end(sc)
         sc.show()
 
@@ -380,12 +311,6 @@ class Gsm(module.AbstractModule):
 
         self.wininfo.show()
 
-    def start_ophonekitd_btClick(self, obj, event, *args, **kargs):
-        obj.hide()
-        os.system( "DISPLAY=:0 ophonekitd >> /var/log/ophonekitd.log 2>&1 &" )
-
-
-
 
     def createView(self):
         
@@ -425,43 +350,6 @@ class Gsm(module.AbstractModule):
             errlab.show()
             self.box1.pack_end( errlab )
 
-
-#        if os.popen("ps -A | grep [o]phonekitd").read() == "":
-        if 0==1:
-#TODO - remove me!
-                boxOp = elementary.Box(self.window)
-                boxOp.size_hint_weight_set(1.0, 1.0)
-                boxOp.size_hint_align_set(-1.0, 0.0)
-
-                label = elementary.Label(self.window)
-                label.label_set(_("It's not running! Start it?"))
-                label.size_hint_align_set(-1.0, 0.0)
-                label.show()
-                boxOp.pack_start( label )
-
-                startbt = elementary.Button(self.window)
-                startbt.clicked = self.start_ophonekitd_btClick
-                startbt.label_set(_("Yes"))
-                startbt.size_hint_align_set(-1.0, 0.0)
-                startbt.show()
-                boxOp.pack_end(startbt)
-
-                logbt = elementary.Button(self.window)
-                logbt.clicked = self.view_ophonekitd_log
-                logbt.label_set(_("View log"))
-                logbt.size_hint_align_set(-1.0, 0.0)
-                logbt.show()
-                boxOp.pack_end(logbt)
-
-
-                fo = elementary.Frame(self.window)
-                fo.label_set( _("ophonekitd") )
-                fo.size_hint_align_set(-1.0, 0.0)
-                fo.show()
-                fo.content_set( boxOp )
-
-                boxOp.show()
-                self.box1.pack_start(fo)
 
         return self.box1
 
