@@ -165,11 +165,14 @@ class Gprs(module.AbstractModule):
     def dbusnothing(self):
         return 0
 
+    def dbuserror(self, error):
+        return 0
+
     def connect(self, obj, event, *args, **kargs):
         apn, login, password = self.getEntryData()
         self.dbusObj.ActivateContext(apn, login, password,
             reply_handler = self.dbusnothing,
-            error_handler = self.dbusnothing)
+            error_handler = self.dbuserror)
         return 0
 
     def disconnect(self, obj, event, *args, **kargs):

@@ -1,0 +1,13 @@
+# SHR-Settings userspace backup whitelist file        
+#                                                     
+# This is a comment line, blank lines are also ignored
+#                       
+# list one file or directory (full path) per line to include it in the
+#   backup of userspace components.  Shell expansion is supported, via       
+#   via python glob.glob, os.path.expanduser, and os.path.expandvars.
+#
+
+~/
+/usr/share/sounds
+/etc/frameworkd.conf
+/etc/freesmartphone/opreferences/conf

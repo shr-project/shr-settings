@@ -48,7 +48,7 @@ class ModulesWindow:
                 # modname: 'shr_gsm.GSM'. Import "shr_settings_modules.shr_gsm"
                 # dynamically and instantiate class "GSM"
                 (submodname, classname) = modname.split('.',1)
-                module   = __import__('shr_settings_modules.' + submodname, 
+                module   = __import__('shr_settings_modules.' + submodname,
                                       globals(), locals(), classname)
                 ModClass = module.__getattribute__(classname)
                 mod2 = ModClass(self.win2, bus)
@@ -87,7 +87,7 @@ class ModulesWindow:
         else:
             self.win2.autodel_set(True)
             self.win2._callback_add('destroy', (self.destroy2, self.win2))
-        
+
         #add background to module window
         bg = elementary.Background(self.win2)
         bg.size_hint_min_set(200,300)
@@ -184,7 +184,7 @@ class ModulesWindow:
         log ("deleting window object", logtype.DEBUG)
         win.delete()
         del win
-        
+
     def destroy(self, obj, event, *args, **kargs):
         log( "window destroy callback called! kabum!", logtype.DEBUG)
         elementary.exit()
@@ -250,7 +250,7 @@ class MainWindow:
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
         box0.pack_end(cleanbt)
- 
+
         cancelbt = elementary.Button(self.windeb)
         cancelbt.clicked = self.destroyDebug
         cancelbt.label_set(_("Close"))
@@ -264,14 +264,14 @@ class MainWindow:
         box1.show()
 
         self.windeb.show()
-    
+
 
         c = open( "/var/log/ophonekitd.log", "r" )
-        while 1: 
+        while 1:
             line = c.readline().replace("\n","")
             if not line:
                 break
-            #print "line ["+line+"]"  
+            #print "line ["+line+"]"
             lb = elementary.Label(self.windeb)
             lb.label_set(line)
             box1.pack_end(lb)
@@ -348,7 +348,7 @@ class MainWindow:
                     [_("Date/time"),"icon_datetime.png",                  [ 'shr_clock.Clock' ] ],
                     [_("Power"),"icon_power.png",  [ 'shr_battery.Battery', 'shr_display.Display', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
                     [_("Services"),"icon_services.png",                 [ 'shr_services.Services' ] ],
-                    [_("Others"), "icon_others.png",                                       [ 'shr_splash.Splash', 'shr_pim.Pim' ] ]
+                    [_("Others"), "icon_others.png",                                       [ 'shr_splash.Splash', 'shr_pim.Pim', 'shr_backup.Backup' ] ]
             ]
 
 
@@ -377,7 +377,7 @@ class MainWindow:
         #ophonekitd not running?
         if os.popen("ps -A | grep [o]phonekitd").read() == "":
             self.opkframe = elementary.Frame(self.win)
-            
+
 
             opkbox = elementary.Box(self.win)
             opklabbox = elementary.Box(opkbox)
@@ -415,11 +415,11 @@ class MainWindow:
 
             self.opkframe.content_set(opkoutbox)
             self.opkframe.show()
- 
+
             self.opkmainbox = elementary.Box(self.win)
             self.opkmainbox.pack_start(self.opkframe)
             self.opkframe.label_set(_("Information"))
-            self.opkmainbox.show() 
+            self.opkmainbox.show()
 
             opkhide = elementary.Button(self.opkmainbox)
             opkhide.label_set(_("Close"))
@@ -433,7 +433,7 @@ class MainWindow:
 
         #let's go!
         self.win.show()
-        ecore.idler_add(self.init_dbus_idler)        
+        ecore.idler_add(self.init_dbus_idler)
 
 
 if __name__ == "__main__":
@@ -450,7 +450,7 @@ if __name__ == "__main__":
                 print "only typed modules in one window."
                 print "First argument is window title."
                 print "--------------------------------------"
-                print "http://shr-project.org/"        
+                print "http://shr-project.org/"
                 exit(0)
         else:
             modlista.append(argv[1]) # title
@@ -467,5 +467,5 @@ if __name__ == "__main__":
     elementary.run()
     elementary.shutdown()
     log('Bye bye!', logtype.INFO)
-    
+
 
