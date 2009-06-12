@@ -62,7 +62,7 @@ class Splash(module.AbstractModule):
 
         self.currentProfile = self.themes[self.priority_idx[max_prio][len(self.priority_idx[max_prio])-1]][0]
 
-        self.hoverSel.label_set(_("Themes (%s)" % self.currentProfile))
+        self.hoverSel.label_set(_("Theme (%s)" % self.currentProfile))
 
         self.max_prio = max_prio
         self.currentTheme = self.priority_idx[max_prio][len(self.priority_idx[max_prio])-1]
