@@ -77,9 +77,12 @@ class GSMstateContener:
         if self.dbus_state==1:
             return self.gsm_network_iface.ListProviders(reply_handler=handler, error_handler=error)
 
-    def gsmnetwork_RegisterWithProvider(self, b):
+    def gsmnetwork_RegisterWithProvider(self, b, error):
         if self.dbus_state==1:
-            self.gsm_network_iface.RegisterWithProvider(b)
+            try:
+                self.gsm_network_iface.RegisterWithProvider(b)
+            except dbus.exceptions.DBusException, e:
+                error(e)
 
     def gsmnetwork_GetStatus(self):
         if self.dbus_state==1:
@@ -115,10 +118,13 @@ class Gsm(module.AbstractModule):
             pass
 
 
+    def operatorSelectError(self, e):
+        print "Error happened: " + str(e)
+
     def operatorSelect(self, obj, event, *args, **kargs):
         #os.popen("echo \"gsmnetwork.RegisterWithProvider( "+obj.get_opeNr()+" )\" | cli-framework", "r");
         print "GSM operatorSelect [info] ["+str(obj.get_opeNr())+"]"
-        self.gsmsc.gsmnetwork_RegisterWithProvider( obj.get_opeNr() )
+        self.gsmsc.gsmnetwork_RegisterWithProvider( obj.get_opeNr(), self.operatorSelectError )
         self.winope.hide()
         print "clik"
 
