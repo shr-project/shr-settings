@@ -186,8 +186,10 @@ class Gsm(module.AbstractModule):
             print "GSM operatorsList [inf] add operator to list - "+str(i[2])+" - "+str(i[1])+" - "+str(i[0])
             opeAvbt = Button2(self.winope)
             if str(i[1])=="current":
-                add = " [current]"
-            else :
+                add = _(" [current]")
+            elif str(i[1])=="forbidden":
+                add = _(" [forbidden]")
+            else:
                 add = "";
             opeAvbt.label_set( str(i[2])+add )
             opeAvbt.set_opeNr( i[0] )
