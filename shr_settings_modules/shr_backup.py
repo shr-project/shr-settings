@@ -336,6 +336,16 @@ class ArchiveBox(elementary.Box):
 class Backup(module.AbstractModule):
     name = _("Userspace Backup")
 
+    def error(self, message):
+        """
+        Report error of some kind
+        """
+        label = elementary.Label(self.window)
+        label.label_set(message)
+        label.show()
+
+        self.main.pack_start(label)
+
     def expand( self, path ):
         return glob( os.path.expanduser( os.path.expandvars( path ) ) )
 
@@ -369,6 +379,10 @@ class Backup(module.AbstractModule):
         self.userdir        = os.environ[ 'HOME' ]
         self.mode           = True                  # True:False == Archive:Restore
 
+        # check for required files
+        for file in CONFIG_LIST:
+            if not os.path.isfile(CONFIG_LIST[file]):
+                return False
 
         # Read whitelist
         whitelist = self.file_filter(CONFIG_LIST['whitelist'])
@@ -414,6 +428,8 @@ class Backup(module.AbstractModule):
         self.whitelist = [ path for path in self.whitelist if not path in self.blacklist]
 
         print "Config Loaded, Black/Whitelists read"
+
+        return True
 
     def add_to_list( self, input , output ):
         input = input.strip()
@@ -486,36 +502,39 @@ class Backup(module.AbstractModule):
 
     def createView(self):
 
-        # setup config
-        self.set_config()
-
         # create the main box
         self.main = elementary.Box( self.window )
         self.main.size_hint_weight_set( 1.0, 1.0 )
         self.main.size_hint_align_set( -1.0, 0.0 )
 
-        # create mode toggle
-        self.toggle = elementary.Toggle( self.window )
-        self.toggle.label_set( _( "Backup Mode" ) )
-        self.toggle.states_labels_set( _( "Archive" ), _( "Restore" ) )
-        self.toggle.changed = self.toggleChanged
-        self.toggle.size_hint_align_set( -1.0, 0.0 )
-        self.toggle.size_hint_weight_set( 1.0, 0.0 )
-        self.toggle.state_set( self.mode )
-        self.toggle.show()
+        # setup config
+        if self.set_config():
 
-        # create the box
-        self.archiveBox = ArchiveBox( self.window )
-        self.status_set = self.archiveBox.status_set
-        ## self.optionsBox = OptionsBox(self.window, self.archiveDir) # This line has some concerns
+            # create mode toggle
+            self.toggle = elementary.Toggle( self.window )
+            self.toggle.label_set( _( "Backup Mode" ) )
+            self.toggle.states_labels_set( _( "Archive" ), _( "Restore" ) )
+            self.toggle.changed = self.toggleChanged
+            self.toggle.size_hint_align_set( -1.0, 0.0 )
+            self.toggle.size_hint_weight_set( 1.0, 0.0 )
+            self.toggle.state_set( self.mode )
+            self.toggle.show()
 
-        # pack the boxes
-        self.main.pack_end(self.toggle)
-        self.main.pack_end(self.archiveBox)
-        ## self.main.pack_end(self.optionsBox) # This line has some concerns
+            # create the box
+            self.archiveBox = ArchiveBox( self.window )
+            self.status_set = self.archiveBox.status_set
+            ## self.optionsBox = OptionsBox(self.window, self.archiveDir) # This line has some concerns
 
-        # update display
-        self.update()
+            # pack the boxes
+            self.main.pack_end(self.toggle)
+            self.main.pack_end(self.archiveBox)
+            ## self.main.pack_end(self.optionsBox) # This line has some concerns
+
+            # update display
+            self.update()
+
+        else:
+            self.error( _( "Config Files couldn't be loaded<br>Please investigate!" ) )
 
         self.main.show()
 
