@@ -1,5 +1,4 @@
 import elementary
-import ecore
 import module
 import dbus
 import os, re

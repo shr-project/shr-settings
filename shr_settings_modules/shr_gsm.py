@@ -1,8 +1,5 @@
-
-import module, os, re, sys, elementary
-import threading
+import module, elementary
 import dbus
-from dbus.mainloop.glib import DBusGMainLoop
 
 # Locale support
 import gettext

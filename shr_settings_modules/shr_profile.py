@@ -1,4 +1,4 @@
-import elementary, module, ecore
+import elementary, module
 import dbus
 
 # Locale support

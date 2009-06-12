@@ -2,7 +2,6 @@ import elementary
 import module
 
 import dbus
-import ecore
 
 import os
 import pickle

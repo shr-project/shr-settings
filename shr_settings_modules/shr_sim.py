@@ -1,7 +1,6 @@
-import time, dbus
+import dbus
 import module
-import elementary, ecore
-import os
+import elementary
 
 # Locale support
 import gettext

@@ -1,7 +1,7 @@
 import elementary
 import module
 import os
-import datetime, time
+import datetime
 import dbus
 
 # Locale support
