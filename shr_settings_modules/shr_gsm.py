@@ -81,8 +81,10 @@ class GSMstateContener:
         if self.dbus_state==1:
             try:
                 self.gsm_network_iface.RegisterWithProvider(b)
+                return 1
             except dbus.exceptions.DBusException, e:
                 error(e)
+                return 0
 
     def gsmnetwork_GetStatus(self):
         if self.dbus_state==1:
@@ -110,23 +112,27 @@ class Gsm(module.AbstractModule):
     def goto_settingsbtClick(self, obj, event, *args, **kargs):
         try:
             self.wininfo.hide()
+            self.wininfo.delete()
         except:
             pass
         try:
             self.winope.hide()
+            self.winope.delete()
         except:
             pass
 
 
     def operatorSelectError(self, e):
         print "Error happened: " + str(e)
+        self.status.label_set("Error while connecting")
 
     def operatorSelect(self, obj, event, *args, **kargs):
         #os.popen("echo \"gsmnetwork.RegisterWithProvider( "+obj.get_opeNr()+" )\" | cli-framework", "r");
         print "GSM operatorSelect [info] ["+str(obj.get_opeNr())+"]"
-        self.gsmsc.gsmnetwork_RegisterWithProvider( obj.get_opeNr(), self.operatorSelectError )
-        self.winope.hide()
-        print "clik"
+        if self.gsmsc.gsmnetwork_RegisterWithProvider( obj.get_opeNr(), self.operatorSelectError ):
+            self.winope.hide()
+            self.winope.delete()
+            print "clik"
 
     def nothing(self,obj,event, *args, **kargs):
         print "nothing called"
@@ -137,7 +143,7 @@ class Gsm(module.AbstractModule):
         self.gsmsc.gsmnetwork_ListProviders(self.operatorsList2, self.operatorsListError)        
 
     def operatorsListError(self, why):
-        print "operatorsListError!"
+        print "operatorsListError! " + str(why)
         self.opebt.label_set(_("Operators"))
         self.opebt.clicked=self.operatorsList
         return 0
@@ -166,6 +172,11 @@ class Gsm(module.AbstractModule):
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
+
+        self.status = elementary.Label(self.winope)
+#        self.status.label_set("Connected with Plus GSM")
+        fr.content_set(self.status)
+        self.status.show()
 
         sc = elementary.Scroller(self.winope)
         sc.size_hint_weight_set(1.0, 1.0)
