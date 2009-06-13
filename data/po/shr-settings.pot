@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-13 14:54+0200\n"
+"POT-Creation-Date: 2009-06-13 14:58+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,15 +123,12 @@ msgid "Ringtones are placed in /usr/share/sounds/"
 msgstr ""
 
 #: shr_settings_modules/shr_currentprofile.py:394
+#: shr_settings_modules/shr_currentprofile.py:464
 msgid "Play"
 msgstr ""
 
 #: shr_settings_modules/shr_currentprofile.py:400
 msgid "Stop"
-msgstr ""
-
-#: shr_settings_modules/shr_currentprofile.py:464
-msgid " Play "
 msgstr ""
 
 #: shr_settings_modules/shr_currentprofile.py:485
@@ -240,7 +237,7 @@ msgid "Delete Archives"
 msgstr ""
 
 #: shr_settings_modules/shr_backup.py:293
-msgid " Go "
+msgid "Go"
 msgstr ""
 
 #: shr_settings_modules/shr_backup.py:337

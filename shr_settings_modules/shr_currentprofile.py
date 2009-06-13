@@ -461,7 +461,7 @@ class ToneChangeBox(PreferenceBox):
 
         # Tone Test button
         self.testBtn = elementary.Button(self.window)
-        self.testBtn.label_set(_(" Play "))
+        self.testBtn.label_set(_("Play"))
         self.testBtn.size_hint_align_set(-1.0, 0.0)
         self.testBtn.size_hint_weight_set(1.0, 0.0)
         self.testBtn.clicked = self.PlayTone

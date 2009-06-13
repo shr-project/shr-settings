@@ -290,7 +290,7 @@ class ArchiveBox(elementary.Box):
 
         # Archive Do Button
         self.do = elementary.Button(self.window)
-        self.do.label_set(_(" Go "))
+        self.do.label_set(_("Go"))
         self.do.size_hint_align_set(-1.0, 0.0)
         self.do.clicked = self.runDoCallback
         self.do.show()
