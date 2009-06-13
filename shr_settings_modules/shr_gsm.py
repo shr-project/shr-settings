@@ -124,7 +124,10 @@ class Gsm(module.AbstractModule):
 
     def operatorSelectError(self, e):
         print "Error happened: " + str(e)
-        self.status.label_set("Error while connecting")
+        self.status = elementary.Label(self.winope)
+        self.opefr.content_set(self.status)
+        self.status.label_set(_("Could not connect to network"))
+        self.status.show()
 
     def operatorSelect(self, obj, event, *args, **kargs):
         #os.popen("echo \"gsmnetwork.RegisterWithProvider( "+obj.get_opeNr()+" )\" | cli-framework", "r");
@@ -167,16 +170,11 @@ class Gsm(module.AbstractModule):
         self.winope.resize_object_add(box0)
         box0.show()
 
-        fr = elementary.Frame(self.winope)
-        fr.label_set(_("List Providers"))
-        fr.size_hint_align_set(-1.0, 0.0)
-        box0.pack_end(fr)
-        fr.show()
-
-        self.status = elementary.Label(self.winope)
-#        self.status.label_set("Connected with Plus GSM")
-        fr.content_set(self.status)
-        self.status.show()
+        self.opefr = elementary.Frame(self.winope)
+        self.opefr.label_set(_("List Providers"))
+        self.opefr.size_hint_align_set(-1.0, 0.0)
+        box0.pack_end(self.opefr)
+        self.opefr.show()
 
         sc = elementary.Scroller(self.winope)
         sc.size_hint_weight_set(1.0, 1.0)
