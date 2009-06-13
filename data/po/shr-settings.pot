@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-13 01:26+0200\n"
+"POT-Creation-Date: 2009-06-13 12:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -247,44 +247,48 @@ msgstr ""
 msgid "Userspace Backup"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:443
+#: shr_settings_modules/shr_backup.py:459
 msgid "Directory required."
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:453
+#: shr_settings_modules/shr_backup.py:469
 msgid "File required."
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:457
+#: shr_settings_modules/shr_backup.py:473
 msgid " In Progress."
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:461
+#: shr_settings_modules/shr_backup.py:477
 msgid " Complete."
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:463
+#: shr_settings_modules/shr_backup.py:479
 msgid " Failed. "
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:469
+#: shr_settings_modules/shr_backup.py:485
 msgid "Archive Directory"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:475
+#: shr_settings_modules/shr_backup.py:491
 msgid "Restore File"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:499
+#: shr_settings_modules/shr_backup.py:515
 msgid "Backup Mode"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:500
+#: shr_settings_modules/shr_backup.py:516
 msgid "Archive"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:500
+#: shr_settings_modules/shr_backup.py:516
 msgid "Restore"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:537
+msgid "Config Files couldn't be loaded<br>Please investigate!"
 msgstr ""
 
 #: shr_settings_modules/shr_splash.py:18
@@ -293,7 +297,7 @@ msgstr ""
 
 #: shr_settings_modules/shr_splash.py:65
 #, python-format
-msgid "Theme (%s)"
+msgid "Themes (%s)"
 msgstr ""
 
 #: shr_settings_modules/shr_splash.py:111
