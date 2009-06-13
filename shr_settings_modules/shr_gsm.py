@@ -77,6 +77,10 @@ class GSMstateContener:
         if self.dbus_state==1:
             return self.gsm_network_iface.ListProviders(reply_handler=handler, error_handler=error)
 
+    def gsmnetwork_Register(self):
+        if self.dbus_state==1:
+            self.gsm_network_iface.Register()
+
     def gsmnetwork_RegisterWithProvider(self, b, error):
         if self.dbus_state==1:
             try:
@@ -128,6 +132,11 @@ class Gsm(module.AbstractModule):
         self.opefr.content_set(self.status)
         self.status.label_set(_("Could not connect to network"))
         self.status.show()
+
+    def operatorAutomatic(self, obj, event, *args, **kwargs):
+        self.gsmsc.gsmnetwork_Register()
+        self.winope.hide()
+        self.winope.delete()
 
     def operatorSelect(self, obj, event, *args, **kargs):
         #os.popen("echo \"gsmnetwork.RegisterWithProvider( "+obj.get_opeNr()+" )\" | cli-framework", "r");
@@ -194,6 +203,13 @@ class Gsm(module.AbstractModule):
         box1.size_hint_weight_set(1.0, -1.0)
         sc.content_set(box1)
         box1.show()
+
+        opeautobt = elementary.Button(self.winope)
+        opeautobt.label_set(_("Automatic"))
+        opeautobt.clicked = self.operatorAutomatic
+        opeautobt.size_hint_align_set(-1.0, 0.0)
+        opeautobt.show()
+        box1.pack_end(opeautobt)
 
         print "GSM operatorsList [inf] get list"
         #l = self.gsmsc.gsmnetwork_ListProviders()
