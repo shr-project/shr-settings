@@ -1,0 +1,626 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-12 16:17+0200\n"
+"PO-Revision-Date: 2009-06-12 17:22+0100\n"
+"Last-Translator: Petr Vanek <vanous@penguin.cz>\n"
+"Language-Team: LANGUAGE <vanous@penguin.cz>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Poedit-Language: czech\n"
+"X-Poedit-Country: czech republic\n"
+
+#: shr-settings:121
+#: shr-settings:326
+#: shr_settings_modules/shr_currentprofile.py:304
+#: shr_settings_modules/shr_gps.py:41
+#: shr_settings_modules/shr_pim.py:89
+msgid "Quit"
+msgstr "Zavřít"
+
+#: shr-settings:146
+#, python-format
+msgid "Please wait...<br>Loading %d modules..."
+msgstr "Čekejte prosím...<br>Načítám %d moduly..."
+
+#: shr-settings:222
+#: shr-settings:236
+msgid "ophonekitd log"
+msgstr "ophonekitd log"
+
+#: shr-settings:249
+msgid "Clean"
+msgstr "Vyčistit"
+
+#: shr-settings:256
+#: shr-settings:427
+#: shr_settings_modules/shr_services.py:77
+msgid "Close"
+msgstr "Zavřít"
+
+#: shr-settings:298
+msgid "Settings"
+msgstr "Nastavení"
+
+#: shr-settings:345
+msgid "Phone"
+msgstr "Telefon"
+
+#: shr-settings:346
+msgid "Profiles"
+msgstr "Profily"
+
+#: shr-settings:347
+#: shr_settings_modules/shr_bt.py:74
+#: shr_settings_modules/shr_sim.py:183
+msgid "Connectivity"
+msgstr "Připojení"
+
+#: shr-settings:348
+msgid "GPS"
+msgstr "GPS"
+
+#: shr-settings:349
+msgid "Date/time"
+msgstr "Datum/Čas"
+
+#: shr-settings:350
+msgid "Power"
+msgstr "Napájení"
+
+#: shr-settings:351
+msgid "Services"
+msgstr "Služby"
+
+#: shr-settings:352
+msgid "Others"
+msgstr "Ostatní"
+
+#: shr-settings:388
+msgid "ophonekitd"
+msgstr "ophonekitd"
+
+#: shr-settings:393
+msgid "is not running!"
+msgstr "není spuštěn!"
+
+#: shr-settings:398
+msgid "Start"
+msgstr "Start"
+
+#: shr-settings:404
+msgid "View log"
+msgstr "Prohlédnout záznam"
+
+#: shr-settings:423
+msgid "Information"
+msgstr "Informace"
+
+#: shr_settings_modules/shr_bt.py:73
+msgid "Bluetooth settings"
+msgstr "Nastevení Bluetooth"
+
+#: shr_settings_modules/shr_bt.py:130
+msgid "Bluetooth radio:"
+msgstr "Bluetooth:"
+
+#: shr_settings_modules/shr_bt.py:132
+#: shr_settings_modules/shr_bt.py:139
+#: shr_settings_modules/shr_call.py:79
+#: shr_settings_modules/shr_currentprofile.py:228
+#: shr_settings_modules/shr_pm.py:55
+#: shr_settings_modules/shr_gps.py:299
+#: shr_settings_modules/shr_wifi.py:103
+msgid "On"
+msgstr "On"
+
+#: shr_settings_modules/shr_bt.py:132
+#: shr_settings_modules/shr_bt.py:139
+#: shr_settings_modules/shr_call.py:79
+#: shr_settings_modules/shr_currentprofile.py:236
+#: shr_settings_modules/shr_pm.py:55
+#: shr_settings_modules/shr_gps.py:299
+#: shr_settings_modules/shr_wifi.py:103
+msgid "Off"
+msgstr "Off"
+
+#: shr_settings_modules/shr_bt.py:137
+msgid "Visibility:"
+msgstr "Viditelný:"
+
+#: shr_settings_modules/shr_call.py:18
+msgid "Call settings"
+msgstr "Nastavené hovorů"
+
+#: shr_settings_modules/shr_call.py:65
+#: shr_settings_modules/shr_gps.py:283
+#: shr_settings_modules/shr_gsm.py:348
+msgid "can't connect to dbus"
+msgstr "nelze se připojit k dbus"
+
+#: shr_settings_modules/shr_call.py:71
+msgid "Show my number:"
+msgstr "Zobrazit mé číslo:"
+
+#: shr_settings_modules/shr_call.py:73
+msgid "By network"
+msgstr "Podle operátor"
+
+#: shr_settings_modules/shr_call.py:73
+#: shr_settings_modules/shr_gps.py:291
+msgid "Manual"
+msgstr "Ručně"
+
+#: shr_settings_modules/shr_battery.py:96
+msgid "USB charging rate:"
+msgstr "USB napájecí proud"
+
+#: shr_settings_modules/shr_battery.py:110
+msgid "Battery settings"
+msgstr "Nastavení Baterie"
+
+#: shr_settings_modules/shr_battery.py:222
+msgid "Charge: "
+msgstr "Nabíjení:"
+
+#: shr_settings_modules/shr_battery.py:223
+msgid "Power info: "
+msgstr "Odběr:"
+
+#: shr_settings_modules/shr_battery.py:224
+msgid "Status: "
+msgstr "Stav:"
+
+#: shr_settings_modules/shr_battery.py:249
+msgid "Update"
+msgstr "Aktualizovat"
+
+#: shr_settings_modules/shr_clock.py:28
+msgid "Time settings"
+msgstr "Nastavení času"
+
+#: shr_settings_modules/shr_clock.py:29
+msgid "Other"
+msgstr "Ostatní"
+
+#: shr_settings_modules/shr_clock.py:36
+#: shr_settings_modules/shr_clock.py:51
+msgid "Set time"
+msgstr "Nastavit čas"
+
+#: shr_settings_modules/shr_clock.py:40
+msgid "OK"
+msgstr "OK"
+
+#: shr_settings_modules/shr_currentprofile.py:280
+#: shr_settings_modules/shr_currentprofile.py:283
+msgid "Change ringtone"
+msgstr "Změnit vyzvánení"
+
+#: shr_settings_modules/shr_currentprofile.py:290
+msgid "Select ringtone"
+msgstr "Vybrat melodii"
+
+#: shr_settings_modules/shr_currentprofile.py:292
+msgid "Ringtones are placed in /usr/share/sounds/"
+msgstr "Melodie jsou uloženy v /usr/share/sounds/"
+
+#: shr_settings_modules/shr_currentprofile.py:395
+msgid "Play"
+msgstr "Přehrát"
+
+#: shr_settings_modules/shr_currentprofile.py:401
+msgid "Stop"
+msgstr "Zastavit"
+
+#: shr_settings_modules/shr_currentprofile.py:465
+msgid " Play "
+msgstr " Přehrát"
+
+#: shr_settings_modules/shr_currentprofile.py:486
+msgid "Change"
+msgstr "Změnit"
+
+#: shr_settings_modules/shr_currentprofile.py:506
+msgid "Current profile settings"
+msgstr "Vlastnosti aktuálního profilu"
+
+#: shr_settings_modules/shr_device_timeouts.py:135
+msgid "Timeouts settings"
+msgstr "Nastavení při nečinnosti"
+
+#: shr_settings_modules/shr_profile.py:24
+msgid "Profile settings"
+msgstr "Nastavení profilu"
+
+#: shr_settings_modules/shr_profile.py:57
+#, python-format
+msgid "Profiles (%s)"
+msgstr "Profily  (%s)"
+
+#: shr_settings_modules/shr_pm.py:68
+msgid "Power settings"
+msgstr "Nastavení napájení"
+
+#: shr_settings_modules/shr_pm.py:116
+msgid "Auto-dimming:"
+msgstr "Auto stmívání:"
+
+#: shr_settings_modules/shr_pm.py:117
+msgid "Auto-suspend:"
+msgstr "Auto uspání:"
+
+#: shr_settings_modules/shr_gprs.py:118
+msgid "GPRS settings"
+msgstr "Nastavení GPRS"
+
+#: shr_settings_modules/shr_gprs.py:119
+msgid "networking"
+msgstr "síťování"
+
+#: shr_settings_modules/shr_gprs.py:189
+msgid "disconnected"
+msgstr "odpojeno"
+
+#: shr_settings_modules/shr_gprs.py:190
+msgid "Connect"
+msgstr "Připojit"
+
+#: shr_settings_modules/shr_gprs.py:193
+msgid "connected"
+msgstr "připojeno"
+
+#: shr_settings_modules/shr_gprs.py:194
+#: shr_settings_modules/shr_gprs.py:200
+msgid "Disconnect"
+msgstr "Odpojit"
+
+#: shr_settings_modules/shr_gprs.py:199
+msgid "connecting"
+msgstr "připojování"
+
+#: shr_settings_modules/shr_gprs.py:203
+#: shr_settings_modules/shr_gprs.py:204
+#: shr_settings_modules/shr_gprs.py:234
+#: shr_settings_modules/shr_gprs.py:244
+msgid "UNKNOWN"
+msgstr "NEZNÁMÝ"
+
+#: shr_settings_modules/shr_gprs.py:231
+msgid "Your APN: "
+msgstr "Váš APN:"
+
+#: shr_settings_modules/shr_gprs.py:232
+msgid "Your login: "
+msgstr "Vaše přihlašovací jméno:"
+
+#: shr_settings_modules/shr_gprs.py:233
+msgid "Your password: "
+msgstr "Vaše heslo:"
+
+#: shr_settings_modules/shr_gprs.py:234
+msgid "Connection status: "
+msgstr "Stav připojení:"
+
+#: shr_settings_modules/shr_sim.py:127
+msgid "Book "
+msgstr "Adresář"
+
+#: shr_settings_modules/shr_sim.py:171
+#: shr_settings_modules/shr_sim.py:277
+msgid "clean"
+msgstr "vyčistit"
+
+#: shr_settings_modules/shr_sim.py:182
+msgid "SIM settings"
+msgstr "Nastavení SIM"
+
+#: shr_settings_modules/shr_sim.py:235
+msgid "Message book"
+msgstr "Adresář"
+
+#: shr_settings_modules/shr_sim.py:304
+msgid "Cannot connect to dbus"
+msgstr "Nelze se připojit k dbus"
+
+#: shr_settings_modules/shr_sim.py:346
+msgid "SIM information:"
+msgstr "SIM informace:"
+
+#: shr_settings_modules/shr_display.py:27
+msgid "Display settings"
+msgstr "Nastavení displeje:"
+
+#: shr_settings_modules/shr_display.py:47
+msgid "Backlight "
+msgstr "Podsvícení"
+
+#: shr_settings_modules/shr_gps.py:23
+#: shr_settings_modules/shr_gps.py:220
+msgid "Satellite details"
+msgstr "Detaily satelitů"
+
+#: shr_settings_modules/shr_gps.py:94
+msgid "Time"
+msgstr "Čas"
+
+#: shr_settings_modules/shr_gps.py:95
+msgid "Fix"
+msgstr "Fix"
+
+#: shr_settings_modules/shr_gps.py:96
+msgid "Lat"
+msgstr "Šířka"
+
+#: shr_settings_modules/shr_gps.py:97
+msgid "Lon"
+msgstr "Délka"
+
+#: shr_settings_modules/shr_gps.py:98
+msgid "Alt"
+msgstr "Výška"
+
+#: shr_settings_modules/shr_gps.py:99
+msgid "Accuracy"
+msgstr "Přesnost"
+
+#: shr_settings_modules/shr_gps.py:100
+msgid "Satellites"
+msgstr "Satelity"
+
+#: shr_settings_modules/shr_gps.py:101
+msgid "Heading"
+msgstr "Kurz"
+
+#: shr_settings_modules/shr_gps.py:102
+msgid "Speed"
+msgstr "Rychlost"
+
+#: shr_settings_modules/shr_gps.py:103
+msgid "Descend"
+msgstr "KLesání"
+
+#: shr_settings_modules/shr_gps.py:236
+msgid "GPS settings"
+msgstr "GPS nastavení"
+
+#: shr_settings_modules/shr_gps.py:289
+msgid "GPS radio policy:"
+msgstr "GPS politika"
+
+#: shr_settings_modules/shr_gps.py:291
+msgid "Auto"
+msgstr "Auto"
+
+#: shr_settings_modules/shr_gps.py:297
+msgid "Radio:"
+msgstr "GPS:"
+
+#: shr_settings_modules/shr_gps.py:326
+msgid "Remove AGPS data"
+msgstr "Vymazat AGPS data"
+
+#: shr_settings_modules/shr_help.py:35
+msgid "Help"
+msgstr "Nápověda"
+
+#: shr_settings_modules/shr_about.py:24
+msgid "About"
+msgstr "O programu"
+
+#: shr_settings_modules/shr_misc.py:14
+msgid "Miscellaneous settings"
+msgstr "Ostatní nastavení"
+
+#: shr_settings_modules/shr_misc.py:18
+msgid "Suspend, dim time and etc."
+msgstr "Uspání, stmívání, čas atd."
+
+#: shr_settings_modules/shr_wifi.py:30
+#: shr_settings_modules/shr_wifi.py:33
+msgid "WiFi Manager"
+msgstr "WiFi Manažér"
+
+#: shr_settings_modules/shr_wifi.py:102
+msgid "WiFi radio:"
+msgstr "Wifi:"
+
+#: shr_settings_modules/shr_wifi.py:116
+msgid "WiFi settings"
+msgstr "Nastavení Wifi"
+
+#: shr_settings_modules/shr_services.py:22
+msgid "Services settings"
+msgstr "Nastavení služeb"
+
+#: shr_settings_modules/shr_services.py:50
+#: shr_settings_modules/shr_services.py:64
+msgid "Services start|stop debug"
+msgstr "Složby start|stop ladit"
+
+#: shr_settings_modules/shr_pim.py:24
+msgid "PIM settings"
+msgstr "Nastavení PIM"
+
+#: shr_settings_modules/shr_pim.py:31
+msgid "DBus is borked"
+msgstr "Dbus zhavaroval"
+
+#: shr_settings_modules/shr_pim.py:67
+#, python-format
+msgid "%(backend)s<br>(domain: %(domain)s)"
+msgstr "%(backend)s<br>(domain: %(domain)s)"
+
+#: shr_settings_modules/shr_pim.py:72
+msgid "enabled"
+msgstr "zapnuto"
+
+#: shr_settings_modules/shr_pim.py:82
+msgid "Set as default"
+msgstr "Nastavit jako výchozí"
+
+#: shr_settings_modules/shr_pim.py:134
+msgid "Options"
+msgstr "Vlastnosti"
+
+#: shr_settings_modules/shr_pim.py:139
+msgid " (default)"
+msgstr " (výchozí)"
+
+#: shr_settings_modules/shr_pim.py:161
+msgid "Domains"
+msgstr "Domény"
+
+#: shr_settings_modules/module.py:50
+msgid "OhMy! I have no name!"
+msgstr "Chybí mi jméno!"
+
+#: shr_settings_modules/module.py:53
+msgid "main"
+msgstr "hlavní"
+
+#: shr_settings_modules/shr_usb.py:18
+msgid "USB settings"
+msgstr "Nastavení USB"
+
+#: shr_settings_modules/shr_usb.py:49
+msgid "USB mode:"
+msgstr "USB Mód"
+
+#: shr_settings_modules/shr_usb.py:51
+msgid "Device"
+msgstr "Zažísení"
+
+#: shr_settings_modules/shr_usb.py:51
+msgid "Host"
+msgstr "Hostitel"
+
+#: shr_settings_modules/shr_test.py:27
+msgid "test"
+msgstr "test"
+
+#: shr_settings_modules/shr_test.py:33
+msgid "Just for fun"
+msgstr "Pro legraci"
+
+#: shr_settings_modules/shr_splash.py:18
+msgid "Splash settings"
+msgstr "Nastavení úvodní obrazovky"
+
+#: shr_settings_modules/shr_splash.py:65
+#, python-format
+msgid "Themes (%s)"
+msgstr "Témata (%s)"
+
+#: shr_settings_modules/shr_splash.py:111
+msgid "Preview"
+msgstr "Náhled"
+
+#: shr_settings_modules/shr_gsm.py:108
+msgid "GSM settings"
+msgstr "Nastavení GSM"
+
+#: shr_settings_modules/shr_gsm.py:132
+msgid "Please wait..."
+msgstr "Čekejte prosím"
+
+#: shr_settings_modules/shr_gsm.py:138
+#: shr_settings_modules/shr_gsm.py:144
+#: shr_settings_modules/shr_gsm.py:331
+msgid "Operators"
+msgstr "Operátoři"
+
+#: shr_settings_modules/shr_gsm.py:148
+#: shr_settings_modules/shr_gsm.py:162
+msgid "List Providers"
+msgstr "Zobrazit dostupné operátory"
+
+#: shr_settings_modules/shr_gsm.py:176
+#: shr_settings_modules/shr_gsm.py:272
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: shr_settings_modules/shr_gsm.py:244
+#: shr_settings_modules/shr_gsm.py:258
+msgid "GSM modem information"
+msgstr "Informace o GSM modemu"
+
+#: shr_settings_modules/shr_gsm.py:323
+msgid "GSM antenna:"
+msgstr "GSM:"
+
+#: shr_settings_modules/shr_gsm.py:337
+msgid "Modem information"
+msgstr "Informace modemu:"
+
+#: shr_settings_modules/shr_backup.py:104
+msgid "Select Item"
+msgstr "Zvolit"
+
+#: shr_settings_modules/shr_backup.py:128
+msgid "Up"
+msgstr "Nahoru"
+
+#: shr_settings_modules/shr_backup.py:135
+msgid "Done"
+msgstr "Dolů"
+
+#: shr_settings_modules/shr_backup.py:242
+msgid "Delete Archives"
+msgstr "Vymazat archívy"
+
+#: shr_settings_modules/shr_backup.py:293
+msgid " Go "
+msgstr " Jít"
+
+#: shr_settings_modules/shr_backup.py:337
+msgid "Userspace Backup"
+msgstr "Záloha uživatelského prostředí"
+
+#: shr_settings_modules/shr_backup.py:443
+msgid "Directory required."
+msgstr "Adresář vyžadován."
+
+#: shr_settings_modules/shr_backup.py:453
+msgid "File required."
+msgstr "Soubor vyžadován."
+
+#: shr_settings_modules/shr_backup.py:457
+msgid " In Progress."
+msgstr " Aktivní"
+
+#: shr_settings_modules/shr_backup.py:461
+msgid " Complete."
+msgstr "Hotovo."
+
+#: shr_settings_modules/shr_backup.py:463
+msgid " Failed. "
+msgstr " Chyba."
+
+#: shr_settings_modules/shr_backup.py:469
+msgid "Archive Directory"
+msgstr "Adresář zálohy"
+
+#: shr_settings_modules/shr_backup.py:475
+msgid "Restore File"
+msgstr "Obnovit soubor"
+
+#: shr_settings_modules/shr_backup.py:499
+msgid "Backup Mode"
+msgstr "Zálohovací mód"
+
+#: shr_settings_modules/shr_backup.py:500
+msgid "Archive"
+msgstr "Archivovat"
+
+#: shr_settings_modules/shr_backup.py:500
+msgid "Restore"
+msgstr "Obnovit"
+
