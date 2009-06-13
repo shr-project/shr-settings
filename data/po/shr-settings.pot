@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-13 12:36+0200\n"
+"POT-Creation-Date: 2009-06-13 14:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -350,7 +350,7 @@ msgid "Call settings"
 msgstr ""
 
 #: shr_settings_modules/shr_call.py:65 shr_settings_modules/shr_gps.py:283
-#: shr_settings_modules/shr_gsm.py:364
+#: shr_settings_modules/shr_gsm.py:378
 msgid "can't connect to dbus"
 msgstr ""
 
@@ -544,44 +544,52 @@ msgstr ""
 msgid "Timeouts settings"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:110
+#: shr_settings_modules/shr_gsm.py:114
 msgid "GSM settings"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:141
+#: shr_settings_modules/shr_gsm.py:133
+msgid "Could not connect to network"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:153
 msgid "Please wait..."
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:147 shr_settings_modules/shr_gsm.py:153
-#: shr_settings_modules/shr_gsm.py:347
+#: shr_settings_modules/shr_gsm.py:159 shr_settings_modules/shr_gsm.py:165
+#: shr_settings_modules/shr_gsm.py:361
 msgid "Operators"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:157 shr_settings_modules/shr_gsm.py:171
+#: shr_settings_modules/shr_gsm.py:169 shr_settings_modules/shr_gsm.py:183
 msgid "List Providers"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:190 shr_settings_modules/shr_gsm.py:288
+#: shr_settings_modules/shr_gsm.py:197 shr_settings_modules/shr_gsm.py:302
 msgid "Cancel"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:206
+#: shr_settings_modules/shr_gsm.py:208
+msgid "Automatic"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:220
 msgid " [current]"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:208
+#: shr_settings_modules/shr_gsm.py:222
 msgid " [forbidden]"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:260 shr_settings_modules/shr_gsm.py:274
+#: shr_settings_modules/shr_gsm.py:274 shr_settings_modules/shr_gsm.py:288
 msgid "GSM modem information"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:339
+#: shr_settings_modules/shr_gsm.py:353
 msgid "GSM antenna:"
 msgstr ""
 
-#: shr_settings_modules/shr_gsm.py:353
+#: shr_settings_modules/shr_gsm.py:367
 msgid "Modem information"
 msgstr ""
 
