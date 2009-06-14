@@ -118,7 +118,7 @@ class Gprs(module.AbstractModule):
     section = _("networking")
 
     # persistent data file, until something is available in opreferencesd
-    persistData = '/etc/freesmartphone/persist/gprs.pickle'
+    persistData = '/etc/shr-settings/gprs.pickle'
 
     def error(self):
         label = elementary.Label(self.window)
@@ -152,7 +152,7 @@ class Gprs(module.AbstractModule):
     def saveConnectionData(self):
         """
         Write pickled connection data to the persistData file.
-        `/etc/freesmartphone/persist/` is assumed to exist
+        `/etc/shr-settings/` is assumed to exist
         """
 
         # Assume connection was made, therefore is good data, so pickle it
