@@ -22,9 +22,9 @@ ARCHIVE_FILE = "archive-{0}.tar" # {0} to be the date, filled in later
 DATE_FORMAT  = "%Y%m%d-%H%M" # rather dense, but long archive names screw up the display
 
 CONFIG_LIST = {
-    'conf'      : '/etc/shr/settings/backup.conf',
-    'whitelist' : '/etc/shr/settings/backup.whitelist',
-    'blacklist' : '/etc/shr/settings/backup.blacklist',
+    'conf'      : '/etc/shr-settings/backup.conf',
+    'whitelist' : '/etc/shr-settings/backup.whitelist',
+    'blacklist' : '/etc/shr-settings/backup.blacklist',
     }
 
 try:

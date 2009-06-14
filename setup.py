@@ -31,7 +31,7 @@ dist = setup( name='shr-settings',
                 ('locale/it/LC_MESSAGES', ['data/po/it/shr-settings.mo']),
                 ('locale/pl/LC_MESSAGES', ['data/po/pl/shr-settings.mo']),
                 ('locale/ru/LC_MESSAGES', ['data/po/ru/shr-settings.mo']),
-                ('/etc/shr/settings', ['config/backup.config', 'config/backup.whitelist', 'config/backup.blacklist'])
+                ('/etc/shr-settings', ['config/backup.config', 'config/backup.whitelist', 'config/backup.blacklist'])
         ]
 )
 
