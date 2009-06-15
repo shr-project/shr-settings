@@ -39,23 +39,31 @@ class Call(module.AbstractModule):
     def res_handle(self, obj, event, *args, **kargs):
         if obj.state_get():
             self.gps.SetCallingIdentification("network",reply_handler=self.callback,error_handler=self.error)
-            self.toggle1.hide()
+            self.toggle1hide()
         else:
             self.gps.SetCallingIdentification("on",reply_handler=self.callback,error_handler=self.error)
+            self.toggle1show()
             self.toggle1.state_set(1)
-            self.toggle1.show()
-
 
     def cb_get_callidenti(self, state):
         if state == "network":
             self.toggle0.state_set(1)
-            self.toggle1.hide()
         else:
             self.toggle0.state_set(0)
+            self.toggle1show()
             self.toggle1.state_set(state=="on")
-            self.toggle1.show()
         self.toggle0.show()
 
+    def toggle1hide(self):
+        self.toggle1.delete()
+
+    def toggle1show(self):
+        self.toggle1 = elementary.Toggle(self.window)
+        self.toggle1.size_hint_align_set(-1.0, 0.0)
+        self.toggle1.states_labels_set(_("On"),_("Off"))
+        self.toggle1.changed = self.power_handle
+        self.box1.pack_end(self.toggle1)
+        self.toggle1.show()
 
     def createView(self):
         try:
@@ -65,21 +73,15 @@ class Call(module.AbstractModule):
             label.label_set(_("can't connect to dbus"))
             return label
 
-        box1 = elementary.Box(self.window)
+        self.box1 = elementary.Box(self.window)
 
         self.toggle0 = elementary.Toggle(self.window)
         self.toggle0.label_set(_("Show my number:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
         self.toggle0.states_labels_set(_("By network"),_("Manual"))
-        self. toggle0.changed = self.res_handle
-        box1.pack_start(self.toggle0)
-
-        self.toggle1 = elementary.Toggle(self.window)
-        self.toggle1.size_hint_align_set(-1.0, 0.0)
-        self.toggle1.states_labels_set(_("On"),_("Off"))
-        self.toggle1.changed = self.power_handle
-        box1.pack_end(self.toggle1)
+        self.toggle0.changed = self.res_handle
+        self.box1.pack_start(self.toggle0)
 
         self.gps.GetCallingIdentification(reply_handler=self.cb_get_callidenti, error_handler=self.error)
 
-        return box1
+        return self.box1
