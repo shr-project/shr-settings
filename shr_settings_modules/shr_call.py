@@ -41,13 +41,15 @@ class Call(module.AbstractModule):
             self.gps.SetCallingIdentification("network",reply_handler=self.callback,error_handler=self.error)
             self.toggle1hide()
         else:
-            self.gps.SetCallingIdentification("on",reply_handler=self.callback,error_handler=self.error)
-            self.toggle1show()
-            self.toggle1.state_set(1)
+            if self.toggle1hidden:
+              self.gps.SetCallingIdentification("on",reply_handler=self.callback,error_handler=self.error)
+              self.toggle1show()
+              self.toggle1.state_set(1)
 
     def cb_get_callidenti(self, state):
         if state == "network":
             self.toggle0.state_set(1)
+            self.toggle1hidden=1
         else:
             self.toggle0.state_set(0)
             self.toggle1show()
@@ -56,6 +58,7 @@ class Call(module.AbstractModule):
 
     def toggle1hide(self):
         self.toggle1.delete()
+        self.toggle1hidden=1
 
     def toggle1show(self):
         self.toggle1 = elementary.Toggle(self.window)
@@ -64,6 +67,7 @@ class Call(module.AbstractModule):
         self.toggle1.changed = self.power_handle
         self.box1.pack_end(self.toggle1)
         self.toggle1.show()
+        self.toggle1hidden=0
 
     def createView(self):
         try:
