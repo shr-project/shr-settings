@@ -79,6 +79,7 @@ class GSMstateContener:
 
     def gsmnetwork_Register(self):
         if self.dbus_state==1:
+            self.gsm_network_iface.Unregister()
             self.gsm_network_iface.Register()
 
     def gsmnetwork_RegisterWithProvider(self, b, error):
@@ -231,15 +232,42 @@ class Gsm(module.AbstractModule):
 
         self.winope.show()
 
+    def buttonshide(self):
+        self.buttonshidden = 1
+        try:
+          self.opebt.delete()
+          self.infobt.delete()
+        except:
+          pass
+
+    def buttonsshow(self):
+
+        if self.buttonshidden:
+          self.opebt = elementary.Button(self.window)
+          self.opebt.clicked = self.operatorsList
+          self.opebt.label_set(_("Operators"))
+          self.opebt.size_hint_align_set(-1.0, 0.0)
+          self.box1.pack_end(self.opebt)
+          self.opebt.show()
+
+          self.infobt = elementary.Button(self.window)
+          self.infobt.clicked = self.informationbt
+          self.infobt.label_set(_("Modem information"))
+          self.infobt.size_hint_align_set(-1.0, 0.0)
+          self.box1.pack_end(self.infobt)
+          self.infobt.show()
+
+          self.buttonshidden = 0
+
     def GSMmodGUIupdate(self):
         self.ap = self.gsmsc.gsmdevice_getAntennaPower()
 
         self.toggle0.state_set( self.ap )
         if self.ap:
-            self.opebt.show()
+            self.buttonsshow()
             self.toggle0.state_set( self.ap )
         else:
-            self.opebt.hide()
+            self.buttonshide()
             self.toggle0.state_set( self.ap )
 
 #        self.opela.label_set( self.gsmsc.gsmnetwork_GetStatusOperatorName() )
@@ -250,21 +278,9 @@ class Gsm(module.AbstractModule):
 	if obj.state_get()==0:
             print "GSM set off"
             self.gsmsc.gsmdevice_setAntennaPower(0)
-            self.opebt.hide()
-            self.infobt.hide()
-#            obj.state_set( 0 )
         else:
             print "GSM set on"
             self.gsmsc.gsmdevice_setAntennaPower(1)
-            self.opebt.show()
-            self.infobt.show()
-#            obj.state_set( 1 )
-
-        try:
-            del self.thread
-            print "GSM GSMmodGUIupdate [inf] kill operator search thread"
-        except:
-            print "GSM GSMmodGUIupdate [inf] search thread not present"
 
         self.GSMmodGUIupdate()
 
@@ -356,20 +372,9 @@ class Gsm(module.AbstractModule):
             self.toggle0.show()
             self.box1.pack_start(self.toggle0)
 
-            self.opebt = elementary.Button(self.window)
-            self.opebt.clicked = self.operatorsList
-            self.opebt.label_set(_("Operators"))
-            self.opebt.size_hint_align_set(-1.0, 0.0)
-            self.box1.pack_end(self.opebt)
-
-            self.infobt = elementary.Button(self.window)
-            self.infobt.clicked = self.informationbt
-            self.infobt.label_set(_("Modem information"))
-            self.infobt.size_hint_align_set(-1.0, 0.0)
-            self.infobt.show()
-            self.box1.pack_end(self.infobt)
-
             self.toggle0.changed = self.toggle0bt
+
+            self.buttonshidden = 1
 
             self.GSMmodGUIupdate()
         except:
