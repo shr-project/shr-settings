@@ -343,7 +343,7 @@ class Sim(module.AbstractModule):
 
         frameInfo = elementary.Frame(self.window)
         frameInfo.label_set(_("SIM information:"))
-        box1.pack_end(frameInfo)
+        box1.pack_start(frameInfo)
         frameInfo.size_hint_align_set(-1.0, 0.0)
         frameInfo.show()
 
