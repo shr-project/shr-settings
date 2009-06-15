@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# SHR Settings
+# by Sebastian Krzyszkowiak and SHR team
 
 from time import time
 
@@ -28,6 +30,16 @@ try:
     _ = cat.gettext
 except IOError:
     _ = lambda x: x
+
+DIRS = [    [_("Phone"),"icon_phone.png",                     [ 'shr_gsm.Gsm', 'shr_call.Call', 'shr_sim.Sim' ] ],
+            [_("Profiles"),"icon_profiles.png",               [ 'shr_profile.Profile', 'shr_currentprofile.CurrentProfile' ] ],
+            [_("Connectivity"),"icon_connectivity.png",              [ 'shr_wifi.Wifi', 'shr_gprs.Gprs', 'shr_usb.Usb', 'shr_bt.Bt' ] ],
+            [_("GPS"), "icon_gps.png",                 [ 'shr_gps.Gps', 'shr_gpsinfo.GpsInfo' ] ],
+            [_("Date/time"),"icon_datetime.png",                  [ 'shr_clock.Clock' ] ],
+            [_("Power"),"icon_power.png",  [ 'shr_battery.Battery', 'shr_display.Display', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
+            [_("Services"),"icon_services.png",                 [ 'shr_services.Services' ] ],
+            [_("Others"), "icon_others.png",                                       [ 'shr_splash.Splash', 'shr_pim.Pim', 'shr_backup.Backup' ] ]
+       ]
 
 class CategoryButton(elementary.Button):
     """ extends e.button with list of modules that belong to it """
@@ -342,18 +354,7 @@ class MainWindow:
 
         #loading modules
 
-        dirs = [    [_("Phone"),"icon_phone.png",                     [ 'shr_gsm.Gsm', 'shr_call.Call', 'shr_sim.Sim' ] ],
-                    [_("Profiles"),"icon_profiles.png",               [ 'shr_profile.Profile', 'shr_currentprofile.CurrentProfile' ] ],
-                    [_("Connectivity"),"icon_connectivity.png",              [ 'shr_wifi.Wifi', 'shr_gprs.Gprs', 'shr_usb.Usb', 'shr_bt.Bt' ] ],
-                    [_("GPS"), "icon_gps.png",                 [ 'shr_gps.Gps', 'shr_gpsinfo.GpsInfo' ] ],
-                    [_("Date/time"),"icon_datetime.png",                  [ 'shr_clock.Clock' ] ],
-                    [_("Power"),"icon_power.png",  [ 'shr_battery.Battery', 'shr_display.Display', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
-                    [_("Services"),"icon_services.png",                 [ 'shr_services.Services' ] ],
-                    [_("Others"), "icon_others.png",                                       [ 'shr_splash.Splash', 'shr_pim.Pim', 'shr_backup.Backup' ] ]
-            ]
-
-
-        for (i,d) in enumerate(dirs):
+        for (i,d) in enumerate(DIRS):
             bt = CategoryButton(cat_table)
             bt.set_modules( d )
 
