@@ -23,6 +23,7 @@ class Call(module.AbstractModule):
 
     def error(self, result):
         print "async dbus error"
+        self.loading.label_set(_("Turn GSM on."))
 
     def callback(self):
         print "async dbus callback"
