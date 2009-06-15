@@ -200,14 +200,15 @@ class Sim(module.AbstractModule):
 
         # iterate through all values and display them
         for (key, val) in siminfo.iteritems():
-          if key != "subscriber_numbers":
+          
+            print key+': '+str(val)
             boxS = elementary.Box(self.window)
             boxS.horizontal_set(True)
             boxS.size_hint_align_set(-1.0, 0.0)
             boxS.show()
 
             labelN =elementary.Label(self.window)
-            labelN.label_set(key.replace('_',' '))
+            labelN.label_set(key.replace('_',' ') + ':')
             labelN.size_hint_align_set(-1.0, -1.0)
             labelN.size_hint_weight_set(1.0, 1.0)
             labelN.show()
@@ -215,7 +216,13 @@ class Sim(module.AbstractModule):
 
             labelV =elementary.Label(self.window)
             labelV.size_hint_align_set(-1.0, 0.0)
-            labelV.label_set(val)
+            try:
+              labelV.label_set(val)
+            except:
+              vall = ''
+              for va in val:
+                vall = vall + va[1] + '<br>'
+              labelV.label_set(vall.replace('"',''))
             labelV.show()
             boxS.pack_end(labelV)
 
@@ -308,6 +315,21 @@ class Sim(module.AbstractModule):
         
         #from here on we can assume a valid dbus object
 
+        # add the SIM info box
+        self.simmc.gsm_sim_iface.GetSimInfo(
+          reply_handler = self.siminfo_reply_handler,
+          error_handler=self.dbusasync_error_handler
+        )
+
+        frameInfo = elementary.Frame(self.window)
+        frameInfo.label_set(_("SIM information:"))
+        box1.pack_start(frameInfo)
+        frameInfo.size_hint_align_set(-1.0, 0.0)
+        frameInfo.show()
+
+        self.boxSIMInfo = elementary.Box(self.window)
+        frameInfo.content_set(self.boxSIMInfo)
+
         # table containing all messagebook/phonebook frames
         self.books_table = elementary.Table(box1)
         self.books_table.size_hint_align_set(-1.0, -1.0)
@@ -334,21 +356,6 @@ class Sim(module.AbstractModule):
      	      reply_handler = frame.phonebookinfo_reply_handler, 
               error_handler=self.dbusasync_error_handler
             )
-
-        # add the SIM info box
-        self.simmc.gsm_sim_iface.GetSimInfo(
-	  reply_handler = self.siminfo_reply_handler, 
-          error_handler=self.dbusasync_error_handler
-        )
-
-        frameInfo = elementary.Frame(self.window)
-        frameInfo.label_set(_("SIM information:"))
-        box1.pack_start(frameInfo)
-        frameInfo.size_hint_align_set(-1.0, 0.0)
-        frameInfo.show()
-
-        self.boxSIMInfo = elementary.Box(self.window)
-        frameInfo.content_set(self.boxSIMInfo)
 
         return box1
 
