@@ -3,12 +3,14 @@ import elementary
 import dbus
 import e_dbus
 
-#def dialog(content):
-#  global win
-#  dia = elementary.Inwin(win)
-#  dia.content_set(content)
-#  win.resize_object_add(dia)
-#  return dia
+def dialog(content):
+  global win
+  dia = elementary.InnerWindow(win)
+  dia.content_set(content)
+  win.resize_object_add(dia)
+  dia.style_set("minimal")
+  dia.show()
+  return dia
 
 def shutdown(obj, event, *args, **kargs):
   elementary.exit()
@@ -179,10 +181,11 @@ def onsignal (*args, **kargs):
         #box = elementary.Box(pager)
         #box.show()
         #box.pack_end(scanning)
-        #scanning.show()
+        scanning.activate()
         #scanpage = pager.content_push(box)
       else:
         print "Scan ended"
+        scanning.hide()
         #pager.content_pop()
     elif args[0]=='Networks':
       print "Available networks: " + str(args[1])
@@ -243,23 +246,25 @@ except dbus.exceptions.DBusException, e:
     show_connmand_error()
 
 
-scanning = elementary.Label(win)
-scanning.label_set("Scanning now...")
+scanningl = elementary.Label(win)
+scanningl.label_set("Scanning now...")
 
-#scanning = dialog(scanningl)
+scanning = dialog(scanningl)
 
 box = elementary.Box(win)
-box.show()
 
 
 li = elementary.List(win)
 li.show()
 
+#box.pack_end(li)
+#box.pack_end(scanning)
+#box.show()
+
+#win.resize_object_add(box)
+
 pager.content_push(li)
 
-
-box.pack_end(scanning)
-#win.resize_object_add(box)
 li.go()
 properties = connman.GetProperties()
 
