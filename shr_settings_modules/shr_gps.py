@@ -242,8 +242,8 @@ class Gps(module.AbstractModule):
         print "async dbus callback"
 
     def rempickle(self, obj, event, *args, **kargs):
-        os.system("rm /etc/freesmartphone/persist/ogpsd.pickle")
-        obj.hide()
+        os.unlink("/etc/freesmartphone/persist/ogpsd.pickle")
+        obj.delete()
 
     def isEnabled(self):
         return True
