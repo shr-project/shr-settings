@@ -47,6 +47,15 @@ class Call(module.AbstractModule):
               self.toggle1.state_set(1)
 
     def cb_get_callidenti(self, state):
+        self.loading.delete()
+
+        self.toggle0 = elementary.Toggle(self.window)
+        self.toggle0.label_set(_("Show my number:"))
+        self.toggle0.size_hint_align_set(-1.0, 0.0)
+        self.toggle0.states_labels_set(_("By network"),_("Manual"))
+        self.toggle0.changed = self.res_handle
+        self.box1.pack_start(self.toggle0)
+
         if state == "network":
             self.toggle0.state_set(1)
             self.toggle1hidden=1
@@ -79,12 +88,10 @@ class Call(module.AbstractModule):
 
         self.box1 = elementary.Box(self.window)
 
-        self.toggle0 = elementary.Toggle(self.window)
-        self.toggle0.label_set(_("Show my number:"))
-        self.toggle0.size_hint_align_set(-1.0, 0.0)
-        self.toggle0.states_labels_set(_("By network"),_("Manual"))
-        self.toggle0.changed = self.res_handle
-        self.box1.pack_start(self.toggle0)
+        self.loading = elementary.Label(self.window)
+        self.loading.label_set(_("Please wait..."))
+        self.loading.show()
+        self.box1.pack_start(self.loading)
 
         self.gps.GetCallingIdentification(reply_handler=self.cb_get_callidenti, error_handler=self.error)
 
