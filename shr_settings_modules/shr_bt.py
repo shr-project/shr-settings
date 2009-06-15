@@ -83,7 +83,7 @@ class Bt(module.AbstractModule):
         v = self.btmc.getVisibility()
         print "BT update [info] power:"+str(s)+"; visibility:"+str(v)
         if s == 1:
-            self.toggle1.show()
+            self.toggle1show()
             if v:
                 self.toggle1.state_set(1)
             else:
@@ -92,7 +92,7 @@ class Bt(module.AbstractModule):
             self.toggle0.state_set( 1 )
 
         else:
-            self.toggle1.hide()
+            self.toggle1hide()
             self.toggle0.state_set( 0 )
 
     def toggle0Click(self, obj, event, *args, **kargs):
@@ -104,6 +104,25 @@ class Bt(module.AbstractModule):
         if not self.btmc.getVisibility() == obj.state_get():
             self.btmc.setVisibility( obj.state_get() )
             self.update()
+
+    def toggle1show(self):
+        if self.toggle1hidden:
+            self.toggle1 = elementary.Toggle(self.window)
+            self.toggle1.label_set(_("Visibility:"))
+            self.toggle1.size_hint_align_set(-1.0, 0.0)
+            self.toggle1.states_labels_set(_("On"),_("Off"))
+            self.toggle1.state_set(self.btmc.getVisibility())
+            self.toggle1.changed = self.toggle1Click
+            self.main.pack_end(self.toggle1)
+            self.toggle1.show()
+            self.toggle1hidden=0
+
+    def toggle1hide(self):
+        self.toggle1hidden=1
+        try:
+          self.toggle1.delete()
+        except:
+          pass
 
     def createView(self):
         self.main = elementary.Box(self.window)
@@ -132,16 +151,9 @@ class Bt(module.AbstractModule):
             self.toggle0.states_labels_set(_("On"),_("Off"))
             self.toggle0.show()
             self.toggle0.changed = self.toggle0Click
-
-            self.toggle1 = elementary.Toggle(self.window)
-            self.toggle1.label_set(_("Visibility:"))
-            self.toggle1.size_hint_align_set(-1.0, 0.0)
-            self.toggle1.states_labels_set(_("On"),_("Off"))
-            self.toggle1.state_set(self.btmc.getVisibility())
-            self.toggle1.changed = self.toggle1Click
-
             self.main.pack_start(self.toggle0)
-            self.main.pack_end(self.toggle1)
+
+            self.toggle1hidden=1
 
             self.update()
 
