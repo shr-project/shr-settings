@@ -90,7 +90,7 @@ class SatDetails():
 class GpsInfoBox(elementary.Table):
     """ Displays a box with GPS and updates it. Extents elementary.Table """
 
-    self.sigMatch = None  #Contains instance variable with signal listener
+    sigMatch = None  #Contains instance variable with signal listener
     items =  [{'cap':_('Time'), 'iface':'org.freedesktop.Gypsy.Time', 'method':'GetTime', 'signal':'TimeChanged'},
               {'cap':_('Fix'), 'iface':'org.freedesktop.Device', 'method':'GetFixStatus', 'signal':'FixStatusChanged'},
               {'cap':_('Lat'), 'iface':'org.freedesktop.Gypsy.Position', 'signal': 'PositionChanged', 'method':'GetPosition'},
