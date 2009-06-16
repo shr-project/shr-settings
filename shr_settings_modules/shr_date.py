@@ -17,4 +17,5 @@ class Date(module.AbstractModule):
     def createView(self):
         la = elementary.Label(self.window)
         la.label_set(date.today().strftime("%A, %d %B %Y"))
+        la.scale_set(1.5)
         return la
