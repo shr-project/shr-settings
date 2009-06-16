@@ -148,6 +148,9 @@ class Wifi(module.AbstractModule):
         self.wifiToggle.update()
 ##        self.wifiManageCheck()
 
+    def stopUpdate(self):
+        self.signal.remove()
+
     def createView(self):
         self.main = elementary.Box(self.window)
 
@@ -160,7 +163,7 @@ class Wifi(module.AbstractModule):
                     "org.freesmartphone.Device.PowerControl")
 
                 # connect to dbus signals
-                self.dbusObj.connect_to_signal("Power", self.update)
+                self.signal = self.dbusObj.connect_to_signal("Power", self.update)
 
                 # create/pack toggle box
                 self.wifiToggle = WifiToggleBox(self.window, self.dbusObj)

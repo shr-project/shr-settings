@@ -109,6 +109,9 @@ class PreferenceBox(elementary.Box):
         self.pack_start(self.label)
         self.label.show()
 
+    def stopUpdate(self):
+        pass
+
     def __init__(self, win, dbusObj, item_name):
         """
         initialize the box and load objects
@@ -435,6 +438,9 @@ class ToneChangeBox(PreferenceBox):
             self.sidDnBtn.hide()
             self.sidUpBtn.hide()
 
+    def stopUpdate(self):
+        self.signal.remove()
+
     def setup(self):
         """
         Function to show the current profile tone and a button to trigger
@@ -443,7 +449,7 @@ class ToneChangeBox(PreferenceBox):
 
         self.playStatus = False
         self.dbusObj, self.AudioDbusObj = self.dbusObj
-        self.AudioDbusObj.connect_to_signal("SoundStatus",
+        self.signal = self.AudioDbusObj.connect_to_signal("SoundStatus",
             self.StartStopSound)
 
         # Tone name label
@@ -515,6 +521,11 @@ class CurrentProfile(module.AbstractModule):
         """
         self.update()
 
+    def stopUpdate(self):
+        self.signal.remove()
+        for i in self.contents:
+            self.contents[i].stopUpdate()
+
     def update(self):
         keys = self.dbusObj.GetKeys()
         keys.sort()
@@ -568,7 +579,7 @@ class CurrentProfile(module.AbstractModule):
                 "org.freesmartphone.opreferencesd",
                 "/org/freesmartphone/Preferences",
                 "org.freesmartphone.Preferences" )
-            self.SignalsDbusObj.connect_to_signal("Notify",
+            self.signal = self.SignalsDbusObj.connect_to_signal("Notify",
                 self.profileChanged)
 
             # Audio DBus interface (For Ringtone testing)

@@ -124,6 +124,9 @@ class Bt(module.AbstractModule):
         except:
           pass
 
+    def stopUpdate(self):
+        self.signal.remove()
+
     def createView(self):
         self.main = elementary.Box(self.window)
 
@@ -141,7 +144,7 @@ class Bt(module.AbstractModule):
                 "org.freesmartphone.Device.PowerControl" )
 
             # set update triggers
-            self.dbusObjBT.connect_to_signal("Power",      self.update)
+            self.signal = self.dbusObjBT.connect_to_signal("Power",      self.update)
 
             self.btmc = BtMstateContener(self.dbusObjBT, self.dbusObjPower)
 

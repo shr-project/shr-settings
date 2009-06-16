@@ -189,6 +189,10 @@ class Battery(module.AbstractModule):
             return 1
             print ":("
 
+    def stopUpdate(self):
+        self.signal1.remove()
+        self.signal2.remove()
+
     def createView(self):
 
         # create the box
@@ -205,8 +209,8 @@ class Battery(module.AbstractModule):
                 "org.freesmartphone.Device.PowerSupply")
 
             # set update triggers
-            self.dbusObj.connect_to_signal("Capacity",      self.update)
-            self.dbusObj.connect_to_signal("PowerStatus",   self.update)
+            self.signal1 = self.dbusObj.connect_to_signal("Capacity",      self.update)
+            self.signal2 = self.dbusObj.connect_to_signal("PowerStatus",   self.update)
 
             # create labels, setting the display formats and static labels
 

@@ -84,6 +84,9 @@ class Profile(module.AbstractModule):
                 elementary.ELM_ICON_STANDARD,
                 partial( self.setCurrentProfile, name = i ))
 
+    def stopUpdate(self):
+        self.signal.remove()
+
     def createView(self):
 
         self.main = elementary.Box(self.window)
@@ -95,11 +98,11 @@ class Profile(module.AbstractModule):
                 "/org/freesmartphone/Preferences",
                 "org.freesmartphone.Preferences" )
 
-            # creat signal listener for profile updates
+            # create signal listener for profile updates
             #   This is rare, but just in case the profile updates from
             #   elsewhere while this module is open, we need to capture
             #   the signal and update the current profile name
-            self.dbusObj.connect_to_signal("Notify",
+            self.signal = self.dbusObj.connect_to_signal("Notify",
                 self.profileChanged)
 
             self.listProfiles()

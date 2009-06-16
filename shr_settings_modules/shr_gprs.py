@@ -205,6 +205,9 @@ class Gprs(module.AbstractModule):
         self.labelStatus.label_set(status)
         return True
 
+    def stopUpdate(self):
+        self.signal.remove()
+
     def createView(self):
         """
         Create main box then try loading dbus, if successful, load the rest,
@@ -221,7 +224,7 @@ class Gprs(module.AbstractModule):
                 "org.freesmartphone.GSM.PDP")
 
             # GSM.PDP.ContextStatus(isa{sv}) DBus Signal
-            self.dbusObj.connect_to_signal("ContextStatus", self.updateStatus)
+            self.signal = self.dbusObj.connect_to_signal("ContextStatus", self.updateStatus)
 
             # Check for and load persisted data
             self.apn, self.login, self.password = self.loadConnectionData()

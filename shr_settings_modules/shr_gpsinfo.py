@@ -90,7 +90,7 @@ class SatDetails():
 class GpsInfoBox(elementary.Table):
     """ Displays a box with GPS and updates it. Extents elementary.Table """
 
-    sigMatch = None  #Contains instance variable with signal listener
+    self.sigMatch = None  #Contains instance variable with signal listener
     items =  [{'cap':_('Time'), 'iface':'org.freedesktop.Gypsy.Time', 'method':'GetTime', 'signal':'TimeChanged'},
               {'cap':_('Fix'), 'iface':'org.freedesktop.Device', 'method':'GetFixStatus', 'signal':'FixStatusChanged'},
               {'cap':_('Lat'), 'iface':'org.freedesktop.Gypsy.Position', 'signal': 'PositionChanged', 'method':'GetPosition'},
@@ -103,7 +103,6 @@ class GpsInfoBox(elementary.Table):
               {'cap':_('Descend'), 'signal': 'ClimbChanged'}, # set with Heading
              ]
 
-    #TODO start/stop updating with updateGUI var
     #TODO on init fill in values once (at least 'fix') and not only when changed
     #use org.freedesktop.Gypsy.Device.GetConnectionStatus == True
 

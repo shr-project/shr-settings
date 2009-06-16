@@ -81,6 +81,9 @@ class Pm(module.AbstractModule):
         self.cpu.update()
         self.display.update()
 
+    def stopUpdate(self):
+        self.signal.remove()
+
     def createView(self):
 
         # create the box
@@ -110,7 +113,7 @@ class Pm(module.AbstractModule):
                 "org.freesmartphone.Usage")
 
             # set update triggers
-            self.dbusSignalsObj.connect_to_signal("ResourceChanged", self.update)
+            self.signal = self.dbusSignalsObj.connect_to_signal("ResourceChanged", self.update)
 
             # Create ToggleBoxes
             self.display = ResourceToggleBox(self.window, self.dbusObj, 'Display', _("Auto-dimming:"))
