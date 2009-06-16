@@ -301,7 +301,8 @@ class MainWindow:
             mainloop = e_dbus.DBusEcoreMainLoop()
             #self.dbus_session = dbus.SessionBus(mainloop=self.mainloop) - we don't need atm
             self.dbus_system = dbus.SystemBus(mainloop=mainloop)
-            log('Dbus inited successfully', logtype.OK)
+            log('dbus inited successfully', logtype.DEBUG)
+            log('GUI loaded in %.2f sec' % (time() - starttime), logtype.OK)
             return False  #don't call idler again
 
     def __init__(self):
