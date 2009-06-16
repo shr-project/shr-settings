@@ -100,6 +100,7 @@ class Splash(module.AbstractModule):
 
         # Listing HoverSelect
         self.hoverSel = elementary.Hoversel(self.window)
+        self.hoverSel.scale_set(1.0)
         self.hoverSel.hover_parent_set(self.window)
         self.hoverSel.size_hint_weight_set(1.0, 0.0)
         self.hoverSel.size_hint_align_set(-1.0, 0.0)
