@@ -187,11 +187,11 @@ class ModulesWindow:
         log ( "closing modules window...", logtype.DEBUG)
         win.hide()
         for m in self.modList:
+            log ("deleting module \"" + m.getName() + "\"" , logtype.DEBUG)
             try:
                 m.stopUpdate()
             except:
-                pass
-            log ("deleting module \"" + m.getName() + "\"" , logtype.DEBUG)
+                log(m.getName()+": stopUpdate failed!", logtype.FAIL)
             del m
         log ("deleting window object", logtype.DEBUG)
         win.delete()
