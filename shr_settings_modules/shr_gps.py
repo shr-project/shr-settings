@@ -1,5 +1,4 @@
-import elementary, module, os, dbus
-from datetime import datetime
+import elementary, module, dbus
 import gettext
 
 try:
@@ -101,8 +100,3 @@ class Gps(module.AbstractModule):
             self.toggle1show()
 
         return self.box1
-
-    def stopUpdate(self):
-        """ stop the GUI update and remove signal handlers and such """
-        # remove the gypsy signal listeners
-        self.gpsinfo.stopUpdate()
