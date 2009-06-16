@@ -44,7 +44,6 @@ class WifiManageBox(elementary.Box):
         """
         print "Running wifiman.py"
         os.system("/home/root/Programs/wifiman.py")
-        pass
 
     def __init__(self, win, dbusObj):
         """
@@ -128,17 +127,31 @@ class Wifi(module.AbstractModule):
         else:
             return True
 
+    def wifiManageCheck(self):
+        if self.wifiToggle.state:
+            try:
+                self.wifiManage.update()
+            except:
+                self.wifiManage = WifiManageBox(self.window, self.dbusObj)
+                self.main.pack_end(self.wifiManage)
+                self.wifiManage.update()
+        else:
+            try:
+                self.wifiManage.delete()
+                del self.wifiManage
+            except:
+                pass
+
     def update(self, *args, **kargs):
         """
         """
         self.wifiToggle.update()
-##        self.wifiManage.update()
+##        self.wifiManageCheck()
 
     def createView(self):
         self.main = elementary.Box(self.window)
 
         try:
-
             if self.isEnabled():
                 # connect to dbus
                 self.dbusObj = getDbusObject (self.dbus,
@@ -149,11 +162,9 @@ class Wifi(module.AbstractModule):
                 # connect to dbus signals
                 self.dbusObj.connect_to_signal("Power", self.update)
 
+                # create/pack toggle box
                 self.wifiToggle = WifiToggleBox(self.window, self.dbusObj)
-##                self.wifiManage = WifiManageBox(self.window, self.dbusObj)
-
                 self.main.pack_start(self.wifiToggle)
-##                self.main.pack_end(self.wifiManage)
 
                 self.update()
             else:
