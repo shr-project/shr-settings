@@ -54,7 +54,7 @@ class Profile(module.AbstractModule):
         Updates the displayed value of the current profile
         """
         self.currentProfile = self.dbusObj.GetProfile().title()
-        self.hoverSel.label_set(_("Profiles (%s)" % self.currentProfile))
+        self.hoverSel.label_set(_("Profiles (%s)") % self.currentProfile)
 
     def listProfiles(self):
         """
