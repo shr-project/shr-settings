@@ -1,11 +1,10 @@
 - shr-settings
     load modules categories dynamicaly
 - shr_gsm.py
-    replace [forbidden] and [current] by icons 
+    replace [forbidden] and [current] by icons
 - shr_usb.py
     fix to work with gta01
 - module.py
     do it in the most flexible way (init, destroy etc.) and prepare all modules to use it
 - TODO
     sync with good ideas from SHR wiki :)
-
