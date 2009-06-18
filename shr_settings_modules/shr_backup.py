@@ -340,6 +340,9 @@ class Backup(module.AbstractModule):
         """
         Report error of some kind
         """
+        self.archiveBox.delete()
+        self.toggle.delete()
+
         label = elementary.Label(self.window)
         label.label_set(message)
         label.show()
@@ -366,70 +369,74 @@ class Backup(module.AbstractModule):
         Get config data from config files
         """
 
-        # defaults
-        #   yes, self.activeFile is a unitary list.
-        #   This is to allow for interclass communication.
-        #   Anyone know a better way?
+        if self.configloaded==False:
 
-        self.blacklist      = []                    # list of blacklist files/dirs
-        self.whitelist      = []                    # files to include
-        self.date_format    = DATE_FORMAT
-        self.archiveFile    = ARCHIVE_FILE
-        self.activeFile     = [ ARCHIVE_DIR ]       # double duty as archive dir and restore file
-        self.userdir        = os.environ[ 'HOME' ]
-        self.mode           = True                  # True:False == Archive:Restore
+            # defaults
+            #   yes, self.activeFile is a unitary list.
+            #   This is to allow for interclass communication.
+            #   Anyone know a better way?
 
-        # check for required files
-        for file in CONFIG_LIST:
-            if not os.path.isfile(CONFIG_LIST[file]):
-                return False
+            self.blacklist      = []                    # list of blacklist files/dirs
+            self.whitelist      = []                    # files to include
+            self.date_format    = DATE_FORMAT
+            self.archiveFile    = ARCHIVE_FILE
 
-        # Read whitelist
-        whitelist = self.file_filter(CONFIG_LIST['whitelist'])
-        for line in whitelist:
-            self.add_to_list( line, self.whitelist )
+            # check for required files
+            for file in CONFIG_LIST:
+                if not os.path.isfile(CONFIG_LIST[file]):
+                    return False
 
-        # Read blacklists
-        blacklist = self.file_filter(CONFIG_LIST['blacklist'])
-        for line in blacklist:
-            self.add_to_list( line, self.blacklist )
+            # Read whitelist
+            whitelist = self.file_filter(CONFIG_LIST['whitelist'])
+            for line in whitelist:
+                self.add_to_list( line, self.whitelist )
 
-        # Read config
-        conf = self.file_filter(CONFIG_LIST['conf'])
-        for c in conf:
-            conf_item, conf_value   = c.split(':')
+            # Read blacklists
+            blacklist = self.file_filter(CONFIG_LIST['blacklist'])
+            for line in blacklist:
+                self.add_to_list( line, self.blacklist )
 
-            conf_item   = conf_item.strip()
-            conf_value  = conf_value.strip()
+            # Read config
+            conf = self.file_filter(CONFIG_LIST['conf'])
+            for c in conf:
+                conf_item, conf_value   = c.split(':')
 
-            if conf_item == 'DATE':
-                self.date_format = conf_value
+                conf_item   = conf_item.strip()
+                conf_value  = conf_value.strip()
 
-            elif conf_item == 'ARCHIVE_FILE':
-                self.archiveFile = conf_value
+                if conf_item == 'DATE':
+                    self.date_format = conf_value
 
-            elif conf_item == 'WHITELISTS':
-                for files in conf_value.split(','):
-                    for file in self.expand(files):
-                        if os.path.isfile(file):
-                            for line in self.file_filter(file):
-                                self.add_to_list( line, self.whitelist )
-                # print 'Whitelist',self.whitelist
+                elif conf_item == 'ARCHIVE_FILE':
+                    self.archiveFile = conf_value
 
-            elif conf_item == 'BLACKLISTS':
-                for files in conf_value.split(','):
-                    for file in self.expand(files):
-                        if os.path.isfile(file):
-                            for line in self.file_filter(file):
-                                self.add_to_list( line, self.blacklist )
-                # print 'Blacklist',self.blacklist
+                elif conf_item == 'WHITELISTS':
+                    for files in conf_value.split(','):
+                        for file in self.expand(files):
+                            if os.path.isfile(file):
+                                for line in self.file_filter(file):
+                                    self.add_to_list( line, self.whitelist )
+                    # print 'Whitelist',self.whitelist
 
-        # whitelist minus blacklists
-        self.whitelist = [ path for path in self.whitelist if not path in self.blacklist]
+                elif conf_item == 'BLACKLISTS':
+                    for files in conf_value.split(','):
+                        for file in self.expand(files):
+                            if os.path.isfile(file):
+                                for line in self.file_filter(file):
+                                    self.add_to_list( line, self.blacklist )
+                    # print 'Blacklist',self.blacklist
 
-        print "Config Loaded, Black/Whitelists read"
+            # whitelist minus blacklists
+            self.whitelist = [ path for path in self.whitelist if not path in self.blacklist]
 
-        return True
+            print "Config Loaded, Black/Whitelists read"
+
+            self.configloaded = True
+
+            return True
+
+        else:
+            return True
 
     def add_to_list( self, input , output ):
         input = input.strip()
@@ -447,26 +454,32 @@ class Backup(module.AbstractModule):
         1) Tar the contents of /home/${USER} to ${ARCHIVE}
         2) Store in ${ARCHIVE_DIR}
         """
-        if os.path.isdir(self.activeFile[0]):
-            t = time.strftime(self.date_format)
-            outfile =  self.activeFile[0]+self.archiveFile.format(t)
+        if self.set_config():
+            if os.path.isdir(self.activeFile[0]):
+                t = time.strftime(self.date_format)
+                outfile =  self.activeFile[0]+self.archiveFile.format(t)
 
-            files = ' '.join( [ '"' + f + '"' for f in self.whitelist ] )
+                files = ' '.join( [ '"' + f + '"' for f in self.whitelist ] )
 
-            cmd = 'tar -cf "' + outfile + '" ' + files
-            self.run_command(cmd, "Archiving")
+                cmd = 'tar -cf "' + outfile + '" ' + files
+                self.run_command(cmd, "Archiving")
+            else:
+                self.status_set(_("Directory required."))
         else:
-            self.status_set(_("Directory required."))
+            self.error(_( "Config Files couldn't be loaded<br>Please investigate!" ))
 
     def restore(self):
         """
         1) untar the contents of ${ARCHIVE_DIR}/${ARCHIVE} to /home/${USER}
         """
-        if os.path.isfile(self.activeFile[0]):
-            cmd = 'tar -xf "' + self.activeFile[0] + '"'  + " -C /"# + self.userdir + "/restoreTest" # testing target
-            self.run_command(cmd, "Restoring")
+        if self.set_config():
+            if os.path.isfile(self.activeFile[0]):
+                cmd = 'tar -xf "' + self.activeFile[0] + '"'  + " -C /"# + self.userdir + "/restoreTest" # testing target
+                self.run_command(cmd, "Restoring")
+            else:
+                self.status_set(_("File required."))
         else:
-            self.status_set(_("File required."))
+            self.error(_( "Config Files couldn't be loaded<br>Please investigate!" ))
 
     def run_command(self, cmd, status_string):
 ##        print cmd
@@ -502,39 +515,38 @@ class Backup(module.AbstractModule):
 
     def createView(self):
 
+        self.mode           = True                  # True:False == Archive:Restore
+        self.activeFile     = [ ARCHIVE_DIR ]       # double duty as archive dir and restore file
+        self.userdir        = os.environ[ 'HOME' ]
+        self.configloaded   = False
+
         # create the main box
         self.main = elementary.Box( self.window )
         self.main.size_hint_weight_set( 1.0, 1.0 )
         self.main.size_hint_align_set( -1.0, 0.0 )
 
-        # setup config
-        if self.set_config():
+        # create mode toggle
+        self.toggle = elementary.Toggle( self.window )
+        self.toggle.label_set( _( "Backup Mode" ) )
+        self.toggle.states_labels_set( _( "Archive" ), _( "Restore" ) )
+        self.toggle.changed = self.toggleChanged
+        self.toggle.size_hint_align_set( -1.0, 0.0 )
+        self.toggle.size_hint_weight_set( 1.0, 0.0 )
+        self.toggle.state_set( self.mode )
+        self.toggle.show()
 
-            # create mode toggle
-            self.toggle = elementary.Toggle( self.window )
-            self.toggle.label_set( _( "Backup Mode" ) )
-            self.toggle.states_labels_set( _( "Archive" ), _( "Restore" ) )
-            self.toggle.changed = self.toggleChanged
-            self.toggle.size_hint_align_set( -1.0, 0.0 )
-            self.toggle.size_hint_weight_set( 1.0, 0.0 )
-            self.toggle.state_set( self.mode )
-            self.toggle.show()
+        # create the box
+        self.archiveBox = ArchiveBox( self.window )
+        self.status_set = self.archiveBox.status_set
+        ## self.optionsBox = OptionsBox(self.window, self.archiveDir) # This line has some concerns
 
-            # create the box
-            self.archiveBox = ArchiveBox( self.window )
-            self.status_set = self.archiveBox.status_set
-            ## self.optionsBox = OptionsBox(self.window, self.archiveDir) # This line has some concerns
+        # pack the boxes
+        self.main.pack_end(self.toggle)
+        self.main.pack_end(self.archiveBox)
+        ## self.main.pack_end(self.optionsBox) # This line has some concerns
 
-            # pack the boxes
-            self.main.pack_end(self.toggle)
-            self.main.pack_end(self.archiveBox)
-            ## self.main.pack_end(self.optionsBox) # This line has some concerns
-
-            # update display
-            self.update()
-
-        else:
-            self.error( _( "Config Files couldn't be loaded<br>Please investigate!" ) )
+        # update display
+        self.update()
 
         self.main.show()
 
