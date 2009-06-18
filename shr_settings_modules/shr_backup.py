@@ -476,7 +476,7 @@ class Backup(module.AbstractModule):
         if not exitCode:
             self.status_set(_(status_string+" Complete."))
         else:
-            self.status_set(_(status_string+" Failed. "+os.WEXITSTATUS(exitCode)))
+            self.status_set(_(status_string+" Failed. "+str(os.WEXITSTATUS(exitCode))))
 
     def update(self):
         if self.mode:
