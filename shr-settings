@@ -219,7 +219,7 @@ class MainWindow:
 
     def start_ophonekitd(self, obj, event, *args, **kargs):
         os.system( "DISPLAY=:0 ophonekitd >> /var/log/ophonekitd.log 2>&1 &" )
-        self.opkmainbox.delete()
+        self.opkinwin.delete()
 
     def destroyDebug(self, obj, event, *args, **kargs):
         self.windeb.hide()
@@ -292,7 +292,7 @@ class MainWindow:
 
 
     def opk_hide(self, obj, event, *args, **kargs):
-        self.opkmainbox.delete()
+        self.opkinwin.delete()
 
     def init_dbus_idler(self):
         # dbus init if not done before:
@@ -432,7 +432,13 @@ class MainWindow:
             opkhide.show()
             opkoutbox.pack_end(opkhide)
 
-            self.win.resize_object_add(self.opkmainbox)
+            self.opkinwin = elementary.InnerWindow(self.win)
+            self.opkinwin.scale_set(1.0)
+            self.opkinwin.show()
+            self.opkinwin.content_set(self.opkmainbox)
+            self.opkinwin.style_set("minimal")
+            self.win.resize_object_add(self.opkinwin)
+            self.opkinwin.activate()
 #            mainbox.pack_start(opkbox)
 
         #let's go!
