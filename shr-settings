@@ -223,6 +223,7 @@ class MainWindow:
 
     def destroyDebug(self, obj, event, *args, **kargs):
         self.windeb.hide()
+        self.windeb.delete()
 
     def clean_ophonekitd_log(self, obj, event, *args, **kargs):
         os.system("echo \"\" >  /var/log/ophonekitd.log")
