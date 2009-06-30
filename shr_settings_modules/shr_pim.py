@@ -94,6 +94,9 @@ class Pim(module.AbstractModule):
 
         pager.content_push(box)
 
+    def destroywin(self, win, *args, **kargs):
+        win.delete()
+
     def domainWindow(self, obj, event, domain, *args, **kargs):
         win = elementary.Window("domain", elementary.ELM_WIN_BASIC)
         win.show()
@@ -108,12 +111,27 @@ class Pim(module.AbstractModule):
         box.show()
 
         list = elementary.List(win)
-        #box.pack_start(list)
+        box.pack_start(list)
+        list.size_hint_weight_set(1.0, 1.0)
+        list.size_hint_align_set(-1.0, -1.0)
         list.show()
+
+        quitbt = elementary.Button(win)
+        quitbt.clicked = partial(self.destroywin, win)
+        quitbt.label_set(_("Quit"))
+        quitbt.size_hint_align_set(-1.0, 0.0)
+        ic = elementary.Icon(quitbt)
+        ic.file_set( "/usr/share/pixmaps/icon_quit.png" )
+        ic.scale_set(1,1)
+        ic.smooth_set(1)
+        quitbt.icon_set(ic)
+        quitbt.show()
+        box.pack_end(quitbt)
+
 
         pager = elementary.Pager(win)
 
-        pager.content_push(list)
+        pager.content_push(box)
 
         pager.show()
 
