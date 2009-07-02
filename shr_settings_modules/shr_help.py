@@ -3,7 +3,7 @@ import module, elementary
 # Locale support
 import gettext
 
-ABOUT_TEXT = "\
+HELP_TEXT = "\
 <b>Using SHR-Settings</><br>\
 <br><em>Power</><br>\
 Help with Power Settings here<br>\
@@ -41,8 +41,7 @@ class Help(module.AbstractModule):
         self.main.size_hint_weight_set(1.0, 1.0)
         self.main.size_hint_align_set(-1.0, 0.0)
 
-        # This isn't working yet, not sure why
-        text = elementary.AnchorView(self.window)
+        text = elementary.AnchorBlock(self.window)
         text.text_set(HELP_TEXT)
         text.size_hint_weight_set(1.0, 1.0)
         text.size_hint_align_set(-1.0, 0.0)

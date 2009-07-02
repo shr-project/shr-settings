@@ -42,8 +42,7 @@ class About(module.AbstractModule):
         aboutText = ABOUT_TEXT.format(ipkInfo)
         print aboutText
 
-        # This isn't working yet, not sure why
-        text = elementary.AnchorView(self.window)
+        text = elementary.AnchorBlock(self.window)
         text.text_set(aboutText)
         text.size_hint_weight_set(1.0, 1.0)
         text.size_hint_align_set(-1.0, 0.0)
