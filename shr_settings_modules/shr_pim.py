@@ -39,10 +39,11 @@ class Pim(module.AbstractModule):
         backend = arguments[0]
         domain = arguments[1]
         pager = arguments[2]
+        win = arguments[3]
 
         backend.SetAsDefault(domain)
-        pager.content_pop()
-        #TODO: refresh backends list
+        self.domainWindow(obj, event, domain)
+        win.delete()
 
     def enableOrDisable(self, obj, event, backend, *args, **kargs):
         if obj.state_get():
@@ -51,11 +52,13 @@ class Pim(module.AbstractModule):
             backend.Disable()
         
 
-    def backendOptions(self, obj, event, arguments, *args, **kargs):
+    def backendOptions(self, arguments, obj, event, *args, **kargs):
+
         backend = arguments[0]
         domain = arguments[1]
         pager = arguments[2]
         defaultbackend = arguments[3]
+        win = arguments[4]
 
         backendname = backend.GetName()
 
@@ -80,7 +83,7 @@ class Pim(module.AbstractModule):
         if defaultbackend.lower() != backendname.lower():
             default = elementary.Button(pager)
             default.label_set(_("Set as default"))
-            default._callback_add("clicked", (self.setAsDefault, [backend, domain, pager]))
+            default._callback_add("clicked", (self.setAsDefault, [backend, domain, pager, win]))
             default.show()
 
             box.pack_end(default)
@@ -148,14 +151,11 @@ class Pim(module.AbstractModule):
             backend = getDbusObject(self.dbus, "org.freesmartphone.opimd", "/org/freesmartphone/PIM/Sources/"+str(i), "org.freesmartphone.PIM.Source")
             if domain in backend.GetSupportedPIMDomains():
                 checkbox = elementary.Check(win)
-                button = elementary.Button(win)
-                button.label_set(_("Options"))
-                button._callback_add("clicked", (self.backendOptions, [backend, domain, pager, defaultbackend]))
                 default = ""
                 name = backend.GetName()
                 if defaultbackend.lower()==name.lower():
                     default = _(" (default)")
-                list.item_append(name + default, None, button, None)
+                list.item_append(name + default, None, None, partial(self.backendOptions, [backend, domain, pager, defaultbackend, win]))
 
         list.go()
 
