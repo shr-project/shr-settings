@@ -3,7 +3,7 @@ import module, elementary, os, re
 # Locale support
 import gettext
 
-ABOUT_TEXT = "<b>About `{0[0]}`</><br>\
+ABOUT_TEXT = "<b>About `{0}`</><br>\
 <br>\
 This app is used for configuring settings on your Openmoko Neo 1973 and \
 Neo Freerunner.<br>\
@@ -11,7 +11,7 @@ Neo Freerunner.<br>\
 License: GPLv2<br>\
 Author: SHR-Project<br>\
 <br>\
-Version: {0[1]}<br>Revision: {0[2]}<br>Commit: {0[3]}<br>Release: {0[4]}"
+Version: {1}<br>Revision: {2}<br>Commit: {3}...<br>Release: {4}"
 
 
 try:
@@ -38,8 +38,10 @@ class About(module.AbstractModule):
                              (needed to bump a package without bumping the version)
         """
         matchPattern = r'(.+)_(.+)\+r(\d+)\+([a-z0-9A-Z]+)-r(\d+)_armv4t\.ipk'
-        ipkInfo = re.match(matchPattern,ipkFile).groups()
-        aboutText = ABOUT_TEXT.format(ipkInfo)
+        name, ver, rev, com, rel  = re.match(matchPattern,ipkFile).groups()
+
+        # commit is shortened to 15 characters to ensure it fits
+        aboutText = ABOUT_TEXT.format(name, ver, rev, com[:15], rel)
         print aboutText
 
         text = elementary.AnchorBlock(self.window)
