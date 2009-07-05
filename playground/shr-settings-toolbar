@@ -24,7 +24,7 @@ MODULES = [ [_("Power"),        "icon_power.png",        [ 'shr_battery.Battery'
             [_("GPS"),          "icon_gps.png",          [ 'shr_gps.Gps', 'shr_gpsinfo.GpsInfo' ] ],
             [_("Date/time"),    "icon_datetime.png",     [ 'shr_clock.Clock', 'shr_date.Date' ] ],
             [_("Services"),     "icon_services.png",     [ 'shr_services.Services' ] ],
-            [_("Others"),       "icon_others.png",       [ 'shr_splash.Splash', 'shr_pim.Pim', 'shr_backup.Backup' ] ],
+            [_("Others"),       "icon_others.png",       [ 'shr_splash.Splash', 'shr_pim.Pim', 'shr_backup.Backup', 'shr_imageinfo.ImageInfo' ] ],
             [_("About"),        "icon_about.png",        [ 'shr_about.About', 'shr_help.Help' ] ],
     ]
 
@@ -87,16 +87,20 @@ class ModuleBox(elementary.Box):
         message = "Please wait:\n  Loading {0}".format(self.module[0])
         print message
 
-##        # loading box
-##        loadingWin = elementary.InnerWindow(self.win)
-##        loadingWin.style_set("minimal")
-####        loadingWin.activate()
-##        loadingWin.show()
-##
-##        messageBox = MessageBox(loadingWin, message)
+        # loading box
+
+##        messageBox = MessageBox(self.win, message)
 ##        messageBox.size_hint_align_set(-1.0, 0.0)
 ##        messageBox.size_hint_weight_set(1.0, 1.0)
-##        loadingWin.resize_object_add(messageBox)
+##        messageBox.show()
+##
+##        loadingWin = elementary.InnerWindow(self.win)
+##        loadingWin.scale_set(1.0)
+##        loadingWin.show()
+##        loadingWin.content_set(messageBox)
+##        loadingWin.style_set("minimal")
+##        self.win.resize_object_add(loadingWin)
+##        loadingWin.activate()
 
         # prep output box
         moduleContents = elementary.Box(self.win)
@@ -146,7 +150,10 @@ class ModuleBox(elementary.Box):
             except:
                 print "module %s can't be loaded!" % modname
         self.scroller.content_set(moduleContents)
+
+##        messageBox.delete()
 ##        loadingWin.delete()
+
         return None
 
 class Settings(object):
@@ -243,6 +250,10 @@ class Settings(object):
 if __name__ == "__main__":
 
     elementary.init()
+
+    # elementary configuration
+    elementary.c_elementary.finger_size_set(70)
+
     if len(sys.argv[1:])>0:
         if sys.argv[1] in ("-h", "--help"):
             print "SHR Settings - Toolbar Edition"
