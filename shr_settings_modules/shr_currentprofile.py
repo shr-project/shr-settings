@@ -404,6 +404,61 @@ class ToneChangeBox(PreferenceBox):
                 self.testBtn.clicked = self.StopTone
                 self.playStatus = True
 
+    def updateButtons( self, sid = False ):
+
+        try:
+            self.sidDnBtn.delete()
+            self.sidUpBtn.delete()
+            del self.sidDnBtn
+            del self.sidUpBtn
+        except:
+            pass
+
+        try:
+            self.testBtn.delete()
+            self.changeBtn.delete()
+            del self.testBtn
+            del self.changeBtn
+        except:
+            pass
+
+        # Tone Test button
+        self.testBtn = elementary.Button(self.window)
+        self.testBtn.label_set(_("Play"))
+        self.testBtn.size_hint_align_set(-1.0, 0.0)
+        self.testBtn.size_hint_weight_set(1.0, 0.0)
+        self.testBtn.clicked = self.PlayTone
+        self.testBtn.show()
+
+        # Tone change button
+        self.changeBtn = elementary.Button(self.window)
+        self.changeBtn.label_set(_("Change"))
+        self.changeBtn.size_hint_align_set(-1.0, 0.0)
+        self.changeBtn.size_hint_weight_set(1.0, 0.0)
+        self.changeBtn.clicked = self.FileListBox
+        self.changeBtn.show()
+
+        if sid:
+            # Controls for sid files
+            self.sidDnBtn = IncDecButton(self.window)
+            self.sidDnBtn.set_Delta( -1 )
+            self.sidDnBtn.clicked = self.SidButtonClick
+            self.sidDnBtn.size_hint_align_set(-1.0, 0.0)
+            self.sidDnBtn.show()
+
+            self.sidUpBtn = IncDecButton(self.window)
+            self.sidUpBtn.set_Delta( 1 )
+            self.sidUpBtn.clicked = self.SidButtonClick
+            self.sidUpBtn.size_hint_align_set(-1.0, 0.0)
+            self.sidUpBtn.show()
+
+        # pack the button box
+        self.buttonBox.pack_start(self.testBtn)
+        if sid:
+            self.buttonBox.pack_end(self.sidDnBtn)
+            self.buttonBox.pack_end(self.sidUpBtn)
+        self.buttonBox.pack_end(self.changeBtn)
+
     def update(self):
         """
         Updates the displayed value to the current profile
@@ -430,13 +485,11 @@ class ToneChangeBox(PreferenceBox):
 
             self.label.label_set("{0}  {1}/{2}".format(self.tonefile,self.sidValue, self.sidTracks))
 
-            self.sidDnBtn.show()
-            self.sidUpBtn.show()
+            self.updateButtons( True )
         else:
             self.sidValue = 0
             self.sidTracks = 0
-            self.sidDnBtn.hide()
-            self.sidUpBtn.hide()
+            self.updateButtons( False )
 
     def stopUpdate(self):
         self.signal.remove()
@@ -464,41 +517,6 @@ class ToneChangeBox(PreferenceBox):
         self.buttonBox.size_hint_align_set(-1.0, 0.0)
         self.buttonBox.size_hint_weight_set(1.0, 0.0)
         self.buttonBox.show()
-
-        # Tone Test button
-        self.testBtn = elementary.Button(self.window)
-        self.testBtn.label_set(_("Play"))
-        self.testBtn.size_hint_align_set(-1.0, 0.0)
-        self.testBtn.size_hint_weight_set(1.0, 0.0)
-        self.testBtn.clicked = self.PlayTone
-        self.testBtn.show()
-
-        # Controls for sid files
-        self.sidDnBtn = IncDecButton(self.window)
-        self.sidDnBtn.set_Delta( -1 )
-        self.sidDnBtn.clicked = self.SidButtonClick
-        self.sidDnBtn.size_hint_align_set(-1.0, 0.0)
-        self.sidDnBtn.show()
-
-        self.sidUpBtn = IncDecButton(self.window)
-        self.sidUpBtn.set_Delta( 1 )
-        self.sidUpBtn.clicked = self.SidButtonClick
-        self.sidUpBtn.size_hint_align_set(-1.0, 0.0)
-        self.sidUpBtn.show()
-
-        # Tone change button
-        changeBtn = elementary.Button(self.window)
-        changeBtn.label_set(_("Change"))
-        changeBtn.size_hint_align_set(-1.0, 0.0)
-        changeBtn.size_hint_weight_set(1.0, 0.0)
-        changeBtn.clicked = self.FileListBox
-        changeBtn.show()
-
-        # pack the button box
-        self.buttonBox.pack_start(self.testBtn)
-        self.buttonBox.pack_end(self.sidDnBtn)
-        self.buttonBox.pack_end(self.sidUpBtn)
-        self.buttonBox.pack_end(changeBtn)
 
         # pack the main box
         self.pack_start(self.label)
