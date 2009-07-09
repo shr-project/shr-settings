@@ -80,7 +80,10 @@ class Pim(module.AbstractModule):
 
         box.pack_end(check)
 
-        if defaultbackend.lower() != backendname.lower():
+        props = backend.GetProperties()
+        print props
+
+        if defaultbackend.lower() != backendname.lower() and 'add_entry' in props:
             default = elementary.Button(pager)
             default.label_set(_("Set as default"))
             default._callback_add("clicked", (self.setAsDefault, [backend, domain, pager, win]))
