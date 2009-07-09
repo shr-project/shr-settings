@@ -78,10 +78,31 @@ class Pim(module.AbstractModule):
         check.state_set(backend.GetEnabled())
         check.show()
 
-        box.pack_end(check)
-
         props = backend.GetProperties()
-        print props
+
+        prop_texts = {'add_entry':_('adding entries'), 'upd_entry':_('updating entries'),'del_entry':_('deleting entries'),'upd_entry_with_new_field':_('adding new fields to entries'),'needs_login':_('needs loging in'),'needs_sync':_('needs syncing')}
+
+        prop_text = '<b>' + _('Properties') + ': </b><br>';
+
+        for prop in props:
+            prop_text += '* ' + prop_texts[prop] + '<br>'
+
+        if len(props):
+            propan = elementary.AnchorBlock(pager)
+            propfr = elementary.Frame(pager)
+#            propfr.label_set(_('Properties'))
+            propfr.style_set('outdent_top')
+            propfr.content_set(propan)
+            propfr.show()
+            box.pack_end(propfr)
+            propan.text_set(prop_text)
+            propan.show()
+            propan.size_hint_weight_set(-1.0, 0.0)
+            propan.size_hint_align_set(-1.0, 0.0)
+            propfr.size_hint_weight_set(1.0, 0.0)
+            propfr.size_hint_align_set(-1.0, 0.0)
+
+        box.pack_end(check)
 
         if defaultbackend.lower() != backendname.lower() and 'add_entry' in props:
             default = elementary.Button(pager)
