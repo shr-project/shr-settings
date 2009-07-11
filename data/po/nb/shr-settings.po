@@ -1,0 +1,667 @@
+# Norwegian translation of SHR settings.
+# This file is put in the public domain.
+# Helge Hafting <helge.hafting@hist.no>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: helge.hafting@hist.no\n"
+"POT-Creation-Date: 2009-07-06 13:23+0200\n"
+"PO-Revision-Date: 2009-07-11 15:53+0100\n"
+"Last-Translator: Helge Hafting <helge.hafting@hist.no>\n"
+"Language-Team: Norwegian (bokmål) <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: shr-settings:34
+msgid "Phone"
+msgstr "Telefon"
+
+#: shr-settings:35
+msgid "Profiles"
+msgstr "Profiler"
+
+#: shr-settings:36
+#: shr_settings_modules/shr_bt.py:74
+#: shr_settings_modules/shr_sim.py:182
+msgid "Connectivity"
+msgstr "Forbindelser"
+
+#: shr-settings:37
+msgid "GPS"
+msgstr "GPS"
+
+#: shr-settings:38
+msgid "Date/time"
+msgstr "Dato/tid"
+
+#: shr-settings:39
+msgid "Power"
+msgstr "Strøm"
+
+#: shr-settings:40
+msgid "Services"
+msgstr "Tjenester"
+
+#: shr-settings:41
+msgid "Others"
+msgstr "Annet"
+
+#: shr-settings:133
+#: shr-settings:340
+#: shr_settings_modules/shr_pim.py:92
+#: shr_settings_modules/shr_pim.py:124
+#: shr_settings_modules/shr_gpsinfo.py:41
+#: shr_settings_modules/shr_currentprofile.py:306
+msgid "Quit"
+msgstr "Avslutt"
+
+#: shr-settings:158
+#, python-format
+msgid "Please wait...<br>Loading %d modules..."
+msgstr "Vennligst vent...<br>Laster %d moduler..."
+
+#: shr-settings:235
+#: shr-settings:249
+msgid "ophonekitd log"
+msgstr "\"ophonekitd\" logg"
+
+#: shr-settings:262
+msgid "Clean"
+msgstr ""
+
+#: shr-settings:269
+#: shr-settings:430
+#: shr_settings_modules/shr_services.py:77
+msgid "Close"
+msgstr ""
+
+#: shr-settings:312
+msgid "Settings"
+msgstr "Innstillinger"
+
+#: shr-settings:391
+msgid "ophonekitd"
+msgstr ""
+
+#: shr-settings:396
+msgid "is not running!"
+msgstr ""
+
+#: shr-settings:401
+msgid "Start"
+msgstr ""
+
+#: shr-settings:407
+msgid "View log"
+msgstr ""
+
+#: shr-settings:426
+msgid "Information"
+msgstr ""
+
+#: shr_settings_modules/shr_gprs.py:117
+msgid "GPRS settings"
+msgstr "GPRS innstillinger"
+
+#: shr_settings_modules/shr_gprs.py:118
+msgid "networking"
+msgstr ""
+
+#: shr_settings_modules/shr_gprs.py:188
+msgid "disconnected"
+msgstr "frakoblet"
+
+#: shr_settings_modules/shr_gprs.py:189
+msgid "Connect"
+msgstr "Koble til"
+
+#: shr_settings_modules/shr_gprs.py:192
+msgid "connected"
+msgstr "tilkoblet"
+
+#: shr_settings_modules/shr_gprs.py:193
+#: shr_settings_modules/shr_gprs.py:199
+msgid "Disconnect"
+msgstr "Koble fra"
+
+#: shr_settings_modules/shr_gprs.py:198
+msgid "connecting"
+msgstr "kobler til"
+
+#: shr_settings_modules/shr_gprs.py:202
+#: shr_settings_modules/shr_gprs.py:203
+#: shr_settings_modules/shr_gprs.py:236
+#: shr_settings_modules/shr_gprs.py:246
+msgid "UNKNOWN"
+msgstr "UKJENT"
+
+#: shr_settings_modules/shr_gprs.py:233
+msgid "Your APN: "
+msgstr "APN: "
+
+#: shr_settings_modules/shr_gprs.py:234
+msgid "Your login: "
+msgstr "Brukernavn: "
+
+#: shr_settings_modules/shr_gprs.py:235
+msgid "Your password: "
+msgstr "Passord: "
+
+#: shr_settings_modules/shr_gprs.py:236
+msgid "Connection status: "
+msgstr "Forbindelsen er: "
+
+#: shr_settings_modules/shr_services.py:22
+msgid "Services settings"
+msgstr "Tjenester"
+
+#: shr_settings_modules/shr_services.py:50
+#: shr_settings_modules/shr_services.py:64
+msgid "Services start|stop debug"
+msgstr ""
+
+#: shr_settings_modules/shr_call.py:18
+msgid "Call settings"
+msgstr "Utgående samtaler"
+
+#: shr_settings_modules/shr_call.py:26
+msgid "Turn GSM on."
+msgstr ""
+
+#: shr_settings_modules/shr_call.py:54
+msgid "Show my number:"
+msgstr "Vis nummeret mitt:"
+
+#: shr_settings_modules/shr_call.py:56
+msgid "By network"
+msgstr "Leverandør"
+
+#: shr_settings_modules/shr_call.py:56
+#: shr_settings_modules/shr_gps.py:89
+msgid "Manual"
+msgstr "Manuelt"
+
+#: shr_settings_modules/shr_call.py:76
+#: shr_settings_modules/shr_bt.py:113
+#: shr_settings_modules/shr_bt.py:154
+#: shr_settings_modules/shr_wifi.py:102
+#: shr_settings_modules/shr_gps.py:68
+#: shr_settings_modules/shr_pm.py:55
+#: shr_settings_modules/shr_currentprofile.py:230
+msgid "On"
+msgstr "På"
+
+#: shr_settings_modules/shr_call.py:76
+#: shr_settings_modules/shr_bt.py:113
+#: shr_settings_modules/shr_bt.py:154
+#: shr_settings_modules/shr_wifi.py:102
+#: shr_settings_modules/shr_gps.py:68
+#: shr_settings_modules/shr_pm.py:55
+#: shr_settings_modules/shr_currentprofile.py:238
+msgid "Off"
+msgstr "Av"
+
+#: shr_settings_modules/shr_call.py:87
+#: shr_settings_modules/shr_gps.py:81
+#: shr_settings_modules/shr_gsm.py:383
+msgid "can't connect to dbus"
+msgstr "Ingen forbindelse med \"dbus\""
+
+#: shr_settings_modules/shr_call.py:93
+#: shr_settings_modules/shr_gsm.py:154
+msgid "Please wait..."
+msgstr "Vennligst vent..."
+
+#: shr_settings_modules/shr_device_timeouts.py:133
+msgid "Timeouts settings"
+msgstr ""
+
+#: shr_settings_modules/shr_help.py:35
+msgid "Help"
+msgstr "Hjelp"
+
+#: shr_settings_modules/shr_clock.py:28
+msgid "Time settings"
+msgstr ""
+
+#: shr_settings_modules/shr_clock.py:29
+msgid "Other"
+msgstr ""
+
+#: shr_settings_modules/shr_clock.py:36
+#: shr_settings_modules/shr_clock.py:51
+msgid "Set time"
+msgstr ""
+
+#: shr_settings_modules/shr_clock.py:40
+msgid "OK"
+msgstr ""
+
+#: shr_settings_modules/shr_test.py:27
+msgid "test"
+msgstr ""
+
+#: shr_settings_modules/shr_test.py:33
+msgid "Just for fun"
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:13
+msgid "Image information"
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:55
+msgid "Buildhost: "
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:56
+msgid "Revision: "
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:57
+msgid "Branch: "
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:58
+msgid "Timestamp: "
+msgstr ""
+
+#: shr_settings_modules/shr_battery.py:96
+msgid "USB charging rate:"
+msgstr "USB strømstyrke:"
+
+#: shr_settings_modules/shr_battery.py:110
+msgid "Battery settings"
+msgstr "Batteriinnstillinger"
+
+#: shr_settings_modules/shr_battery.py:226
+msgid "Charge: "
+msgstr "Fyllingsgrad: "
+
+#: shr_settings_modules/shr_battery.py:227
+msgid "Power info: "
+msgstr "Strøminfo: "
+
+#: shr_settings_modules/shr_battery.py:228
+msgid "Status: "
+msgstr "Status: "
+
+#: shr_settings_modules/shr_battery.py:253
+msgid "Update"
+msgstr "Oppdatér"
+
+#: shr_settings_modules/shr_bt.py:73
+msgid "Bluetooth settings"
+msgstr "Innstillinger for blåtann"
+
+#: shr_settings_modules/shr_bt.py:111
+msgid "Visibility:"
+msgstr "Synlighet:"
+
+#: shr_settings_modules/shr_bt.py:152
+msgid "Bluetooth radio:"
+msgstr "Blåtann radio:"
+
+#: shr_settings_modules/shr_wifi.py:30
+#: shr_settings_modules/shr_wifi.py:33
+msgid "WiFi Manager"
+msgstr ""
+
+#: shr_settings_modules/shr_wifi.py:101
+msgid "WiFi radio:"
+msgstr "WiFi radio:"
+
+#: shr_settings_modules/shr_wifi.py:115
+msgid "WiFi settings"
+msgstr "Innstillinger for WiFi"
+
+#: shr_settings_modules/shr_about.py:24
+msgid "About"
+msgstr "Om"
+
+#: shr_settings_modules/shr_gps.py:19
+msgid "GPS settings"
+msgstr "Innstillinger for GPS"
+
+#: shr_settings_modules/shr_gps.py:87
+msgid "GPS radio:"
+msgstr "GPS radio:"
+
+#: shr_settings_modules/shr_gps.py:89
+msgid "Auto"
+msgstr "Auto"
+
+#: shr_settings_modules/shr_date.py:15
+msgid "Date"
+msgstr "Dato"
+
+#: shr_settings_modules/shr_profile.py:24
+msgid "Profile settings"
+msgstr "Profilinnstillinger"
+
+#: shr_settings_modules/shr_profile.py:57
+#, python-format
+msgid "Profiles (%s)"
+msgstr "Profiler (%s)"
+
+#: shr_settings_modules/shr_usb.py:18
+msgid "USB settings"
+msgstr "USB-innstillinger"
+
+#: shr_settings_modules/shr_usb.py:49
+msgid "USB mode:"
+msgstr "USB-modus:"
+
+#: shr_settings_modules/shr_usb.py:51
+msgid "Device"
+msgstr "Dings"
+
+#: shr_settings_modules/shr_usb.py:51
+msgid "Host"
+msgstr "Vert"
+
+#: shr_settings_modules/module.py:50
+msgid "OhMy! I have no name!"
+msgstr ""
+
+#: shr_settings_modules/module.py:53
+msgid "main"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:24
+msgid "PIM settings"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:31
+msgid "DBus is borked"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:70
+#, python-format
+msgid "%(backend)s<br>(domain: %(domain)s)"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:75
+msgid "enabled"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:85
+msgid "Set as default"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:157
+msgid " (default)"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:179
+msgid "Domains"
+msgstr ""
+
+#: shr_settings_modules/shr_sim.py:126
+msgid "Book "
+msgstr ""
+
+#: shr_settings_modules/shr_sim.py:170
+#: shr_settings_modules/shr_sim.py:283
+msgid "clean"
+msgstr ""
+
+#: shr_settings_modules/shr_sim.py:181
+msgid "SIM settings"
+msgstr ""
+
+#: shr_settings_modules/shr_sim.py:241
+msgid "Message book"
+msgstr ""
+
+#: shr_settings_modules/shr_sim.py:310
+msgid "Cannot connect to dbus"
+msgstr ""
+
+#: shr_settings_modules/shr_sim.py:325
+msgid "SIM information:"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:115
+msgid "GSM settings"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:134
+msgid "Could not connect to network"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:160
+#: shr_settings_modules/shr_gsm.py:166
+#: shr_settings_modules/shr_gsm.py:248
+msgid "Operators"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:170
+#: shr_settings_modules/shr_gsm.py:184
+msgid "List Providers"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:198
+#: shr_settings_modules/shr_gsm.py:318
+msgid "Cancel"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:209
+msgid "Automatic"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:221
+msgid " [current]"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:223
+msgid " [forbidden]"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:255
+msgid "Modem information"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:290
+#: shr_settings_modules/shr_gsm.py:304
+msgid "GSM modem information"
+msgstr ""
+
+#: shr_settings_modules/shr_gsm.py:369
+msgid "GSM antenna:"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:23
+#: shr_settings_modules/shr_gpsinfo.py:219
+msgid "Satellite details"
+msgstr "Satelittdetaljer"
+
+#: shr_settings_modules/shr_gpsinfo.py:94
+msgid "Time"
+msgstr "Klokke:"
+
+#: shr_settings_modules/shr_gpsinfo.py:95
+msgid "Fix"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:96
+msgid "Lat"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:97
+msgid "Lon"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:98
+msgid "Alt"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:99
+msgid "Accuracy"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:100
+msgid "Satellites"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:101
+msgid "Heading"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:102
+msgid "Speed"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:103
+msgid "Descend"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:237
+msgid "GPS informations"
+msgstr ""
+
+#: shr_settings_modules/shr_gpsinfo.py:257
+msgid "Remove AGPS data"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:104
+msgid "Select Item"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:128
+msgid "Up"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:135
+msgid "Done"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:242
+msgid "Delete Archives"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:293
+msgid "Go"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:337
+msgid "Userspace Backup"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:467
+msgid "Directory required."
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:469
+#: shr_settings_modules/shr_backup.py:482
+msgid "Config Files couldn't be loaded<br>Please investigate!"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:480
+msgid "File required."
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:486
+msgid " In Progress."
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:490
+msgid " Complete."
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:492
+msgid " Failed. "
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:498
+msgid "Archive Directory"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:504
+msgid "Restore File"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:530
+msgid "Backup Mode"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:531
+msgid "Archive"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:531
+msgid "Restore"
+msgstr ""
+
+#: shr_settings_modules/shr_display.py:26
+msgid "Display settings"
+msgstr ""
+
+#: shr_settings_modules/shr_display.py:46
+msgid "Backlight "
+msgstr ""
+
+#: shr_settings_modules/shr_pm.py:68
+msgid "Power settings"
+msgstr ""
+
+#: shr_settings_modules/shr_pm.py:119
+msgid "Auto-dimming:"
+msgstr ""
+
+#: shr_settings_modules/shr_pm.py:120
+msgid "Auto-suspend:"
+msgstr ""
+
+#: shr_settings_modules/shr_misc.py:14
+msgid "Miscellaneous settings"
+msgstr "Diverse innstillinger"
+
+#: shr_settings_modules/shr_misc.py:18
+msgid "Suspend, dim time and etc."
+msgstr ""
+
+#: shr_settings_modules/shr_currentprofile.py:282
+#: shr_settings_modules/shr_currentprofile.py:285
+msgid "Change ringtone"
+msgstr "Bytte ringetone"
+
+#: shr_settings_modules/shr_currentprofile.py:292
+msgid "Select ringtone"
+msgstr "Velg ringetone"
+
+#: shr_settings_modules/shr_currentprofile.py:294
+msgid "Ringtones are placed in /usr/share/sounds/"
+msgstr "Ringetoner lagres i /usr/share/sounds/"
+
+#: shr_settings_modules/shr_currentprofile.py:397
+#: shr_settings_modules/shr_currentprofile.py:427
+msgid "Play"
+msgstr "Spill"
+
+#: shr_settings_modules/shr_currentprofile.py:403
+msgid "Stop"
+msgstr "Stopp"
+
+#: shr_settings_modules/shr_currentprofile.py:435
+msgid "Change"
+msgstr "Bytt"
+
+#: shr_settings_modules/shr_currentprofile.py:529
+msgid "Current profile settings"
+msgstr "Innstillinger for gjeldende profil"
+
+#: shr_settings_modules/shr_splash.py:18
+msgid "Splash settings"
+msgstr ""
+
+#: shr_settings_modules/shr_splash.py:65
+#, python-format
+msgid "Themes (%s)"
+msgstr ""
+
+#: shr_settings_modules/shr_splash.py:112
+msgid "Preview"
+msgstr ""
+
