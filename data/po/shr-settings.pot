@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-15 18:30+0200\n"
+"POT-Creation-Date: 2009-07-11 15:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,84 +15,88 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: shr-settings:121 shr-settings:326 shr_settings_modules/shr_gpsinfo.py:41
-#: shr_settings_modules/shr_currentprofile.py:303
-#: shr_settings_modules/shr_pim.py:89
-msgid "Quit"
-msgstr ""
-
-#: shr-settings:146
-#, python-format
-msgid "Please wait...<br>Loading %d modules..."
-msgstr ""
-
-#: shr-settings:222 shr-settings:236
-msgid "ophonekitd log"
-msgstr ""
-
-#: shr-settings:249
-msgid "Clean"
-msgstr ""
-
-#: shr-settings:256 shr-settings:427 shr_settings_modules/shr_services.py:77
-msgid "Close"
-msgstr ""
-
-#: shr-settings:298
-msgid "Settings"
-msgstr ""
-
-#: shr-settings:345
+#: shr-settings:34
 msgid "Phone"
 msgstr ""
 
-#: shr-settings:346
+#: shr-settings:35
 msgid "Profiles"
 msgstr ""
 
-#: shr-settings:347 shr_settings_modules/shr_bt.py:74
+#: shr-settings:36 shr_settings_modules/shr_bt.py:74
 #: shr_settings_modules/shr_sim.py:182
 msgid "Connectivity"
 msgstr ""
 
-#: shr-settings:348
+#: shr-settings:37
 msgid "GPS"
 msgstr ""
 
-#: shr-settings:349
+#: shr-settings:38
 msgid "Date/time"
 msgstr ""
 
-#: shr-settings:350
+#: shr-settings:39
 msgid "Power"
 msgstr ""
 
-#: shr-settings:351
+#: shr-settings:40
 msgid "Services"
 msgstr ""
 
-#: shr-settings:352
+#: shr-settings:41
 msgid "Others"
 msgstr ""
 
-#: shr-settings:388
+#: shr-settings:133 shr-settings:340 shr_settings_modules/shr_gpsinfo.py:41
+#: shr_settings_modules/shr_currentprofile.py:307
+#: shr_settings_modules/shr_pim.py:116 shr_settings_modules/shr_pim.py:148
+msgid "Quit"
+msgstr ""
+
+#: shr-settings:158
+#, python-format
+msgid "Please wait...<br>Loading %d modules..."
+msgstr ""
+
+#: shr-settings:235 shr-settings:249
+msgid "ophonekitd log"
+msgstr ""
+
+#: shr-settings:262
+msgid "Clean"
+msgstr ""
+
+#: shr-settings:269 shr-settings:430 shr_settings_modules/shr_services.py:77
+msgid "Close"
+msgstr ""
+
+#: shr-settings:312
+msgid "Settings"
+msgstr ""
+
+#: shr-settings:391
 msgid "ophonekitd"
 msgstr ""
 
-#: shr-settings:393
+#: shr-settings:396
 msgid "is not running!"
 msgstr ""
 
-#: shr-settings:398
+#: shr-settings:401
 msgid "Start"
 msgstr ""
 
-#: shr-settings:404
+#: shr-settings:407
 msgid "View log"
 msgstr ""
 
-#: shr-settings:423
+#: shr-settings:426
 msgid "Information"
+msgstr ""
+
+#: shr_settings_modules/shr_date.py:15
+msgid "Date"
 msgstr ""
 
 #: shr_settings_modules/shr_backup.py:104
@@ -119,48 +123,49 @@ msgstr ""
 msgid "Userspace Backup"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:459
+#: shr_settings_modules/shr_backup.py:467
 msgid "Directory required."
 msgstr ""
 
 #: shr_settings_modules/shr_backup.py:469
+#: shr_settings_modules/shr_backup.py:482
+msgid "Config Files couldn't be loaded<br>Please investigate!"
+msgstr ""
+
+#: shr_settings_modules/shr_backup.py:480
 msgid "File required."
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:473
+#: shr_settings_modules/shr_backup.py:486
 msgid " In Progress."
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:477
+#: shr_settings_modules/shr_backup.py:490
 msgid " Complete."
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:479
+#: shr_settings_modules/shr_backup.py:492
 msgid " Failed. "
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:485
+#: shr_settings_modules/shr_backup.py:498
 msgid "Archive Directory"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:491
+#: shr_settings_modules/shr_backup.py:504
 msgid "Restore File"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:515
+#: shr_settings_modules/shr_backup.py:530
 msgid "Backup Mode"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:516
+#: shr_settings_modules/shr_backup.py:531
 msgid "Archive"
 msgstr ""
 
-#: shr_settings_modules/shr_backup.py:516
+#: shr_settings_modules/shr_backup.py:531
 msgid "Restore"
-msgstr ""
-
-#: shr_settings_modules/shr_backup.py:537
-msgid "Config Files couldn't be loaded<br>Please investigate!"
 msgstr ""
 
 #: shr_settings_modules/shr_about.py:24
@@ -172,7 +177,7 @@ msgid "Timeouts settings"
 msgstr ""
 
 #: shr_settings_modules/shr_gpsinfo.py:23
-#: shr_settings_modules/shr_gpsinfo.py:220
+#: shr_settings_modules/shr_gpsinfo.py:219
 msgid "Satellite details"
 msgstr ""
 
@@ -216,11 +221,11 @@ msgstr ""
 msgid "Descend"
 msgstr ""
 
-#: shr_settings_modules/shr_gpsinfo.py:238
+#: shr_settings_modules/shr_gpsinfo.py:237
 msgid "GPS informations"
 msgstr ""
 
-#: shr_settings_modules/shr_gpsinfo.py:258
+#: shr_settings_modules/shr_gpsinfo.py:257
 msgid "Remove AGPS data"
 msgstr ""
 
@@ -245,18 +250,18 @@ msgid "Help"
 msgstr ""
 
 #: shr_settings_modules/shr_pm.py:55
-#: shr_settings_modules/shr_currentprofile.py:227
-#: shr_settings_modules/shr_bt.py:113 shr_settings_modules/shr_bt.py:151
-#: shr_settings_modules/shr_gps.py:69 shr_settings_modules/shr_call.py:76
-#: shr_settings_modules/shr_wifi.py:103
+#: shr_settings_modules/shr_currentprofile.py:230
+#: shr_settings_modules/shr_bt.py:113 shr_settings_modules/shr_bt.py:154
+#: shr_settings_modules/shr_gps.py:68 shr_settings_modules/shr_call.py:76
+#: shr_settings_modules/shr_wifi.py:102
 msgid "On"
 msgstr ""
 
 #: shr_settings_modules/shr_pm.py:55
-#: shr_settings_modules/shr_currentprofile.py:235
-#: shr_settings_modules/shr_bt.py:113 shr_settings_modules/shr_bt.py:151
-#: shr_settings_modules/shr_gps.py:69 shr_settings_modules/shr_call.py:76
-#: shr_settings_modules/shr_wifi.py:103
+#: shr_settings_modules/shr_currentprofile.py:238
+#: shr_settings_modules/shr_bt.py:113 shr_settings_modules/shr_bt.py:154
+#: shr_settings_modules/shr_gps.py:68 shr_settings_modules/shr_call.py:76
+#: shr_settings_modules/shr_wifi.py:102
 msgid "Off"
 msgstr ""
 
@@ -264,11 +269,11 @@ msgstr ""
 msgid "Power settings"
 msgstr ""
 
-#: shr_settings_modules/shr_pm.py:116
+#: shr_settings_modules/shr_pm.py:119
 msgid "Auto-dimming:"
 msgstr ""
 
-#: shr_settings_modules/shr_pm.py:117
+#: shr_settings_modules/shr_pm.py:120
 msgid "Auto-suspend:"
 msgstr ""
 
@@ -301,53 +306,53 @@ msgid "connecting"
 msgstr ""
 
 #: shr_settings_modules/shr_gprs.py:202 shr_settings_modules/shr_gprs.py:203
-#: shr_settings_modules/shr_gprs.py:233 shr_settings_modules/shr_gprs.py:243
+#: shr_settings_modules/shr_gprs.py:236 shr_settings_modules/shr_gprs.py:246
 msgid "UNKNOWN"
 msgstr ""
 
-#: shr_settings_modules/shr_gprs.py:230
+#: shr_settings_modules/shr_gprs.py:233
 msgid "Your APN: "
 msgstr ""
 
-#: shr_settings_modules/shr_gprs.py:231
+#: shr_settings_modules/shr_gprs.py:234
 msgid "Your login: "
 msgstr ""
 
-#: shr_settings_modules/shr_gprs.py:232
+#: shr_settings_modules/shr_gprs.py:235
 msgid "Your password: "
 msgstr ""
 
-#: shr_settings_modules/shr_gprs.py:233
+#: shr_settings_modules/shr_gprs.py:236
 msgid "Connection status: "
 msgstr ""
 
-#: shr_settings_modules/shr_currentprofile.py:279
 #: shr_settings_modules/shr_currentprofile.py:282
+#: shr_settings_modules/shr_currentprofile.py:285
 msgid "Change ringtone"
 msgstr ""
 
-#: shr_settings_modules/shr_currentprofile.py:289
+#: shr_settings_modules/shr_currentprofile.py:292
 msgid "Select ringtone"
 msgstr ""
 
-#: shr_settings_modules/shr_currentprofile.py:291
+#: shr_settings_modules/shr_currentprofile.py:294
 msgid "Ringtones are placed in /usr/share/sounds/"
 msgstr ""
 
-#: shr_settings_modules/shr_currentprofile.py:394
-#: shr_settings_modules/shr_currentprofile.py:464
+#: shr_settings_modules/shr_currentprofile.py:398
+#: shr_settings_modules/shr_currentprofile.py:428
 msgid "Play"
 msgstr ""
 
-#: shr_settings_modules/shr_currentprofile.py:400
+#: shr_settings_modules/shr_currentprofile.py:404
 msgid "Stop"
 msgstr ""
 
-#: shr_settings_modules/shr_currentprofile.py:485
+#: shr_settings_modules/shr_currentprofile.py:436
 msgid "Change"
 msgstr ""
 
-#: shr_settings_modules/shr_currentprofile.py:505
+#: shr_settings_modules/shr_currentprofile.py:535
 msgid "Current profile settings"
 msgstr ""
 
@@ -368,7 +373,7 @@ msgstr ""
 msgid "Visibility:"
 msgstr ""
 
-#: shr_settings_modules/shr_bt.py:149
+#: shr_settings_modules/shr_bt.py:152
 msgid "Bluetooth radio:"
 msgstr ""
 
@@ -380,28 +385,52 @@ msgstr ""
 msgid "DBus is borked"
 msgstr ""
 
-#: shr_settings_modules/shr_pim.py:67
+#: shr_settings_modules/shr_pim.py:70
 #, python-format
 msgid "%(backend)s<br>(domain: %(domain)s)"
 msgstr ""
 
-#: shr_settings_modules/shr_pim.py:72
+#: shr_settings_modules/shr_pim.py:75
 msgid "enabled"
 msgstr ""
 
-#: shr_settings_modules/shr_pim.py:82
+#: shr_settings_modules/shr_pim.py:83
+msgid "adding entries"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:83
+msgid "updating entries"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:83
+msgid "deleting entries"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:83
+msgid "adding new fields to entries"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:83
+msgid "needs loging in"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:83
+msgid "needs syncing"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:85
+msgid "Properties"
+msgstr ""
+
+#: shr_settings_modules/shr_pim.py:109
 msgid "Set as default"
 msgstr ""
 
-#: shr_settings_modules/shr_pim.py:134
-msgid "Options"
-msgstr ""
-
-#: shr_settings_modules/shr_pim.py:139
+#: shr_settings_modules/shr_pim.py:181
 msgid " (default)"
 msgstr ""
 
-#: shr_settings_modules/shr_pim.py:161
+#: shr_settings_modules/shr_pim.py:203
 msgid "Domains"
 msgstr ""
 
@@ -411,6 +440,26 @@ msgstr ""
 
 #: shr_settings_modules/module.py:53
 msgid "main"
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:13
+msgid "Image information"
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:55
+msgid "Buildhost: "
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:56
+msgid "Revision: "
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:57
+msgid "Branch: "
+msgstr ""
+
+#: shr_settings_modules/shr_imageinfo.py:58
+msgid "Timestamp: "
 msgstr ""
 
 #: shr_settings_modules/shr_misc.py:14
@@ -429,19 +478,19 @@ msgstr ""
 msgid "Battery settings"
 msgstr ""
 
-#: shr_settings_modules/shr_battery.py:222
+#: shr_settings_modules/shr_battery.py:226
 msgid "Charge: "
 msgstr ""
 
-#: shr_settings_modules/shr_battery.py:223
+#: shr_settings_modules/shr_battery.py:227
 msgid "Power info: "
 msgstr ""
 
-#: shr_settings_modules/shr_battery.py:224
+#: shr_settings_modules/shr_battery.py:228
 msgid "Status: "
 msgstr ""
 
-#: shr_settings_modules/shr_battery.py:249
+#: shr_settings_modules/shr_battery.py:253
 msgid "Update"
 msgstr ""
 
@@ -478,24 +527,24 @@ msgstr ""
 msgid "Host"
 msgstr ""
 
-#: shr_settings_modules/shr_gps.py:20
+#: shr_settings_modules/shr_gps.py:19
 msgid "GPS settings"
 msgstr ""
 
-#: shr_settings_modules/shr_gps.py:82 shr_settings_modules/shr_call.py:87
+#: shr_settings_modules/shr_gps.py:81 shr_settings_modules/shr_call.py:87
 #: shr_settings_modules/shr_gsm.py:383
 msgid "can't connect to dbus"
 msgstr ""
 
-#: shr_settings_modules/shr_gps.py:88
+#: shr_settings_modules/shr_gps.py:87
 msgid "GPS radio:"
 msgstr ""
 
-#: shr_settings_modules/shr_gps.py:90
+#: shr_settings_modules/shr_gps.py:89
 msgid "Auto"
 msgstr ""
 
-#: shr_settings_modules/shr_gps.py:90 shr_settings_modules/shr_call.py:56
+#: shr_settings_modules/shr_gps.py:89 shr_settings_modules/shr_call.py:56
 msgid "Manual"
 msgstr ""
 
@@ -600,11 +649,11 @@ msgstr ""
 msgid "WiFi Manager"
 msgstr ""
 
-#: shr_settings_modules/shr_wifi.py:102
+#: shr_settings_modules/shr_wifi.py:101
 msgid "WiFi radio:"
 msgstr ""
 
-#: shr_settings_modules/shr_wifi.py:116
+#: shr_settings_modules/shr_wifi.py:115
 msgid "WiFi settings"
 msgstr ""
 
@@ -617,6 +666,6 @@ msgstr ""
 msgid "Themes (%s)"
 msgstr ""
 
-#: shr_settings_modules/shr_splash.py:111
+#: shr_settings_modules/shr_splash.py:112
 msgid "Preview"
 msgstr ""
