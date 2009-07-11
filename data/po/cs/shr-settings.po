@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-12 16:17+0200\n"
-"PO-Revision-Date: 2009-06-12 17:22+0100\n"
+"PO-Revision-Date: 2009-07-11 15:43+0100\n"
 "Last-Translator: Petr Vanek <vanous@penguin.cz>\n"
 "Language-Team: LANGUAGE <vanous@penguin.cz>\n"
 "MIME-Version: 1.0\n"
@@ -105,11 +105,11 @@ msgstr "Informace"
 
 #: shr_settings_modules/shr_bt.py:73
 msgid "Bluetooth settings"
-msgstr "Nastevení Bluetooth"
+msgstr "Nastavení Bluetooth"
 
 #: shr_settings_modules/shr_bt.py:130
 msgid "Bluetooth radio:"
-msgstr "Bluetooth:"
+msgstr "Bluetooth zařízení:"
 
 #: shr_settings_modules/shr_bt.py:132
 #: shr_settings_modules/shr_bt.py:139
@@ -119,7 +119,7 @@ msgstr "Bluetooth:"
 #: shr_settings_modules/shr_gps.py:299
 #: shr_settings_modules/shr_wifi.py:103
 msgid "On"
-msgstr "On"
+msgstr "Zapnuto"
 
 #: shr_settings_modules/shr_bt.py:132
 #: shr_settings_modules/shr_bt.py:139
@@ -129,7 +129,7 @@ msgstr "On"
 #: shr_settings_modules/shr_gps.py:299
 #: shr_settings_modules/shr_wifi.py:103
 msgid "Off"
-msgstr "Off"
+msgstr "Vypnuto"
 
 #: shr_settings_modules/shr_bt.py:137
 msgid "Visibility:"
@@ -137,7 +137,7 @@ msgstr "Viditelný:"
 
 #: shr_settings_modules/shr_call.py:18
 msgid "Call settings"
-msgstr "Nastavené hovorů"
+msgstr "Nastavení hovorů"
 
 #: shr_settings_modules/shr_call.py:65
 #: shr_settings_modules/shr_gps.py:283
@@ -151,7 +151,7 @@ msgstr "Zobrazit mé číslo:"
 
 #: shr_settings_modules/shr_call.py:73
 msgid "By network"
-msgstr "Podle operátor"
+msgstr "Dle operátora"
 
 #: shr_settings_modules/shr_call.py:73
 #: shr_settings_modules/shr_gps.py:291
@@ -251,11 +251,11 @@ msgstr "Nastavení napájení"
 
 #: shr_settings_modules/shr_pm.py:116
 msgid "Auto-dimming:"
-msgstr "Auto stmívání:"
+msgstr "Auto-stmívání:"
 
 #: shr_settings_modules/shr_pm.py:117
 msgid "Auto-suspend:"
-msgstr "Auto uspání:"
+msgstr "Auto-uspání:"
 
 #: shr_settings_modules/shr_gprs.py:118
 msgid "GPRS settings"
@@ -295,15 +295,15 @@ msgstr "NEZNÁMÝ"
 
 #: shr_settings_modules/shr_gprs.py:231
 msgid "Your APN: "
-msgstr "Váš APN:"
+msgstr "APN:"
 
 #: shr_settings_modules/shr_gprs.py:232
 msgid "Your login: "
-msgstr "Vaše přihlašovací jméno:"
+msgstr "Přihlašovací jméno:"
 
 #: shr_settings_modules/shr_gprs.py:233
 msgid "Your password: "
-msgstr "Vaše heslo:"
+msgstr "Heslo:"
 
 #: shr_settings_modules/shr_gprs.py:234
 msgid "Connection status: "
@@ -385,11 +385,11 @@ msgstr "Rychlost"
 
 #: shr_settings_modules/shr_gps.py:103
 msgid "Descend"
-msgstr "KLesání"
+msgstr "Klesání"
 
 #: shr_settings_modules/shr_gps.py:236
 msgid "GPS settings"
-msgstr "GPS nastavení"
+msgstr "Nastavení GPS"
 
 #: shr_settings_modules/shr_gps.py:289
 msgid "GPS radio policy:"
@@ -430,7 +430,7 @@ msgstr "WiFi Manažér"
 
 #: shr_settings_modules/shr_wifi.py:102
 msgid "WiFi radio:"
-msgstr "Wifi:"
+msgstr "Wifi zařízení:"
 
 #: shr_settings_modules/shr_wifi.py:116
 msgid "WiFi settings"
@@ -443,7 +443,7 @@ msgstr "Nastavení služeb"
 #: shr_settings_modules/shr_services.py:50
 #: shr_settings_modules/shr_services.py:64
 msgid "Services start|stop debug"
-msgstr "Složby start|stop ladit"
+msgstr "Služby start|stop ladit"
 
 #: shr_settings_modules/shr_pim.py:24
 msgid "PIM settings"
@@ -456,7 +456,7 @@ msgstr "Dbus zhavaroval"
 #: shr_settings_modules/shr_pim.py:67
 #, python-format
 msgid "%(backend)s<br>(domain: %(domain)s)"
-msgstr "%(backend)s<br>(domain: %(domain)s)"
+msgstr "%(backend)s<br>(doména: %(domain)s)"
 
 #: shr_settings_modules/shr_pim.py:72
 msgid "enabled"
@@ -496,7 +496,7 @@ msgstr "USB Mód"
 
 #: shr_settings_modules/shr_usb.py:51
 msgid "Device"
-msgstr "Zažísení"
+msgstr "Zařízení"
 
 #: shr_settings_modules/shr_usb.py:51
 msgid "Host"
@@ -535,7 +535,7 @@ msgstr "Čekejte prosím"
 #: shr_settings_modules/shr_gsm.py:144
 #: shr_settings_modules/shr_gsm.py:331
 msgid "Operators"
-msgstr "Operátoři"
+msgstr "Seznam operátorů"
 
 #: shr_settings_modules/shr_gsm.py:148
 #: shr_settings_modules/shr_gsm.py:162
@@ -578,7 +578,7 @@ msgstr "Vymazat archívy"
 
 #: shr_settings_modules/shr_backup.py:293
 msgid " Go "
-msgstr " Jít"
+msgstr " Spustit"
 
 #: shr_settings_modules/shr_backup.py:337
 msgid "Userspace Backup"
