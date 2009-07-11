@@ -474,19 +474,24 @@ class ToneChangeBox(PreferenceBox):
             self.tonefile = str(isSid.group(1))
             self.tonepath = SND_DIR + self.tonefile
 
-            sidFile = open(self.tonepath, "rb")
-            sidFile.seek(0x0E)
-            self.sidTracks = int("0x"+repr(sidFile.read(2)).replace("'","").replace('\\x',''),16)
-            sidFile.close()
+            try:
+                sidFile = open(self.tonepath, "rb")
+                sidFile.seek(0x0E)
+                self.sidTracks = int("0x"+repr(sidFile.read(2)).replace("'","").replace('\\x',''),16)
+                sidFile.close()
 
-            if isSid.group(3):
-                self.sidValue = int(isSid.group(3))
-            else:
-                self.sidValue = 1
+                if isSid.group(3):
+                    self.sidValue = int(isSid.group(3))
+                else:
+                    self.sidValue = 1
 
-            self.label.label_set("{0}  {1}/{2}".format(self.tonefile,self.sidValue, self.sidTracks))
+                self.label.label_set("{0}  {1}/{2}".format(self.tonefile,self.sidValue, self.sidTracks))
 
-            self.updateButtons( True )
+                self.updateButtons( True )
+            except:
+                self.sidValue = 0
+                self.sidTracks = 0
+                self.updateButtons( False )
         else:
             self.sidValue = 0
             self.sidTracks = 0
