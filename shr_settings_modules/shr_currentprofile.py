@@ -301,6 +301,7 @@ class ToneChangeBox(PreferenceBox):
         scr = elementary.Scroller(self.FLBWin)
         scr.size_hint_weight_set(1.0, 1.0)
         scr.size_hint_align_set(-1.0, -1.0)
+        scr.bounce_set(0, 0)
         box.pack_end(scr)
         exitbtn = elementary.Button(self.FLBWin)
         exitbtn.label_set(_("Quit"))
