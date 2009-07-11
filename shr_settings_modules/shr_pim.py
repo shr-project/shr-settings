@@ -80,7 +80,7 @@ class Pim(module.AbstractModule):
 
         props = backend.GetProperties()
 
-        prop_texts = {'add_entry':_('adding entries'), 'upd_entry':_('updating entries'),'del_entry':_('deleting entries'),'upd_entry_with_new_field':_('adding new fields to entries'),'needs_login':_('needs loging in'),'needs_sync':_('needs syncing')}
+        prop_texts = {'add_entry':_('adding entries'), 'upd_entry':_('updating entries'),'del_entry':_('deleting entries'),'upd_entry_with_new_field':_('adding new fields to entries'),'needs_login':_('needs loging in'),'needs_sync':_('needs syncing'),'is_handler':_("it's handler")}
 
         prop_text = '<b>' + _('Properties') + ': </b><br>';
 
