@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SHR Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-11 15:35+0200\n"
-"PO-Revision-Date: 2009-07-11 15:41+0100\n"
+"POT-Creation-Date: 2009-07-12 12:34+0200\n"
+"PO-Revision-Date: 2009-07-12 12:35+0100\n"
 "Last-Translator: Sebastian Krzyszkowiak <seba.dos1@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -433,6 +433,10 @@ msgstr "potrzebuje logowania"
 #: shr_settings_modules/shr_pim.py:83
 msgid "needs syncing"
 msgstr "potrzebuje synchronizacji"
+
+#: shr_settings_modules/shr_pim.py:83
+msgid "it's handler"
+msgstr "jest handlerem"
 
 #: shr_settings_modules/shr_pim.py:85
 msgid "Properties"
