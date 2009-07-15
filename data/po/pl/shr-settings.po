@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SHR Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-12 12:34+0200\n"
-"PO-Revision-Date: 2009-07-12 12:35+0100\n"
+"POT-Creation-Date: 2009-07-15 21:46+0200\n"
+"PO-Revision-Date: 2009-07-15 22:09+0100\n"
 "Last-Translator: Sebastian Krzyszkowiak <seba.dos1@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -184,6 +184,21 @@ msgstr "Informacje"
 msgid "Timeouts settings"
 msgstr "Ustawienia czasowe"
 
+#: shr_settings_modules/shr_device_timeouts.py:137
+#: shr_settings_modules/shr_gprs.py:125
+#: shr_settings_modules/shr_currentprofile.py:539
+#: shr_settings_modules/shr_bt.py:78
+#: shr_settings_modules/shr_pim.py:31
+#: shr_settings_modules/shr_battery.py:117
+#: shr_settings_modules/shr_profile.py:31
+#: shr_settings_modules/shr_gps.py:81
+#: shr_settings_modules/shr_call.py:87
+#: shr_settings_modules/shr_gsm.py:383
+#: shr_settings_modules/shr_sim.py:310
+#: shr_settings_modules/shr_wifi.py:119
+msgid "Couldn't connect to FSO"
+msgstr "Nie można połączyć się z FSO"
+
 #: shr_settings_modules/shr_gpsinfo.py:23
 #: shr_settings_modules/shr_gpsinfo.py:219
 msgid "Satellite details"
@@ -219,7 +234,7 @@ msgstr "Satelity"
 
 #: shr_settings_modules/shr_gpsinfo.py:101
 msgid "Heading"
-msgstr ""
+msgstr "Kierunek"
 
 #: shr_settings_modules/shr_gpsinfo.py:102
 msgid "Speed"
@@ -281,6 +296,10 @@ msgstr "Wyłączony"
 #: shr_settings_modules/shr_pm.py:68
 msgid "Power settings"
 msgstr "Ustawienia zasilania"
+
+#: shr_settings_modules/shr_pm.py:75
+msgid "Couldn't connect to FSO or ophonekitd"
+msgstr "Nie można połączyć się z FSO lub ophonekitd"
 
 #: shr_settings_modules/shr_pm.py:119
 msgid "Auto-dimming:"
@@ -396,10 +415,6 @@ msgstr "Antena Bluetooth:"
 #: shr_settings_modules/shr_pim.py:24
 msgid "PIM settings"
 msgstr "Ustawienia PIM"
-
-#: shr_settings_modules/shr_pim.py:31
-msgid "DBus is borked"
-msgstr "dbus jest zepsuty"
 
 #: shr_settings_modules/shr_pim.py:70
 #, python-format
@@ -551,12 +566,6 @@ msgstr "Gospodarz"
 msgid "GPS settings"
 msgstr "Ustawienia GPS"
 
-#: shr_settings_modules/shr_gps.py:81
-#: shr_settings_modules/shr_call.py:87
-#: shr_settings_modules/shr_gsm.py:383
-msgid "can't connect to dbus"
-msgstr "nie można połączyć się z dbusem"
-
 #: shr_settings_modules/shr_gps.py:87
 msgid "GPS radio:"
 msgstr "Antena GPS:"
@@ -665,10 +674,6 @@ msgstr "Ustawienia SIM"
 msgid "Message book"
 msgstr "Wiadomości"
 
-#: shr_settings_modules/shr_sim.py:310
-msgid "Cannot connect to dbus"
-msgstr "Nie można połączyć się z dbusem"
-
 #: shr_settings_modules/shr_sim.py:325
 msgid "SIM information:"
 msgstr "Informacje SIM:"
@@ -699,6 +704,12 @@ msgstr "Motywy (%s)"
 msgid "Preview"
 msgstr "Podgląd"
 
+#~ msgid "DBus is borked"
+#~ msgstr "dbus jest zepsuty"
+#~ msgid "can't connect to dbus"
+#~ msgstr "nie można połączyć się z dbusem"
+#~ msgid "Cannot connect to dbus"
+#~ msgstr "Nie można połączyć się z dbusem"
 #~ msgid "Options"
 #~ msgstr "Opcje"
 #~ msgid "Radio:"

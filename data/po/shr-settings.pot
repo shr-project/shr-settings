@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-12 12:34+0200\n"
+"POT-Creation-Date: 2009-07-15 21:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -176,6 +176,17 @@ msgstr ""
 msgid "Timeouts settings"
 msgstr ""
 
+#: shr_settings_modules/shr_device_timeouts.py:137
+#: shr_settings_modules/shr_gprs.py:125
+#: shr_settings_modules/shr_currentprofile.py:539
+#: shr_settings_modules/shr_bt.py:78 shr_settings_modules/shr_pim.py:31
+#: shr_settings_modules/shr_battery.py:117
+#: shr_settings_modules/shr_profile.py:31 shr_settings_modules/shr_gps.py:81
+#: shr_settings_modules/shr_call.py:87 shr_settings_modules/shr_gsm.py:383
+#: shr_settings_modules/shr_sim.py:310 shr_settings_modules/shr_wifi.py:119
+msgid "Couldn't connect to FSO"
+msgstr ""
+
 #: shr_settings_modules/shr_gpsinfo.py:23
 #: shr_settings_modules/shr_gpsinfo.py:219
 msgid "Satellite details"
@@ -267,6 +278,10 @@ msgstr ""
 
 #: shr_settings_modules/shr_pm.py:68
 msgid "Power settings"
+msgstr ""
+
+#: shr_settings_modules/shr_pm.py:75
+msgid "Couldn't connect to FSO or ophonekitd"
 msgstr ""
 
 #: shr_settings_modules/shr_pm.py:119
@@ -379,10 +394,6 @@ msgstr ""
 
 #: shr_settings_modules/shr_pim.py:24
 msgid "PIM settings"
-msgstr ""
-
-#: shr_settings_modules/shr_pim.py:31
-msgid "DBus is borked"
 msgstr ""
 
 #: shr_settings_modules/shr_pim.py:70
@@ -535,11 +546,6 @@ msgstr ""
 msgid "GPS settings"
 msgstr ""
 
-#: shr_settings_modules/shr_gps.py:81 shr_settings_modules/shr_call.py:87
-#: shr_settings_modules/shr_gsm.py:383
-msgid "can't connect to dbus"
-msgstr ""
-
 #: shr_settings_modules/shr_gps.py:87
 msgid "GPS radio:"
 msgstr ""
@@ -639,10 +645,6 @@ msgstr ""
 
 #: shr_settings_modules/shr_sim.py:241
 msgid "Message book"
-msgstr ""
-
-#: shr_settings_modules/shr_sim.py:310
-msgid "Cannot connect to dbus"
 msgstr ""
 
 #: shr_settings_modules/shr_sim.py:325
