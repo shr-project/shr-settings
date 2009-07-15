@@ -380,7 +380,7 @@ class Gsm(module.AbstractModule):
         except:
             print "GSM view [info] can't connect to dbus"
             errlab = elementary.Label(self.window)
-            errlab.label_set(_("can't connect to dbus"))
+            errlab.label_set(_("Couldn't connect to FSO"))
             errlab.size_hint_align_set(-1.0, 0.0)
             errlab.show()
             self.box1.pack_end( errlab )

@@ -170,7 +170,7 @@ def update_networks(networks):
   return 1
 
 def onsignal (*args, **kargs):
-#  print kargs['signal'] + ' ' + str(args[0]) + ' ' + str(args[1])
+  print "SIGNAL: " + kargs['signal'] + ' ' + str(args[0]) + ' ' + str(args[1])
   if kargs['signal']=='PropertyChanged':
     if args[0]=='Scanning':
       if args[1]:

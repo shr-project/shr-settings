@@ -134,7 +134,7 @@ class Timeouts(module.AbstractModule):
 
     def error(self):
         label = elementary.Label(self.window)
-        label.label_set("Dbus is borked")
+        label.label_set(_("Couldn't connect to FSO"))
         self.main.pack_start(label)
 
     def createView(self):

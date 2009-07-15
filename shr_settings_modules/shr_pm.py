@@ -72,7 +72,7 @@ class Pm(module.AbstractModule):
         Report the DBus is fsck'd
         """
         label = elementary.Label(self.window)
-        label.label_set("DBus is borked")
+        label.label_set(_("Couldn't connect to FSO or ophonekitd"))
         label.show()
 
         self.main.pack_start(label)

@@ -84,7 +84,7 @@ class Call(module.AbstractModule):
             self.gps = getDbusObject (self.dbus, "org.freesmartphone.ogsmd", "/org/freesmartphone/GSM/Device", "org.freesmartphone.GSM.Network") 
         except:
             label = elementary.Label(self.window)
-            label.label_set(_("can't connect to dbus"))
+            label.label_set(_("Couldn't connect to FSO"))
             return label
 
         self.box1 = elementary.Box(self.window)

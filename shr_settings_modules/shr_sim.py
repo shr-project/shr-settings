@@ -307,7 +307,7 @@ class Sim(module.AbstractModule):
         # If we can't connect to the right DBus object crap out here
         if self.simmc.getDbusState==0:
             label =elementary.Label(self.window)
-            label.label_set(_("Cannot connect to dbus"))
+            label.label_set(_("Couldn't connect to FSO"))
             label.size_hint_align_set(-1.0, 0.0)
             label.show()
             box1.pack_start(label)
