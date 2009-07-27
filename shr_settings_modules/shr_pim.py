@@ -45,11 +45,26 @@ class Pim(module.AbstractModule):
         self.domainWindow(obj, event, domain)
         win.delete()
 
-    def enableOrDisable(self, obj, event, backend, *args, **kargs):
+    def pleasewait(self, win):
+        dia = elementary.InnerWindow(win)
+        label = elementary.Label(dia)
+        label.label_set(_('Please wait...'))
+        dia.style_set('minimal')
+        label.show()
+        dia.content_set(label)
+        win.resize_object_add(dia)
+        dia.activate()
+        return dia
+
+    def dbus_finished(self, win, *args, **kwargs):
+        win.delete()
+
+    def enableOrDisable(self, backend, win, obj, event, *args, **kargs):
+        dia = self.pleasewait(win)
         if obj.state_get():
-            backend.Enable()
+            backend.Enable(reply_handler = partial(self.dbus_finished, dia), error_handler = partial(self.dbus_finished, dia))
         else:
-            backend.Disable()
+            backend.Disable(reply_handler = partial(self.dbus_finished, dia), error_handler = partial(self.dbus_finished, dia))
         
 
     def backendOptions(self, arguments, obj, event, *args, **kargs):
@@ -73,7 +88,7 @@ class Pim(module.AbstractModule):
  
         check = elementary.Check(pager)
         check.label_set(_("enabled"))
-        check._callback_add("changed", (self.enableOrDisable, backend))
+        check._callback_add("changed", partial(self.enableOrDisable, backend, win))
 
         check.state_set(backend.GetEnabled())
         check.show()
