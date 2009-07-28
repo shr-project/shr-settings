@@ -11,8 +11,8 @@ import commands
 
 
 dist = setup( name='shr-settings',
-    version='0.1.0',
-    author='dos',
+    version='0.2.0',
+    author='Sebastian Krzyszkowiak',
     author_email='seba.dos1@gmail.com',
     description='Modular settings application for SHR based on python-elementary',
     url='http://shr-project.org/',
@@ -22,7 +22,7 @@ dist = setup( name='shr-settings',
     scripts=['shr-settings'],
     data_files=[('applications', ['data/shr-settings.desktop']),
                 ('applications/shr-settings-addons-illume', glob("data/shr-settings-addons-illume/*.desktop")),
-		('pixmaps' , glob("data/*.png")),
+		('pixmaps/shr-settings' , glob("data/icons/*")),
                 ('locale/ar/LC_MESSAGES', ['data/po/ar/shr-settings.mo']),
                 ('locale/ca/LC_MESSAGES', ['data/po/ca/shr-settings.mo']),
                 ('locale/cs/LC_MESSAGES', ['data/po/cs/shr-settings.mo']),
@@ -47,4 +47,3 @@ if not installroot:
 if installdir:
     installdir = os.path.join(os.path.sep,
         installdir.replace(installroot, ""))
-
