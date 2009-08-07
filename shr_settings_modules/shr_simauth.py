@@ -16,17 +16,18 @@ def getDbusObject (bus, busname , objectpath , interface):
 
 
 class SimAuth(module.AbstractModule):
-	name = _("SIM card authentification on startup")
+	name = _("PIN settings")
 
 	def isEnabled(self):
-		try:
-			self.gsm=getDbusObject(self.dbus,
-				"org.freesmartphone.ousaged",
-				"/org/freesmartphone/Usage",
-				"org.freesmartphone.Usage")
-			return self.gsm.GetResourceState("GSM")
-		except:
-			return 0
+            return 1
+#		try:
+#			self.gsm=getDbusObject(self.dbus,
+#				"org.freesmartphone.ousaged",
+#				"/org/freesmartphone/Usage",
+#				"org.freesmartphone.Usage")
+#			return self.gsm.GetResourceState("GSM")
+#		except:
+#			return 0
 
 
 	def error(self, result):
@@ -62,10 +63,10 @@ class SimAuth(module.AbstractModule):
 		self.loading.delete()
 
 		self.toggle0 = elementary.Toggle(self.window)
-		self.toggle0.label_set(_("SIM card checks pin: "))
+		self.toggle0.label_set(_("PIN code: "))
 		self.toggle0.size_hint_align_set(-1.0, 0.0)
-		self.toggle0.states_labels_set(_("Yes"),_("No"))
-		self.toggle0.state_set(self.sim.GetAuthCodeRequired())
+		self.toggle0.states_labels_set(_("Enabled"),_("Disabled"))
+		self.toggle0.state_set(state)
 		self.toggle0.changed = self.auth_handle
 		self.box1.pack_end(self.toggle0)
 
