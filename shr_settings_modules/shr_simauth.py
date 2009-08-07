@@ -1,4 +1,5 @@
 import elementary, module, dbus
+from functools import partial
 
 # Locale support
 import gettext
@@ -19,45 +20,93 @@ class SimAuth(module.AbstractModule):
 	name = _("PIN settings")
 
 	def isEnabled(self):
-            return 1
-#		try:
-#			self.gsm=getDbusObject(self.dbus,
-#				"org.freesmartphone.ousaged",
-#				"/org/freesmartphone/Usage",
-#				"org.freesmartphone.Usage")
-#			return self.gsm.GetResourceState("GSM")
-#		except:
-#			return 0
-
+            return True
 
 	def error(self, result):
-		self.loading.label_set(_("Error while reading the auth status."))
+		self.loading.label_set(_("Couldn't connect to FSO"))
 
+        def diaclose(self, dia, *args, **kwargs):
+            dia.delete()
+
+        def dialog(self, msg, *args, **kwargs):
+
+            dia = elementary.InnerWindow(self.window)
+            dia.scale_set(1.0)
+
+            txt = elementary.AnchorBlock(self.window)
+            txt.text_set(msg)
+            txt.show()
+            fr = elementary.Frame(dia)
+            fr.style_set('pad_medium')
+            fr.size_hint_weight_set(-1.0, -1.0)
+            fr.size_hint_align_set(-1.0, -1.0)
+            fr.content_set(txt)
+            fr.show()
+            box = elementary.Box(dia)
+            box.show()
+            box.pack_start(fr)
+
+            if kwargs.get('entry'):
+                entryscr = elementary.Scroller(self.window)
+                entryscr.content_min_limit(0,1)
+                entryscr.bounce_set(0, 0)
+                entryscr.policy_set(elementary.ELM_SCROLLER_POLICY_OFF, elementary.ELM_SCROLLER_POLICY_OFF)
+                entryscr.size_hint_weight_set(1.0, 0.0)
+                entryscr.size_hint_align_set(-1.0, -1.0)
+                entry = elementary.Entry(self.window)
+                entry.show()
+                entry.size_hint_weight_set(1.0, 0.0)
+                entry.size_hint_align_set(-1.0, -1.0)
+                entry.single_line_set(True)
+                entry.scale_set(2.0)
+                entry.password_set(True)
+                entryscr.content_set(entry)
+                entryscr.show()
+                entry.focus()
+                box.pack_end(entryscr)
+
+            btn = elementary.Button(dia)
+#            btn.size_hint_weight_set(1.0, 0.0)
+            btn.size_hint_align_set(-1.0, 0.0)
+            btn.label_set('OK')
+            btn.show()
+            if kwargs.get('callback'):
+                if kwargs.get('entry'):
+                    btn.clicked = partial(kwargs['callback'], entry, dia)
+                else:
+                    btn.clicked = partial(kwargs['callback'], dia)
+            else:
+                btn.clicked = partial(self.diaclose, dia)
+            box.pack_end(btn)
+
+            dia.content_set(box)
+            dia.style_set("minimal_vertical")
+            self.window.resize_object_add(dia)
+            dia.activate()
+
+        def required_callback(self, toggle, entry, dia, *args, **kwargs):
+            try:
+                pin = str(int(entry.markup_to_utf8(entry.entry_get()).replace('\n','')))
+            except ValueError:
+                self.diaclose(dia)
+                toggle.state_set(self.sim.GetAuthCodeRequired())
+                self.dialog(_('Incorrect PIN!'))
+                return False
+
+            try:
+                self.sim.SetAuthCodeRequired(toggle.state_get(), pin)
+            except:
+                self.dialog(_('Wrong PIN!'))
+                return False
+
+            toggle.state_set(self.sim.GetAuthCodeRequired())
+            self.diaclose(dia)
 
 	def auth_handle(self, obj, event, *args, **kargs):
 		if self.sim.GetAuthCodeRequired()==obj.state_get():
 			return 0
 
-		pin = self.PinEntry.entry_get().replace("<br>","")
-
-		if pin=="PIN" or pin=="Enter PIN here":
-			self.PinEntry.entry_set("Enter PIN here")
-		else :
-			self.PinEntry.entry_set("PIN")
-
-		if obj.state_get()==0:
-			try:
-				self.sim.SetAuthCodeRequired(0, pin)
-			except:
-				pass
-		else:
-			try:
-				self.sim.SetAuthCodeRequired(1, pin)
-			except:
-				pass
-
-		obj.state_set(self.sim.GetAuthCodeRequired())
-
+                self.dialog(_('Enter SIM PIN:'), callback = partial(self.required_callback, obj), entry = True)
 
 	def cb_get_auth(self, state):
 		self.loading.delete()
@@ -71,13 +120,6 @@ class SimAuth(module.AbstractModule):
 		self.box1.pack_end(self.toggle0)
 
 		self.toggle0.show()
-
-		self.PinEntry = elementary.Entry(self.window)
-		self.PinEntry.single_line_set(True)
-		self.PinEntry.entry_set("PIN")
-		self.box1.pack_end(self.PinEntry)
-		self.PinEntry.show()
-
 
 	def createView(self):
 		try:
