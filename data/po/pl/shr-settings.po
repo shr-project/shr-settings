@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SHR Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-08 17:25+0200\n"
-"PO-Revision-Date: 2009-08-08 17:31+0100\n"
+"POT-Creation-Date: 2009-08-08 19:27+0200\n"
+"PO-Revision-Date: 2009-08-08 19:28+0100\n"
 "Last-Translator: Sebastian Krzyszkowiak <seba.dos1@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -258,6 +258,10 @@ msgstr "Proszę czekać..."
 #: shr_settings_modules/shr_about.py:24
 msgid "About"
 msgstr "Informacje"
+
+#: shr_settings_modules/shr_device_timeouts.py:27
+msgid " sec."
+msgstr " sec."
 
 #: shr_settings_modules/shr_device_timeouts.py:133
 msgid "Timeouts settings"

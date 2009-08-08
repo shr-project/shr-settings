@@ -24,7 +24,7 @@ class ValueLabel( elementary.Label ):
         return self._value
 
     def set_value(self, val):
-         self.label_set(str(val))
+         self.label_set(str(val) + _(" sec."))
          self._value = val
 
 class IncDecButton(elementary.Button):

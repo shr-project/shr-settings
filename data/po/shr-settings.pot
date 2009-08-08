@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-08 17:25+0200\n"
+"POT-Creation-Date: 2009-08-08 19:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,6 +243,10 @@ msgstr ""
 
 #: shr_settings_modules/shr_about.py:24
 msgid "About"
+msgstr ""
+
+#: shr_settings_modules/shr_device_timeouts.py:27
+msgid " sec."
 msgstr ""
 
 #: shr_settings_modules/shr_device_timeouts.py:133
