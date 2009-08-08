@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-28 01:49+0200\n"
+"POT-Creation-Date: 2009-08-08 17:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,14 +168,12 @@ msgstr ""
 msgid "Restore"
 msgstr ""
 
-#: shr_settings_modules/shr_about.py:24
-msgid "About"
+#: shr_settings_modules/shr_simauth.py:20
+msgid "PIN settings"
 msgstr ""
 
-#: shr_settings_modules/shr_device_timeouts.py:133
-msgid "Timeouts settings"
-msgstr ""
-
+#: shr_settings_modules/shr_simauth.py:26
+#: shr_settings_modules/shr_simauth.py:179
 #: shr_settings_modules/shr_device_timeouts.py:137
 #: shr_settings_modules/shr_gprs.py:125
 #: shr_settings_modules/shr_currentprofile.py:539
@@ -185,6 +183,70 @@ msgstr ""
 #: shr_settings_modules/shr_call.py:87 shr_settings_modules/shr_gsm.py:383
 #: shr_settings_modules/shr_sim.py:310 shr_settings_modules/shr_wifi.py:119
 msgid "Couldn't connect to FSO"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:93
+#: shr_settings_modules/shr_simauth.py:128
+#: shr_settings_modules/shr_simauth.py:138
+msgid "Incorrect PIN!"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:99
+msgid "Wrong PIN!"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:115
+msgid "Wrong PIN or unknown error"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:117
+msgid "PIN changed!"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:119
+msgid "PINs don't match!"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:131
+msgid "Enter again new SIM PIN:"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:141
+msgid "Enter new SIM PIN:"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:144
+#: shr_settings_modules/shr_simauth.py:150
+msgid "Enter SIM PIN:"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:156
+msgid "PIN code: "
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:158
+msgid "Enabled"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:158
+msgid "Disabled"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:165
+msgid "Change PIN"
+msgstr ""
+
+#: shr_settings_modules/shr_simauth.py:185 shr_settings_modules/shr_pim.py:51
+#: shr_settings_modules/shr_call.py:93 shr_settings_modules/shr_gsm.py:154
+msgid "Please wait..."
+msgstr ""
+
+#: shr_settings_modules/shr_about.py:24
+msgid "About"
+msgstr ""
+
+#: shr_settings_modules/shr_device_timeouts.py:133
+msgid "Timeouts settings"
 msgstr ""
 
 #: shr_settings_modules/shr_gpsinfo.py:23
@@ -394,11 +456,6 @@ msgstr ""
 
 #: shr_settings_modules/shr_pim.py:24
 msgid "PIM settings"
-msgstr ""
-
-#: shr_settings_modules/shr_pim.py:51 shr_settings_modules/shr_call.py:93
-#: shr_settings_modules/shr_gsm.py:154
-msgid "Please wait..."
 msgstr ""
 
 #: shr_settings_modules/shr_pim.py:85
