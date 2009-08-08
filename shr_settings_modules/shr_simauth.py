@@ -102,6 +102,47 @@ class SimAuth(module.AbstractModule):
             toggle.state_set(self.sim.GetAuthCodeRequired())
             self.diaclose(dia)
 
+        def change_enter_again_callback(self, oldpin, newpin, entryagain, dia, *args, **kwargs):
+            againpin = entryagain.markup_to_utf8(entryagain.entry_get()).replace('\n','')
+#            print "old: " + oldpin
+#            print "new: " + newpin
+#            print "again: " + againpin
+            self.diaclose(dia)
+            if newpin == againpin:
+                try:
+                    self.sim.ChangeAuthCode(oldpin, newpin)
+                except:
+                    self.dialog(_('Wrong PIN or unknown error'))
+                    return False
+                self.dialog(_('PIN changed!'))
+            else:
+                self.dialog(_("PINs don't match!"))
+
+        def change_enter_new_callback(self, oldpin, entry, dia, *args, **kwargs):
+            try:
+                newpin = str(int(entry.markup_to_utf8(entry.entry_get()).replace('\n','')))
+                if len(newpin) < 4 or len(newpin) > 8:
+                    raise(ValueError)
+            except ValueError:
+                self.diaclose(dia)
+                self.dialog(_('Incorrect PIN!'))
+                return False
+            self.diaclose(dia)
+            self.dialog(_('Enter again new SIM PIN:'), callback = partial(self.change_enter_again_callback, oldpin, newpin), entry = True)
+
+        def change_enter_old_callback(self, entry, dia, *args, **kwargs):
+            try:
+                oldpin = str(int(entry.markup_to_utf8(entry.entry_get()).replace('\n','')))
+            except ValueError:
+                self.diaclose(dia)
+                self.dialog(_('Incorrect PIN!'))
+                return False
+            self.diaclose(dia)
+            self.dialog(_('Enter new SIM PIN:'), callback = partial(self.change_enter_new_callback, oldpin), entry = True)
+
+        def change_pin(self, obj, event, *args, **kwargs):
+            self.dialog(_('Enter SIM PIN:'), callback = self.change_enter_old_callback, entry = True)
+
 	def auth_handle(self, obj, event, *args, **kargs):
 		if self.sim.GetAuthCodeRequired()==obj.state_get():
 			return 0
@@ -118,8 +159,14 @@ class SimAuth(module.AbstractModule):
 		self.toggle0.state_set(state)
 		self.toggle0.changed = self.auth_handle
 		self.box1.pack_end(self.toggle0)
-
 		self.toggle0.show()
+
+		self.btn = elementary.Button(self.window)
+		self.btn.label_set(_("Change PIN"))
+		self.btn.size_hint_align_set(-1.0, 0.0)
+		self.btn.clicked = self.change_pin
+		self.box1.pack_end(self.btn)
+		self.btn.show()
 
 	def createView(self):
 		try:
