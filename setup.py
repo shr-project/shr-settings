@@ -22,7 +22,7 @@ dist = setup( name='shr-settings',
     scripts=['shr-settings'],
     data_files=[('applications/shr-settings-addons-illume', glob("data/shr-settings-addons-illume/*.desktop")),
 		('pixmaps' , glob("data/icons/*.png")),
-		('applications', ['data/shr-settings.desktop'])
+		('applications', ['data/shr-settings.desktop']),
 		('locale/ar/LC_MESSAGES', ['data/po/ar/shr-settings.mo']),
 		('locale/ca/LC_MESSAGES', ['data/po/ca/shr-settings.mo']),
 		('locale/cs/LC_MESSAGES', ['data/po/cs/shr-settings.mo']),
