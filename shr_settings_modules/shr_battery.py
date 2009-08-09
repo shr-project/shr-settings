@@ -205,6 +205,12 @@ class Battery(module.AbstractModule):
         self.signal1.remove()
         self.signal2.remove()
 
+    def switchToDumb(self, obj, *args, **kwargs):
+        os.system('echo bq27000-battery.0 > /sys/bus/platform/drivers/bq27000-battery/unbind')
+        os.system('modprobe gta01_battery')
+        obj.delete()
+        self.update()
+
     def createView(self):
 
         # create the box
@@ -271,8 +277,21 @@ class Battery(module.AbstractModule):
             status_box.pack_end(labels_box)
             status_box.pack_end(update_button)
 
-            self.main.pack_end(status_box)
+            try:
+                present = int(os.popen("cat "+SYSNODE['present'][0]).readline().strip())
+            except:
+                present = 0
+
+            self.main.pack_start(status_box)
             self.main.pack_end(self.fastChargeToggle)
+            if not present:
+                switchbtn = elementary.Button(self.window)
+                switchbtn.label_set(_('Switch to dumb battery driver'))
+                switchbtn.size_hint_weight_set(1.0, 0.0)
+                switchbtn.size_hint_align_set(-1.0, 0.0)
+                switchbtn.clicked = self.switchToDumb
+                self.main.pack_end(switchbtn)
+                switchbtn.show()
 
             # update the labels
             self.update()
