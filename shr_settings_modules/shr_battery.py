@@ -36,12 +36,13 @@ class BatteryLabel(elementary.Label):
     Generic class for the labels used below
     """
 
-    def __init__(self,win, format_string, static_label):
+    def __init__(self,win, format_string, static_label, bak_format_string = ''):
         super(BatteryLabel, self).__init__(win)
         self.size_hint_align_set(-1.0, 0.0)
 
         self.fs = format_string
         self.sl = static_label
+        self.fs2 = bak_format_string
         self.show()
 
     def setLabel(self, dynamic_label):
@@ -49,7 +50,13 @@ class BatteryLabel(elementary.Label):
         Call elementary.Label.label_set with static label values
         and formatted appropriately
         """
-        finalLabel = str(self.fs).format(self.sl, dynamic_label)
+        try:
+            finalLabel = str(self.fs).format(self.sl, dynamic_label)
+        except:
+            try:
+                finalLabel = str(self.fs2).format(self.sl, dynamic_label)
+            except:
+                finalLabel = self.sl + 'N/A'
         self.label_set(finalLabel)
 
 
@@ -63,12 +70,17 @@ class FastChargeBox(elementary.Box):
         Set toggle visibility
         """
 
-        value   = os.popen("cat "+self.chgNodePath).readline().strip()
+        try:
+            value   = os.popen("cat "+self.chgNodePath).readline().strip()
+        except:
+            self.toggle.hide()
+            return False
 
         if int(value) >= 500:
             self.toggle.state_set(True)
         else:
             self.toggle.state_set(False)
+        self.toggle.show()
 
     def toggleChanged(self, obj, event, *args, **kargs):
         """
@@ -97,14 +109,12 @@ class FastChargeBox(elementary.Box):
         self.toggle.states_labels_set("500 mA","100 mA")
         self.toggle.changed = self.toggleChanged
         self.toggle.size_hint_align_set(-1.0, 0.0)
-        self.toggle.show()
 
         self.pack_start(self.toggle)
         self.size_hint_align_set(-1.0, 0.0)
 
         self.update()
         self.show()
-
 
 class Battery(module.AbstractModule):
     name = _("Battery settings")
@@ -127,7 +137,10 @@ class Battery(module.AbstractModule):
         but is implicit with int values
         """
         # retrieve raw value
-        value = os.popen("cat "+SYSNODE[nodePath][0]).readline().strip()
+        try:
+            value = os.popen("cat "+SYSNODE[nodePath][0]).readline().strip()
+        except:
+            return 'N/A'
         scale = SYSNODE[nodePath][1]
 
         # try some intelligent filtering
@@ -152,6 +165,7 @@ class Battery(module.AbstractModule):
         hours   = int( sec / 3600 )
         min     = int( ( sec % 3600 ) / 60 )
         return ( hours, min )
+        
 
     def doupdate(self, obj, event, *args, **kargs):
         self.update()
@@ -161,33 +175,30 @@ class Battery(module.AbstractModule):
         Update the data displayed in BatteryLabel
         """
 
+        # read data from /sys nodes
+        cap     = self.getValue("capacity")
+        cur     = self.getValue("current")
+        temp    = self.getValue("temperature")
+        vol     = self.getValue("voltage")
+        sta     = self.getValue("status")
+        if sta == "Charging":
+            time = self.getValue("time_to_full")
+        else:
+            time = self.getValue("time_to_empty")
+
+        # calculate hours and minutes from the found time value
         try:
-
-            # read data from /sys nodes
-            cap     = self.getValue("capacity")
-            cur     = self.getValue("current")
-            temp    = self.getValue("temperature")
-            vol     = self.getValue("voltage")
-            sta     = self.getValue("status")
-            if sta == "Charging":
-                time = self.getValue("time_to_full")
-            else:
-                time = self.getValue("time_to_empty")
-
-            # calculate hours and minutes from the found time value
             time = self.sectotime(time)
-
-            # set the displayed labels
-            #
-            self.charge.setLabel( (cap, time) )
-            self.power.setLabel(  (cur, vol) )
-            self.status.setLabel( (sta, temp) )
-
-            self.fastChargeToggle.update()
-
         except:
-            return 1
-            print ":("
+            time = 'N/A'
+
+        # set the displayed labels
+        #
+        self.charge.setLabel( (cap, time) )
+        self.power.setLabel(  (cur, vol) )
+        self.status.setLabel( (sta, temp) )
+
+        self.fastChargeToggle.update()
 
     def stopUpdate(self):
         self.signal1.remove()
@@ -222,10 +233,13 @@ class Battery(module.AbstractModule):
             chargeFormat    = "{0}{1[0]}% ({1[1][0]:d}h {1[1][1]:02d}m)"
             powerFormat     = "{0}{1[0]:.0f} mA; {1[1]:.3f} V"
             statusFormat    = "{0}{1[0]} ({1[1]:.1f} 'C)"
+            chargeBakFormat = "{0}{1[0]}%"
+            powerBakFormat  = "{0}{1[1]:.3f} V"
+            statusBakFormat = "{0}{1[0]}"
 
-            self.charge = BatteryLabel(self.window, chargeFormat,   _("Charge: "))
-            self.power  = BatteryLabel(self.window, powerFormat,    _("Power info: "))
-            self.status = BatteryLabel(self.window, statusFormat,   _("Status: "))
+            self.charge = BatteryLabel(self.window, chargeFormat,   _("Charge: "), chargeBakFormat)
+            self.power  = BatteryLabel(self.window, powerFormat,    _("Power info: "), powerBakFormat)
+            self.status = BatteryLabel(self.window, statusFormat,   _("Status: "), statusBakFormat)
 
             self.fastChargeToggle = FastChargeBox(self.window)
 
