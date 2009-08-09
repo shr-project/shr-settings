@@ -6,16 +6,17 @@ import gettext
 
 
 SYSNODE = {
-    # "short name"  : ("/sys/node/loaction", scaling_factor = 1)
+    # "short name"  : ("/sys/node/location", scaling_factor = 1)
     "charge_limit"  : ("/sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/chg_curlim", 1),
     "usb_limit"     : ("/sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/usb_curlim", 1),
-    "capacity"      : ("/sys/class/power_su*ply/bat*/capacity", 1),
-    "current"       : ("/sys/class/power_su*ply/bat*/current_now", 1e-3),
-    "temperature"   : ("/sys/class/power_sup*ly/bat*/temp", 1e-1),
-    "voltage"       : ("/sys/class/power_sup*ly/bat*/voltage_now", 1e-6),
-    "status"        : ("/sys/class/power_su*ply/bat*/status", 1),
-    "time_to_full"  : ("/sys/class/power_su*ply/bat*/time_to_full_now", 1),
-    "time_to_empty" : ("/sys/class/power_su*ply/bat*/time_to_empty_now", 1),
+    "capacity"      : ("/sys/class/power_supply/battery/capacity", 1),
+    "current"       : ("/sys/class/power_supply/battery/current_now", 1e-3),
+    "temperature"   : ("/sys/class/power_supply/battery/temp", 1e-1),
+    "voltage"       : ("/sys/class/power_supply/battery/voltage_now", 1e-6),
+    "status"        : ("/sys/class/power_supply/battery/status", 1),
+    "time_to_full"  : ("/sys/class/power_supply/battery/time_to_full_now", 1),
+    "time_to_empty" : ("/sys/class/power_supply/battery/time_to_empty_now", 1),
+    "present" : ("/sys/class/power_supply/battery/present", 1),
     }
 
 
