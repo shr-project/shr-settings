@@ -4,9 +4,11 @@
     replace [forbidden] and [current] by icons
 - shr_usb.py
     check if it works with gta01, and if not - fix it
+- shr_battery.py
+    don't rely on status when checking remaining time
+- shr_mixer.py
+    implement mixer settings
 - module.py
     check if it is done in the most flexible way (init, destroy etc.) and if not, do it and prepare all modules to use it
-- shr_simauth.py
-    changing SIM PIN
 - TODO
     sync with good ideas from SHR wiki :)
