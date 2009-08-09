@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # SHR Settings
-# by Sebastian Krzyszkowiak and SHR team
+# by Sebastian Krzyszkowiak, openmoko.pl and SHR team
 
 from time import time
 
