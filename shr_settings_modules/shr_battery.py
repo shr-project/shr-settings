@@ -182,9 +182,8 @@ class Battery(module.AbstractModule):
         temp    = self.getValue("temperature")
         vol     = self.getValue("voltage")
         sta     = self.getValue("status")
-        if sta == "Charging":
-            time = self.getValue("time_to_full")
-        else:
+        time = self.getValue("time_to_full")
+        if time == 3932100:
             time = self.getValue("time_to_empty")
 
         # calculate hours and minutes from the found time value
