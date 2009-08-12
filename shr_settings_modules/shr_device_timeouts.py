@@ -10,6 +10,12 @@ try:
 except IOError:
     _ = lambda x: x
 
+def dbus_ok(*args, **kargs):
+    pass
+
+def dbus_err(x, *args, **kargs):
+    print str(x)
+
 def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
@@ -54,8 +60,9 @@ class IncDecButtonBox(elementary.Box):
         delta  = obj.get_Delta()
         new_val = max(-1, cur_val + delta)
 
-        self.dbusObj.SetTimeout(self.item_name,int(new_val))
-        self.update()
+        self.dbusObj.SetTimeout(self.item_name,int(new_val), reply_handler=dbus_ok, error_handler=dbus_err)
+        self.cur_value = new_val
+        self.itemValue.set_value(self.cur_value)
 
     def update(self):
         """
