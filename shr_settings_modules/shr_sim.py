@@ -1,6 +1,7 @@
 import dbus
 import module
 import elementary
+from functools import partial
 
 # Locale support
 import gettext
@@ -111,8 +112,7 @@ class PhbookInfoFrame(elementary.Frame):
         assert self.booktype is not None
         assert self.tableobj == 'elementary.c_elementary.Table'
         # call elementary.Frame.__init__
-        super(PhbookInfoFrame, self).__init__(par_tableobj)
-
+        super(PhbookInfoFrame, self).__init__(par_tableobj)        
 
     #-------------------------------------------------------------------
     def phonebookinfo_reply_handler(self, phoneBookInfo):
@@ -182,13 +182,51 @@ class Sim(module.AbstractModule):
     section = _("Connectivity")
     # no of displayed books, so we can put the next in the right table cell
 
+    def sure(self, dia, callback, *args, **kwargs):
+        dia.delete()
+        callback()
+
+    def notsure(self, dia, *args, **kwargs):
+        dia.delete()
+
+    #-------------------------------------------------------------------
+    def are_you_sure(self, callback, *args, **kwargs):
+    #-------------------------------------------------------------------
+        dia = elementary.InnerWindow(self.window)
+        self.window.resize_object_add(dia)
+        dia.show()
+        dia.style_set('minimal')
+        box = elementary.Box(dia)
+        dia.content_set(box)
+        label = elementary.Label(dia)
+        label.label_set(_('Are you sure?'))
+        label.show()
+        box.pack_start(label)
+        box.show()
+        box2 = elementary.Box(dia)
+        box2.horizontal_set(True)
+        box2.show()
+        btnyes = elementary.Button(dia)
+        btnyes.label_set(_('Yes'))
+        btnyes.clicked = partial(self.sure, dia, callback)
+        btnyes.show()
+        box2.pack_start(btnyes)
+        btnno = elementary.Button(dia)
+        btnno.label_set(_('No'))
+        btnno.clicked = partial(self.notsure, dia)
+        btnno.show()
+        box2.pack_end(btnno)
+        box.pack_end(box2)
+        dia.activate()
+
+
     def cleanMessageBookClick(self, obj, event, *args, **kargs):
-        self.simmc.MessageBookClean()
+        self.are_you_sure(self.simmc.MessageBookClean)
 
     def cleanPhoneBookClick(self, obj, event, *args, **kargs):
         name = obj.get_name()
         print "clean phone book: ["+str(name)+"]"
-        self.simmc.PhoneBookClean( name )
+        self.are_you_sure(partial(self.simmc.PhoneBookClean, name ))
 
     #-------------------------------------------------------------------
     def siminfo_reply_handler(self, siminfo):
