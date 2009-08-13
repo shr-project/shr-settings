@@ -175,35 +175,37 @@ class Gprs(module.AbstractModule):
         return 0
 
     def disconnect(self, obj, event, *args, **kargs):
-        self.dbusObj.DeactivateContext()
+        self.dbusObj.DeactivateContext(reply_handler = self.dbusnothing, error_handler = self.dbuserror)
         return 0
 
     def nothing(self, obj, event, *args, **kargs):
         print "nothing called"
         return 0
 
-    def updateStatus(self, *args, **kargs):
-        gprs_status = self.dbusObj.GetContextStatus()
-        if gprs_status == 'release':
-            status=_("disconnected")
-            self.btConnectDisconnect.label_set(_("Connect"))
-            self.btConnectDisconnect.clicked = self.connect
-        elif gprs_status == 'active':
-            status=_("connected")
-            self.btConnectDisconnect.label_set(_("Disconnect"))
-            self.btConnectDisconnect.clicked = self.disconnect
-            # Since connection was successful, save login data
-            self.saveConnectionData()
-        elif gprs_status == 'outgoing':
-            status=_("connecting")
-            self.btConnectDisconnect.label_set(_("Disconnect"))
-            self.btConnectDisconnect.clicked = self.disconnect
+    def updateStatus(self, gprs_status = None, *args, **kargs):
+        if gprs_status == None:
+            self.dbusObj.GetContextStatus(reply_handler = self.updateStatus, error_handler=self.dbuserror)
         else:
-            status=_("UNKNOWN")+" ("+gprs_status+")"
-            self.btConnectDisconnect.label_set(_("UNKNOWN"))
-            self.btConnectDisconnect.clicked = self.nothing
-        self.labelStatus.label_set(status)
-        return True
+            if gprs_status == 'release':
+                status=_("disconnected")
+                self.btConnectDisconnect.label_set(_("Connect"))
+                self.btConnectDisconnect.clicked = self.connect
+            elif gprs_status == 'active':
+                status=_("connected")
+                self.btConnectDisconnect.label_set(_("Disconnect"))
+                self.btConnectDisconnect.clicked = self.disconnect
+                # Since connection was successful, save login data
+                self.saveConnectionData()
+            elif gprs_status == 'outgoing':
+                status=_("connecting")
+                self.btConnectDisconnect.label_set(_("Disconnect"))
+                self.btConnectDisconnect.clicked = self.disconnect
+            else:
+                status=_("UNKNOWN")+" ("+gprs_status+")"
+                self.btConnectDisconnect.label_set(_("UNKNOWN"))
+                self.btConnectDisconnect.clicked = self.nothing
+            self.labelStatus.label_set(status)
+            return True
 
     def stopUpdate(self):
         self.signal.remove()
