@@ -38,6 +38,11 @@ try:
 except IOError:
     _ = lambda x: x
 
+def dbus_ok(*args, **kargs):
+    pass
+
+def dbus_err(x, *args, **kargs):
+    print str(x)
 
 def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
@@ -86,14 +91,16 @@ class PreferenceBox(elementary.Box):
     Parent class for preference item display boxes
     """
 
-    def update(self):
+    def update(self, value = None):
         """
         This is where each decendant class provides it's own updating code
 
         Defaults to updating default setup label
         """
-        cur_value = self.dbusObj.GetValue(self.item_name)
-        self.label.label_set(str(cur_value))
+        if value == None:
+            value = self.dbusObj.GetValue(self.item_name, reply_handler=self.update, error_handler=dbus_err)
+        else:
+            self.label.label_set(str(value))
 
     def setup(self):
         """
@@ -101,16 +108,21 @@ class PreferenceBox(elementary.Box):
 
         Defaults to displaying a label of the current value
         """
-        cur_value = self.dbusObj.GetValue(self.item_name)
+#        cur_value = self.dbusObj.GetValue(self.item_name)
 
         self.label = elementary.Label(self.window)
-        self.label.label_set(str(cur_value))
+#        self.label.label_set(str(cur_value))
+        self.update()
 
         self.pack_start(self.label)
         self.label.show()
 
     def stopUpdate(self):
-        pass
+        self.signal.remove()
+
+    def notify(self, name, value):
+        if name == self.item_name:
+            self.update(value)
 
     def __init__(self, win, dbusObj, item_name):
         """
@@ -121,6 +133,11 @@ class PreferenceBox(elementary.Box):
         self.window = win
         self.item_name = item_name
         self.dbusObj = dbusObj
+
+        ifa = dbusObj
+        if isinstance(ifa, tuple):
+            ifa = ifa[0]
+        self.signal = ifa.connect_to_signal('Notify', self.notify)
 
         self.setup()
 
@@ -141,16 +158,18 @@ class IncDecButtonBox(PreferenceBox):
         delta  = obj.get_Delta()
         new_val = max(-1, cur_val + delta)
 
-        self.dbusObj.SetValue(self.item_name,int(new_val))
-        self.update()
+        self.dbusObj.SetValue(self.item_name,int(new_val), reply_handler=dbus_ok, error_handler=dbus_err)
+        self.update(new_val)
 
-    def update(self):
+    def update(self, value = None):
         """
         Updates the displayed value to the current profile
         """
-
-        self.cur_value = self.dbusObj.GetValue(self.item_name)
-        self.value.set_value(self.cur_value) #implicitely sets label too
+        if value == None:
+            self.cur_value = self.dbusObj.GetValue(self.item_name, reply_handler = self.update, error_handler = dbus_err)
+        else:
+            self.cur_value = value
+            self.value.set_value(self.cur_value) #implicitely sets label too
 
     def setup(self):
         """
@@ -162,11 +181,12 @@ class IncDecButtonBox(PreferenceBox):
 
         self.horizontal_set(True)
 
-        self.cur_value = self.dbusObj.GetValue(self.item_name)
+#        self.cur_value = self.dbusObj.GetValue(self.item_name)
 
         self.value  = ValueLabel(self.window)
         self.value.size_hint_align_set(0.5, 0.5)
-        self.value.set_value(self.cur_value) #implicitely sets label too
+#        self.value.set_value(self.cur_value) #implicitely sets label too
+        self.update()
         self.value.show()
 
         boxbox = elementary.Box(self.window)
@@ -207,22 +227,25 @@ class RadioOnOffBox(PreferenceBox):
         """
         Callback function either radio button has been selected
         """
-        self.dbusObj.SetValue(self.item_name,bool(obj.value_get()))
-        self.update()
+        self.dbusObj.SetValue(self.item_name,bool(obj.value_get()), reply_handler=dbus_ok, error_handler=dbus_err)
+        self.update(bool(obj.value_get()))
 
-    def update(self):
+    def update(self, value = None):
         """
         Updates the displayed value to the current profile
         """
-        state = self.dbusObj.GetValue(self.item_name)
-        self.togglegroup[self.item_name].value_set(state)
+        if value == None:
+            self.dbusObj.GetValue(self.item_name, reply_handler=self.update, error_handler=dbus_err)
+        else:
+            state = value
+            self.togglegroup[self.item_name].value_set(state)
 
     def setup(self):
         """
         Function to show a radio button set to alter bool
         Preferences values
         """
-        state = self.dbusObj.GetValue(self.item_name)
+#        state = self.dbusObj.GetValue(self.item_name)
 
         self.horizontal_set(True)
 
@@ -245,7 +268,8 @@ class RadioOnOffBox(PreferenceBox):
         self.togglegroup[self.item_name] = radioOn
         radioOff.group_add(self.togglegroup[self.item_name])
 
-        self.togglegroup[self.item_name].value_set(state)
+        self.update()
+#        self.togglegroup[self.item_name].value_set(state)
 
         self.pack_start(radioOn)
         self.pack_end(radioOff)
@@ -270,10 +294,10 @@ class ToneChangeBox(PreferenceBox):
         Callback function to change the tone file name in the settings
         """
         self.tonefile = str(obj.get_filename())
-        self.dbusObj.SetValue(self.item_name, self.tonefile)
+        self.dbusObj.SetValue(self.item_name, self.tonefile, reply_handler=dbus_ok, error_handler=dbus_err)
         self.destroy(obj, event)
 
-        self.update()
+        self.update(self.tonefile)
 
     def FileListBox(self, obj, event, *args, **kargs):
         """
@@ -348,8 +372,8 @@ class ToneChangeBox(PreferenceBox):
         new_tone = self.tonefile + ";tune=" + str(self.sidValue)
         print "setting:", new_tone
 
-        self.dbusObj.SetValue(self.item_name, new_tone)
-        self.update()
+        self.dbusObj.SetValue(self.item_name, new_tone, reply_handler=dbus_ok, error_handler=dbus_err)
+        self.update(new_tone)
 
     def PlayTone(self, obj, event, *args, **kargs):
         # prep play parameters
@@ -365,11 +389,11 @@ class ToneChangeBox(PreferenceBox):
         # Stop the tone if playing
         if self.playStatus:
             print self.item_name,"- Stopping:", self.tonefile
-            self.AudioDbusObj.StopAllSounds()
+            self.AudioDbusObj.StopAllSounds(reply_handler=dbus_ok, error_handler=dbus_err )
 
         # Play the tone
         print self.item_name,"- Playing:", self.tonefile
-        self.AudioDbusObj.PlaySound(play_tone, 0, duration)
+        self.AudioDbusObj.PlaySound(play_tone, 0, duration, reply_handler=dbus_ok, error_handler=dbus_err)
 
     def StopTone(self, obj, event, *args, **kargs):
         """
@@ -378,7 +402,7 @@ class ToneChangeBox(PreferenceBox):
         # Stop the tone if playing
         if self.playStatus:
             print self.item_name,"- Stopping:", self.tonefile
-            self.AudioDbusObj.StopAllSounds()
+            self.AudioDbusObj.StopAllSounds(reply_handler=dbus_ok, error_handler=dbus_err )
 
     def StartStopSound(self, id, status, properties):
         """
@@ -460,11 +484,15 @@ class ToneChangeBox(PreferenceBox):
             self.buttonBox.pack_end(self.sidUpBtn)
         self.buttonBox.pack_end(self.changeBtn)
 
-    def update(self):
+    def update(self, value = None):
         """
         Updates the displayed value to the current profile
         """
-        self.tonefile = str(self.dbusObj.GetValue(self.item_name))
+        if value == None:
+            self.dbusObj.GetValue(self.item_name, reply_handler=self.update, error_handler=dbus_err)
+            return False
+        else:
+            self.tonefile = str(value)
         self.tonepath = SND_DIR + self.tonefile
         self.label.label_set(self.tonefile)
 
@@ -498,7 +526,8 @@ class ToneChangeBox(PreferenceBox):
             self.updateButtons( False )
 
     def stopUpdate(self):
-        self.signal.remove()
+        self.asignal.remove()
+        PreferenceBox.stopUpdate(self)
 
     def setup(self):
         """
@@ -508,7 +537,7 @@ class ToneChangeBox(PreferenceBox):
 
         self.playStatus = False
         self.dbusObj, self.AudioDbusObj = self.dbusObj
-        self.signal = self.AudioDbusObj.connect_to_signal("SoundStatus",
+        self.asignal = self.AudioDbusObj.connect_to_signal("SoundStatus",
             self.StartStopSound)
 
         # Tone name label
@@ -537,6 +566,7 @@ class CurrentProfile(module.AbstractModule):
     def error(self):
         label = elementary.Label(self.window)
         label.label_set(_("Couldn't connect to FSO"))
+        label.show()
         self.main.pack_start(label)
 
     def profileChanged(self, profile):
@@ -546,7 +576,7 @@ class CurrentProfile(module.AbstractModule):
         self.update()
 
     def stopUpdate(self):
-        self.signal.remove()
+#        self.signal.remove()
         for i in self.contents:
             self.contents[i].stopUpdate()
 
@@ -599,12 +629,12 @@ class CurrentProfile(module.AbstractModule):
                 "org.freesmartphone.Preferences.Service")
 
             # Preferences DBus interface (For Signals)
-            self.SignalsDbusObj = getDbusObject(self.dbus,
-                "org.freesmartphone.opreferencesd",
-                "/org/freesmartphone/Preferences",
-                "org.freesmartphone.Preferences" )
-            self.signal = self.SignalsDbusObj.connect_to_signal("Notify",
-                self.profileChanged)
+#            self.SignalsDbusObj = getDbusObject(self.dbus,
+#                "org.freesmartphone.opreferencesd",
+#                "/org/freesmartphone/Preferences",
+#                "org.freesmartphone.Preferences" )
+#            self.signal = self.SignalsDbusObj.connect_to_signal("Notify",
+#                self.profileChanged)
 
             # Audio DBus interface (For Ringtone testing)
             self.AudioDbusObj = getDbusObject(self.dbus,
