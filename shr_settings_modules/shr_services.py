@@ -1,5 +1,7 @@
 import dircache
 import module, elementary, os
+from ecore import idler_add
+from functools import partial
 
 # Locale support
 import gettext
@@ -44,10 +46,25 @@ class Services(module.AbstractModule):
         self.ser_hover.delete()
         self.startDebugWin( obj.get_osCmd() )
 
+    def debugIdler(self, dia, box1, cmd):
+        c = os.popen( cmd, "r" )
+        while 1:
+            line = c.readline().replace("\n","")
+            if not line:
+                break  
+            print "line ["+line+"]"
+            lb = elementary.Label(self.windeb)
+            lb.label_set(line)
+            lb.size_hint_align_set(-1.0, 0.0)
+            box1.pack_end(lb)
+            lb.show()
+        dia.delete()
+        return False
+
     def startDebugWin(self, cmd):
         print "Services startDebugWin [info]"
         self.windeb = elementary.Window("servicesDebug", elementary.ELM_WIN_BASIC)
-        self.windeb.title_set(_("Services start|stop debug"))
+        self.windeb.title_set(_("Service output"))
         self.windeb.autodel_set(True)
 
         self.bgdeb = elementary.Background(self.windeb)
@@ -61,7 +78,7 @@ class Services(module.AbstractModule):
         box0.show()
 
         fr = elementary.Frame(self.windeb)
-        fr.label_set(_("Services start|stop debug"))
+        fr.label_set(_("Service output"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -86,19 +103,17 @@ class Services(module.AbstractModule):
         
         self.windeb.show()
 
+        dia = elementary.InnerWindow(self.windeb)
+        dia.activate()
+        dia.show()
+        self.windeb.resize_object_add(dia)
+        diala = elementary.Label(dia)
+        diala.label_set(_('Executing...'))
+        diala.show()
+        dia.content_set(diala)
+        dia.style_set('minimal')
 
-        c = os.popen( cmd, "r" )
-        while 1:
-            line = c.readline().replace("\n","")
-            if not line:
-                break
-            print "line ["+line+"]"
-            lb = elementary.Label(self.windeb)
-            lb.label_set(line)
-            lb.size_hint_align_set(-1.0, 0.0)
-            box1.pack_end(lb)
-            lb.show()
-
+        idler_add(partial(self.debugIdler, dia, box1, cmd))
 
     def sssbtClick(self, obj, event, *args, **kargs):
         print "Services sssbtClick [info]"
@@ -134,7 +149,7 @@ class Services(module.AbstractModule):
         startbt = ButtonServer(self.window)
         startbt.set_osCmd("/etc/init.d/" + service + " start")
         startbt.clicked = self.startbtClick
-        startbt.label_set("start")
+        startbt.label_set(_("start") )
 #        startbt.size_hint_align_set(-1.0, 0.0)
 #        startbt.size_hint_weight_set(1.0, 1.0)
         startbt.show()
@@ -143,7 +158,7 @@ class Services(module.AbstractModule):
         restartbt = ButtonServer(self.window)
         restartbt.set_osCmd("/etc/init.d/"+ service +" restart")
         restartbt.clicked = self.startbtClick
-        restartbt.label_set("restart")
+        restartbt.label_set(_("restart"))
 #        restartbt.size_hint_align_set(-1.0, 0.0)
         restartbt.show()
         ser_box.pack_end(restartbt)
@@ -151,7 +166,7 @@ class Services(module.AbstractModule):
         stopbt = ButtonServer(self.window)
         stopbt.set_osCmd("/etc/init.d/"+ service +" stop")
         stopbt.clicked = self.startbtClick
-        stopbt.label_set("stop")
+        stopbt.label_set(_("stop"))
 #        stopbt.size_hint_align_set(-1.0, 0.0)
         stopbt.show()
         ser_box.pack_end(stopbt)
