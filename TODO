@@ -1,11 +1,10 @@
 - shr-settings
-    load module categories dynamicaly
+    rewrite
+    load modules in categories dynamicaly
 - shr_gsm.py
     replace [forbidden] and [current] by icons
 - shr_usb.py
     check if it works with gta01, and if not - fix it
-- shr_battery.py
-    don't rely on status when checking remaining time
 - shr_mixer.py
     implement mixer settings
 - module.py
