@@ -104,7 +104,6 @@ class Services(module.AbstractModule):
         self.windeb.show()
 
         dia = elementary.InnerWindow(self.windeb)
-        dia.activate()
         dia.show()
         self.windeb.resize_object_add(dia)
         diala = elementary.Label(dia)
@@ -112,7 +111,7 @@ class Services(module.AbstractModule):
         diala.show()
         dia.content_set(diala)
         dia.style_set('minimal')
-
+        dia.activate()
         idler_add(partial(self.debugIdler, dia, box1, cmd))
 
     def sssbtClick(self, obj, event, *args, **kargs):
