@@ -76,6 +76,7 @@ class Bt(module.AbstractModule):
     def error(self):
         label = elementary.Label(self.window)
         label.label_set(_("Couldn't connect to FSO"))
+        label.show()
         self.main.pack_start(label)
 
     def update(self):
