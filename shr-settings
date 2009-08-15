@@ -36,7 +36,7 @@ DIRS = [	[_("Phone"),"icon_phone.png",			[ 'shr_gsm.Gsm', 'shr_call.Call', 'shr_
 		[_("Connectivity"),"icon_connectivity.png",	[ 'shr_wifi.Wifi', 'shr_gprs.Gprs', 'shr_usb.Usb', 'shr_bt.Bt' ] ],
 		[_("Power"),"icon_power.png",			[ 'shr_battery.Battery', 'shr_display.Display', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
 		[_("Appearance"),"icon_appearance.png",		[ 'shr_splash.Splash' ] ],
-		[_("GPS"), "icon_gps.png",			[ 'shr_gps.Gps', 'shr_gpsinfo.GpsInfo' ] ],
+		[_("Position"), "icon_position.png",		[ 'shr_gps.Gps', 'shr_gpsinfo.GpsInfo' ] ],
 		[_("Date/time"),"icon_datetime.png",		[ 'shr_clock.Clock', 'shr_date.Date' ] ],
 		[_("Others"), "icon_others.png",		[ 'shr_services.Services', 'shr_pim.Pim', 'shr_backup.Backup', 'shr_imageinfo.ImageInfo' ] ]
        ]
