@@ -163,7 +163,7 @@ class Pim(module.AbstractModule):
         quitbt.label_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)
-        ic.file_set( "/usr/share/pixmaps/icon_quit.png" )
+        ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
         ic.scale_set(1,1)
         ic.smooth_set(1)
         quitbt.icon_set(ic)

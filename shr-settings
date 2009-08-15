@@ -133,7 +133,7 @@ class ModulesWindow:
         quitbt2.label_set(_("Quit"))
         quitbt2.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt2)
-        ic.file_set( "/usr/share/pixmaps/icon_quit.png" )
+        ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
         ic.scale_set(1,1)
         ic.smooth_set(1)
         quitbt2.icon_set(ic)
@@ -340,7 +340,7 @@ class MainWindow:
         quitbt.label_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)
-        ic.file_set( "/usr/share/pixmaps/icon_quit.png" )
+        ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
         ic.smooth_set(1)
         ic.scale_set(1, 1)
         quitbt.icon_set(ic)
@@ -366,7 +366,7 @@ class MainWindow:
             bt.label_set( d[0] )
             bt.show()
 
-            icon_paths = [ "/usr/share/pixmaps/"+str(d[1]), "data/icons/"+str(d[1])]
+            icon_paths = [ "/usr/share/pixmaps/shr-settings/"+str(d[1]), "data/icons/"+str(d[1])]
             for i_path in icon_paths:
                 if os.path.exists(i_path):
                     ic = elementary.Icon(bt)
