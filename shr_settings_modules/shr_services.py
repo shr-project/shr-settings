@@ -25,15 +25,17 @@ class Services(module.AbstractModule):
 
     def reloadbtClick(self, obj, event, *args, **kargs):
         self.winser.hide()
-        del self.winser
+        self.winser.delete()
         print "Services reloadbtClick [info]"
         self.sssbtClick( obj, event)
 
     def destroyInfo(self, obj, event, *args, **kargs):
         self.winser.hide()
+        self.winser.delete()
 
     def destroyDebug(self, obj, event, *args, **kargs):
         self.windeb.hide()
+        self.windeb.delete()
 
     def hover_hide(self, obj, event, *args, **kargs):
         self.ser_box.delete()
@@ -129,7 +131,7 @@ class Services(module.AbstractModule):
     def clicked_serviceBox(self, win, event, *args, **kargs):
         service = win.name_get()
 
-        self.ser_hover = elementary.Hover(self.window)
+        self.ser_hover = elementary.Hover(self.win)
         self.ser_hover.size_hint_align_set(-1.0, -1.0)
         self.ser_hover.size_hint_weight_set(1.0, 1.0)
 #        self.ser_hover.style_set("hoversel_vertical")
@@ -145,7 +147,7 @@ class Services(module.AbstractModule):
         self.ser_hover.parent_set(ser_box)
         self.ser_hover.target_set(win)
 
-        startbt = ButtonServer(self.window)
+        startbt = ButtonServer(self.win)
         startbt.set_osCmd("/etc/init.d/" + service + " start")
         startbt.clicked = self.startbtClick
         startbt.label_set(_("start") )
@@ -154,7 +156,7 @@ class Services(module.AbstractModule):
         startbt.show()
         ser_box.pack_start(startbt)
 
-        restartbt = ButtonServer(self.window)
+        restartbt = ButtonServer(self.win)
         restartbt.set_osCmd("/etc/init.d/"+ service +" restart")
         restartbt.clicked = self.startbtClick
         restartbt.label_set(_("restart"))
@@ -162,7 +164,7 @@ class Services(module.AbstractModule):
         restartbt.show()
         ser_box.pack_end(restartbt)
 
-        stopbt = ButtonServer(self.window)
+        stopbt = ButtonServer(self.win)
         stopbt.set_osCmd("/etc/init.d/"+ service +" stop")
         stopbt.clicked = self.startbtClick
         stopbt.label_set(_("stop"))
@@ -170,16 +172,74 @@ class Services(module.AbstractModule):
         stopbt.show()
         ser_box.pack_end(stopbt)
         self.ser_box = ser_box
-        self.window.resize_object_add(self.ser_box)
+        self.win.resize_object_add(self.ser_box)
 
 
     def createView(self):
         """ main entry to the module that creates and returns the view """
-        self.editable = False
+        btn = elementary.Button(self.window)
+        btn.label_set(_('Services'))
+        btn.clicked = self.makeWindow
+        return btn
 
-        print "services 1"
-        box0 = elementary.Box(self.window)
-        print "services 2"
+    def makeWindow(self, *args, **kwargs):
+        self.win = elementary.Window('settings-services', elementary.ELM_WIN_BASIC)
+        win = self.win
+        bg = elementary.Background(win)
+        win.resize_object_add(bg)
+        win.title_set(_('Services'))
+        win.autodel_set(True)
+        bg.show()
+        box = elementary.Box(win)
+        win.resize_object_add(box)
+        box.show()
+        scroller = elementary.Scroller(win)
+        scroller.bounce_set(0,0)
+        frame = elementary.Frame(win)
+        frame.label_set(self.name)
+        frame.size_hint_align_set(-1.0, -1.0)
+        frame.size_hint_weight_set(1.0, 0.0)
+        scroller.content_set(frame)
+
+        scroller.size_hint_align_set(-1.0, -1.0)
+        scroller.size_hint_weight_set(1.0, 1.0)
+
+        box.pack_start(scroller)
+
+        scroller.show()
+
+        quitbt = elementary.Button(win)
+        quitbt.clicked = partial(self.windowClose, win)
+        quitbt.label_set(_("Quit"))
+        quitbt.size_hint_align_set(-1.0, 0.0)
+        ic = elementary.Icon(quitbt)
+        ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
+        ic.scale_set(1,1)
+        ic.smooth_set(1)
+        quitbt.icon_set(ic)
+        quitbt.show()
+        box.pack_end(quitbt)
+
+
+        box0 = elementary.Box(win)
+
+        label = elementary.Label(box0)
+        label.label_set(_("Please wait..."))
+        box0.pack_start(label)
+        label.show()
+
+        idler_add(partial(self.windowIdler, label, box0))
+
+        box0.show()
+        frame.content_set(box0)
+        frame.show()
+        win.show()
+
+    def windowClose(self, win, *args, **kwargs):
+        win.delete()
+
+    def windowIdler(self, label, box0, *args, **kwargs):
+        label.delete()
 
         dontshow = ["rc", "rcS", "reboot", "halt", "umountfs", "sendsigs", "rmnologin", "functions", "usb-gadget"]
  
@@ -187,7 +247,7 @@ class Services(module.AbstractModule):
         servicesList.sort()
         for i in servicesList:
             if ((len(i.split(".sh"))==1) and (not(i in dontshow))):
-                boxSSS = elementary.Button(self.window)
+                boxSSS = elementary.Button(box0)
                 boxSSS.label_set(i)
                 boxSSS.name = i
                 #boxSSS.horizontal_set(True)
@@ -197,6 +257,4 @@ class Services(module.AbstractModule):
                 boxSSS.show()
                 box0.pack_end(boxSSS)
              
-        print "services 5"
-        return box0
-
+        return False
