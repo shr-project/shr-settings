@@ -178,7 +178,7 @@ class Services(module.AbstractModule):
     def createView(self):
         """ main entry to the module that creates and returns the view """
         btn = elementary.Button(self.window)
-        btn.label_set(_('Services'))
+        btn.label_set(_('Services list'))
         btn.clicked = self.makeWindow
         return btn
 

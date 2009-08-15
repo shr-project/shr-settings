@@ -37,8 +37,8 @@ DIRS = [    [_("Phone"),"icon_phone.png",                     [ 'shr_gsm.Gsm', '
             [_("GPS"), "icon_gps.png",                 [ 'shr_gps.Gps', 'shr_gpsinfo.GpsInfo' ] ],
             [_("Date/time"),"icon_datetime.png",                  [ 'shr_clock.Clock', 'shr_date.Date' ] ],
             [_("Power"),"icon_power.png",  [ 'shr_battery.Battery', 'shr_display.Display', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
-            [_("Services"),"icon_services.png",                 [ 'shr_services.Services' ] ],
-            [_("Others"), "icon_others.png",                                       [ 'shr_splash.Splash', 'shr_pim.Pim', 'shr_backup.Backup', 'shr_imageinfo.ImageInfo' ] ]
+            [_("Appearance"),"icon_appearance.png",                 [ 'shr_splash.Splash' ] ],
+            [_("Others"), "icon_others.png",                                       [ 'shr_services.Services', 'shr_pim.Pim', 'shr_backup.Backup', 'shr_imageinfo.ImageInfo' ] ]
        ]
 
 class CategoryButton(elementary.Button):
