@@ -450,9 +450,6 @@ class MainWindow:
 if __name__ == "__main__":
     elementary.init()
 
-    # elementary configuration
-    elementary.c_elementary.finger_size_set(70)
-
     if len(argv[1:])>0:
         modlista = [];
         if argv[1] in ("-h", "--help"):
