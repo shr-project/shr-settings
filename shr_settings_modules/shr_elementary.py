@@ -23,15 +23,15 @@ class Elementary(module.AbstractModule):
         os.system('sed "s/export '+field+'=.*/export '+field+'='+value+'/" /etc/profile.d/elementary.sh -i')
         if callable(kargs.get('callback')):
             kargs['callback']()
-#        if not self.changed:
-#            btn = elementary.Button(self.window)
-#            btn.label_set(_('Restart X server'))
-#            btn.size_hint_align_set(-1.0, -1.0)
-#            btn.size_hint_weight_set(1.0, 0.0)
-#            btn.show()
-#            btn.clicked = self.xrestart
-#            self.main.pack_end(btn)
-#            self.changed = True
+        if not self.changed:
+            btn = elementary.Button(self.window)
+            btn.label_set(_('Restart X server'))
+            btn.size_hint_align_set(-1.0, -1.0)
+            btn.size_hint_weight_set(1.0, 0.0)
+            btn.show()
+            btn.clicked = self.xrestart
+            self.main.pack_end(btn)
+            self.changed = True
 
     def keysUpdate(self):
         """
@@ -66,9 +66,10 @@ class Elementary(module.AbstractModule):
             self.engine.value_set(0)
         self.slider.value = int(self.keys['ELM_FINGER_SIZE'])
 
-    def closex(self, dia, *args, **kwargs):
+    def closex(self, dia, obj, *args, **kwargs):
         os.system('. /etc/profile.d/elementary.sh; /etc/init.d/xserver-nodm restart &')
         self.closedia(dia)
+        obj.delete()
 
     def closedia(self, dia, *args, **kwargs):
         dia.delete()
@@ -99,7 +100,7 @@ class Elementary(module.AbstractModule):
         yes = elementary.Button(self.window)
         yes.label_set(_('Yes'))
         yes.show()
-        yes.clicked = partial(self.closex, dia)
+        yes.clicked = partial(self.closex, dia, obj)
         hbox.pack_start(yes)
 
         no = elementary.Button(self.window)
