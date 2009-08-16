@@ -1,4 +1,4 @@
-import elementary, module, os, ecore
+import elementary, module, os
 
 # Locale support
 import gettext
@@ -17,11 +17,21 @@ except IOError:
 class Elementary(module.AbstractModule):
     name = _("Elementary settings")
     keys = {}
+    changed = False
 
     def setValue(self, field, value, *args, **kargs):
         os.system('sed "s/export '+field+'=.*/export '+field+'='+value+'/" /etc/profile.d/elementary.sh -i')
         if callable(kargs.get('callback')):
             kargs['callback']()
+#        if not self.changed:
+#            btn = elementary.Button(self.window)
+#            btn.label_set(_('Restart X server'))
+#            btn.size_hint_align_set(-1.0, -1.0)
+#            btn.size_hint_weight_set(1.0, 0.0)
+#            btn.show()
+#            btn.clicked = self.xrestart
+#            self.main.pack_end(btn)
+#            self.changed = True
 
     def keysUpdate(self):
         """
@@ -56,23 +66,50 @@ class Elementary(module.AbstractModule):
             self.engine.value_set(0)
         self.slider.value = int(self.keys['ELM_FINGER_SIZE'])
 
-    def preview_close(self):
-        self.prevwin.hide()
-        self.prevwin.delete()
-        del self.prevwin
-        return False
+    def closex(self, dia, *args, **kwargs):
+        os.system('. /etc/profile.d/elementary.sh; /etc/init.d/xserver-nodm restart &')
+        self.closedia(dia)
 
-    def preview(self, obj, event, *args, **kwargs):
-#        print self.currentTheme
-        self.prevwin = elementary.Window('preview', 0)
-        bg = elementary.Background(self.prevwin)
-        bg.file_set(self.currentTheme + '/preview.png')
-        bg.show()
-        self.prevwin.resize_object_add(bg)
-        self.prevwin.autodel_set(True)
-        self.prevwin.fullscreen_set(True)
-        self.prevwin.show()
-        ecore.timer_add(5, self.preview_close)
+    def closedia(self, dia, *args, **kwargs):
+        dia.delete()
+
+    def xrestart(self, obj, *args, **kargs):
+        dia = elementary.InnerWindow(self.window)
+        self.window.resize_object_add(dia)
+        frame = elementary.Frame(self.window)
+        dia.style_set('minimal_vertical')
+        dia.scale_set(1.0)
+        frame.label_set(_('Are you sure?'))
+        dia.content_set(frame)
+        frame.show()
+        box = elementary.Box(self.window)
+        frame.content_set(box)
+        box.show()
+        label = elementary.AnchorBlock(self.window)
+        label.size_hint_align_set(-1.0, -1.0)
+        label.size_hint_weight_set(1.0, 0.0)
+        label.text_set(_('Restarting X server will close running applications. Do you really want to proceed?'))
+        label.show()
+        box.pack_start(label)
+        hbox = elementary.Box(self.window)
+        hbox.horizontal_set(True)
+        box.pack_end(hbox)
+        hbox.show()
+
+        yes = elementary.Button(self.window)
+        yes.label_set(_('Yes'))
+        yes.show()
+        yes.clicked = partial(self.closex, dia)
+        hbox.pack_start(yes)
+
+        no = elementary.Button(self.window)
+        no.label_set(_('No'))
+        no.show()
+        no.clicked = partial(self.closedia, dia)
+        hbox.pack_end(no)
+
+        dia.show()
+        dia.activate()
 
     def OnOffClick(self, obj, *args, **kargs):
         if obj.value_get():
@@ -108,23 +145,6 @@ class Elementary(module.AbstractModule):
         hozBox.pack_end(self.hoverSel)
         self.hoverSel.show()
 
-        # Preview button
-        previewbtn = elementary.Button(self.window)
-        previewbtn.label_set(_("Preview"))
-        previewbtn.clicked = self.preview
-#        previewbtn.show()
-        previewbtn.size_hint_align_set(-1.0, 0.0)
-#        hozBox.pack_end(previewbtn)        
-
-        # Add HoversleItems
-        # The callback is a bit of functools.partial magic
-#        for i in self.themes:
-#            name = self.themes[i][0]
-#            self.hoverSel.item_add(name, 
-#                "arrow_down", 
-#                elementary.ELM_ICON_STANDARD, 
-#                partial( self.setTheme, path = i ))
-
         themeList = listdir("/usr/share/elementary/themes/")
         themeList.sort()
         for theme in themeList:
@@ -134,8 +154,6 @@ class Elementary(module.AbstractModule):
                 "arrow_down",
                 elementary.ELM_ICON_STANDARD,
                 partial( self.setValue, 'ELM_THEME', theme, callback = self.keysUpdate))
-
-
 
         radiobox = elementary.Box(self.window)
         radiobox.horizontal_set(True)
@@ -178,7 +196,7 @@ class Elementary(module.AbstractModule):
         self.slider.size_hint_align_set(-1.0, -1.0)
         self.slider.size_hint_weight_set(1.0, 0.0)
         self.slider.unit_format_set(" %0.f ")
-        self.slider.min_max_set(0, 200)
+        self.slider.min_max_set(35, 150)
         self.slider._callback_add("delay,changed", self.setFingerSize)
         self.slider.show()
 
