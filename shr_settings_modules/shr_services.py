@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import dircache
 import module, elementary, os
 from ecore import idler_add
@@ -23,16 +24,6 @@ class ButtonServer( elementary.Button ):
 class Services(module.AbstractModule):
     name = _("Services settings")
 
-    def reloadbtClick(self, obj, event, *args, **kargs):
-        self.winser.hide()
-        self.winser.delete()
-        print "Services reloadbtClick [info]"
-        self.sssbtClick( obj, event)
-
-    def destroyInfo(self, obj, event, *args, **kargs):
-        self.winser.hide()
-        self.winser.delete()
-
     def destroyDebug(self, obj, event, *args, **kargs):
         self.windeb.hide()
         self.windeb.delete()
@@ -41,14 +32,75 @@ class Services(module.AbstractModule):
         self.ser_box.delete()
         self.ser_hover.delete()
 
+    def closex(self, action, dia, *args, **kwargs):
+        self.startDebugWin(action)
+        self.closedia(dia)
+
+    def closedia(self, dia, *args, **kwargs):
+        dia.delete()
+
+    def xrestart(self, action, text, *args, **kargs):
+        dia = elementary.InnerWindow(self.win)
+        self.win.resize_object_add(dia)
+        frame = elementary.Frame(self.win)
+        dia.style_set('minimal_vertical')
+        dia.scale_set(1.0)
+        frame.label_set(_('Are you sure?'))
+        dia.content_set(frame)
+        frame.show()
+        box = elementary.Box(self.win)
+        frame.content_set(box)
+        box.show()
+        label = elementary.AnchorBlock(self.win)
+        label.size_hint_align_set(-1.0, -1.0)
+        label.size_hint_weight_set(1.0, 0.0)
+        label.text_set(text)
+        label.show()
+        box.pack_start(label)
+        hbox = elementary.Box(self.win)
+        hbox.horizontal_set(True)
+        box.pack_end(hbox)
+        hbox.show()
+
+        yes = elementary.Button(self.win)
+        yes.label_set(_('Yes'))
+        yes.show()
+        yes.clicked = partial(self.closex, action, dia)
+        hbox.pack_start(yes)
+
+        no = elementary.Button(self.win)
+        no.label_set(_('No'))
+        no.show()
+        no.clicked = partial(self.closedia, dia)
+        hbox.pack_end(no)
+
+        dia.show()
+        dia.activate()
+
+
     def startbtClick(self, obj, event, *args, **kargs):
         """ Callback when start/stop/reload has been pressed """
         # delete the hover with Start/stop buttons
         self.ser_box.delete()
         self.ser_hover.delete()
-        self.startDebugWin( obj.get_osCmd() )
+        if kargs.get('warning'):
+            self.xrestart( obj.get_osCmd(), kargs['warning_text'] )
+        else:
+            self.startDebugWin( obj.get_osCmd() )
 
     def debugIdler(self, dia, box1, cmd):
+        specialcmds = {'/etc/init.d/ophonekitd stop':'(killall -9 ophonekitd && echo "ophonekitd stopped") || echo "killall: ophonekitd: no process killed"',
+                       '/etc/init.d/ophonekitd start':('echo "Starting ophonekitd..."', 'DISPLAY=:0 ophonekitd >> /var/log/ophonekitd.log 2>&1 &'),
+                       '/etc/init.d/ophonekitd restart':('(killall -9 ophonekitd && echo "ophonekitd stopped") || echo "killall: ophonekitd: no process killed" && echo "Starting ophonekitd..."', 'DISPLAY=:0 ophonekitd >> /var/log/ophonekitd.log 2>&1 &')
+                      }
+        if cmd in specialcmds:
+            cmd=specialcmds[cmd]
+
+        extracmd = None
+        if isinstance(cmd, tuple):
+            extracmd = cmd[1]
+            cmd = cmd[0]
+
         c = os.popen( cmd, "r" )
         while 1:
             line = c.readline().replace("\n","")
@@ -60,6 +112,10 @@ class Services(module.AbstractModule):
             lb.size_hint_align_set(-1.0, 0.0)
             box1.pack_end(lb)
             lb.show()
+
+        if extracmd:
+            os.system(extracmd)
+
         dia.delete()
         return False
 
@@ -116,18 +172,6 @@ class Services(module.AbstractModule):
         dia.activate()
         idler_add(partial(self.debugIdler, dia, box1, cmd))
 
-    def sssbtClick(self, obj, event, *args, **kargs):
-        print "Services sssbtClick [info]"
-        self.makeWindowOrList()
-
-    def chk_if_needToByDisplay(self, servicesList, name):
-        for i in servicesList:
-            if i == name:
-                if name.pos('.sh')==2:
-                    return 1
-        return 0
-
-
     def clicked_serviceBox(self, win, event, *args, **kargs):
         service = win.name_get()
 
@@ -149,7 +193,7 @@ class Services(module.AbstractModule):
 
         startbt = ButtonServer(self.win)
         startbt.set_osCmd("/etc/init.d/" + service + " start")
-        startbt.clicked = self.startbtClick
+        startbt.clicked = partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text'))
         startbt.label_set(_("start") )
 #        startbt.size_hint_align_set(-1.0, 0.0)
 #        startbt.size_hint_weight_set(1.0, 1.0)
@@ -158,7 +202,7 @@ class Services(module.AbstractModule):
 
         restartbt = ButtonServer(self.win)
         restartbt.set_osCmd("/etc/init.d/"+ service +" restart")
-        restartbt.clicked = self.startbtClick
+        restartbt.clicked = partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text'))
         restartbt.label_set(_("restart"))
 #        restartbt.size_hint_align_set(-1.0, 0.0)
         restartbt.show()
@@ -166,7 +210,7 @@ class Services(module.AbstractModule):
 
         stopbt = ButtonServer(self.win)
         stopbt.set_osCmd("/etc/init.d/"+ service +" stop")
-        stopbt.clicked = self.startbtClick
+        stopbt.clicked = partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text'))
         stopbt.label_set(_("stop"))
 #        stopbt.size_hint_align_set(-1.0, 0.0)
         stopbt.show()
@@ -241,8 +285,30 @@ class Services(module.AbstractModule):
     def windowIdler(self, label, box0, *args, **kwargs):
         label.delete()
 
-        dontshow = ["rc", "rcS", "reboot", "halt", "umountfs", "sendsigs", "rmnologin", "functions", "usb-gadget"]
- 
+        frame = elementary.Frame(box0)
+        frame.style_set('outdent_top')
+        frame.size_hint_align_set(-1.0, -1.0)
+        frame.size_hint_weight_set(1.0, 0.0)
+        frame.show()
+        topbox = elementary.Box(box0)
+        topbox.show()
+        frame.content_set(topbox)
+        tops = [('frameworkd', _('Stopping frameworkd will stop all smartphone related functions. Do you really want to proceed?')),
+                ('ophonekitd', _('Stopping ophonekitd will stop all phone related functions. Do you really want to proceed?')),
+                ('xserver-nodm', _('Stopping X server will stop all running applications. Do you really want to proceed?'))]
+        for top in tops:
+            btn = elementary.Button(box0)
+            btn.label_set(top[0])
+            btn.name = top[0]
+            btn.size_hint_align_set(-1.0, -1.0)
+            btn.size_hint_weight_set(1.0, 1.0)
+            btn.clicked = partial(self.clicked_serviceBox, warning = True, warning_text = top[1])
+            btn.show()
+            topbox.pack_end(btn)
+        box0.pack_start(frame)
+
+        dontshow = ["rc", "rcS", "reboot", "halt", "umountfs", "sendsigs", "rmnologin", "functions", "usb-gadget", "frameworkd", "xserver-nodm"]
+
         servicesList = dircache.listdir("/etc/init.d/")
         servicesList.sort()
         for i in servicesList:

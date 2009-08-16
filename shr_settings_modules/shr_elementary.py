@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import elementary, module, os
 
 # Locale support
