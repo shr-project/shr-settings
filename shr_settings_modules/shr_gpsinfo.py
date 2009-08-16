@@ -69,9 +69,9 @@ class SatDetails():
          if row < len(sats):
            (prn, inuse, ele, azi, srn) = sats[row]
            if inuse:
-               self.satlab[row].color_set(1,100,1,200)
+               self.satlab[row].color_set(255,255,255,255)
            else:
-               self.satlab[row].color_set(100,1,1,100)
+               self.satlab[row].color_set(255,255,255,100)
            self.satlab[row].label_set("%d (%d,%d) %d" % (prn, ele, azi, srn))
 
          else:
