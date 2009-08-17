@@ -131,7 +131,7 @@ class ModulesWindow:
         if fromcli:
             quitbt2.clicked = self.destroy
         else:
-            quitbt2._callback_add('clicked', (self.destroy2, self.win2))
+            quitbt2.clicked = partial(self.destroy2, self.win2)
         quitbt2.label_set(_("Quit"))
         quitbt2.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt2)
@@ -198,6 +198,7 @@ class ModulesWindow:
         log ("deleting window object", logtype.DEBUG)
         win.delete()
         del win
+        del self
 
     def destroy(self, obj, event, *args, **kargs):
         log( "window destroy callback called! kabum!", logtype.DEBUG)
@@ -216,7 +217,7 @@ class MainWindow:
         if self.dbus_system == None:
            log( "idler had not inited dbus yet, do it now", logtype.WARN)
            self.init_dbus_idler()
-        self.m.makeGui(  obj.get_modules(), self.dbus_system )
+        ModulesWindow().makeGui(  obj.get_modules(), self.dbus_system )
         #print "displayModulesWin 2"
 
     def start_ophonekitd(self, obj, event, *args, **kargs):
@@ -314,7 +315,7 @@ class MainWindow:
         self.win.title_set(_("Settings"))
         self.win.destroy = self.destroy
 
-        self.m = ModulesWindow()
+        #self.m = ModulesWindow()
 
         #add background to main window
         bg = elementary.Background(self.win)
