@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # SHR Settings
-# by Sebastian Krzyszkowiak, openmoko.pl and SHR team
+# by Sebastian Krzyszkowiak, openmoko.pl and SHR teams
+# GPLv3+
 
 from time import time
 
@@ -23,6 +24,7 @@ log('SHR Settings', logtype.HEADER)
 import elementary, ecore
 import os.path
 from sys import argv
+from functools import partial
 from gettext import Catalog
 
 try:
@@ -97,8 +99,8 @@ class ModulesWindow:
         if fromcli:
             self.win2.destroy = self.destroy
         else:
-            self.win2.autodel_set(True)
-            self.win2._callback_add('destroy', (self.destroy2, self.win2))
+#            self.win2.autodel_set(True)
+            self.win2.destroy = partial(self.destroy2, self.win2)
 
         #add background to module window
         bg = elementary.Background(self.win2)
@@ -183,7 +185,7 @@ class ModulesWindow:
         ecore.idler_add(self.renderModules, modulesList, bus)
         self.win2.show()
 
-    def destroy2(self,obj, event, win, *args, **kargs):
+    def destroy2(self, win, obj, *args, **kargs):
         log ( "closing modules window...", logtype.DEBUG)
         win.hide()
         for m in self.modList:
