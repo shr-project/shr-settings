@@ -188,7 +188,7 @@ class Gprs(module.AbstractModule):
         else:
             if gprs_status == None:
                 gprs_status = id
-            if gprs_status == 'release':
+            if gprs_status == 'release' or gprs_status == 'released':
                 status=_("disconnected")
                 self.btConnectDisconnect.label_set(_("Connect"))
                 self.btConnectDisconnect.clicked = self.connect
@@ -202,8 +202,16 @@ class Gprs(module.AbstractModule):
                 status=_("connecting")
                 self.btConnectDisconnect.label_set(_("Disconnect"))
                 self.btConnectDisconnect.clicked = self.disconnect
+            elif gprs_status == 'incoming':
+                status=_("incoming")
+                self.btConnectDisconnect.label_set(_("Connect"))
+                self.btConnectDisconnect.clicked = self.connect
+            elif gprs_status == 'held':
+                status=_("held")
+                self.btConnectDisconnect.label_set(_("Disconnect"))
+                self.btConnectDisconnect.clicked = self.disconnect
             else:
-                status=_("UNKNOWN")+" ("+gprs_status+")"
+                status=_("UNKNOWN")+" ("+str(id) + ' ' + str(gprs_status)+")"
                 self.btConnectDisconnect.label_set(_("UNKNOWN"))
                 self.btConnectDisconnect.clicked = self.nothing
             self.labelStatus.label_set(status)
@@ -237,7 +245,7 @@ class Gprs(module.AbstractModule):
             self.entryAPN       = GPRSEntryBox(self.window, _("Your APN: "), self.apn)
             self.entryLogin     = GPRSEntryBox(self.window, _("Your login: "), self.login)
             self.entryPassword  = GPRSEntryBox(self.window, _("Your password: "), self.password)
-            self.labelStatus    = GPRSLabelBox(self.window, _("Connection status: "),_("UNKNOWN"))
+            self.labelStatus    = GPRSLabelBox(self.window, _("Connection status: "),_("UNKNOWNN"))
             #self.laTransferred = self.newLabel(_("Transferred bytes (RX/TX): UNKNOWN"))
 
             self.main.pack_end(self.entryAPN)
