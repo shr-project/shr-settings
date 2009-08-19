@@ -182,10 +182,12 @@ class Gprs(module.AbstractModule):
         print "nothing called"
         return 0
 
-    def updateStatus(self, gprs_status = None, *args, **kargs):
-        if gprs_status == None:
+    def updateStatus(self, id = None, gprs_status = None, *args, **kargs):
+        if id == None:
             self.dbusObj.GetContextStatus(reply_handler = self.updateStatus, error_handler=self.dbuserror)
         else:
+            if gprs_status == None:
+                gprs_status = id
             if gprs_status == 'release':
                 status=_("disconnected")
                 self.btConnectDisconnect.label_set(_("Connect"))
