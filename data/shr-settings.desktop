@@ -17,4 +17,4 @@ Exec=shr-settings
 Terminal=false
 Type=Application
 Categories=Settings;
-Icon=shr_settings.png
+Icon=shr-settings
