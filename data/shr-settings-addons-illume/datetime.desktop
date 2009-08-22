@@ -1,10 +1,9 @@
 [Desktop Entry]
 Version=1.0
-Encoding=UTF-8
 Name=Date/time settings
 StartupNotify=true
 Exec=shr-settings Date/time shr_clock.Clock shr_date.Date
 Terminal=false
 Type=Application
 Categories=Settings;System;
-Icon=shr_settings.png
+Icon=shr_settings

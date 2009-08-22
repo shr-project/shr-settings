@@ -1,10 +1,9 @@
 [Desktop Entry]
 Version=1.0
-Encoding=UTF-8
 Name=Power settings
 StartupNotify=true
 Exec=shr-settings Power shr_battery.Battery shr_display.Display shr_pm.Pm shr_device_timeouts.Timeouts
 Terminal=false
 Type=Application
 Categories=Settings;System;
-Icon=shr_settings.png
+Icon=shr_settings

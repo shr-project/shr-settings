@@ -1,10 +1,9 @@
 [Desktop Entry]
 Version=1.0
-Encoding=UTF-8
 Name=Connectivity settings
 StartupNotify=true
 Exec=shr-settings Connectivity shr_wifi.Wifi shr_gprs.Gprs shr_usb.Usb shr_bt.Bt
 Terminal=false
 Type=Application
 Categories=Settings;System;
-Icon=shr_settings.png
+Icon=shr_settings

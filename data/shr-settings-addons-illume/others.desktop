@@ -1,10 +1,9 @@
 [Desktop Entry]
 Version=1.0
-Encoding=UTF-8
 Name=Other settings
 StartupNotify=true
 Exec=shr-settings Others shr_splash.Splash shr_pim.Pim shr_backup.Backup
 Terminal=false
 Type=Application
 Categories=Settings;System;
-Icon=shr_settings.png
+Icon=shr_settings
