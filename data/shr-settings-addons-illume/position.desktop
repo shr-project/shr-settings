@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Name=Services settings
+Name=Position settings
 StartupNotify=true
-Exec=shr-settings Services shr_services.Services
+Exec=shr-settings Position shr_gps.Gps shr_gpsinfo.GpsInfo
 Terminal=false
 Type=Application
 Categories=Settings;System;

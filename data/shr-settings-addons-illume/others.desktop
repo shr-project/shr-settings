@@ -2,7 +2,7 @@
 Version=1.0
 Name=Other settings
 StartupNotify=true
-Exec=shr-settings Others shr_splash.Splash shr_pim.Pim shr_backup.Backup
+Exec=shr-settings Others shr_pim.Pim shr_services.Services shr_backup.Backup shr_imageinfo.ImageInfo
 Terminal=false
 Type=Application
 Categories=Settings;System;

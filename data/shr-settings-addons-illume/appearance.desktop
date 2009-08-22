@@ -1,8 +1,8 @@
 [Desktop Entry]
 Version=1.0
-Name=GPS settings
+Name=Appearance settings
 StartupNotify=true
-Exec=shr-settings GPS shr_gps.Gps shr_gpsinfo.GpsInfo
+Exec=shr-settings Appearance shr_elementary.Elementary shr_splash.Splash
 Terminal=false
 Type=Application
 Categories=Settings;System;

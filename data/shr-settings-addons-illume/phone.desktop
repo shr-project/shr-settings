@@ -2,7 +2,7 @@
 Version=1.0
 Name=Phone settings
 StartupNotify=true
-Exec=shr-settings Phone shr_gsm.Gsm shr_call.Call shr_sim.Sim
+Exec=shr-settings Phone shr_gsm.Gsm shr_call.Call shr_simauth.SimAuth shr_sim.Sim
 Terminal=false
 Type=Application
 Categories=Settings;System;
