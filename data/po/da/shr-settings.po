@@ -4,12 +4,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: SHR settings\n"
+"Project-Id-Version: shr-settings 0.0.0.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-11 14:33+0200\n"
-"PO-Revision-Date: 2009-07-11 16:00+0100\n"
+"POT-Creation-Date: 2009-08-22 14:45+0200\n"
+"PO-Revision-Date: 2009-08-22 16:55+0100\n"
 "Last-Translator: Ole Carlsen <ole@carlsen-web.dk>\n"
-"Language-Team: Danish <LL@li.org>\n"
+"Language-Team: DANISH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,90 +17,91 @@ msgstr ""
 "X-Poedit-Country: DENMARK\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: shr-settings:34
+#: shr-settings:36
 msgid "Phone"
 msgstr "Telefon"
 
-#: shr-settings:35
+#: shr-settings:37
 msgid "Profiles"
 msgstr "Profiler"
 
-#: shr-settings:36
+#: shr-settings:38
 #: shr_settings_modules/shr_sim.py:182
 #: shr_settings_modules/shr_bt.py:74
 msgid "Connectivity"
 msgstr "Forbindelser"
-
-#: shr-settings:37
-msgid "GPS"
-msgstr "GPS"
-
-#: shr-settings:38
-msgid "Date/time"
-msgstr "Dato & tid"
 
 #: shr-settings:39
 msgid "Power"
 msgstr "Strømstyring"
 
 #: shr-settings:40
-msgid "Services"
-msgstr "Tjenester"
+msgid "Appearance"
+msgstr "Udseende"
 
 #: shr-settings:41
+msgid "Position"
+msgstr "Position"
+
+#: shr-settings:42
+msgid "Date/time"
+msgstr "Dato & tid"
+
+#: shr-settings:43
 msgid "Others"
 msgstr "Andre"
 
-#: shr-settings:133
-#: shr-settings:340
-#: shr_settings_modules/shr_pim.py:116
-#: shr_settings_modules/shr_pim.py:148
-#: shr_settings_modules/shr_currentprofile.py:307
+#: shr-settings:135
+#: shr-settings:343
+#: shr_settings_modules/shr_pim.py:131
+#: shr_settings_modules/shr_pim.py:163
+#: shr_settings_modules/shr_currentprofile.py:331
+#: shr_settings_modules/shr_services.py:257
 #: shr_settings_modules/shr_gpsinfo.py:41
 msgid "Quit"
 msgstr "Afslut"
 
-#: shr-settings:158
+#: shr-settings:160
 #, python-format
 msgid "Please wait...<br>Loading %d modules..."
 msgstr "Vent venligst...<br>Indlæser %d moduler..."
 
-#: shr-settings:235
-#: shr-settings:249
+#: shr-settings:238
+#: shr-settings:252
 msgid "ophonekitd log"
 msgstr "ophonekitd log"
 
-#: shr-settings:262
+#: shr-settings:265
 msgid "Clean"
 msgstr "Ryd"
 
-#: shr-settings:269
-#: shr-settings:430
-#: shr_settings_modules/shr_services.py:77
+#: shr-settings:272
+#: shr-settings:433
+#: shr_settings_modules/shr_services.py:152
 msgid "Close"
 msgstr "Luk"
 
-#: shr-settings:312
+#: shr-settings:315
 msgid "Settings"
 msgstr "Opsætning"
 
-#: shr-settings:391
+#: shr-settings:394
 msgid "ophonekitd"
 msgstr "ophonekitd"
 
-#: shr-settings:396
+#: shr-settings:399
 msgid "is not running!"
 msgstr "kører ikke!"
 
-#: shr-settings:401
+#: shr-settings:404
 msgid "Start"
 msgstr "Start"
 
-#: shr-settings:407
+#: shr-settings:410
 msgid "View log"
 msgstr "Vis log"
 
-#: shr-settings:426
+#: shr-settings:429
 msgid "Information"
 msgstr "Information"
 
@@ -126,6 +127,9 @@ msgstr "Kunne ikke forbinde til netværk"
 
 #: shr_settings_modules/shr_gsm.py:154
 #: shr_settings_modules/shr_call.py:93
+#: shr_settings_modules/shr_pim.py:51
+#: shr_settings_modules/shr_services.py:271
+#: shr_settings_modules/shr_simauth.py:185
 msgid "Please wait..."
 msgstr "Vent venligst..."
 
@@ -172,22 +176,34 @@ msgstr "GSM antenne:"
 
 #: shr_settings_modules/shr_gsm.py:383
 #: shr_settings_modules/shr_call.py:87
+#: shr_settings_modules/shr_pim.py:31
+#: shr_settings_modules/shr_currentprofile.py:568
+#: shr_settings_modules/shr_sim.py:348
+#: shr_settings_modules/shr_gprs.py:125
+#: shr_settings_modules/shr_wifi.py:119
+#: shr_settings_modules/shr_bt.py:78
+#: shr_settings_modules/shr_device_timeouts.py:144
+#: shr_settings_modules/shr_profile.py:31
 #: shr_settings_modules/shr_gps.py:81
-msgid "can't connect to dbus"
-msgstr "kan ikke forbinde til dbus"
+#: shr_settings_modules/shr_simauth.py:26
+#: shr_settings_modules/shr_simauth.py:179
+#: shr_settings_modules/shr_battery.py:128
+msgid "Couldn't connect to FSO"
+msgstr "Kan ikke forbinde til dbus"
 
 #: shr_settings_modules/shr_splash.py:18
 msgid "Splash settings"
 msgstr "Splash opsætning"
 
 #: shr_settings_modules/shr_splash.py:65
+#: shr_settings_modules/shr_elementary.py:63
 #, python-format
 msgid "Themes (%s)"
 msgstr "Temaer (%s)"
 
 #: shr_settings_modules/shr_splash.py:112
 msgid "Preview"
-msgstr "Forhåndvis"
+msgstr "Forhåndsvis"
 
 #: shr_settings_modules/shr_imageinfo.py:13
 msgid "Image information"
@@ -195,7 +211,7 @@ msgstr "Modem information"
 
 #: shr_settings_modules/shr_imageinfo.py:55
 msgid "Buildhost: "
-msgstr "Buildhost: "
+msgstr "Opbyggevært:"
 
 #: shr_settings_modules/shr_imageinfo.py:56
 msgid "Revision: "
@@ -239,7 +255,7 @@ msgstr "Opkald opsætning"
 
 #: shr_settings_modules/shr_call.py:26
 msgid "Turn GSM on."
-msgstr "Aktiver GSM"
+msgstr "Aktivér GSM"
 
 #: shr_settings_modules/shr_call.py:54
 msgid "Show my number:"
@@ -247,7 +263,7 @@ msgstr "Vis mit nummer:"
 
 #: shr_settings_modules/shr_call.py:56
 msgid "By network"
-msgstr "Netværks-afhængig"
+msgstr "Netværksafhængig"
 
 #: shr_settings_modules/shr_call.py:56
 #: shr_settings_modules/shr_gps.py:89
@@ -255,79 +271,79 @@ msgid "Manual"
 msgstr "Manuel"
 
 #: shr_settings_modules/shr_call.py:76
-#: shr_settings_modules/shr_currentprofile.py:230
+#: shr_settings_modules/shr_currentprofile.py:253
 #: shr_settings_modules/shr_wifi.py:102
 #: shr_settings_modules/shr_pm.py:55
-#: shr_settings_modules/shr_bt.py:113
-#: shr_settings_modules/shr_bt.py:154
+#: shr_settings_modules/shr_bt.py:114
+#: shr_settings_modules/shr_bt.py:155
 #: shr_settings_modules/shr_gps.py:68
 msgid "On"
-msgstr "Aktiver"
+msgstr "Aktiv"
 
 #: shr_settings_modules/shr_call.py:76
-#: shr_settings_modules/shr_currentprofile.py:238
+#: shr_settings_modules/shr_currentprofile.py:261
 #: shr_settings_modules/shr_wifi.py:102
 #: shr_settings_modules/shr_pm.py:55
-#: shr_settings_modules/shr_bt.py:113
-#: shr_settings_modules/shr_bt.py:154
+#: shr_settings_modules/shr_bt.py:114
+#: shr_settings_modules/shr_bt.py:155
 #: shr_settings_modules/shr_gps.py:68
 msgid "Off"
-msgstr "De-aktiver"
+msgstr "Deaktiv"
 
 #: shr_settings_modules/shr_pim.py:24
 msgid "PIM settings"
 msgstr "PIM opsætning"
 
-#: shr_settings_modules/shr_pim.py:31
-msgid "DBus is borked"
-msgstr "DBus er 'borked'"
-
-#: shr_settings_modules/shr_pim.py:70
+#: shr_settings_modules/shr_pim.py:85
 #, python-format
 msgid "%(backend)s<br>(domain: %(domain)s)"
 msgstr "%(backend)s<br>(domæne: %(domain)s)"
 
-#: shr_settings_modules/shr_pim.py:75
+#: shr_settings_modules/shr_pim.py:90
 msgid "enabled"
 msgstr "aktiveret"
 
-#: shr_settings_modules/shr_pim.py:83
+#: shr_settings_modules/shr_pim.py:98
 msgid "adding entries"
-msgstr "tilføjer indgange"
+msgstr "tilføjer poster"
 
-#: shr_settings_modules/shr_pim.py:83
+#: shr_settings_modules/shr_pim.py:98
 msgid "updating entries"
-msgstr "opdaterer indgange"
+msgstr "opdaterer poster"
 
-#: shr_settings_modules/shr_pim.py:83
+#: shr_settings_modules/shr_pim.py:98
 msgid "deleting entries"
-msgstr "sletter indgange"
+msgstr "sletter poster"
 
-#: shr_settings_modules/shr_pim.py:83
+#: shr_settings_modules/shr_pim.py:98
 msgid "adding new fields to entries"
-msgstr "tilføjer nye felter til indgange"
+msgstr "tilføjer nye felter til poster"
 
-#: shr_settings_modules/shr_pim.py:83
+#: shr_settings_modules/shr_pim.py:98
 msgid "needs loging in"
 msgstr "kræver log ind"
 
-#: shr_settings_modules/shr_pim.py:83
+#: shr_settings_modules/shr_pim.py:98
 msgid "needs syncing"
 msgstr "kræver synkronisering"
 
-#: shr_settings_modules/shr_pim.py:85
+#: shr_settings_modules/shr_pim.py:98
+msgid "it's handler"
+msgstr "Det er håndtering"
+
+#: shr_settings_modules/shr_pim.py:100
 msgid "Properties"
 msgstr "Egenskaber"
 
-#: shr_settings_modules/shr_pim.py:109
+#: shr_settings_modules/shr_pim.py:124
 msgid "Set as default"
 msgstr "Sæt som standard"
 
-#: shr_settings_modules/shr_pim.py:181
+#: shr_settings_modules/shr_pim.py:196
 msgid " (default)"
 msgstr " (standard)"
 
-#: shr_settings_modules/shr_pim.py:203
+#: shr_settings_modules/shr_pim.py:218
 msgid "Domains"
 msgstr "Domæner"
 
@@ -370,7 +386,7 @@ msgstr "Mappe påkrævet."
 #: shr_settings_modules/shr_backup.py:469
 #: shr_settings_modules/shr_backup.py:482
 msgid "Config Files couldn't be loaded<br>Please investigate!"
-msgstr "Konfiguration filer kunne ikke indlæses<br>Venligst undersøg!"
+msgstr "Konfigurationsfiler kunne ikke indlæses<br>Venligst undersøg!"
 
 #: shr_settings_modules/shr_backup.py:480
 msgid "File required."
@@ -408,44 +424,98 @@ msgstr "Arkiv"
 msgid "Restore"
 msgstr "Genskab"
 
-#: shr_settings_modules/shr_currentprofile.py:282
-#: shr_settings_modules/shr_currentprofile.py:285
+#: shr_settings_modules/shr_currentprofile.py:306
+#: shr_settings_modules/shr_currentprofile.py:309
 msgid "Change ringtone"
 msgstr "Skift ringetone"
 
-#: shr_settings_modules/shr_currentprofile.py:292
+#: shr_settings_modules/shr_currentprofile.py:316
 msgid "Select ringtone"
 msgstr "Vælg ringetone"
 
-#: shr_settings_modules/shr_currentprofile.py:294
+#: shr_settings_modules/shr_currentprofile.py:318
 msgid "Ringtones are placed in /usr/share/sounds/"
 msgstr "Ringetoner er placeret i /usr/share/sounds/"
 
-#: shr_settings_modules/shr_currentprofile.py:398
-#: shr_settings_modules/shr_currentprofile.py:428
+#: shr_settings_modules/shr_currentprofile.py:422
+#: shr_settings_modules/shr_currentprofile.py:452
 msgid "Play"
 msgstr "Afspil"
 
-#: shr_settings_modules/shr_currentprofile.py:404
+#: shr_settings_modules/shr_currentprofile.py:428
 msgid "Stop"
 msgstr "Stop"
 
-#: shr_settings_modules/shr_currentprofile.py:436
+#: shr_settings_modules/shr_currentprofile.py:460
 msgid "Change"
 msgstr "Skift"
 
-#: shr_settings_modules/shr_currentprofile.py:530
+#: shr_settings_modules/shr_currentprofile.py:564
 msgid "Current profile settings"
 msgstr "Aktuel profil opsætning"
 
-#: shr_settings_modules/shr_services.py:22
+#: shr_settings_modules/shr_services.py:25
 msgid "Services settings"
 msgstr "Tjenester opsætning"
 
-#: shr_settings_modules/shr_services.py:50
-#: shr_settings_modules/shr_services.py:64
-msgid "Services start|stop debug"
-msgstr "Tjenester start|stop fejlsøge"
+#: shr_settings_modules/shr_services.py:48
+#: shr_settings_modules/shr_sim.py:202
+#: shr_settings_modules/shr_elementary.py:84
+msgid "Are you sure?"
+msgstr "Er du sikker?"
+
+#: shr_settings_modules/shr_services.py:66
+#: shr_settings_modules/shr_sim.py:210
+#: shr_settings_modules/shr_elementary.py:102
+msgid "Yes"
+msgstr "Ja"
+
+#: shr_settings_modules/shr_services.py:72
+#: shr_settings_modules/shr_sim.py:215
+#: shr_settings_modules/shr_elementary.py:108
+msgid "No"
+msgstr "Nej"
+
+#: shr_settings_modules/shr_services.py:125
+#: shr_settings_modules/shr_services.py:139
+msgid "Service output"
+msgstr "Tjeneste Data"
+
+#: shr_settings_modules/shr_services.py:168
+msgid "Executing..."
+msgstr "Udfører..."
+
+#: shr_settings_modules/shr_services.py:197
+msgid "start"
+msgstr "Start"
+
+#: shr_settings_modules/shr_services.py:206
+msgid "restart"
+msgstr "genstart"
+
+#: shr_settings_modules/shr_services.py:214
+msgid "stop"
+msgstr "Stop"
+
+#: shr_settings_modules/shr_services.py:225
+msgid "Services list"
+msgstr "List Udbydere"
+
+#: shr_settings_modules/shr_services.py:234
+msgid "Services"
+msgstr "Tjenester"
+
+#: shr_settings_modules/shr_services.py:296
+msgid "Stopping frameworkd will stop all smartphone related functions. Do you really want to proceed?"
+msgstr "Stop af frameworkd vil stoppe alle smartphone relaterede funktioner. Ønsker du virkelig at fortsætte?"
+
+#: shr_settings_modules/shr_services.py:297
+msgid "Stopping ophonekitd will stop all phone related functions. Do you really want to proceed?"
+msgstr "Stop af ophonekitd vil stoppe alle telefon relaterede funktioner. Ønsker du virkelig at fortsætte?"
+
+#: shr_settings_modules/shr_services.py:298
+msgid "Stopping X server will stop all running applications. Do you really want to proceed?"
+msgstr "Stop af X server vil stoppe alle kørende applikationer. Ønsker du virkelig at fortsætte?"
 
 #: shr_settings_modules/shr_display.py:26
 msgid "Display settings"
@@ -460,7 +530,7 @@ msgid "Book "
 msgstr "Bog"
 
 #: shr_settings_modules/shr_sim.py:170
-#: shr_settings_modules/shr_sim.py:283
+#: shr_settings_modules/shr_sim.py:321
 msgid "clean"
 msgstr "ryd"
 
@@ -468,15 +538,11 @@ msgstr "ryd"
 msgid "SIM settings"
 msgstr "SIM opsætning"
 
-#: shr_settings_modules/shr_sim.py:241
+#: shr_settings_modules/shr_sim.py:279
 msgid "Message book"
 msgstr "Besked bog"
 
-#: shr_settings_modules/shr_sim.py:310
-msgid "Cannot connect to dbus"
-msgstr "Kan ikke forbinde til dbus"
-
-#: shr_settings_modules/shr_sim.py:325
+#: shr_settings_modules/shr_sim.py:363
 msgid "SIM information:"
 msgstr "SIM information:"
 
@@ -488,49 +554,62 @@ msgstr "GPRS opsætning"
 msgid "networking"
 msgstr "netværk"
 
-#: shr_settings_modules/shr_gprs.py:188
+#: shr_settings_modules/shr_gprs.py:192
 msgid "disconnected"
 msgstr "afbrudt"
 
-#: shr_settings_modules/shr_gprs.py:189
+#: shr_settings_modules/shr_gprs.py:193
+#: shr_settings_modules/shr_gprs.py:207
 msgid "Connect"
 msgstr "Forbind"
 
-#: shr_settings_modules/shr_gprs.py:192
+#: shr_settings_modules/shr_gprs.py:196
 msgid "connected"
 msgstr "forbundet"
 
-#: shr_settings_modules/shr_gprs.py:193
-#: shr_settings_modules/shr_gprs.py:199
+#: shr_settings_modules/shr_gprs.py:197
+#: shr_settings_modules/shr_gprs.py:203
+#: shr_settings_modules/shr_gprs.py:211
 msgid "Disconnect"
 msgstr "Afbryd"
 
-#: shr_settings_modules/shr_gprs.py:198
+#: shr_settings_modules/shr_gprs.py:202
 msgid "connecting"
 msgstr "forbinder"
 
-#: shr_settings_modules/shr_gprs.py:202
-#: shr_settings_modules/shr_gprs.py:203
-#: shr_settings_modules/shr_gprs.py:236
-#: shr_settings_modules/shr_gprs.py:246
+#: shr_settings_modules/shr_gprs.py:206
+msgid "incoming"
+msgstr "Indgående opkald"
+
+#: shr_settings_modules/shr_gprs.py:210
+msgid "held"
+msgstr "holdt"
+
+#: shr_settings_modules/shr_gprs.py:214
+#: shr_settings_modules/shr_gprs.py:215
+#: shr_settings_modules/shr_gprs.py:258
 msgid "UNKNOWN"
 msgstr "UKENDT"
 
-#: shr_settings_modules/shr_gprs.py:233
+#: shr_settings_modules/shr_gprs.py:245
 msgid "Your APN: "
 msgstr "Din APN:"
 
-#: shr_settings_modules/shr_gprs.py:234
+#: shr_settings_modules/shr_gprs.py:246
 msgid "Your login: "
 msgstr "Dit login:"
 
-#: shr_settings_modules/shr_gprs.py:235
+#: shr_settings_modules/shr_gprs.py:247
 msgid "Your password: "
 msgstr "Din adgangskode:"
 
-#: shr_settings_modules/shr_gprs.py:236
+#: shr_settings_modules/shr_gprs.py:248
 msgid "Connection status: "
 msgstr "Forbindelse status:"
+
+#: shr_settings_modules/shr_gprs.py:248
+msgid "UNKNOWNN"
+msgstr "UKENDT"
 
 #: shr_settings_modules/shr_misc.py:14
 msgid "Miscellaneous settings"
@@ -574,6 +653,10 @@ msgstr "WiFi opsætning"
 msgid "Power settings"
 msgstr "Strømsstyring opsætning"
 
+#: shr_settings_modules/shr_pm.py:75
+msgid "Couldn't connect to FSO or ophonekitd"
+msgstr "Kunne ikke forbinde til FSO eller ophonekitd"
+
 #: shr_settings_modules/shr_pm.py:119
 msgid "Auto-dimming:"
 msgstr "Auto dæmpe"
@@ -586,15 +669,19 @@ msgstr "Auto dvale:"
 msgid "Bluetooth settings"
 msgstr "Bluetooth opsætning"
 
-#: shr_settings_modules/shr_bt.py:111
+#: shr_settings_modules/shr_bt.py:112
 msgid "Visibility:"
 msgstr "Synlighed:"
 
-#: shr_settings_modules/shr_bt.py:152
+#: shr_settings_modules/shr_bt.py:153
 msgid "Bluetooth radio:"
 msgstr "Bluetooth radio:"
 
-#: shr_settings_modules/shr_device_timeouts.py:133
+#: shr_settings_modules/shr_device_timeouts.py:33
+msgid " sec."
+msgstr " sek."
+
+#: shr_settings_modules/shr_device_timeouts.py:140
 msgid "Timeouts settings"
 msgstr "Tidsudløb opsætning"
 
@@ -606,6 +693,34 @@ msgstr "Profil opsætning"
 #, python-format
 msgid "Profiles (%s)"
 msgstr "Profiler (%s)"
+
+#: shr_settings_modules/shr_elementary.py:19
+msgid "Elementary settings"
+msgstr "Batteri opsætning"
+
+#: shr_settings_modules/shr_elementary.py:29
+msgid "Restart X server"
+msgstr "Genstart X server"
+
+#: shr_settings_modules/shr_elementary.py:93
+msgid "Restarting X server will close running applications. Do you really want to proceed?"
+msgstr "Genstart af X server vil lukke alle kørende applikationer. Ønsker du virkelig at fortsætte?"
+
+#: shr_settings_modules/shr_elementary.py:166
+msgid "Engine:"
+msgstr "Motor:"
+
+#: shr_settings_modules/shr_elementary.py:174
+msgid "x11"
+msgstr "x11"
+
+#: shr_settings_modules/shr_elementary.py:182
+msgid "x11-16"
+msgstr "x11-16"
+
+#: shr_settings_modules/shr_elementary.py:197
+msgid "Finger size "
+msgstr "Finger størrelse"
 
 #: shr_settings_modules/shr_gpsinfo.py:23
 #: shr_settings_modules/shr_gpsinfo.py:219
@@ -672,27 +787,86 @@ msgstr "GPS radio:"
 msgid "Auto"
 msgstr "Auto"
 
-#: shr_settings_modules/shr_battery.py:96
+#: shr_settings_modules/shr_simauth.py:20
+msgid "PIN settings"
+msgstr "Batteri opsætning"
+
+#: shr_settings_modules/shr_simauth.py:93
+#: shr_settings_modules/shr_simauth.py:128
+#: shr_settings_modules/shr_simauth.py:138
+msgid "Incorrect PIN!"
+msgstr "PIN korrekt"
+
+#: shr_settings_modules/shr_simauth.py:99
+msgid "Wrong PIN!"
+msgstr "PIN forkert"
+
+#: shr_settings_modules/shr_simauth.py:115
+msgid "Wrong PIN or unknown error"
+msgstr "Forkert PIN eller ukendt fejl"
+
+#: shr_settings_modules/shr_simauth.py:117
+msgid "PIN changed!"
+msgstr "PIN korrekt"
+
+#: shr_settings_modules/shr_simauth.py:119
+msgid "PINs don't match!"
+msgstr "PINner passer ikke!"
+
+#: shr_settings_modules/shr_simauth.py:131
+msgid "Enter again new SIM PIN:"
+msgstr "Indtast igen ny SIM PIN"
+
+#: shr_settings_modules/shr_simauth.py:141
+msgid "Enter new SIM PIN:"
+msgstr "Bekræft din NY PIN"
+
+#: shr_settings_modules/shr_simauth.py:144
+#: shr_settings_modules/shr_simauth.py:150
+msgid "Enter SIM PIN:"
+msgstr "Tast en NY PIN"
+
+#: shr_settings_modules/shr_simauth.py:156
+msgid "PIN code: "
+msgstr "PIN korrekt"
+
+#: shr_settings_modules/shr_simauth.py:158
+msgid "Enabled"
+msgstr "aktiveret"
+
+#: shr_settings_modules/shr_simauth.py:158
+msgid "Disabled"
+msgstr "Deaktiveret"
+
+#: shr_settings_modules/shr_simauth.py:165
+msgid "Change PIN"
+msgstr "PIN korrekt"
+
+#: shr_settings_modules/shr_battery.py:109
 msgid "USB charging rate:"
 msgstr "USB oplade strøm:"
 
-#: shr_settings_modules/shr_battery.py:110
+#: shr_settings_modules/shr_battery.py:121
 msgid "Battery settings"
 msgstr "Batteri opsætning"
 
-#: shr_settings_modules/shr_battery.py:226
+#: shr_settings_modules/shr_battery.py:246
 msgid "Charge: "
 msgstr "Oplader:"
 
-#: shr_settings_modules/shr_battery.py:227
+#: shr_settings_modules/shr_battery.py:247
 msgid "Power info: "
 msgstr "Strømstyrings info: "
 
-#: shr_settings_modules/shr_battery.py:228
+#: shr_settings_modules/shr_battery.py:248
 msgid "Status: "
 msgstr "Status: "
 
-#: shr_settings_modules/shr_battery.py:253
+#: shr_settings_modules/shr_battery.py:273
 msgid "Update"
 msgstr "Opdater"
+
+#: shr_settings_modules/shr_battery.py:288
+msgid "Switch to dumb battery driver"
+msgstr "Skift til attrap batteri modul"
 
