@@ -1,5 +1,4 @@
 - shr-settings
-    rewrite
     load modules in categories dynamicaly
 - shr_gsm.py
     replace [forbidden] and [current] by icons
@@ -7,6 +6,8 @@
     check if it works with gta01, and if not - fix it
 - shr_mixer.py
     implement mixer settings
+- shr_theme.py
+    implement general theme viewer and selector
 - module.py
     check if it is done in the most flexible way (init, destroy etc.) and if not, do it and prepare all modules to use it
 - TODO
