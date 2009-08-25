@@ -30,23 +30,30 @@ class PhoneUtilsEntryBox(elementary.Box):
 															
 		super(PhoneUtilsEntryBox, self).__init__(win)
 		self.horizontal_set(True)
+
+                self.size_hint_weight_set(1.0, 0.0)
+                self.size_hint_align_set(-1.0, 0.0)
 														
 		self.window = win
 		self.label  = label
 		self.value  = value
 																	
 		self.phoneutilsLabel = elementary.Label(self.window)
-		self.phoneutilsLabel.size_hint_align_set(0.0, -1.0)
+		self.phoneutilsLabel.size_hint_align_set(-1.0, 0.0)
 		self.phoneutilsLabel.label_set(self.label)
 		self.phoneutilsLabel.show()
 										
 		self.phoneutilsEntry = elementary.Entry(self.window)
 		self.phoneutilsEntry.single_line_set(True)
+                self.phoneutilsEntry.size_hint_weight_set(1.0, 0.0)
+                self.phoneutilsEntry.size_hint_align_set(-1.0, 0.0)
 		self.phoneutilsEntry.entry_set(self.value)
 		self.phoneutilsEntry.show()
 
 		self.phoneutilsEntryFrame = elementary.Frame(self.window)
 		self.phoneutilsEntryFrame.style_set("outdent_top")
+                self.phoneutilsEntryFrame.size_hint_weight_set(1.0, 0.0)
+                self.phoneutilsEntryFrame.size_hint_align_set(-1.0, 0.0)
 		self.phoneutilsEntryFrame.content_set(self.phoneutilsEntry)
 		self.phoneutilsEntryFrame.show()
 
