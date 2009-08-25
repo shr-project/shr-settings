@@ -1,4 +1,5 @@
 import phoneutils, elementary, module
+from ecore import timer_add
 
 # Locale support
 import gettext
@@ -64,7 +65,7 @@ class PhoneUtilsEntryBox(elementary.Box):
 
 class Phoneutils(module.AbstractModule):
 	name =_("Phoneutils settings")
-	section = _("phone")
+	section = _("Phone")
 
 	def getEntryData(self):
 		"""
@@ -90,6 +91,10 @@ class Phoneutils(module.AbstractModule):
 		return ip,np,cc,ac
 
 
+        def closeInwin(self, dia, *args, **kargs):
+                dia.delete()
+                return False
+
 	def saveData(self, *args):
 
 		self.ip, self.np, self.cc, self.ac = self.getEntryData()
@@ -97,6 +102,16 @@ class Phoneutils(module.AbstractModule):
 		#data=self.getEntryData()
 		phoneutils.set_codes(self.ip, self.np, self.cc, self.ac)
 		phoneutils.save_config()
+                dia = elementary.InnerWindow(self.window)
+                dia.style_set('minimal')
+                lab = elementary.Label(self.window)
+                lab.label_set('Settings saved!')
+                lab.show()
+                dia.content_set(lab)
+                self.window.resize_object_add(dia)
+                dia.show()
+                dia.activate()
+                timer_add(1.5, self.closeInwin, dia)
 
 	def createView(self):
 		"""
