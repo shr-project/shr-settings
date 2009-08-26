@@ -77,6 +77,8 @@ class Pim(module.AbstractModule):
 
         backendname = backend.GetName()
 
+        initialized = backend.GetInitialized()
+
         box = elementary.Box(pager)
         box.show()
 
@@ -116,6 +118,15 @@ class Pim(module.AbstractModule):
             propan.size_hint_align_set(-1.0, 0.0)
             propfr.size_hint_weight_set(1.0, 0.0)
             propfr.size_hint_align_set(-1.0, 0.0)
+
+        inited = elementary.Label(pager)
+        if initialized:
+            inited.label_set(_('Initialized'))
+        else:
+            inited.label_set(_('Not initialized'))
+        inited.show()
+        box.pack_end(inited)
+
 
         box.pack_end(check)
 
