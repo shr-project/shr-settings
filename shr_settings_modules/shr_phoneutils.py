@@ -98,14 +98,14 @@ class Phoneutils(module.AbstractModule):
 	def saveData(self, *args):
 
 		self.ip, self.np, self.cc, self.ac = self.getEntryData()
-		print self.ip, self.np, self.cc, self.ac
+		#print self.ip, self.np, self.cc, self.ac
 		#data=self.getEntryData()
 		phoneutils.set_codes(self.ip, self.np, self.cc, self.ac)
 		phoneutils.save_config()
                 dia = elementary.InnerWindow(self.window)
                 dia.style_set('minimal')
                 lab = elementary.Label(self.window)
-                lab.label_set('Settings saved!')
+                lab.label_set(_("Settings saved!"))
                 lab.show()
                 dia.content_set(lab)
                 self.window.resize_object_add(dia)
@@ -113,15 +113,39 @@ class Phoneutils(module.AbstractModule):
                 dia.activate()
                 timer_add(1.5, self.closeInwin, dia)
 
+
+	def Validate(self, *args):
+		new = self.getEntryData()
+		old = self.loadEntryData()
+		bad = 0
+
+		if new != old:
+			for entry in new:
+				if not entry.isdigit():
+					bad +=1
+		if bad == 0:
+			self.saveData()
+
+		else:
+			dia = elementary.InnerWindow(self.window)
+			dia.style_set('minimal')
+			lab = elementary.Label(self.window)
+			lab.label_set(_("Settings could not be saved!<br>All values must me numbers!"))
+			lab.show()
+			dia.content_set(lab)
+			self.window.resize_object_add(dia)
+			dia.show()
+			dia.activate()
+			timer_add(1.5, self.closeInwin, dia)
+
+
 	def createView(self):
 		"""
-		Create main box then try initialize phoneutils, if successful, load the rest,
-		on exception load error message
+		Create main box then initialize phoneutils and load the rest
 		"""
 
 		self.main = elementary.Box(self.window)
 
-	
 		phoneutils.init()
 		self.ip, self.np, self.cc, self.ac = self.loadEntryData()
 
@@ -140,10 +164,8 @@ class Phoneutils(module.AbstractModule):
 		self.btSave.show()
 		self.btSave.size_hint_align_set(-1.0, 0.0)
 		self.main.pack_end(self.btSave)
-		self.btSave.clicked = self.saveData
 
-
-
+		self.btSave.clicked = self.Validate
 
 		self.main.show()
 
