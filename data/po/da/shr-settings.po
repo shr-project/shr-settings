@@ -4,20 +4,21 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: shr-settings 0.0.0.3\n"
+"Project-Id-Version: shr-settings 20090830\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-23 14:33+0200\n"
-"PO-Revision-Date: 2009-08-25 20:55+0100\n"
+"POT-Creation-Date: 2009-08-30 10:03+0200\n"
+"PO-Revision-Date: 2009-08-30 10:26+0100\n"
 "Last-Translator: Ole Carlsen <ole@carlsen-web.dk>\n"
 "Language-Team: DANSK\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Danish\n"
 "X-Poedit-Country: DENMARK\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 #: shr-settings:36
+#: shr_settings_modules/shr_phoneutils.py:68
 msgid "Phone"
 msgstr "Telefon"
 
@@ -53,8 +54,8 @@ msgstr "Andre"
 
 #: shr-settings:135
 #: shr-settings:343
-#: shr_settings_modules/shr_pim.py:131
-#: shr_settings_modules/shr_pim.py:163
+#: shr_settings_modules/shr_pim.py:142
+#: shr_settings_modules/shr_pim.py:174
 #: shr_settings_modules/shr_currentprofile.py:331
 #: shr_settings_modules/shr_services.py:257
 #: shr_settings_modules/shr_gpsinfo.py:41
@@ -278,7 +279,7 @@ msgstr "Manuel"
 #: shr_settings_modules/shr_bt.py:155
 #: shr_settings_modules/shr_gps.py:68
 msgid "On"
-msgstr "Aktivér"
+msgstr "Aktiv"
 
 #: shr_settings_modules/shr_call.py:76
 #: shr_settings_modules/shr_currentprofile.py:261
@@ -288,62 +289,70 @@ msgstr "Aktivér"
 #: shr_settings_modules/shr_bt.py:155
 #: shr_settings_modules/shr_gps.py:68
 msgid "Off"
-msgstr "Deaktivér"
+msgstr "De-aktiv"
 
 #: shr_settings_modules/shr_pim.py:24
 msgid "PIM settings"
 msgstr "PIM opsætning"
 
-#: shr_settings_modules/shr_pim.py:85
+#: shr_settings_modules/shr_pim.py:87
 #, python-format
 msgid "%(backend)s<br>(domain: %(domain)s)"
 msgstr "%(backend)s<br>(domæne: %(domain)s)"
 
-#: shr_settings_modules/shr_pim.py:90
+#: shr_settings_modules/shr_pim.py:92
 msgid "enabled"
 msgstr "aktiveret"
 
-#: shr_settings_modules/shr_pim.py:98
+#: shr_settings_modules/shr_pim.py:100
 msgid "adding entries"
 msgstr "tilføje poster"
 
-#: shr_settings_modules/shr_pim.py:98
+#: shr_settings_modules/shr_pim.py:100
 msgid "updating entries"
 msgstr "opdatere poster"
 
-#: shr_settings_modules/shr_pim.py:98
+#: shr_settings_modules/shr_pim.py:100
 msgid "deleting entries"
 msgstr "slette poster"
 
-#: shr_settings_modules/shr_pim.py:98
+#: shr_settings_modules/shr_pim.py:100
 msgid "adding new fields to entries"
 msgstr "tilføje nye felter til poster"
 
-#: shr_settings_modules/shr_pim.py:98
+#: shr_settings_modules/shr_pim.py:100
 msgid "needs loging in"
 msgstr "behøver log ind"
 
-#: shr_settings_modules/shr_pim.py:98
+#: shr_settings_modules/shr_pim.py:100
 msgid "needs syncing"
 msgstr "behøver synkronisering"
 
-#: shr_settings_modules/shr_pim.py:98
+#: shr_settings_modules/shr_pim.py:100
 msgid "it's handler"
 msgstr "dets håndtering"
 
-#: shr_settings_modules/shr_pim.py:100
+#: shr_settings_modules/shr_pim.py:102
 msgid "Properties"
 msgstr "Egenskaber"
 
 #: shr_settings_modules/shr_pim.py:124
+msgid "Initialized"
+msgstr "Initialiseret"
+
+#: shr_settings_modules/shr_pim.py:126
+msgid "Not initialized"
+msgstr "Ikke initialiseret"
+
+#: shr_settings_modules/shr_pim.py:135
 msgid "Set as default"
 msgstr "Sæt som standard"
 
-#: shr_settings_modules/shr_pim.py:196
+#: shr_settings_modules/shr_pim.py:207
 msgid " (default)"
 msgstr " (standard)"
 
-#: shr_settings_modules/shr_pim.py:218
+#: shr_settings_modules/shr_pim.py:229
 msgid "Domains"
 msgstr "Domæner"
 
@@ -479,7 +488,7 @@ msgstr "Nej"
 #: shr_settings_modules/shr_services.py:125
 #: shr_settings_modules/shr_services.py:139
 msgid "Service output"
-msgstr "Tjeneste Data"
+msgstr "Tjeneste output"
 
 #: shr_settings_modules/shr_services.py:168
 msgid "Executing..."
@@ -499,7 +508,7 @@ msgstr "stop"
 
 #: shr_settings_modules/shr_services.py:225
 msgid "Services list"
-msgstr "Liste Tjensester"
+msgstr "Liste Tjenester"
 
 #: shr_settings_modules/shr_services.py:234
 msgid "Services"
@@ -524,6 +533,38 @@ msgstr "Skærm opsætning"
 #: shr_settings_modules/shr_display.py:46
 msgid "Backlight "
 msgstr "Baggrunds-lys"
+
+#: shr_settings_modules/shr_phoneutils.py:67
+msgid "Phoneutils settings"
+msgstr "Telefon redskaber opsætning"
+
+#: shr_settings_modules/shr_phoneutils.py:108
+msgid "Settings saved!"
+msgstr "Opsætning gemt!"
+
+#: shr_settings_modules/shr_phoneutils.py:133
+msgid "Settings could not be saved!<br>All values must me numbers!"
+msgstr "Opsætning kunne ikke gemmes!<br>Alle værdier skal være numeriske!"
+
+#: shr_settings_modules/shr_phoneutils.py:152
+msgid "Your international prefix: "
+msgstr "Din internationale præfiks:"
+
+#: shr_settings_modules/shr_phoneutils.py:153
+msgid "Your national prefix: "
+msgstr "Din nationale præfiks:"
+
+#: shr_settings_modules/shr_phoneutils.py:154
+msgid "Your country code: "
+msgstr "Din lande kode:"
+
+#: shr_settings_modules/shr_phoneutils.py:155
+msgid "Your area code: "
+msgstr "Din område kode:"
+
+#: shr_settings_modules/shr_phoneutils.py:163
+msgid "Save"
+msgstr "Gem"
 
 #: shr_settings_modules/shr_sim.py:126
 msgid "Book "
