@@ -368,7 +368,7 @@ class Gsm(module.AbstractModule):
             self.toggle0 = elementary.Toggle(self.window)
             self.toggle0.label_set(_("GSM antenna:"))
             self.toggle0.size_hint_align_set(-1.0, 0.0)
-            self.toggle0.states_labels_set("On","Off")
+            self.toggle0.states_labels_set(_("On"),_("Off"))
             self.toggle0.show()
             self.box1.pack_start(self.toggle0)
 
