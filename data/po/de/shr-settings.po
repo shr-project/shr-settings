@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-27 15:49+0200\n"
-"PO-Revision-Date: 2009-08-30 22:21+0100\n"
+"PO-Revision-Date: 2009-08-31 12:21+0100\n"
 "Last-Translator: Sebastian Krzyszkowiak <seba.dos1@gmail.com>\n"
 "Language-Team: German <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -165,7 +165,7 @@ msgstr "Lösche Einträge"
 
 #: shr_settings_modules/shr_pim.py:100
 msgid "adding new fields to entries"
-msgstr ""
+msgstr "füge neue Felder zu Einträgen hinzu"
 
 #: shr_settings_modules/shr_pim.py:100
 msgid "needs loging in"
@@ -177,7 +177,7 @@ msgstr "Benötigt synchronisation"
 
 #: shr_settings_modules/shr_pim.py:100
 msgid "it's handler"
-msgstr ""
+msgstr "es ist angetrieben"
 
 #: shr_settings_modules/shr_pim.py:102
 #, fuzzy
@@ -286,7 +286,7 @@ msgstr "%s Einstellungen"
 
 #: shr_settings_modules/shr_display.py:46
 msgid "Backlight "
-msgstr "Backlight "
+msgstr "Hintergrundlicht "
 
 #: shr_settings_modules/shr_backup.py:104
 #, fuzzy
@@ -308,7 +308,7 @@ msgstr "Archive löschen"
 
 #: shr_settings_modules/shr_backup.py:293
 msgid "Go"
-msgstr ""
+msgstr "Los!"
 
 #: shr_settings_modules/shr_backup.py:337
 msgid "Userspace Backup"
@@ -321,7 +321,7 @@ msgstr "Ordner wird benötigt"
 #: shr_settings_modules/shr_backup.py:469
 #: shr_settings_modules/shr_backup.py:482
 msgid "Config Files couldn't be loaded<br>Please investigate!"
-msgstr ""
+msgstr "Konfigurationsdateien konnten nicht geladen werden.<br>Bitte überprüfen!"
 
 #: shr_settings_modules/shr_backup.py:480
 msgid "File required."
@@ -329,7 +329,7 @@ msgstr "Datei wird benötigt"
 
 #: shr_settings_modules/shr_backup.py:486
 msgid " In Progress."
-msgstr ""
+msgstr " In Bearbeitung"
 
 #: shr_settings_modules/shr_backup.py:490
 msgid " Complete."
@@ -442,7 +442,7 @@ msgstr "Wechseln"
 
 #: shr_settings_modules/shr_battery.py:247
 msgid "Power info: "
-msgstr ""
+msgstr "Batterieninfo: "
 
 #: shr_settings_modules/shr_battery.py:248
 msgid "Status: "
@@ -645,7 +645,7 @@ msgstr "SIM Informationen:"
 
 #: shr_settings_modules/shr_imageinfo.py:55
 msgid "Buildhost: "
-msgstr ""
+msgstr "Erstellungsserver: "
 
 #: shr_settings_modules/shr_imageinfo.py:56
 msgid "Revision: "
@@ -818,7 +818,7 @@ msgstr "PIN eingeben"
 
 #: shr_settings_modules/shr_simauth.py:156
 msgid "PIN code: "
-msgstr ""
+msgstr "PIN code: "
 
 #: shr_settings_modules/shr_simauth.py:158
 #, fuzzy
@@ -828,12 +828,12 @@ msgstr "Aktiviert"
 #: shr_settings_modules/shr_simauth.py:158
 #, fuzzy
 msgid "Disabled"
-msgstr "Aktiviert"
+msgstr "Deaktiviert"
 
 #: shr_settings_modules/shr_simauth.py:165
 #, fuzzy
 msgid "Change PIN"
-msgstr "Wechseln"
+msgstr "PIN wechseln"
 
 #: shr_settings_modules/shr_usb.py:18
 #, fuzzy
@@ -949,7 +949,7 @@ msgstr "Ihr Landescode: "
 #: shr_settings_modules/shr_phoneutils.py:155
 #, fuzzy
 msgid "Your area code: "
-msgstr "Dein Passwort: "
+msgstr "Ihr Bezirkscode: "
 
 #: shr_settings_modules/shr_phoneutils.py:163
 msgid "Save"
