@@ -121,7 +121,7 @@ class Phoneutils(module.AbstractModule):
 
 		if new != old:
 			for entry in new:
-				if not entry.isdigit():
+				if not (entry.isdigit() or entry==''):
 					bad +=1
 		if bad == 0:
 			self.saveData()
