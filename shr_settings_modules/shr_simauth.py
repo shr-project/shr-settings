@@ -141,7 +141,7 @@ class SimAuth(module.AbstractModule):
             self.dialog(_('Enter new SIM PIN:'), callback = partial(self.change_enter_new_callback, oldpin), entry = True)
 
         def change_pin(self, obj, event, *args, **kwargs):
-            self.dialog(_('Enter SIM PIN:'), callback = self.change_enter_old_callback, entry = True)
+            self.dialog(_('Enter actual SIM PIN:'), callback = self.change_enter_old_callback, entry = True)
 
 	def auth_handle(self, obj, event, *args, **kargs):
 		if self.sim.GetAuthCodeRequired()==obj.state_get():
