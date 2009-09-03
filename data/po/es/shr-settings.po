@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: shr-settings\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-08-29 19:57+0200\n"
-"PO-Revision-Date: 2009-08-30 06:54+0200\n"
+"PO-Revision-Date: 2009-08-30 23:10+0200\n"
 "Last-Translator: David Garabana Barro <david@garabana.com>\n"
 "Language-Team: Galician <>\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Catalan\n"
 "X-Poedit-Country: SPAIN\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 0.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: shr-settings:36 shr_settings_modules/shr_phoneutils.py:68
@@ -148,7 +148,7 @@ msgstr "Servicios"
 #: shr_settings_modules/shr_simauth.py:185 shr_settings_modules/shr_call.py:93
 #: shr_settings_modules/shr_gsm.py:154
 msgid "Please wait..."
-msgstr "Por favor espere..."
+msgstr "Por favor, espere..."
 
 # Cómo traducir "smartphone"?
 #: shr_settings_modules/shr_services.py:296
@@ -156,8 +156,8 @@ msgid ""
 "Stopping frameworkd will stop all smartphone related functions. Do you "
 "really want to proceed?"
 msgstr ""
-"Si para el frameworkd, detendrá todas las funciones de smartphone."
-"¿Quiere continuar?"
+"Si para el frameworkd, detendrá todas las funciones de smartphone. "
+"¿Desea continuar?"
 
 #: shr_settings_modules/shr_services.py:297
 msgid ""
@@ -165,15 +165,15 @@ msgid ""
 "want to proceed?"
 msgstr ""
 "Si para el ophonekitd, detendrá todas las funciones de telefonía. "
-"¿Quiere continuar?"
+"¿Desea continuar?"
 
 #: shr_settings_modules/shr_services.py:298
 msgid ""
 "Stopping X server will stop all running applications. Do you really want to "
 "proceed?"
 msgstr ""
-"Si para el Servidor X, detedrá todas las aplicaciones."
-"¿Quiere continuar?"
+"Si para el Servidor X, se cerrarán todas las aplicaciones."
+"¿Desea continuar?"
 
 #: shr_settings_modules/shr_pim.py:24
 msgid "PIM settings"
@@ -377,9 +377,8 @@ msgid ""
 "Restarting X server will close running applications. Do you really want to "
 "proceed?"
 msgstr ""
-"Si reinicia el servidor X cerrará todas las aplicaciones que estén en "
-"ejecución. "
-"¿Quiere continuar?"
+"Si reinicia el servidor X se cerrarán todas las aplicaciones. "
+"¿Desea continuar?"
 
 #: shr_settings_modules/shr_elementary.py:166
 msgid "Engine:"
@@ -407,7 +406,7 @@ msgstr "Suspensión, tiempo de atenuado, etc."
 
 #: shr_settings_modules/shr_backup.py:104
 msgid "Select Item"
-msgstr "Seleccione una opción"
+msgstr "Seleccione un directorio"
 
 #: shr_settings_modules/shr_backup.py:128
 msgid "Up"
@@ -423,11 +422,11 @@ msgstr "Borrar ficheros"
 
 #: shr_settings_modules/shr_backup.py:293
 msgid "Go"
-msgstr "Ir"
+msgstr "Comenzar"
 
 #: shr_settings_modules/shr_backup.py:337
 msgid "Userspace Backup"
-msgstr "Copia de seguridad de los datos de usuario"
+msgstr "Copia de seguridad datos de usuario"
 
 #: shr_settings_modules/shr_backup.py:467
 msgid "Directory required."
@@ -458,7 +457,7 @@ msgstr " Fallido. "
 
 #: shr_settings_modules/shr_backup.py:498
 msgid "Archive Directory"
-msgstr "Archivar Directorio"
+msgstr "Directorio destino"
 
 #: shr_settings_modules/shr_backup.py:504
 msgid "Restore File"
@@ -466,7 +465,7 @@ msgstr "Restaurar Fichero"
 
 #: shr_settings_modules/shr_backup.py:530
 msgid "Backup Mode"
-msgstr "Modo de copia de seguridad"
+msgstr "Copia de seguridad"
 
 #: shr_settings_modules/shr_backup.py:531
 msgid "Archive"
@@ -512,7 +511,7 @@ msgstr "Prefijo internacional: "
 
 #: shr_settings_modules/shr_phoneutils.py:153
 msgid "Your national prefix: "
-msgstr "Prefijo Nacional: "
+msgstr "Prefijo nacional: "
 
 #: shr_settings_modules/shr_phoneutils.py:154
 msgid "Your country code: "
@@ -520,7 +519,7 @@ msgstr "Código de país: "
 
 #: shr_settings_modules/shr_phoneutils.py:155
 msgid "Your area code: "
-msgstr "Código de Área: "
+msgstr "Código de área: "
 
 #: shr_settings_modules/shr_phoneutils.py:163
 msgid "Save"
@@ -540,7 +539,7 @@ msgstr "Ajustar la hora"
 
 #: shr_settings_modules/shr_clock.py:40
 msgid "OK"
-msgstr "OK"
+msgstr "Aceptar"
 
 #: shr_settings_modules/shr_imageinfo.py:13
 msgid "Image information"
@@ -564,7 +563,7 @@ msgstr "Timestamp: "
 
 #: shr_settings_modules/shr_battery.py:109
 msgid "USB charging rate:"
-msgstr "Ratio de carga por USB: "
+msgstr "Tasa de carga por USB: "
 
 #: shr_settings_modules/shr_battery.py:121
 msgid "Battery settings"
@@ -576,7 +575,7 @@ msgstr "Capacidad: "
 
 #: shr_settings_modules/shr_battery.py:247
 msgid "Power info: "
-msgstr "Información de energía: "
+msgstr "Energía: "
 
 #: shr_settings_modules/shr_battery.py:248
 msgid "Status: "
@@ -602,7 +601,7 @@ msgstr "Ajustes de PIN"
 #: shr_settings_modules/shr_simauth.py:128
 #: shr_settings_modules/shr_simauth.py:138
 msgid "Incorrect PIN!"
-msgstr "PIN inválido"
+msgstr "El PIN que ha introducido no es un PIN válido"
 
 #: shr_settings_modules/shr_simauth.py:99
 msgid "Wrong PIN!"
@@ -618,20 +617,20 @@ msgstr "Se ha cambiado el PIN"
 
 #: shr_settings_modules/shr_simauth.py:119
 msgid "PINs don't match!"
-msgstr "Los PINs no coinciden"
+msgstr "Los PIN no coinciden"
 
 #: shr_settings_modules/shr_simauth.py:131
 msgid "Enter again new SIM PIN:"
-msgstr "Introduzca otra vez el nuevo PIN de la SIM:"
+msgstr "Introduzca otra vez el nuevo PIN:"
 
 #: shr_settings_modules/shr_simauth.py:141
 msgid "Enter new SIM PIN:"
-msgstr "Introduzca el nuevo PIN de la SIM:"
+msgstr "Introduzca el nuevo PIN:"
 
 #: shr_settings_modules/shr_simauth.py:144
 #: shr_settings_modules/shr_simauth.py:150
 msgid "Enter SIM PIN:"
-msgstr "Introduzca el PIN de la SIM:"
+msgstr "Introduzca el PIN:"
 
 #: shr_settings_modules/shr_simauth.py:156
 msgid "PIN code: "
@@ -753,7 +752,7 @@ msgstr "Manual"
 #: shr_settings_modules/shr_currentprofile.py:253
 #: shr_settings_modules/shr_gps.py:68
 msgid "On"
-msgstr "On"
+msgstr "Activado"
 
 #: shr_settings_modules/shr_call.py:76 shr_settings_modules/shr_bt.py:114
 #: shr_settings_modules/shr_bt.py:155 shr_settings_modules/shr_wifi.py:102
@@ -761,7 +760,7 @@ msgstr "On"
 #: shr_settings_modules/shr_currentprofile.py:261
 #: shr_settings_modules/shr_gps.py:68
 msgid "Off"
-msgstr "Off"
+msgstr "Desactivado"
 
 #: shr_settings_modules/shr_bt.py:73
 msgid "Bluetooth settings"
@@ -797,7 +796,7 @@ msgstr "No se pudo conectar con FSO u ophonekitd"
 
 #: shr_settings_modules/shr_pm.py:119
 msgid "Auto-dimming:"
-msgstr "Atenuado automático:"
+msgstr "Atenuación automática:"
 
 #: shr_settings_modules/shr_pm.py:120
 msgid "Auto-suspend:"
@@ -810,11 +809,11 @@ msgstr "Cambiar tono de llamada"
 
 #: shr_settings_modules/shr_currentprofile.py:316
 msgid "Select ringtone"
-msgstr "Seleccionar tono de llamada"
+msgstr "Seleccione un tono"
 
 #: shr_settings_modules/shr_currentprofile.py:318
 msgid "Ringtones are placed in /usr/share/sounds/"
-msgstr "Los tonos de llamada se encuentran en /usr/share/sounds/"
+msgstr "Los tonos están en /usr/share/sounds/"
 
 #: shr_settings_modules/shr_currentprofile.py:422
 #: shr_settings_modules/shr_currentprofile.py:452
@@ -851,7 +850,7 @@ msgstr "GPS:"
 
 #: shr_settings_modules/shr_gps.py:89
 msgid "Auto"
-msgstr "Auto"
+msgstr "Automático"
 
 #: shr_settings_modules/shr_gsm.py:115
 msgid "GSM settings"
@@ -868,7 +867,7 @@ msgstr "Operadores"
 
 #: shr_settings_modules/shr_gsm.py:170 shr_settings_modules/shr_gsm.py:184
 msgid "List Providers"
-msgstr "Lista de proveedores"
+msgstr "Seleccione un operador"
 
 #: shr_settings_modules/shr_gsm.py:198 shr_settings_modules/shr_gsm.py:318
 msgid "Cancel"
@@ -884,7 +883,7 @@ msgstr " [actual]"
 
 #: shr_settings_modules/shr_gsm.py:223
 msgid " [forbidden]"
-msgstr " [prohibido]"
+msgstr " [no permitido]"
 
 #: shr_settings_modules/shr_gsm.py:255
 msgid "Modem information"
@@ -896,7 +895,7 @@ msgstr "Información del módem GSM"
 
 #: shr_settings_modules/shr_gsm.py:369
 msgid "GSM antenna:"
-msgstr "Antena GSM:"
+msgstr "GSM:"
 
 #~ msgid "GPS"
 #~ msgstr "GPS"
