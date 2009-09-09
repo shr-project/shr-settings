@@ -1,12 +1,10 @@
-# This file is put in the public domain.
-#
 # David Garabana Barro <david@garabana.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: shr-settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-09-04 03:01+0200\n"
-"PO-Revision-Date: 2009-09-05 13:00+0100\n"
+"POT-Creation-Date: 2009-09-08 13:08+0200\n"
+"PO-Revision-Date: 2009-09-09 13:16+0100\n"
 "Last-Translator: Krzysztof Korościk <soltys@szluug.org>\n"
 "Language-Team: Galician <>\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +16,11 @@ msgstr ""
 #: shr-settings:36
 #: shr_settings_modules/shr_phoneutils.py:68
 msgid "Phone"
-msgstr "Teléfono "
+msgstr "Teléfono"
 
 #: shr-settings:37
 msgid "Profiles"
-msgstr "Perfís "
+msgstr "Perfís"
 
 #: shr-settings:38
 #: shr_settings_modules/shr_sim.py:182
@@ -32,7 +30,7 @@ msgstr "Conectividade"
 
 #: shr-settings:39
 msgid "Power"
-msgstr "Alimentación"
+msgstr "Enerxía"
 
 #: shr-settings:40
 msgid "Appearance"
@@ -129,7 +127,7 @@ msgstr "Non"
 #: shr_settings_modules/shr_services.py:125
 #: shr_settings_modules/shr_services.py:139
 msgid "Service output"
-msgstr "Saída do servicio"
+msgstr "Saída do servizo"
 
 #: shr_settings_modules/shr_services.py:168
 msgid "Executing..."
@@ -137,15 +135,15 @@ msgstr "A executar..."
 
 #: shr_settings_modules/shr_services.py:197
 msgid "start"
-msgstr "Iniciar"
+msgstr "iniciar"
 
 #: shr_settings_modules/shr_services.py:206
 msgid "restart"
-msgstr "Reiniciar"
+msgstr "reiniciar"
 
 #: shr_settings_modules/shr_services.py:214
 msgid "stop"
-msgstr "Deter"
+msgstr "deter"
 
 #: shr_settings_modules/shr_services.py:225
 msgid "Services list"
@@ -163,6 +161,7 @@ msgstr "Servizos"
 msgid "Please wait..."
 msgstr "Agarde, por favor..."
 
+# Cómo traducir "smartphone"?
 #: shr_settings_modules/shr_services.py:296
 msgid "Stopping frameworkd will stop all smartphone related functions. Do you really want to proceed?"
 msgstr "Se detén o frameworkd, hanse parar tódalas funcións de smartphone. Quere continuar de tódolos xeitos?"
@@ -215,7 +214,7 @@ msgstr "actualizando entradas"
 
 #: shr_settings_modules/shr_pim.py:100
 msgid "deleting entries"
-msgstr "eliminando entradas"
+msgstr "borrando entradas"
 
 #: shr_settings_modules/shr_pim.py:100
 msgid "adding new fields to entries"
@@ -268,7 +267,7 @@ msgstr "borrar"
 
 #: shr_settings_modules/shr_sim.py:181
 msgid "SIM settings"
-msgstr "Axustes de SIM"
+msgstr "Axustes da SIM"
 
 #: shr_settings_modules/shr_sim.py:279
 msgid "Message book"
@@ -345,11 +344,11 @@ msgstr "Datos do GPS"
 
 #: shr_settings_modules/shr_gpsinfo.py:257
 msgid "Remove AGPS data"
-msgstr "Eliminar os datos AGPS"
+msgstr "Borrar os datos AGPS"
 
 #: shr_settings_modules/shr_test.py:27
 msgid "test"
-msgstr "test"
+msgstr "proba"
 
 #: shr_settings_modules/shr_test.py:33
 msgid "Just for fun"
@@ -431,7 +430,7 @@ msgstr "Copia de seguranza datos do usuario"
 
 #: shr_settings_modules/shr_backup.py:467
 msgid "Directory required."
-msgstr "É necesario un directorio"
+msgstr "É necesario un directorio."
 
 #: shr_settings_modules/shr_backup.py:469
 #: shr_settings_modules/shr_backup.py:482
@@ -444,7 +443,7 @@ msgstr "É necesario un ficheiro."
 
 #: shr_settings_modules/shr_backup.py:486
 msgid " In Progress."
-msgstr " En Progreso"
+msgstr " En progreso."
 
 #: shr_settings_modules/shr_backup.py:490
 msgid " Complete."
@@ -484,7 +483,7 @@ msgstr "Axustes dos tempos de espera"
 
 #: shr_settings_modules/shr_display.py:26
 msgid "Display settings"
-msgstr "Axustes de pantalla"
+msgstr "Axustes da pantalla"
 
 #: shr_settings_modules/shr_display.py:46
 msgid "Backlight "
@@ -524,7 +523,7 @@ msgstr "Gardar"
 
 #: shr_settings_modules/shr_clock.py:28
 msgid "Time settings"
-msgstr "Axustes de hora"
+msgstr "Axustes da hora"
 
 #: shr_settings_modules/shr_clock.py:29
 msgid "Other"
@@ -593,7 +592,7 @@ msgstr "Axuda"
 
 #: shr_settings_modules/shr_simauth.py:20
 msgid "PIN settings"
-msgstr "Axustes de PIN"
+msgstr "Axustes do PIN"
 
 #: shr_settings_modules/shr_simauth.py:93
 #: shr_settings_modules/shr_simauth.py:128
@@ -627,11 +626,11 @@ msgstr "Introduza o novo PIN:"
 
 #: shr_settings_modules/shr_simauth.py:144
 msgid "Enter actual SIM PIN:"
-msgstr "Indroduza o PIN actual:"
+msgstr "Introduza o PIN actual:"
 
 #: shr_settings_modules/shr_simauth.py:150
 msgid "Enter SIM PIN:"
-msgstr "Indroduza o PIN:"
+msgstr "Introduza o PIN:"
 
 #: shr_settings_modules/shr_simauth.py:156
 msgid "PIN code: "
@@ -724,7 +723,7 @@ msgstr "principal"
 
 #: shr_settings_modules/shr_profile.py:24
 msgid "Profile settings"
-msgstr "Axustes de perfil"
+msgstr "Axustes dos perfís"
 
 #: shr_settings_modules/shr_profile.py:57
 #, python-format
@@ -733,7 +732,7 @@ msgstr "Perfís (%s)"
 
 #: shr_settings_modules/shr_call.py:18
 msgid "Call settings"
-msgstr "Axustes de chamada"
+msgstr "Axustes da chamada"
 
 #: shr_settings_modules/shr_call.py:26
 msgid "Turn GSM on."
@@ -776,7 +775,7 @@ msgstr "Desactivado"
 
 #: shr_settings_modules/shr_bt.py:73
 msgid "Bluetooth settings"
-msgstr "Axustes de Bluetooth"
+msgstr "Axustes do bluetooth"
 
 #: shr_settings_modules/shr_bt.py:112
 msgid "Visibility:"
@@ -797,11 +796,11 @@ msgstr "WiFi:"
 
 #: shr_settings_modules/shr_wifi.py:115
 msgid "WiFi settings"
-msgstr "Axustes de WiFi"
+msgstr "Axustes da WiFi"
 
 #: shr_settings_modules/shr_pm.py:68
 msgid "Power settings"
-msgstr "Axustes de alimentación"
+msgstr "Axustes da enerxía"
 
 #: shr_settings_modules/shr_pm.py:75
 msgid "Couldn't connect to FSO or ophonekitd"
@@ -818,7 +817,7 @@ msgstr "Suspensión automática:"
 #: shr_settings_modules/shr_currentprofile.py:306
 #: shr_settings_modules/shr_currentprofile.py:309
 msgid "Change ringtone"
-msgstr "Trocar o ton de chamada"
+msgstr "Trocar o ton da chamada"
 
 #: shr_settings_modules/shr_currentprofile.py:316
 msgid "Select ringtone"
@@ -855,7 +854,7 @@ msgstr "Data"
 
 #: shr_settings_modules/shr_gps.py:19
 msgid "GPS settings"
-msgstr "Axustes de GPS"
+msgstr "Axustes do GPS"
 
 #: shr_settings_modules/shr_gps.py:87
 msgid "GPS radio:"
@@ -863,11 +862,11 @@ msgstr "GPS:"
 
 #: shr_settings_modules/shr_gps.py:89
 msgid "Auto"
-msgstr "Auto"
+msgstr "Automático"
 
 #: shr_settings_modules/shr_gsm.py:115
 msgid "GSM settings"
-msgstr "Axustes de GSM"
+msgstr "Axustes do GSM"
 
 #: shr_settings_modules/shr_gsm.py:134
 msgid "Could not connect to network"
