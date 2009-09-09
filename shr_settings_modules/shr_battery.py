@@ -31,6 +31,16 @@ def getDbusObject (bus, busname , objectpath , interface):
         dbusObject = bus.get_object(busname, objectpath)
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
+def read_file(filename):
+    f = file(filename, 'r')
+    val = f.readline().strip()
+    f.close()
+    return val
+
+def write_file(filename, content):
+    f = file(filename, 'w')
+    f.write(content)
+    f.close()
 
 class BatteryLabel(elementary.Label):
     """
@@ -72,7 +82,7 @@ class FastChargeBox(elementary.Box):
         """
 
         try:
-            value   = os.popen("cat "+self.chgNodePath).readline().strip()
+            value   = read_file(self.chgNodePath)
         except:
             self.toggle.hide()
             return False
@@ -88,9 +98,9 @@ class FastChargeBox(elementary.Box):
         Toggle the charge rate on/off
         """
         if obj.state_get():
-            os.popen("echo 500 > "+self.usbNodePath)
+            write_file(self.usbNodePath, "500")
         else:
-            os.popen("echo 100 > "+self.usbNodePath)
+            write_file(self.usbNodePath, "100")
         self.update()
 
     def __init__(self, win):
@@ -139,7 +149,7 @@ class Battery(module.AbstractModule):
         """
         # retrieve raw value
         try:
-            value = os.popen("cat "+SYSNODE[nodePath][0]).readline().strip()
+            value = read_file(SYSNODE[nodePath][0])
         except:
             return 'N/A'
         scale = SYSNODE[nodePath][1]
@@ -205,7 +215,7 @@ class Battery(module.AbstractModule):
         self.signal2.remove()
 
     def switchToDumb(self, obj, *args, **kwargs):
-        os.system('echo bq27000-battery.0 > /sys/bus/platform/drivers/bq27000-battery/unbind')
+        write_file('/sys/bus/platform/drivers/bq27000-battery/unbind', 'bq27000-battery.0')
         os.system('modprobe gta01_battery')
         obj.delete()
         self.update()
@@ -277,7 +287,7 @@ class Battery(module.AbstractModule):
             status_box.pack_end(update_button)
 
             try:
-                present = int(os.popen("cat "+SYSNODE['present'][0]).readline().strip())
+                present = int(read_file(SYSNODE['present'][0]))
             except:
                 present = 0
 
