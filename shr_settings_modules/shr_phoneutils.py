@@ -152,7 +152,7 @@ class Phoneutils(module.AbstractModule):
 		self.entryIP = PhoneUtilsEntryBox(self.window, _("Your international prefix: "), self.ip)
 		self.entryNP = PhoneUtilsEntryBox(self.window, _("Your national prefix: "), self.np)
 		self.entryCC = PhoneUtilsEntryBox(self.window, _("Your country code: "), self.cc)
-		self.entryAC = PhoneUtilsEntryBox(self.window, _("Your area code: "), self.ac)
+		self.entryAC = PhoneUtilsEntryBox(self.window, _("Your area/network code: "), self.ac)
 
 		self.main.pack_end(self.entryIP)
 		self.main.pack_end(self.entryNP)
