@@ -93,22 +93,15 @@ class Bt(module.AbstractModule):
                 self.toggle0.state_set(0)
         else:
             self.toggles.state_set( 1 )
+            self.toggle0hide()
         if s == 1:
             self.toggle1show()
             if v:
                 self.toggle1.state_set(1)
             else:
                 self.toggle1.state_set(0)
-
-
         else:
-            self.toggle0hide()
             self.toggle1hide()
-
-#    def togglesClick(self, obj, event, *args, **kargs):
- #       if not self.btmc.getPower() == obj.state_get():
-  #         self.btmc.setPower( obj.state_get() )
-   #         self.update()
 
     def toggle1Click(self, obj, event, *args, **kargs):
         if not self.btmc.getVisibility() == obj.state_get():
@@ -121,27 +114,28 @@ class Bt(module.AbstractModule):
             return 0
        if obj.state_get():
            self.bt.SetResourcePolicy("Bluetooth","enabled",reply_handler=self.callback,error_handler=self.error)
-           obj.state_set(1)
+#           obj.state_set(1)
        else:
            self.bt.SetResourcePolicy("Bluetooth","disabled",reply_handler=self.callback,error_handler=self.error)
-           obj.state_set(0)
+#           obj.state_set(0)
+       self.update()
 
     def res_handle(self, obj, event, *args, **kargs):
         if obj.state_get():
             # slider has been moved to 'Auto'
             self.bt.SetResourcePolicy("Bluetooth","auto",reply_handler=self.callback,error_handler=self.error)
-            self.toggle0hide()
+#            self.toggle0hide()
         else:
-            if self.toggle0hidden:
-                self.toggle0show()
+#            if self.toggle0hidden:
+#                self.toggle0show()
                 # slider has been moved to 'Manual'
                 if self.bt.GetResourceState("Bluetooth"):
                     self.bt.SetResourcePolicy("Bluetooth","enabled",reply_handler=self.callback,error_handler=self.error)
-                    self.toggle0.state_set(1)
+#                    self.toggle0.state_set(1)
                 else:
                     self.bt.SetResourcePolicy("Bluetooth","disabled",reply_handler=self.callback,error_handler=self.error)
-                    self.toggle0.state_set(0)
-
+#                    self.toggle0.state_set(0)
+        self.update()
 
     def toggle1show(self):
         if self.toggle1hidden:
@@ -170,15 +164,16 @@ class Bt(module.AbstractModule):
         self.toggle0hidden=1
 
     def toggle0show(self):
-        self.toggle0 = elementary.Toggle(self.window)
-        self.toggle0.size_hint_align_set(-1.0, 0.0)
-        self.toggle0.states_labels_set(_("On"),_("Off"))
-        self.toggle0.changed = self.power_handle
-        self.main.pack_end(self.toggle0)
-        self.toggle0hidden=0
-        btstate = self.bt.GetResourceState("Bluetooth")
-        self.toggle0.state_set(btstate)
-        self.toggle0.show()
+        if self.toggle0hidden:
+          self.toggle0 = elementary.Toggle(self.window)
+          self.toggle0.size_hint_align_set(-1.0, 0.0)
+          self.toggle0.states_labels_set(_("On"),_("Off"))
+          self.toggle0.changed = self.power_handle
+          self.main.pack_end(self.toggle0)
+          self.toggle0hidden=0
+          btstate = self.bt.GetResourceState("Bluetooth")
+          self.toggle0.state_set(btstate)
+          self.toggle0.show()
 
     def stopUpdate(self):
         #self.signal.remove()
