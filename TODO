@@ -6,6 +6,13 @@
 - shr_usb.py
     check if it works with gta01, and if not - fix it
     connection sharing by onetworkd interface
+- shr_wifi.py
+    use ousaged interface
+    when auto, display current status
+- shr_bt.py
+    when auto, display current status
+- shr_gps.py
+    when auto, display current status
 - shr_mixer.py
     implement mixer settings
 - shr_theme.py
