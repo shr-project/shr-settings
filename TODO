@@ -2,8 +2,10 @@
     load modules in categories dynamicaly
 - shr_gsm.py
     replace [forbidden] and [current] by icons
+    'update' button in modem information
 - shr_usb.py
     check if it works with gta01, and if not - fix it
+    connection sharing by onetworkd interface
 - shr_mixer.py
     implement mixer settings
 - shr_theme.py
