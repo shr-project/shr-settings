@@ -381,9 +381,9 @@ class MainWindow:
             (row, col) = divmod(i,2)
             cat_table.pack(bt,col,row,1,1)
 
-        #ophonekitd not running?
-        if os.popen("ps -A | grep [o]phonekitd").read() == "":
-            log('ophonekitd is not running!', logtype.FAIL)
+        #ophonekitd or phonefsod not running?
+        if os.popen("ps -A | grep 'ophonekitd\|phonefsod'").read() == "":
+            log('neither ophonekitd nor phonefsod is running!', logtype.FAIL)
 
             self.opkframe = elementary.Frame(self.win)
 
