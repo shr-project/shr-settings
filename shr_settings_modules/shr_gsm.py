@@ -34,9 +34,6 @@ class GSMstateContener:
             gsm_device_obj = bus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
             self.gsm_network_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.GSM.Network')
             self.gsm_device_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.GSM.Device')
-
-            opkd_device_obj = bus.get_object( 'org.shr.ophonekitd.Usage', '/org/shr/ophonekitd/Usage' )
-            self.opkd_device_iface = dbus.Interface(opkd_device_obj, 'org.shr.ophonekitd.Usage')
             #test
             #self.gsm_device_iface.GetAntennaPower()
             #test end
@@ -50,24 +47,25 @@ class GSMstateContener:
 
     def gsmdevice_getAntennaPower(self):
         if self.dbus_state==0:
-            return 0
+            return False
         else:
             try:
-                tr = self.opkd_device_iface.GetResourceState('GSM')
+                tr = self.gsm_device_iface.GetAntennaPower()
             except:
-                tr = 0
+                tr = False
             return tr
 
     def gsmdevice_setAntennaPower(self, b):
         if self.dbus_state==1:
             if b:
-                self.opkd_device_iface.RequestResource('GSM')
+                #TODO: enable the resource? freesmartphone.Resource.Enable()    
                 try:
                     self.gsm_device_iface.SetAntennaPower(True)
                 except:
                     pass
             else:
-                self.opkd_device_iface.ReleaseResource('GSM')
+                #TODO: disable the resource? freesmartphone.Resource.Disable()
+                self.gsm_device_iface.SetAntennaPower(False)
 
     def gsmdevice_GetInfo(self):
         if self.dbus_state==1:
