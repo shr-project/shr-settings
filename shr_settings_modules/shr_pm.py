@@ -72,7 +72,7 @@ class Pm(module.AbstractModule):
         Report the DBus is fsck'd
         """
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO or ophonekitd"))
+        label.label_set(_("Couldn't connect to FSO or phonefsod"))
         label.show()
 
         self.main.pack_start(label)
@@ -100,9 +100,9 @@ class Pm(module.AbstractModule):
             #       - Cameron
             #
             self.dbusObj = getDbusObject (self.dbus,
-                "org.shr.ophonekitd.Usage",
-                "/org/shr/ophonekitd/Usage",
-                "org.shr.ophonekitd.Usage")
+                "org.shr.phonefso.Usage",
+                "/org/shr/phonefso/Usage",
+                "org.shr.phonefso.Usage")
 
             # connect to dbus
             # (signals;
