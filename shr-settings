@@ -221,7 +221,7 @@ class MainWindow:
         #print "displayModulesWin 2"
 
     def start_ophonekitd(self, obj, event, *args, **kargs):
-        os.system( "DISPLAY=:0 ophonekitd >> /var/log/ophonekitd.log 2>&1 &" )
+        os.system( "DISPLAY=:0 phonefsod" )
         self.opkinwin.delete()
 
     def destroyDebug(self, obj, event, *args, **kargs):
@@ -229,13 +229,13 @@ class MainWindow:
         self.windeb.delete()
 
     def clean_ophonekitd_log(self, obj, event, *args, **kargs):
-        os.system("echo \"\" >  /var/log/ophonekitd.log")
+        os.system("echo \"\" >  /var/log/phonefsod.log")
         self.destroyDebug(self, obj, event, *args, **kargs)
 
     def view_ophonekitd_log(self, obj, event, *args, **kargs):
         #print "ophonekitd log"
         self.windeb = elementary.Window("ophonekitdLog", elementary.ELM_WIN_BASIC )
-        self.windeb.title_set(_("ophonekitd log"))
+        self.windeb.title_set(_("phonefsod log"))
         self.windeb.autodel_set(True)
         self.bgdeb = elementary.Background(self.windeb)
         self.windeb.resize_object_add(self.bgdeb)
@@ -249,7 +249,7 @@ class MainWindow:
         box0.show()
 
         fr = elementary.Frame(self.windeb)
-        fr.label_set(_("ophonekitd log"))
+        fr.label_set(_("phonefsod log"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -282,7 +282,7 @@ class MainWindow:
         self.windeb.show()
 
 
-        c = open( "/var/log/ophonekitd.log", "r" )
+        c = open( "/var/log/phonefsod.log", "r" )
         while 1:
             line = c.readline().replace("\n","")
             if not line:
@@ -391,7 +391,7 @@ class MainWindow:
             opklabbox = elementary.Box(opkbox)
             opkbox.horizontal_set(1)
             opklab1 = elementary.Label(opklabbox)
-            opklab1.label_set(_("ophonekitd"))
+            opklab1.label_set(_("phonefsod"))
             opklab1.show()
             opklabbox.pack_start(opklab1)
 
