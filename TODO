@@ -13,6 +13,9 @@
     when auto, display current status
 - shr_gps.py
     when auto, display current status
+- shr_services.py
+    don't display warning after clicking on 'start'
+    add button for phoneuid
 - shr_mixer.py
     implement mixer settings
 - shr_theme.py
