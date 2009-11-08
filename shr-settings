@@ -221,7 +221,7 @@ class MainWindow:
         #print "displayModulesWin 2"
 
     def start_ophonekitd(self, obj, event, *args, **kargs):
-        os.system( "DISPLAY=:0 phonefsod" )
+        os.system( "/etc/init.d/phonefsod start" )
         self.opkinwin.delete()
 
     def destroyDebug(self, obj, event, *args, **kargs):
