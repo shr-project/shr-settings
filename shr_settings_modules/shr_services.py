@@ -89,12 +89,12 @@ class Services(module.AbstractModule):
             self.startDebugWin( obj.get_osCmd() )
 
     def debugIdler(self, dia, box1, cmd):
-        #specialcmds = {'/etc/init.d/ophonekitd stop':'(killall -9 ophonekitd && echo "ophonekitd stopped") || echo "killall: ophonekitd: no process killed"',
-        #               '/etc/init.d/ophonekitd start':('echo "Starting ophonekitd..."', 'DISPLAY=:0 ophonekitd >> /var/log/ophonekitd.log 2>&1 &'),
-        #               '/etc/init.d/ophonekitd restart':('(killall -9 ophonekitd && echo "ophonekitd stopped") || echo "killall: ophonekitd: no process killed" && echo "Starting ophonekitd..."', 'DISPLAY=:0 ophonekitd >> /var/log/ophonekitd.log 2>&1 &')
-        #              }
-        #if cmd in specialcmds:
-        #    cmd=specialcmds[cmd]
+        specialcmds = {'/etc/init.d/phoneuid stop':'(killall -9 phoneuid && echo "phoneuid stopped") || echo "killall: phoneuid: no process killed"',
+                       '/etc/init.d/phoneuid start':('echo "Starting phoneuid..."', 'DISPLAY=:0 phoneui-wrapper.sh &'),
+                       '/etc/init.d/phoneuid restart':('(killall -9 phoneuid phoneui-wrapper.sh && echo "phoneuid stopped") || echo "killall: phoneuid: no process killed" && echo "Starting phoneuid..."', 'DISPLAY=:0 phoneui-wrapper.sh &')
+                      }
+        if cmd in specialcmds:
+            cmd=specialcmds[cmd]
 
         extracmd = None
         if isinstance(cmd, tuple):
@@ -294,7 +294,9 @@ class Services(module.AbstractModule):
         topbox.show()
         frame.content_set(topbox)
         tops = [('frameworkd', _('Stopping frameworkd will stop all smartphone related functions. Do you really want to proceed?')),
+                ('fsodeviced', _('Stopping fsodeviced will stop idle notifier and few other functions. Do you really want to proceed?')),
                 ('phonefsod', _('Stopping phonefsod will stop all phone related functions. Do you really want to proceed?')),
+                ('phoneuid', _('Stopping phoneuid will stop all phone user interface related functions. Do you really want to proceed?')),
                 ('xserver-nodm', _('Stopping X server will stop all running applications. Do you really want to proceed?'))]
         for top in tops:
             btn = elementary.Button(box0)
@@ -307,7 +309,8 @@ class Services(module.AbstractModule):
             topbox.pack_end(btn)
         box0.pack_start(frame)
 
-        dontshow = ["rc", "rcS", "reboot", "halt", "umountfs", "sendsigs", "rmnologin", "functions", "usb-gadget", "frameworkd", "xserver-nodm", "phonefsod"]
+        dontshow = ["rc", "rcS", "reboot", "halt", "umountfs", "sendsigs", "rmnologin", "functions", "usb-gadget", "frameworkd", "xserver-nodm", "phonefsod", "phoneuid", 
+                    "fsodeviced"]
 
         servicesList = dircache.listdir("/etc/init.d/")
         servicesList.sort()
