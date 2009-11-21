@@ -66,6 +66,8 @@ class PhoneUtilsEntryBox(elementary.Box):
 class Phoneutils(module.AbstractModule):
 	name =_("Phoneutils settings")
 	section = _("Phone")
+        wizard_name = _("Local numbers settings")
+        wizard_description = _("Please enter informations matching to phone numbers in your country.")
 
 	def getEntryData(self):
 		"""
@@ -125,7 +127,7 @@ class Phoneutils(module.AbstractModule):
 					bad +=1
 		if bad == 0:
 			self.saveData()
-
+			return True
 		else:
 			dia = elementary.InnerWindow(self.window)
 			dia.style_set('minimal')
@@ -137,7 +139,10 @@ class Phoneutils(module.AbstractModule):
 			dia.show()
 			dia.activate()
 			timer_add(1.5, self.closeInwin, dia)
+			return False
 
+	def wizardClose(self):
+		return self.Validate()
 
 	def createView(self):
 		"""
@@ -159,13 +164,14 @@ class Phoneutils(module.AbstractModule):
 		self.main.pack_end(self.entryCC)
 		self.main.pack_end(self.entryAC)
 
-		self.btSave = elementary.Button(self.window)
-		self.btSave.label_set(_("Save"))
-		self.btSave.show()
-		self.btSave.size_hint_align_set(-1.0, 0.0)
-		self.main.pack_end(self.btSave)
+                if not self.wizard:
+			self.btSave = elementary.Button(self.window)
+			self.btSave.label_set(_("Save"))
+			self.btSave.show()
+			self.btSave.size_hint_align_set(-1.0, 0.0)
+			self.main.pack_end(self.btSave)
 
-		self.btSave.clicked = self.Validate
+			self.btSave.clicked = self.Validate
 
 		self.main.show()
 
