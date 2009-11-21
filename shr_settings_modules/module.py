@@ -7,6 +7,7 @@ __date__ ="$2008-12-27 21:53:00$"
     There are avilable objects:
     * self.window - elementary window, used for adding new objects like buttons, menus, etc.
     * self.dbus   - object for communicating with dbus (System Bus).
+    * self.wizard - boolean, says if module is runned by wizard
 
     mini template for new module:
 #=================
@@ -53,10 +54,15 @@ class AbstractModule(object):
     section = _("main")
     """a toolbar section. If it is new section it will be created"""
 
-    def __init__(self, window, dbus):
+    wizard_name = _("Some wizard page")
+    wizard_description = _("Some descripion")
+    """name and description displayed when module is used in wizard"""
+
+    def __init__(self, window, dbus, wizard = False):
         """constructor. param: elementary window object, edbus object, return: nothing"""
         self.window = window
         self.dbus = dbus
+        self.wizard = wizard
 
     def getName(self):
         """this one returns displayed name."""
