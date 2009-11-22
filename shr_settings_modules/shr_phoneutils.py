@@ -104,16 +104,17 @@ class Phoneutils(module.AbstractModule):
 		#data=self.getEntryData()
 		phoneutils.set_codes(self.ip, self.np, self.cc, self.ac)
 		phoneutils.save_config()
-                dia = elementary.InnerWindow(self.window)
-                dia.style_set('minimal')
-                lab = elementary.Label(self.window)
-                lab.label_set(_("Settings saved!"))
-                lab.show()
-                dia.content_set(lab)
-                self.window.resize_object_add(dia)
-                dia.show()
-                dia.activate()
-                timer_add(1.5, self.closeInwin, dia)
+		if not self.wizard:
+	                dia = elementary.InnerWindow(self.window)
+        	        dia.style_set('minimal')
+                	lab = elementary.Label(self.window)
+                	lab.label_set(_("Settings saved!"))
+                	lab.show()
+                	dia.content_set(lab)
+                	self.window.resize_object_add(dia)
+                	dia.show()
+                	dia.activate()
+                	timer_add(1.5, self.closeInwin, dia)
 
 
 	def Validate(self, *args):
