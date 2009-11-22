@@ -117,6 +117,9 @@ class Gprs(module.AbstractModule):
     name = _("GPRS settings")
     section = _("networking")
 
+    wizard_name=_("GPRS connection auth")
+    wizard_description=_("Please enter your GPRS login and password. You can also skip this step.")
+
     # persistent data file, until something is available in opreferencesd
     persistData = '/etc/shr-settings/gprs.pickle'
 
@@ -160,6 +163,10 @@ class Gprs(module.AbstractModule):
         pickleFile = open(self.persistData, "w")
         pickle.dump(pickleData,pickleFile)
         pickleFile.close()
+
+    def wizardClose(self):
+        self.saveConnectionData()
+	return True
 
     def dbusnothing(self):
         return 0
