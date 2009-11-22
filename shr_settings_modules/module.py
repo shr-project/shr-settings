@@ -112,7 +112,7 @@ class AbstractModule(object):
 
     def wizardClose(self):
         """This one is called when going into next wizard page"""
-        pass
+        return True
 
     def createView(self):
         """
