@@ -117,7 +117,7 @@ class Gprs(module.AbstractModule):
     name = _("GPRS settings")
     section = _("networking")
 
-    wizard_name=_("GPRS connection auth")
+    wizard_name=_("GPRS connection data")
     wizard_description=_("Please enter your GPRS login and password. You can also skip this step.")
 
     # persistent data file, until something is available in opreferencesd
@@ -236,14 +236,15 @@ class Gprs(module.AbstractModule):
         self.main = elementary.Box(self.window)
 
         try:
-            # GSM.PDP DBus interface
-            self.dbusObj = getDbusObject(self.dbus,
-                "org.freesmartphone.ogsmd",
-                "/org/freesmartphone/GSM/Device",
-                "org.freesmartphone.GSM.PDP")
+            if not self.wizard:
+                # GSM.PDP DBus interface
+                self.dbusObj = getDbusObject(self.dbus,
+                    "org.freesmartphone.ogsmd",
+                    "/org/freesmartphone/GSM/Device",
+                    "org.freesmartphone.GSM.PDP")
 
-            # GSM.PDP.ContextStatus(isa{sv}) DBus Signal
-            self.signal = self.dbusObj.connect_to_signal("ContextStatus", self.updateStatus)
+                # GSM.PDP.ContextStatus(isa{sv}) DBus Signal
+                self.signal = self.dbusObj.connect_to_signal("ContextStatus", self.updateStatus)
 
             # Check for and load persisted data
             self.apn, self.login, self.password = self.loadConnectionData()
@@ -252,22 +253,24 @@ class Gprs(module.AbstractModule):
             self.entryAPN       = GPRSEntryBox(self.window, _("Your APN: "), self.apn)
             self.entryLogin     = GPRSEntryBox(self.window, _("Your login: "), self.login)
             self.entryPassword  = GPRSEntryBox(self.window, _("Your password: "), self.password)
-            self.labelStatus    = GPRSLabelBox(self.window, _("Connection status: "),_("UNKNOWNN"))
-            #self.laTransferred = self.newLabel(_("Transferred bytes (RX/TX): UNKNOWN"))
+            if not self.wizard:
+                self.labelStatus    = GPRSLabelBox(self.window, _("Connection status: "),_("UNKNOWNN"))
+                #self.laTransferred = self.newLabel(_("Transferred bytes (RX/TX): UNKNOWN"))
 
             self.main.pack_end(self.entryAPN)
             self.main.pack_end(self.entryLogin)
             self.main.pack_end(self.entryPassword)
-            self.main.pack_end(self.labelStatus)
+            if not self.wizard:
+                self.main.pack_end(self.labelStatus)
 
-            #CONNECT / DISCONNECT button
-            self.btConnectDisconnect = elementary.Button(self.window)
-            self.btConnectDisconnect.label_set(_("UNKNOWN"))
-            self.btConnectDisconnect.show()
-            self.btConnectDisconnect.size_hint_align_set(-1.0, 0.0)
-            self.main.pack_end(self.btConnectDisconnect)
+                #CONNECT / DISCONNECT button
+                self.btConnectDisconnect = elementary.Button(self.window)
+                self.btConnectDisconnect.label_set(_("UNKNOWN"))
+                self.btConnectDisconnect.show()
+                self.btConnectDisconnect.size_hint_align_set(-1.0, 0.0)
+                self.main.pack_end(self.btConnectDisconnect)
 
-            self.updateStatus()
+                self.updateStatus()
 
         except:
             # This needs expansion, error reason etc...
