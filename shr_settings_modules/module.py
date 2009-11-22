@@ -110,6 +110,10 @@ class AbstractModule(object):
         """This one should close timers, free memory (python?) etc.."""
         pass
 
+    def wizardClose(self):
+        """This one is called when going into next wizard page"""
+        pass
+
     def createView(self):
         """
             This should return elementary object (for example Box) with will
