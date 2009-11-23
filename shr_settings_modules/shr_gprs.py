@@ -54,6 +54,8 @@ class GPRSLabelBox(elementary.Box):
         super(GPRSLabelBox, self).__init__(win)
         self.horizontal_set(True)
 
+        self.size_hint_align_set(0.0, 0.0)
+
         self.window = win
         self.label  = label
         self.value  = value
@@ -89,21 +91,28 @@ class GPRSEntryBox(elementary.Box):
         super(GPRSEntryBox, self).__init__(win)
         self.horizontal_set(True)
 
+        self.size_hint_weight_set(1.0, 0.0)
+        self.size_hint_align_set(-1.0, 0.0)
+
         self.window = win
         self.label  = label
         self.value  = value
 
         self.gprsLabel = elementary.Label(self.window)
-        self.gprsLabel.size_hint_align_set(0.0, -1.0)
+        self.gprsLabel.size_hint_align_set(-1.0, 0.0)
         self.gprsLabel.label_set(self.label)
         self.gprsLabel.show()
 
         self.gprsEntry = elementary.Entry(self.window)
+        self.gprsEntry.size_hint_align_set(-1.0, 0.0)
+        self.gprsEntry.size_hint_weight_set(1.0, 0.0)
         self.gprsEntry.single_line_set(True)
         self.gprsEntry.entry_set(self.value)
         self.gprsEntry.show()
 
         self.grpsEntryFrame = elementary.Frame(self.window)
+        self.grpsEntryFrame.size_hint_align_set(-1.0, 0.0)
+        self.grpsEntryFrame.size_hint_weight_set(1.0, 0.0)
         self.grpsEntryFrame.style_set("outdent_top")
         self.grpsEntryFrame.content_set(self.gprsEntry)
         self.grpsEntryFrame.show()
