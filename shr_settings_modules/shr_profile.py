@@ -42,7 +42,7 @@ class Profile(module.AbstractModule):
         """
         self.ProfileNameUpdate()
 
-    def setCurrentProfile(self, obj, event, name, *args, **kargs):
+    def setCurrentProfile(self, name, obj, event, *args, **kargs):
         """
         Set the current profile to `name`
         """
@@ -82,7 +82,7 @@ class Profile(module.AbstractModule):
             self.hoverSel.item_add(str(i).title(),
                 "arrow_down",
                 elementary.ELM_ICON_STANDARD,
-                partial( self.setCurrentProfile, name = i ))
+                partial( self.setCurrentProfile, i ))
 
     def stopUpdate(self):
         self.signal.remove()
