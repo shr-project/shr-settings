@@ -150,7 +150,7 @@ class Pim(module.AbstractModule):
     def destroywin(self, win, *args, **kargs):
         win.delete()
 
-    def domainWindow(self, obj, event, domain, *args, **kargs):
+    def domainWindow(self, domain, obj, event, *args, **kargs):
         win = elementary.Window("domain", elementary.ELM_WIN_BASIC)
         win.show()
         win.autodel_set(1)
@@ -244,7 +244,7 @@ class Pim(module.AbstractModule):
                 self.hoverSel.item_add(domain,
                 "arrow_right",
                 elementary.ELM_ICON_STANDARD,
-                partial( self.domainWindow, domain = domain ))
+                partial( self.domainWindow, domain ))
 
 
         except:
