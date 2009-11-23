@@ -17,7 +17,7 @@ except IOError:
 class Splash(module.AbstractModule):
     name = _("Splash settings")
 
-    def setTheme(self, obj, event, path, *args, **kargs):
+    def setTheme(self, path, obj, event, *args, **kargs):
         """
         Set the current theme to `path`
         """
@@ -125,7 +125,7 @@ class Splash(module.AbstractModule):
             self.hoverSel.item_add(name, 
                 "arrow_down", 
                 elementary.ELM_ICON_STANDARD, 
-                partial( self.setTheme, path = i ))
+                partial( self.setTheme, i ))
 
     def createView(self):
 
