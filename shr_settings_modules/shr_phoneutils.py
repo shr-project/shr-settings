@@ -133,7 +133,7 @@ class Phoneutils(module.AbstractModule):
 			dia = elementary.InnerWindow(self.window)
 			dia.style_set('minimal')
 			lab = elementary.Label(self.window)
-			lab.label_set(_("Settings could not be saved!<br>All values must me numbers!"))
+			lab.label_set(_("Settings could not be saved!<br>All values must be numbers!"))
 			lab.show()
 			dia.content_set(lab)
 			self.window.resize_object_add(dia)
