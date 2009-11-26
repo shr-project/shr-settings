@@ -263,7 +263,7 @@ class Gprs(module.AbstractModule):
             self.entryLogin     = GPRSEntryBox(self.window, _("Your login: "), self.login)
             self.entryPassword  = GPRSEntryBox(self.window, _("Your password: "), self.password)
             if not self.wizard:
-                self.labelStatus    = GPRSLabelBox(self.window, _("Connection status: "),_("UNKNOWNN"))
+                self.labelStatus    = GPRSLabelBox(self.window, _("Connection status: "),_("UNKNOWN"))
                 #self.laTransferred = self.newLabel(_("Transferred bytes (RX/TX): UNKNOWN"))
 
             self.main.pack_end(self.entryAPN)

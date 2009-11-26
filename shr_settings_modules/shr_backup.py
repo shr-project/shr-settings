@@ -466,7 +466,7 @@ class Backup(module.AbstractModule):
             else:
                 self.status_set(_("Directory required."))
         else:
-            self.error(_( "Config Files couldn't be loaded<br>Please investigate!" ))
+            self.error(_( "Config files couldn't be loaded<br>Please investigate!" ))
 
     def restore(self):
         """
@@ -479,7 +479,7 @@ class Backup(module.AbstractModule):
             else:
                 self.status_set(_("File required."))
         else:
-            self.error(_( "Config Files couldn't be loaded<br>Please investigate!" ))
+            self.error(_( "Config files couldn't be loaded<br>Please investigate!" ))
 
     def run_command(self, cmd, status_string):
 ##        print cmd

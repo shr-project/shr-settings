@@ -234,7 +234,7 @@ class GpsInfoBox(elementary.Table):
 #-------------------------------------------------------------------
 class GpsInfo(module.AbstractModule):
     """ Info GPS Module """
-    name = _("GPS informations")
+    name = _("GPS information")
 
     def isEnabled(self):
         return True
