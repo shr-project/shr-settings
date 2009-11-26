@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: SHR Settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-30 15:51+0200\n"
-"PO-Revision-Date: 2009-08-30 15:58+0100\n"
-"Last-Translator: Krzysztof Korościk <soltys@szluug.org>\n"
+"POT-Creation-Date: 2009-11-26 19:55+0100\n"
+"PO-Revision-Date: 2009-11-26 19:59+0100\n"
+"Last-Translator: Sebastian Krzyszkowiak <seba.dos1@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,8 +26,8 @@ msgid "Profiles"
 msgstr "Profile"
 
 #: shr-settings:38
+#: shr_settings_modules/shr_bt.py:71
 #: shr_settings_modules/shr_sim.py:182
-#: shr_settings_modules/shr_bt.py:74
 msgid "Connectivity"
 msgstr "Łączność"
 
@@ -53,8 +53,8 @@ msgstr "Inne"
 
 #: shr-settings:135
 #: shr-settings:343
-#: shr_settings_modules/shr_currentprofile.py:331
 #: shr_settings_modules/shr_gpsinfo.py:41
+#: shr_settings_modules/shr_currentprofile.py:331
 #: shr_settings_modules/shr_services.py:257
 #: shr_settings_modules/shr_pim.py:142
 #: shr_settings_modules/shr_pim.py:174
@@ -68,8 +68,8 @@ msgstr "Proszę czekać...<br>Wczytywanych modułów: %d"
 
 #: shr-settings:238
 #: shr-settings:252
-msgid "ophonekitd log"
-msgstr "Log ophonekitd"
+msgid "phonefsod log"
+msgstr "Log phonefsod"
 
 #: shr-settings:265
 msgid "Clean"
@@ -86,8 +86,8 @@ msgid "Settings"
 msgstr "Ustawienia"
 
 #: shr-settings:394
-msgid "ophonekitd"
-msgstr "ophonekitd"
+msgid "phonefsod"
+msgstr "phonefsod"
 
 #: shr-settings:399
 msgid "is not running!"
@@ -105,451 +105,100 @@ msgstr "Pokaż log"
 msgid "Information"
 msgstr "Informacja"
 
-#: shr_settings_modules/shr_gprs.py:117
-msgid "GPRS settings"
-msgstr "Ustawienia GPRS"
-
-#: shr_settings_modules/shr_gprs.py:118
-msgid "networking"
-msgstr "sieć"
-
-#: shr_settings_modules/shr_gprs.py:125
-#: shr_settings_modules/shr_battery.py:128
-#: shr_settings_modules/shr_profile.py:31
-#: shr_settings_modules/shr_gps.py:81
-#: shr_settings_modules/shr_gsm.py:383
-#: shr_settings_modules/shr_currentprofile.py:568
-#: shr_settings_modules/shr_sim.py:348
-#: shr_settings_modules/shr_wifi.py:119
-#: shr_settings_modules/shr_simauth.py:26
-#: shr_settings_modules/shr_simauth.py:179
-#: shr_settings_modules/shr_bt.py:78
-#: shr_settings_modules/shr_device_timeouts.py:144
-#: shr_settings_modules/shr_call.py:87
-#: shr_settings_modules/shr_pim.py:31
-msgid "Couldn't connect to FSO"
-msgstr "Nie można połączyć się z FSO"
-
-#: shr_settings_modules/shr_gprs.py:192
-msgid "disconnected"
-msgstr "rozłączono"
-
-#: shr_settings_modules/shr_gprs.py:193
-#: shr_settings_modules/shr_gprs.py:207
-msgid "Connect"
-msgstr "Połącz"
-
-#: shr_settings_modules/shr_gprs.py:196
-msgid "connected"
-msgstr "połączono"
-
-#: shr_settings_modules/shr_gprs.py:197
-#: shr_settings_modules/shr_gprs.py:203
-#: shr_settings_modules/shr_gprs.py:211
-msgid "Disconnect"
-msgstr "Rozłącz"
-
-#: shr_settings_modules/shr_gprs.py:202
-msgid "connecting"
-msgstr "łączenie"
-
-#: shr_settings_modules/shr_gprs.py:206
-msgid "incoming"
-msgstr "przychodzące"
-
-#: shr_settings_modules/shr_gprs.py:210
-msgid "held"
-msgstr "wstrzymane"
-
-#: shr_settings_modules/shr_gprs.py:214
-#: shr_settings_modules/shr_gprs.py:215
-#: shr_settings_modules/shr_gprs.py:258
-msgid "UNKNOWN"
-msgstr "NIEZNANE"
-
-#: shr_settings_modules/shr_gprs.py:245
-msgid "Your APN: "
-msgstr "Twój APN: "
-
-#: shr_settings_modules/shr_gprs.py:246
-msgid "Your login: "
-msgstr "Twój login: "
-
-#: shr_settings_modules/shr_gprs.py:247
-msgid "Your password: "
-msgstr "Twoje hasło: "
-
-#: shr_settings_modules/shr_gprs.py:248
-msgid "Connection status: "
-msgstr "Stan połączenia: "
-
-#: shr_settings_modules/shr_gprs.py:248
-msgid "UNKNOWNN"
-msgstr "NIEZNANE"
-
-#: shr_settings_modules/shr_phoneutils.py:67
-msgid "Phoneutils settings"
-msgstr "Ustawienia phoneutils"
-
-#: shr_settings_modules/shr_phoneutils.py:108
-msgid "Settings saved!"
-msgstr "Zapisano ustawienia!"
-
-#: shr_settings_modules/shr_phoneutils.py:133
-msgid "Settings could not be saved!<br>All values must me numbers!"
-msgstr "Ustawienia nie mogły zostać zapisane!<br>Wszystkie wartości muszą być liczbami!"
-
-#: shr_settings_modules/shr_phoneutils.py:152
-msgid "Your international prefix: "
-msgstr "Prefiks międzynarodowy"
-
-#: shr_settings_modules/shr_phoneutils.py:153
-msgid "Your national prefix: "
-msgstr "Prefiks krajowy:"
-
-#: shr_settings_modules/shr_phoneutils.py:154
-msgid "Your country code: "
-msgstr "Kod kraju:"
-
-#: shr_settings_modules/shr_phoneutils.py:155
-msgid "Your area code: "
-msgstr "Kod obszaru: "
-
-#: shr_settings_modules/shr_phoneutils.py:163
-msgid "Save"
-msgstr "Zapisz"
-
-#: shr_settings_modules/shr_battery.py:109
-msgid "USB charging rate:"
-msgstr "Moc ładowania z USB:"
-
-#: shr_settings_modules/shr_battery.py:121
-msgid "Battery settings"
-msgstr "Ustawienia baterii"
-
-#: shr_settings_modules/shr_battery.py:246
-msgid "Charge: "
-msgstr "Naładowanie "
-
-#: shr_settings_modules/shr_battery.py:247
-msgid "Power info: "
-msgstr "Informacje: "
-
-#: shr_settings_modules/shr_battery.py:248
-msgid "Status: "
-msgstr "Status: "
-
-#: shr_settings_modules/shr_battery.py:273
-msgid "Update"
-msgstr "Odśwież"
-
-#: shr_settings_modules/shr_battery.py:288
-msgid "Switch to dumb battery driver"
-msgstr "Przełącz na sterownik głupiej baterii"
-
-#: shr_settings_modules/shr_pm.py:55
-#: shr_settings_modules/shr_gps.py:68
-#: shr_settings_modules/shr_currentprofile.py:253
-#: shr_settings_modules/shr_wifi.py:102
-#: shr_settings_modules/shr_bt.py:114
-#: shr_settings_modules/shr_bt.py:155
-#: shr_settings_modules/shr_call.py:76
-msgid "On"
-msgstr "Włączony"
-
-#: shr_settings_modules/shr_pm.py:55
-#: shr_settings_modules/shr_gps.py:68
-#: shr_settings_modules/shr_currentprofile.py:261
-#: shr_settings_modules/shr_wifi.py:102
-#: shr_settings_modules/shr_bt.py:114
-#: shr_settings_modules/shr_bt.py:155
-#: shr_settings_modules/shr_call.py:76
-msgid "Off"
-msgstr "Wyłączony"
-
-#: shr_settings_modules/shr_pm.py:68
-msgid "Power settings"
-msgstr "Ustawienia zasilania"
-
-#: shr_settings_modules/shr_pm.py:75
-msgid "Couldn't connect to FSO or ophonekitd"
-msgstr "Nie można połączyć się z FSO lub ophonekitd"
-
-#: shr_settings_modules/shr_pm.py:119
-msgid "Auto-dimming:"
-msgstr "Auto-wygaszanie:"
-
-#: shr_settings_modules/shr_pm.py:120
-msgid "Auto-suspend:"
-msgstr "Auto-usypianie:"
-
-#: shr_settings_modules/shr_about.py:24
-msgid "About"
-msgstr "Informacje"
-
-#: shr_settings_modules/shr_profile.py:24
-msgid "Profile settings"
-msgstr "Ustawienia profili"
-
-#: shr_settings_modules/shr_profile.py:57
-#, python-format
-msgid "Profiles (%s)"
-msgstr "Profile (%s)"
-
-#: shr_settings_modules/shr_elementary.py:19
-msgid "Elementary settings"
-msgstr "Ustawienia elementary"
-
-#: shr_settings_modules/shr_elementary.py:29
-msgid "Restart X server"
-msgstr "Restart serwera X"
-
-#: shr_settings_modules/shr_elementary.py:63
-#: shr_settings_modules/shr_splash.py:65
-#, python-format
-msgid "Themes (%s)"
-msgstr "Motywy (%s)"
-
-#: shr_settings_modules/shr_elementary.py:84
-#: shr_settings_modules/shr_sim.py:202
-#: shr_settings_modules/shr_services.py:48
-msgid "Are you sure?"
-msgstr "Jesteś pewien?"
-
-#: shr_settings_modules/shr_elementary.py:93
-msgid "Restarting X server will close running applications. Do you really want to proceed?"
-msgstr "Restart serwera X wyłączy wszystkie uruchomione aplikacje. Czy na pewno chcesz kontynuować?"
-
-#: shr_settings_modules/shr_elementary.py:102
-#: shr_settings_modules/shr_sim.py:210
-#: shr_settings_modules/shr_services.py:66
-msgid "Yes"
-msgstr "Tak"
-
-#: shr_settings_modules/shr_elementary.py:108
-#: shr_settings_modules/shr_sim.py:215
-#: shr_settings_modules/shr_services.py:72
-msgid "No"
-msgstr "Nie"
-
-#: shr_settings_modules/shr_elementary.py:166
-msgid "Engine:"
-msgstr "Silnik:"
-
-#: shr_settings_modules/shr_elementary.py:174
-msgid "x11"
-msgstr "x11"
-
-#: shr_settings_modules/shr_elementary.py:182
-msgid "x11-16"
-msgstr "x11-16"
-
-#: shr_settings_modules/shr_elementary.py:197
-msgid "Finger size "
-msgstr "Wielkość palca"
-
-#: shr_settings_modules/shr_imageinfo.py:13
-msgid "Image information"
-msgstr "Informacje o obrazie"
-
-#: shr_settings_modules/shr_imageinfo.py:55
-msgid "Buildhost: "
-msgstr "Buildhost: "
-
-#: shr_settings_modules/shr_imageinfo.py:56
-msgid "Revision: "
-msgstr "Rewizja: "
-
-#: shr_settings_modules/shr_imageinfo.py:57
-msgid "Branch: "
-msgstr "Gałąź: "
-
-#: shr_settings_modules/shr_imageinfo.py:58
-msgid "Timestamp: "
-msgstr "Data budowy: "
-
-#: shr_settings_modules/module.py:50
-msgid "OhMy! I have no name!"
-msgstr "O nie! Nie mam nazwy!"
-
-#: shr_settings_modules/module.py:53
-msgid "main"
-msgstr "główne"
-
-#: shr_settings_modules/shr_gps.py:19
-msgid "GPS settings"
-msgstr "Ustawienia GPS"
-
-#: shr_settings_modules/shr_gps.py:87
-msgid "GPS radio:"
-msgstr "Antena GPS:"
-
-#: shr_settings_modules/shr_gps.py:89
-msgid "Auto"
-msgstr "Auto"
-
-#: shr_settings_modules/shr_gps.py:89
-#: shr_settings_modules/shr_call.py:56
-msgid "Manual"
-msgstr "Ręcznie"
-
 #: shr_settings_modules/shr_date.py:15
 msgid "Date"
 msgstr "Data"
 
-#: shr_settings_modules/shr_clock.py:28
-msgid "Time settings"
-msgstr "Ustawienia czasu"
+#: shr_settings_modules/shr_backup.py:104
+msgid "Select Item"
+msgstr "Wybierz element"
 
-#: shr_settings_modules/shr_clock.py:29
-msgid "Other"
-msgstr "Inne"
+#: shr_settings_modules/shr_backup.py:128
+msgid "Up"
+msgstr "Do góry"
 
-#: shr_settings_modules/shr_clock.py:36
-#: shr_settings_modules/shr_clock.py:51
-msgid "Set time"
-msgstr "Ustaw czas"
+#: shr_settings_modules/shr_backup.py:135
+msgid "Done"
+msgstr "Gotowe"
 
-#: shr_settings_modules/shr_clock.py:40
-msgid "OK"
-msgstr "OK"
+#: shr_settings_modules/shr_backup.py:242
+msgid "Delete Archives"
+msgstr "Usuń archiwa"
 
-#: shr_settings_modules/shr_test.py:27
-msgid "test"
-msgstr "test"
+#: shr_settings_modules/shr_backup.py:293
+msgid "Go"
+msgstr "Start"
 
-#: shr_settings_modules/shr_test.py:33
-msgid "Just for fun"
-msgstr "Dla szpanu"
+#: shr_settings_modules/shr_backup.py:337
+msgid "Userspace Backup"
+msgstr "Backup plików użytkownika"
 
-#: shr_settings_modules/shr_gsm.py:115
-msgid "GSM settings"
-msgstr "Ustawienia GSM"
+#: shr_settings_modules/shr_backup.py:467
+msgid "Directory required."
+msgstr "Potrzebny katalog."
 
-#: shr_settings_modules/shr_gsm.py:134
-msgid "Could not connect to network"
-msgstr "Nie można połączyć się z siecią"
+#: shr_settings_modules/shr_backup.py:469
+#: shr_settings_modules/shr_backup.py:482
+msgid "Config files couldn't be loaded<br>Please investigate!"
+msgstr "Pliki konfiguracyjne nie mogły być załadowane<br>Sprawdź to!"
 
-#: shr_settings_modules/shr_gsm.py:154
-#: shr_settings_modules/shr_simauth.py:185
-#: shr_settings_modules/shr_call.py:93
-#: shr_settings_modules/shr_services.py:271
-#: shr_settings_modules/shr_pim.py:51
-msgid "Please wait..."
-msgstr "Proszę czekać..."
+#: shr_settings_modules/shr_backup.py:480
+msgid "File required."
+msgstr "Potrzebny plik."
 
-#: shr_settings_modules/shr_gsm.py:160
-#: shr_settings_modules/shr_gsm.py:166
-#: shr_settings_modules/shr_gsm.py:248
-msgid "Operators"
-msgstr "Operatorzy"
+#: shr_settings_modules/shr_backup.py:486
+msgid " In Progress."
+msgstr " W toku."
 
-#: shr_settings_modules/shr_gsm.py:170
-#: shr_settings_modules/shr_gsm.py:184
-msgid "List Providers"
-msgstr "Lista operatorów"
+#: shr_settings_modules/shr_backup.py:490
+msgid " Complete."
+msgstr " Zakończone."
 
-#: shr_settings_modules/shr_gsm.py:198
-#: shr_settings_modules/shr_gsm.py:318
-msgid "Cancel"
-msgstr "Anuluj"
+#: shr_settings_modules/shr_backup.py:492
+msgid " Failed. "
+msgstr " Błąd."
 
-#: shr_settings_modules/shr_gsm.py:209
-msgid "Automatic"
-msgstr "Automatyczne"
+#: shr_settings_modules/shr_backup.py:498
+msgid "Archive Directory"
+msgstr "Zarchiwizuj katalog"
 
-#: shr_settings_modules/shr_gsm.py:221
-msgid " [current]"
-msgstr " [aktualne]"
+#: shr_settings_modules/shr_backup.py:504
+msgid "Restore File"
+msgstr "Przywróć plik"
 
-#: shr_settings_modules/shr_gsm.py:223
-msgid " [forbidden]"
-msgstr " [zabronione]"
+#: shr_settings_modules/shr_backup.py:530
+msgid "Backup Mode"
+msgstr "Tryb backupu"
 
-#: shr_settings_modules/shr_gsm.py:255
-msgid "Modem information"
-msgstr "Informacje modemu"
+#: shr_settings_modules/shr_backup.py:531
+msgid "Archive"
+msgstr "Archiwizuj"
 
-#: shr_settings_modules/shr_gsm.py:290
-#: shr_settings_modules/shr_gsm.py:304
-msgid "GSM modem information"
-msgstr "Informacje modemu GSM"
-
-#: shr_settings_modules/shr_gsm.py:369
-msgid "GSM antenna:"
-msgstr "Antena GSM:"
-
-#: shr_settings_modules/shr_currentprofile.py:306
-#: shr_settings_modules/shr_currentprofile.py:309
-msgid "Change ringtone"
-msgstr "Zmień dźwięk dzwonka"
-
-#: shr_settings_modules/shr_currentprofile.py:316
-msgid "Select ringtone"
-msgstr "Wybierz dźwięk dzwonka"
-
-#: shr_settings_modules/shr_currentprofile.py:318
-msgid "Ringtones are placed in /usr/share/sounds/"
-msgstr "Pliki są umieszczone w /usr/share/sounds/"
-
-#: shr_settings_modules/shr_currentprofile.py:422
-#: shr_settings_modules/shr_currentprofile.py:452
-msgid "Play"
-msgstr "Play"
-
-#: shr_settings_modules/shr_currentprofile.py:428
-msgid "Stop"
-msgstr "Stop"
-
-#: shr_settings_modules/shr_currentprofile.py:460
-msgid "Change"
-msgstr "Zmień"
-
-#: shr_settings_modules/shr_currentprofile.py:564
-msgid "Current profile settings"
-msgstr "Ustawienia aktywnego profilu"
-
-#: shr_settings_modules/shr_sim.py:126
-msgid "Book "
-msgstr "Książka "
-
-#: shr_settings_modules/shr_sim.py:170
-#: shr_settings_modules/shr_sim.py:321
-msgid "clean"
-msgstr "wyczyść"
-
-#: shr_settings_modules/shr_sim.py:181
-msgid "SIM settings"
-msgstr "Ustawienia SIM"
-
-#: shr_settings_modules/shr_sim.py:279
-msgid "Message book"
-msgstr "Wiadomości"
-
-#: shr_settings_modules/shr_sim.py:363
-msgid "SIM information:"
-msgstr "Informacje SIM:"
-
-#: shr_settings_modules/shr_help.py:35
-msgid "Help"
-msgstr "Pomoc"
-
-#: shr_settings_modules/shr_wifi.py:30
-#: shr_settings_modules/shr_wifi.py:33
-msgid "WiFi Manager"
-msgstr "WiFi manager"
-
-#: shr_settings_modules/shr_wifi.py:101
-msgid "WiFi radio:"
-msgstr "Antena WiFi:"
-
-#: shr_settings_modules/shr_wifi.py:115
-msgid "WiFi settings"
-msgstr "Ustawienia WiFi"
+#: shr_settings_modules/shr_backup.py:531
+msgid "Restore"
+msgstr "Przywróć"
 
 #: shr_settings_modules/shr_simauth.py:20
 msgid "PIN settings"
 msgstr "Ustawienia PIN"
+
+#: shr_settings_modules/shr_simauth.py:26
+#: shr_settings_modules/shr_simauth.py:179
+#: shr_settings_modules/shr_device_timeouts.py:144
+#: shr_settings_modules/shr_gprs.py:137
+#: shr_settings_modules/shr_currentprofile.py:568
+#: shr_settings_modules/shr_bt.py:78
+#: shr_settings_modules/shr_pim.py:31
+#: shr_settings_modules/shr_battery.py:138
+#: shr_settings_modules/shr_profile.py:31
+#: shr_settings_modules/shr_usb.py:81
+#: shr_settings_modules/shr_gps.py:81
+#: shr_settings_modules/shr_call.py:87
+#: shr_settings_modules/shr_gsm.py:381
+#: shr_settings_modules/shr_sim.py:348
+#: shr_settings_modules/shr_wifi.py:86
+msgid "Couldn't connect to FSO"
+msgstr "Nie można połączyć się z FSO"
 
 #: shr_settings_modules/shr_simauth.py:93
 #: shr_settings_modules/shr_simauth.py:128
@@ -582,6 +231,9 @@ msgid "Enter new SIM PIN:"
 msgstr "Podaj nowy kod PIN:"
 
 #: shr_settings_modules/shr_simauth.py:144
+msgid "Enter actual SIM PIN:"
+msgstr "Podaj aktualny kod PIN:"
+
 #: shr_settings_modules/shr_simauth.py:150
 msgid "Enter SIM PIN:"
 msgstr "Podaj kod PIN:"
@@ -602,17 +254,17 @@ msgstr "Wyłączony"
 msgid "Change PIN"
 msgstr "Zmień PIN"
 
-#: shr_settings_modules/shr_bt.py:73
-msgid "Bluetooth settings"
-msgstr "Ustawienia Bluetooth"
+#: shr_settings_modules/shr_simauth.py:185
+#: shr_settings_modules/shr_services.py:271
+#: shr_settings_modules/shr_pim.py:51
+#: shr_settings_modules/shr_call.py:93
+#: shr_settings_modules/shr_gsm.py:152
+msgid "Please wait..."
+msgstr "Proszę czekać..."
 
-#: shr_settings_modules/shr_bt.py:112
-msgid "Visibility:"
-msgstr "Widoczność:"
-
-#: shr_settings_modules/shr_bt.py:153
-msgid "Bluetooth radio:"
-msgstr "Antena Bluetooth:"
+#: shr_settings_modules/shr_about.py:24
+msgid "About"
+msgstr "Informacje"
 
 #: shr_settings_modules/shr_device_timeouts.py:33
 msgid " sec."
@@ -621,54 +273,6 @@ msgstr " sec."
 #: shr_settings_modules/shr_device_timeouts.py:140
 msgid "Timeouts settings"
 msgstr "Ustawienia czasowe"
-
-#: shr_settings_modules/shr_usb.py:18
-msgid "USB settings"
-msgstr "Ustawienia USB"
-
-#: shr_settings_modules/shr_usb.py:49
-msgid "USB mode:"
-msgstr "Tryb USB:"
-
-#: shr_settings_modules/shr_usb.py:51
-msgid "Device"
-msgstr "Urządzenie"
-
-#: shr_settings_modules/shr_usb.py:51
-msgid "Host"
-msgstr "Gospodarz"
-
-#: shr_settings_modules/shr_call.py:18
-msgid "Call settings"
-msgstr "Ustawienia połączeń"
-
-#: shr_settings_modules/shr_call.py:26
-msgid "Turn GSM on."
-msgstr "Włącz GSM."
-
-#: shr_settings_modules/shr_call.py:54
-msgid "Show my number:"
-msgstr "Pokaż mój numer:"
-
-#: shr_settings_modules/shr_call.py:56
-msgid "By network"
-msgstr "Przez sieć"
-
-#: shr_settings_modules/shr_misc.py:14
-msgid "Miscellaneous settings"
-msgstr "Różne"
-
-#: shr_settings_modules/shr_misc.py:18
-msgid "Suspend, dim time and etc."
-msgstr "Usypianie, czas wygaszania itp."
-
-#: shr_settings_modules/shr_splash.py:18
-msgid "Splash settings"
-msgstr "Ustawienia splasha"
-
-#: shr_settings_modules/shr_splash.py:112
-msgid "Preview"
-msgstr "Podgląd"
 
 #: shr_settings_modules/shr_gpsinfo.py:23
 #: shr_settings_modules/shr_gpsinfo.py:219
@@ -716,16 +320,233 @@ msgid "Descend"
 msgstr "Zejście"
 
 #: shr_settings_modules/shr_gpsinfo.py:237
-msgid "GPS informations"
+msgid "GPS information"
 msgstr "Informacje GPS"
 
 #: shr_settings_modules/shr_gpsinfo.py:257
 msgid "Remove AGPS data"
 msgstr "Skasuj dane AGPS"
 
+#: shr_settings_modules/shr_phoneutils.py:67
+msgid "Phoneutils settings"
+msgstr "Ustawienia phoneutils"
+
+#: shr_settings_modules/shr_phoneutils.py:69
+msgid "Local numbers settings"
+msgstr "Ustawienia lokalnych numerów"
+
+#: shr_settings_modules/shr_phoneutils.py:70
+msgid "Please enter informations matching to phone numbers in your country."
+msgstr "Podaj informacje pasujące do numerów telefonów w twoim kraju."
+
+#: shr_settings_modules/shr_phoneutils.py:111
+msgid "Settings saved!"
+msgstr "Zapisano ustawienia!"
+
+#: shr_settings_modules/shr_phoneutils.py:136
+msgid "Settings could not be saved!<br>All values must be numbers!"
+msgstr "Ustawienia nie mogły zostać zapisane!<br>Wszystkie wartości muszą być liczbami!"
+
+#: shr_settings_modules/shr_phoneutils.py:158
+msgid "Your international prefix: "
+msgstr "Prefiks międzynarodowy"
+
+#: shr_settings_modules/shr_phoneutils.py:159
+msgid "Your national prefix: "
+msgstr "Prefiks krajowy:"
+
+#: shr_settings_modules/shr_phoneutils.py:160
+msgid "Your country code: "
+msgstr "Kod kraju:"
+
+#: shr_settings_modules/shr_phoneutils.py:161
+msgid "Your area/network code: "
+msgstr "Kod obszaru/sieci: "
+
+#: shr_settings_modules/shr_phoneutils.py:170
+msgid "Save"
+msgstr "Zapisz"
+
+#: shr_settings_modules/shr_clock.py:28
+msgid "Time settings"
+msgstr "Ustawienia czasu"
+
+#: shr_settings_modules/shr_clock.py:29
+msgid "Other"
+msgstr "Inne"
+
+#: shr_settings_modules/shr_clock.py:36
+#: shr_settings_modules/shr_clock.py:51
+msgid "Set time"
+msgstr "Ustaw czas"
+
+#: shr_settings_modules/shr_clock.py:40
+msgid "OK"
+msgstr "OK"
+
+#: shr_settings_modules/shr_help.py:35
+msgid "Help"
+msgstr "Pomoc"
+
+#: shr_settings_modules/shr_pm.py:55
+#: shr_settings_modules/shr_currentprofile.py:253
+#: shr_settings_modules/shr_bt.py:145
+#: shr_settings_modules/shr_bt.py:170
+#: shr_settings_modules/shr_gps.py:68
+#: shr_settings_modules/shr_call.py:76
+#: shr_settings_modules/shr_gsm.py:369
+#: shr_settings_modules/shr_wifi.py:68
+msgid "On"
+msgstr "Włączony"
+
+#: shr_settings_modules/shr_pm.py:55
+#: shr_settings_modules/shr_currentprofile.py:261
+#: shr_settings_modules/shr_bt.py:145
+#: shr_settings_modules/shr_bt.py:170
+#: shr_settings_modules/shr_gps.py:68
+#: shr_settings_modules/shr_call.py:76
+#: shr_settings_modules/shr_gsm.py:369
+#: shr_settings_modules/shr_wifi.py:68
+msgid "Off"
+msgstr "Wyłączony"
+
+#: shr_settings_modules/shr_pm.py:68
+msgid "Power settings"
+msgstr "Ustawienia zasilania"
+
+#: shr_settings_modules/shr_pm.py:75
+msgid "Couldn't connect to FSO or phonefsod"
+msgstr "Nie można połączyć się z FSO lub phonefsod"
+
+#: shr_settings_modules/shr_pm.py:119
+msgid "Auto-dimming:"
+msgstr "Auto-wygaszanie:"
+
+#: shr_settings_modules/shr_pm.py:120
+msgid "Auto-suspend:"
+msgstr "Auto-usypianie:"
+
+#: shr_settings_modules/shr_gprs.py:126
+msgid "GPRS settings"
+msgstr "Ustawienia GPRS"
+
+#: shr_settings_modules/shr_gprs.py:127
+msgid "networking"
+msgstr "sieć"
+
+#: shr_settings_modules/shr_gprs.py:129
+msgid "GPRS connection data"
+msgstr "Dane połączenia GPRS"
+
+#: shr_settings_modules/shr_gprs.py:130
+msgid "Please enter your GPRS login and password. You can also skip this step."
+msgstr "Podaj swój login i hasło do połączenia GPRS. Możesz także pominąć ten krok."
+
+#: shr_settings_modules/shr_gprs.py:208
+msgid "disconnected"
+msgstr "rozłączono"
+
+#: shr_settings_modules/shr_gprs.py:209
+#: shr_settings_modules/shr_gprs.py:223
+msgid "Connect"
+msgstr "Połącz"
+
+#: shr_settings_modules/shr_gprs.py:212
+msgid "connected"
+msgstr "połączono"
+
+#: shr_settings_modules/shr_gprs.py:213
+#: shr_settings_modules/shr_gprs.py:219
+#: shr_settings_modules/shr_gprs.py:227
+msgid "Disconnect"
+msgstr "Rozłącz"
+
+#: shr_settings_modules/shr_gprs.py:218
+msgid "connecting"
+msgstr "łączenie"
+
+#: shr_settings_modules/shr_gprs.py:222
+msgid "incoming"
+msgstr "przychodzące"
+
+#: shr_settings_modules/shr_gprs.py:226
+msgid "held"
+msgstr "wstrzymane"
+
+#: shr_settings_modules/shr_gprs.py:230
+#: shr_settings_modules/shr_gprs.py:231
+#: shr_settings_modules/shr_gprs.py:266
+#: shr_settings_modules/shr_gprs.py:277
+msgid "UNKNOWN"
+msgstr "NIEZNANE"
+
+#: shr_settings_modules/shr_gprs.py:262
+msgid "Your APN: "
+msgstr "Twój APN: "
+
+#: shr_settings_modules/shr_gprs.py:263
+msgid "Your login: "
+msgstr "Twój login: "
+
+#: shr_settings_modules/shr_gprs.py:264
+msgid "Your password: "
+msgstr "Twoje hasło: "
+
+#: shr_settings_modules/shr_gprs.py:266
+msgid "Connection status: "
+msgstr "Stan połączenia: "
+
+#: shr_settings_modules/shr_currentprofile.py:306
+#: shr_settings_modules/shr_currentprofile.py:309
+msgid "Change ringtone"
+msgstr "Zmień dźwięk dzwonka"
+
+#: shr_settings_modules/shr_currentprofile.py:316
+msgid "Select ringtone"
+msgstr "Wybierz dźwięk dzwonka"
+
+#: shr_settings_modules/shr_currentprofile.py:318
+msgid "Ringtones are placed in /usr/share/sounds/"
+msgstr "Pliki są umieszczone w /usr/share/sounds/"
+
+#: shr_settings_modules/shr_currentprofile.py:422
+#: shr_settings_modules/shr_currentprofile.py:452
+msgid "Play"
+msgstr "Play"
+
+#: shr_settings_modules/shr_currentprofile.py:428
+msgid "Stop"
+msgstr "Stop"
+
+#: shr_settings_modules/shr_currentprofile.py:460
+msgid "Change"
+msgstr "Zmień"
+
+#: shr_settings_modules/shr_currentprofile.py:564
+msgid "Current profile settings"
+msgstr "Ustawienia aktywnego profilu"
+
 #: shr_settings_modules/shr_services.py:25
 msgid "Services settings"
 msgstr "Ustawienia usług"
+
+#: shr_settings_modules/shr_services.py:48
+#: shr_settings_modules/shr_elementary.py:84
+#: shr_settings_modules/shr_sim.py:202
+msgid "Are you sure?"
+msgstr "Jesteś pewien?"
+
+#: shr_settings_modules/shr_services.py:66
+#: shr_settings_modules/shr_elementary.py:102
+#: shr_settings_modules/shr_sim.py:210
+msgid "Yes"
+msgstr "Tak"
+
+#: shr_settings_modules/shr_services.py:72
+#: shr_settings_modules/shr_elementary.py:108
+#: shr_settings_modules/shr_sim.py:215
+msgid "No"
+msgstr "Nie"
 
 #: shr_settings_modules/shr_services.py:125
 #: shr_settings_modules/shr_services.py:139
@@ -761,20 +582,45 @@ msgid "Stopping frameworkd will stop all smartphone related functions. Do you re
 msgstr "Zatrzymanie frameworkd wyłączy wszystkie funkcje związane z obsługą smartphone'a. Czy na pewno chcesz kontynuować?"
 
 #: shr_settings_modules/shr_services.py:297
-msgid "Stopping ophonekitd will stop all phone related functions. Do you really want to proceed?"
-msgstr "Zatrzymanie ophonekit wyłączy wszystkie funkcje telefoniczne. Czy na pewno chcesz kontynuować?"
+msgid "Stopping fsodeviced will stop idle notifier and few other functions. Do you really want to proceed?"
+msgstr "Zatrzymanie fsodeviced wyłączy czujnik bezczynności i kilka innych funkcji. Czy na pewno chcesz kontynuować?"
 
 #: shr_settings_modules/shr_services.py:298
+msgid "Stopping phonefsod will stop all phone related functions. Do you really want to proceed?"
+msgstr "Zatrzymanie phonefsod wyłączy wszystkie funkcje telefoniczne. Czy na pewno chcesz kontynuować?"
+
+#: shr_settings_modules/shr_services.py:299
+msgid "Stopping phoneuid will stop all phone user interface related functions. Do you really want to proceed?"
+msgstr "Zatrzymanie phoneuid wyłączy wszystkie funkcje związane z interfejsem telefonicznym. Czy na pewno chcesz kontynuować?"
+
+#: shr_settings_modules/shr_services.py:300
 msgid "Stopping X server will stop all running applications. Do you really want to proceed?"
 msgstr "Zatrzymanie serwera X wyłączy wszystkie uruchomione aplikacje. Czy na pewno chcesz kontynuować?"
 
-#: shr_settings_modules/shr_display.py:26
-msgid "Display settings"
-msgstr "Ustawienia wyświetlania"
+#: shr_settings_modules/shr_bt.py:70
+msgid "Bluetooth settings"
+msgstr "Ustawienia Bluetooth"
 
-#: shr_settings_modules/shr_display.py:46
-msgid "Backlight "
-msgstr "Podświetlenie"
+#: shr_settings_modules/shr_bt.py:143
+msgid "Visibility:"
+msgstr "Widoczność:"
+
+#: shr_settings_modules/shr_bt.py:205
+msgid "Bluetooth radio:"
+msgstr "Antena Bluetooth:"
+
+#: shr_settings_modules/shr_bt.py:207
+#: shr_settings_modules/shr_usb.py:89
+#: shr_settings_modules/shr_gps.py:89
+msgid "Auto"
+msgstr "Auto"
+
+#: shr_settings_modules/shr_bt.py:207
+#: shr_settings_modules/shr_usb.py:89
+#: shr_settings_modules/shr_gps.py:89
+#: shr_settings_modules/shr_call.py:56
+msgid "Manual"
+msgstr "Ręcznie"
 
 #: shr_settings_modules/shr_pim.py:24
 msgid "PIM settings"
@@ -806,7 +652,7 @@ msgid "adding new fields to entries"
 msgstr "dodawanie nowych pól do pozycji"
 
 #: shr_settings_modules/shr_pim.py:100
-msgid "needs loging in"
+msgid "needs logging in"
 msgstr "potrzebuje logowania"
 
 #: shr_settings_modules/shr_pim.py:100
@@ -841,75 +687,267 @@ msgstr " (domyślny)"
 msgid "Domains"
 msgstr "Domeny"
 
-#: shr_settings_modules/shr_backup.py:104
-msgid "Select Item"
-msgstr "Wybierz element"
+#: shr_settings_modules/module.py:51
+msgid "OhMy! I have no name!"
+msgstr "O nie! Nie mam nazwy!"
 
-#: shr_settings_modules/shr_backup.py:128
-msgid "Up"
-msgstr "Do góry"
+#: shr_settings_modules/module.py:54
+msgid "main"
+msgstr "główne"
 
-#: shr_settings_modules/shr_backup.py:135
-msgid "Done"
-msgstr "Gotowe"
+#: shr_settings_modules/module.py:57
+msgid "Some wizard page"
+msgstr "Jakaś strona druida"
 
-#: shr_settings_modules/shr_backup.py:242
-msgid "Delete Archives"
-msgstr "Usuń archiwa"
+#: shr_settings_modules/module.py:58
+msgid "Some descripion"
+msgstr "Jakiś opis"
 
-#: shr_settings_modules/shr_backup.py:293
-msgid "Go"
-msgstr "Start"
+#: shr_settings_modules/shr_imageinfo.py:13
+msgid "Image information"
+msgstr "Informacje o obrazie"
 
-#: shr_settings_modules/shr_backup.py:337
-msgid "Userspace Backup"
-msgstr "Backup plików użytkownika"
+#: shr_settings_modules/shr_imageinfo.py:55
+msgid "Buildhost: "
+msgstr "Buildhost: "
 
-#: shr_settings_modules/shr_backup.py:467
-msgid "Directory required."
-msgstr "Potrzebny katalog."
+#: shr_settings_modules/shr_imageinfo.py:56
+msgid "Revision: "
+msgstr "Rewizja: "
 
-#: shr_settings_modules/shr_backup.py:469
-#: shr_settings_modules/shr_backup.py:482
-msgid "Config Files couldn't be loaded<br>Please investigate!"
-msgstr "Pliki konfiguracyjne nie mogły być załadowane<br>Sprawdź to!"
+#: shr_settings_modules/shr_imageinfo.py:57
+msgid "Branch: "
+msgstr "Gałąź: "
 
-#: shr_settings_modules/shr_backup.py:480
-msgid "File required."
-msgstr "Potrzebny plik."
+#: shr_settings_modules/shr_imageinfo.py:58
+msgid "Timestamp: "
+msgstr "Data budowy: "
 
-#: shr_settings_modules/shr_backup.py:486
-msgid " In Progress."
-msgstr " W toku."
+#: shr_settings_modules/shr_elementary.py:19
+msgid "Elementary settings"
+msgstr "Ustawienia elementary"
 
-#: shr_settings_modules/shr_backup.py:490
-msgid " Complete."
-msgstr " Zakończone."
+#: shr_settings_modules/shr_elementary.py:29
+msgid "Restart X server"
+msgstr "Restart serwera X"
 
-#: shr_settings_modules/shr_backup.py:492
-msgid " Failed. "
-msgstr " Błąd."
+#: shr_settings_modules/shr_elementary.py:63
+#: shr_settings_modules/shr_splash.py:65
+#, python-format
+msgid "Themes (%s)"
+msgstr "Motywy (%s)"
 
-#: shr_settings_modules/shr_backup.py:498
-msgid "Archive Directory"
-msgstr "Zarchiwizuj katalog"
+#: shr_settings_modules/shr_elementary.py:93
+msgid "Restarting X server will close running applications. Do you really want to proceed?"
+msgstr "Restart serwera X wyłączy wszystkie uruchomione aplikacje. Czy na pewno chcesz kontynuować?"
 
-#: shr_settings_modules/shr_backup.py:504
-msgid "Restore File"
-msgstr "Przywróć plik"
+#: shr_settings_modules/shr_elementary.py:166
+msgid "Engine:"
+msgstr "Silnik:"
 
-#: shr_settings_modules/shr_backup.py:530
-msgid "Backup Mode"
-msgstr "Tryb backupu"
+#: shr_settings_modules/shr_elementary.py:174
+msgid "x11"
+msgstr "x11"
 
-#: shr_settings_modules/shr_backup.py:531
-msgid "Archive"
-msgstr "Archiwizuj"
+#: shr_settings_modules/shr_elementary.py:182
+msgid "x11-16"
+msgstr "x11-16"
 
-#: shr_settings_modules/shr_backup.py:531
-msgid "Restore"
-msgstr "Przywróć"
+#: shr_settings_modules/shr_elementary.py:197
+msgid "Finger size "
+msgstr "Wielkość palca"
 
+#: shr_settings_modules/shr_misc.py:14
+msgid "Miscellaneous settings"
+msgstr "Różne"
+
+#: shr_settings_modules/shr_misc.py:18
+msgid "Suspend, dim time and etc."
+msgstr "Usypianie, czas wygaszania itp."
+
+#: shr_settings_modules/shr_battery.py:119
+msgid "USB charging rate:"
+msgstr "Moc ładowania z USB:"
+
+#: shr_settings_modules/shr_battery.py:131
+msgid "Battery settings"
+msgstr "Ustawienia baterii"
+
+#: shr_settings_modules/shr_battery.py:256
+msgid "Charge: "
+msgstr "Naładowanie "
+
+#: shr_settings_modules/shr_battery.py:257
+msgid "Power info: "
+msgstr "Informacje: "
+
+#: shr_settings_modules/shr_battery.py:258
+msgid "Status: "
+msgstr "Status: "
+
+#: shr_settings_modules/shr_battery.py:283
+msgid "Update"
+msgstr "Odśwież"
+
+#: shr_settings_modules/shr_battery.py:298
+msgid "Switch to dumb battery driver"
+msgstr "Przełącz na sterownik głupiej baterii"
+
+#: shr_settings_modules/shr_test.py:27
+msgid "test"
+msgstr "test"
+
+#: shr_settings_modules/shr_test.py:33
+msgid "Just for fun"
+msgstr "Dla szpanu"
+
+#: shr_settings_modules/shr_profile.py:24
+msgid "Profile settings"
+msgstr "Ustawienia profili"
+
+#: shr_settings_modules/shr_profile.py:57
+#, python-format
+msgid "Profiles (%s)"
+msgstr "Profile (%s)"
+
+#: shr_settings_modules/shr_usb.py:19
+msgid "USB settings"
+msgstr "Ustawienia USB"
+
+#: shr_settings_modules/shr_usb.py:68
+msgid "Host"
+msgstr "Gospodarz"
+
+#: shr_settings_modules/shr_usb.py:68
+msgid "Device"
+msgstr "Urządzenie"
+
+#: shr_settings_modules/shr_usb.py:87
+msgid "USB mode:"
+msgstr "Tryb USB:"
+
+#: shr_settings_modules/shr_gps.py:19
+msgid "GPS settings"
+msgstr "Ustawienia GPS"
+
+#: shr_settings_modules/shr_gps.py:87
+msgid "GPS radio:"
+msgstr "Antena GPS:"
+
+#: shr_settings_modules/shr_display.py:26
+msgid "Display settings"
+msgstr "Ustawienia wyświetlania"
+
+#: shr_settings_modules/shr_display.py:46
+msgid "Backlight "
+msgstr "Podświetlenie"
+
+#: shr_settings_modules/shr_call.py:18
+msgid "Call settings"
+msgstr "Ustawienia połączeń"
+
+#: shr_settings_modules/shr_call.py:26
+msgid "Turn GSM on."
+msgstr "Włącz GSM."
+
+#: shr_settings_modules/shr_call.py:54
+msgid "Show my number:"
+msgstr "Pokaż mój numer:"
+
+#: shr_settings_modules/shr_call.py:56
+msgid "By network"
+msgstr "Przez sieć"
+
+#: shr_settings_modules/shr_gsm.py:113
+msgid "GSM settings"
+msgstr "Ustawienia GSM"
+
+#: shr_settings_modules/shr_gsm.py:132
+msgid "Could not connect to network"
+msgstr "Nie można połączyć się z siecią"
+
+#: shr_settings_modules/shr_gsm.py:158
+#: shr_settings_modules/shr_gsm.py:164
+#: shr_settings_modules/shr_gsm.py:246
+msgid "Operators"
+msgstr "Operatorzy"
+
+#: shr_settings_modules/shr_gsm.py:168
+#: shr_settings_modules/shr_gsm.py:182
+msgid "List Providers"
+msgstr "Lista operatorów"
+
+#: shr_settings_modules/shr_gsm.py:196
+#: shr_settings_modules/shr_gsm.py:316
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: shr_settings_modules/shr_gsm.py:207
+msgid "Automatic"
+msgstr "Automatyczne"
+
+#: shr_settings_modules/shr_gsm.py:219
+msgid " [current]"
+msgstr " [aktualne]"
+
+#: shr_settings_modules/shr_gsm.py:221
+msgid " [forbidden]"
+msgstr " [zabronione]"
+
+#: shr_settings_modules/shr_gsm.py:253
+msgid "Modem information"
+msgstr "Informacje modemu"
+
+#: shr_settings_modules/shr_gsm.py:288
+#: shr_settings_modules/shr_gsm.py:302
+msgid "GSM modem information"
+msgstr "Informacje modemu GSM"
+
+#: shr_settings_modules/shr_gsm.py:367
+msgid "GSM antenna:"
+msgstr "Antena GSM:"
+
+#: shr_settings_modules/shr_sim.py:126
+msgid "Book "
+msgstr "Książka "
+
+#: shr_settings_modules/shr_sim.py:170
+#: shr_settings_modules/shr_sim.py:321
+msgid "clean"
+msgstr "wyczyść"
+
+#: shr_settings_modules/shr_sim.py:181
+msgid "SIM settings"
+msgstr "Ustawienia SIM"
+
+#: shr_settings_modules/shr_sim.py:279
+msgid "Message book"
+msgstr "Wiadomości"
+
+#: shr_settings_modules/shr_sim.py:363
+msgid "SIM information:"
+msgstr "Informacje SIM:"
+
+#: shr_settings_modules/shr_wifi.py:67
+msgid "WiFi radio:"
+msgstr "Antena WiFi:"
+
+#: shr_settings_modules/shr_wifi.py:82
+msgid "WiFi settings"
+msgstr "Ustawienia WiFi"
+
+#: shr_settings_modules/shr_splash.py:18
+msgid "Splash settings"
+msgstr "Ustawienia splasha"
+
+#: shr_settings_modules/shr_splash.py:112
+msgid "Preview"
+msgstr "Podgląd"
+
+#~ msgid "UNKNOWNN"
+#~ msgstr "NIEZNANE"
+#~ msgid "WiFi Manager"
+#~ msgstr "WiFi manager"
 #~ msgid "GPS"
 #~ msgstr "GPS"
 #~ msgid "Services start|stop debug"
