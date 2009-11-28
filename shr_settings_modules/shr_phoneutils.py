@@ -164,6 +164,22 @@ class Phoneutils(module.AbstractModule):
 	def wizardClose(self):
 		return self.Validate()
 
+        def simInfoArrived(self, siminfo):
+                if siminfo['country'] in self.countries:
+                        self.ip, self.np, self.cc = self.countries[siminfo['country']]
+                else:
+                        prefix = siminfo['dial_prefix']
+                        prefix.replace('+','')
+                        self.ip, self.np, self.cc = self.countries[self.prefixes[prefix]]
+                self.entryIP.entry_set(self.ip)
+                self.entryNP.entry_set(self.np)
+                self.entryCC.entry_set(self.cc)
+                self.dia.delete()
+
+        def simInfoFailed(self, error):
+                print str(error)
+                self.dia.delete()
+
 	def createView(self):
 		"""
 		Create main box then initialize phoneutils and load the rest
@@ -179,14 +195,17 @@ class Phoneutils(module.AbstractModule):
                         gsm_sim_obj = self.dbus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
                         gsm_sim_iface = dbus.Interface(gsm_sim_obj, 'org.freesmartphone.GSM.SIM')
 
-                        siminfo = gsm_sim_iface.GetSimInfo()
+                        siminfo = gsm_sim_iface.GetSimInfo(reply_handler = self.simInfoArrived, error_handler = self.simInfoFailed)
 
-                        if siminfo['country'] in self.countries:
-                                self.ip, self.np, self.cc = self.countries[siminfo['country']]
-                        else:
-                                prefix = siminfo['dial_prefix']
-                                prefix.replace('+','')
-                                self.ip, self.np, self.cc = self.countries[self.prefixes[prefix]]
+                        self.dia = elementary.InnerWindow(self.window)
+                        self.dia.style_set('minimal')
+                        lab = elementary.Label(self.window)
+                        lab.label_set(_("Please wait..."))
+                        lab.show()
+                        self.dia.content_set(lab)
+                        self.window.resize_object_add(self.dia)
+                        self.dia.show()
+                        self.dia.activate()
 
 		self.entryIP = PhoneUtilsEntryBox(self.window, _("Your international prefix: "), self.ip)
 		self.entryNP = PhoneUtilsEntryBox(self.window, _("Your national prefix: "), self.np)
