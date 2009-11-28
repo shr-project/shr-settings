@@ -192,20 +192,23 @@ class Phoneutils(module.AbstractModule):
 		self.ip, self.np, self.cc, self.ac = self.loadEntryData()
 
                 if self.wizard:
-                        gsm_sim_obj = self.dbus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
-                        gsm_sim_iface = dbus.Interface(gsm_sim_obj, 'org.freesmartphone.GSM.SIM')
+                        try:
+                                gsm_sim_obj = self.dbus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
+                                gsm_sim_iface = dbus.Interface(gsm_sim_obj, 'org.freesmartphone.GSM.SIM')
 
-                        siminfo = gsm_sim_iface.GetSimInfo(reply_handler = self.simInfoArrived, error_handler = self.simInfoFailed)
+                                siminfo = gsm_sim_iface.GetSimInfo(reply_handler = self.simInfoArrived, error_handler = self.simInfoFailed)
 
-                        self.dia = elementary.InnerWindow(self.window)
-                        self.dia.style_set('minimal')
-                        lab = elementary.Label(self.window)
-                        lab.label_set(_("Please wait..."))
-                        lab.show()
-                        self.dia.content_set(lab)
-                        self.window.resize_object_add(self.dia)
-                        self.dia.show()
-                        self.dia.activate()
+                                self.dia = elementary.InnerWindow(self.window)
+                                self.dia.style_set('minimal')
+                                lab = elementary.Label(self.window)
+                                lab.label_set(_("Please wait..."))
+                                lab.show()
+                                self.dia.content_set(lab)
+                                self.window.resize_object_add(self.dia)
+                                self.dia.show()
+                                self.dia.activate()
+                        except:
+                                print "dbus fail"
 
 		self.entryIP = PhoneUtilsEntryBox(self.window, _("Your international prefix: "), self.ip)
 		self.entryNP = PhoneUtilsEntryBox(self.window, _("Your national prefix: "), self.np)
