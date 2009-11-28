@@ -1,5 +1,6 @@
 import phoneutils, elementary, module
 from ecore import timer_add
+import re, dbus
 
 # Locale support
 import gettext
@@ -92,6 +93,24 @@ class Phoneutils(module.AbstractModule):
 
 		return ip,np,cc,ac
 
+        def parsePrefixData(self):
+                file = open('/etc/phoneprefix', 'r' )
+
+                self.countries = {}
+                self.prefixes = {}
+
+                s=1
+                while s:
+                        line = file.readline()
+                        if not line:
+                                s = 0
+                        else:
+                                line = line[:len(line)-1]
+                                res = re.match(r'^([\w\-.()/&]+)\s*=\s*([0-9|]*)\s*,\s*([0-9|]*)\s*,\s*([0-9|]*)\s*$', line)
+                                if res:
+                                        self.countries[res.group(1)] = [res.group(2), res.group(3), res.group(4)]
+                                        self.prefixes[res.group(2)] = res.group(1)
+
 
         def closeInwin(self, dia, *args, **kargs):
                 dia.delete()
@@ -153,7 +172,21 @@ class Phoneutils(module.AbstractModule):
 		self.main = elementary.Box(self.window)
 
 		phoneutils.init()
+                self.parsePrefixData()
 		self.ip, self.np, self.cc, self.ac = self.loadEntryData()
+
+                if self.wizard:
+                        gsm_sim_obj = self.dbus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
+                        gsm_sim_iface = dbus.Interface(gsm_sim_obj, 'org.freesmartphone.GSM.SIM')
+
+                        siminfo = gsm_sim_iface.GetSimInfo()
+
+                        if siminfo['country'] in self.countries:
+                                self.ip, self.np, self.cc = self.countries[siminfo['country']]
+                        else:
+                                prefix = siminfo['dial_prefix']
+                                prefix.replace('+','')
+                                self.ip, self.np, self.cc = self.countries[self.prefixes[prefix]]
 
 		self.entryIP = PhoneUtilsEntryBox(self.window, _("Your international prefix: "), self.ip)
 		self.entryNP = PhoneUtilsEntryBox(self.window, _("Your national prefix: "), self.np)
