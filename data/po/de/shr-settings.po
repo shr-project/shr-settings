@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: shr-settings\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-11-26 19:55+0100\n"
-"PO-Revision-Date: 2009-11-22 01:27+0100\n"
+"PO-Revision-Date: 2009-11-28 13:31+0100\n"
 "Last-Translator: Jens Seidel <jensseidel@users.sf.net>\n"
 "Language-Team: German <debian-l10n-german@lists.debian.org>\n"
 "MIME-Version: 1.0\n"
@@ -62,9 +62,8 @@ msgid "Please wait...<br>Loading %d modules..."
 msgstr "Bitte warten ...<br>Lade %d Module ..."
 
 #: shr-settings:238 shr-settings:252
-#, fuzzy
 msgid "phonefsod log"
-msgstr "ophonekitd-Protokoll"
+msgstr "phonefsod-Protokoll"
 
 #: shr-settings:265
 msgid "Clean"
@@ -79,9 +78,8 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #: shr-settings:394
-#, fuzzy
 msgid "phonefsod"
-msgstr "ophonekitd"
+msgstr "phonefsod"
 
 #: shr-settings:399
 msgid "is not running!"
@@ -133,7 +131,6 @@ msgstr "Verzeichnis wird benötigt"
 
 #: shr_settings_modules/shr_backup.py:469
 #: shr_settings_modules/shr_backup.py:482
-#, fuzzy
 msgid "Config files couldn't be loaded<br>Please investigate!"
 msgstr ""
 "Konfigurationsdateien konnten nicht geladen werden.<br>Bitte überprüfen!"
@@ -223,9 +220,8 @@ msgid "Enter new SIM PIN:"
 msgstr "Neue SIM-PIN eingeben:"
 
 #: shr_settings_modules/shr_simauth.py:144
-#, fuzzy
 msgid "Enter actual SIM PIN:"
-msgstr "SIM-PIN eingeben:"
+msgstr "Aktuelle SIM-PIN eingeben:"
 
 #: shr_settings_modules/shr_simauth.py:150
 msgid "Enter SIM PIN:"
@@ -311,9 +307,8 @@ msgid "Descend"
 msgstr "Abstieg"
 
 #: shr_settings_modules/shr_gpsinfo.py:237
-#, fuzzy
 msgid "GPS information"
-msgstr "GPS-Informationen:"
+msgstr "GPS-Informationen"
 
 #: shr_settings_modules/shr_gpsinfo.py:257
 msgid "Remove AGPS data"
@@ -324,20 +319,18 @@ msgid "Phoneutils settings"
 msgstr "Phoneutils-Einstellungen"
 
 #: shr_settings_modules/shr_phoneutils.py:69
-#, fuzzy
 msgid "Local numbers settings"
-msgstr "Strom-Einstellungen"
+msgstr "Lokale Nummerneinstellungen"
 
 #: shr_settings_modules/shr_phoneutils.py:70
-msgid "Please enter informations matching to phone numbers in your country."
-msgstr ""
+msgid "Please enter information matching to phone numbers in your country."
+msgstr "Bitte geben Sie für Ihr Land telefonspezifische Informationen an."
 
 #: shr_settings_modules/shr_phoneutils.py:111
 msgid "Settings saved!"
 msgstr "Einstellungen gespeichert"
 
 #: shr_settings_modules/shr_phoneutils.py:136
-#, fuzzy
 msgid "Settings could not be saved!<br>All values must be numbers!"
 msgstr ""
 "Einstellungen konnten nicht gespeichert werden!<br>Alle Werte müssen Nummern "
@@ -356,9 +349,8 @@ msgid "Your country code: "
 msgstr "Ihr Landescode: "
 
 #: shr_settings_modules/shr_phoneutils.py:161
-#, fuzzy
 msgid "Your area/network code: "
-msgstr "Ihr Bezirkscode: "
+msgstr "Ihr Bezirks/Netzwerkcode: "
 
 #: shr_settings_modules/shr_phoneutils.py:170
 msgid "Save"
@@ -405,9 +397,8 @@ msgid "Power settings"
 msgstr "Strom-Einstellungen"
 
 #: shr_settings_modules/shr_pm.py:75
-#, fuzzy
 msgid "Couldn't connect to FSO or phonefsod"
-msgstr "Konnte nicht zu FSO oder ophonekitd verbinden"
+msgstr "Konnte nicht zu FSO oder phonefsod verbinden"
 
 #: shr_settings_modules/shr_pm.py:119
 msgid "Auto-dimming:"
@@ -426,13 +417,14 @@ msgid "networking"
 msgstr "Netzwerk"
 
 #: shr_settings_modules/shr_gprs.py:129
-#, fuzzy
 msgid "GPRS connection data"
-msgstr "Verbindungsstatus: "
+msgstr "GPRS-Verbindungsdaten"
 
 #: shr_settings_modules/shr_gprs.py:130
 msgid "Please enter your GPRS login and password. You can also skip this step."
 msgstr ""
+"Bitte geben Sie Ihr GPRS-Login und -Passwort ein. Sie können diesen Schritt "
+"auch überspringen."
 
 #: shr_settings_modules/shr_gprs.py:208
 msgid "disconnected"
@@ -574,30 +566,27 @@ msgstr ""
 "Wirklich fortfahren?"
 
 #: shr_settings_modules/shr_services.py:297
-#, fuzzy
 msgid ""
 "Stopping fsodeviced will stop idle notifier and few other functions. Do you "
 "really want to proceed?"
 msgstr ""
-"Das Stoppen von ophonekitd wird alle Handy-relevanten Funktionen stoppen. "
+"Das Stoppen von fsodeviced wird die Inaktivitätsmeldung und einige anderen Funktionen stoppen. "
 "Wirklich fortfahren?"
 
 #: shr_settings_modules/shr_services.py:298
-#, fuzzy
 msgid ""
 "Stopping phonefsod will stop all phone related functions. Do you really want "
 "to proceed?"
 msgstr ""
-"Das Stoppen von ophonekitd wird alle Handy-relevanten Funktionen stoppen. "
+"Das Stoppen von phonefsod wird alle Handy-relevanten Funktionen stoppen. "
 "Wirklich fortfahren?"
 
 #: shr_settings_modules/shr_services.py:299
-#, fuzzy
 msgid ""
 "Stopping phoneuid will stop all phone user interface related functions. Do "
 "you really want to proceed?"
 msgstr ""
-"Das Stoppen von ophonekitd wird alle Handy-relevanten Funktionen stoppen. "
+"Das Stoppen von phoneuid wird alle Benutzeroberflächen-relevanten Funktionen stoppen. "
 "Wirklich fortfahren?"
 
 #: shr_settings_modules/shr_services.py:300
@@ -660,7 +649,6 @@ msgid "adding new fields to entries"
 msgstr "füge neue Felder zu Einträgen hinzu"
 
 #: shr_settings_modules/shr_pim.py:100
-#, fuzzy
 msgid "needs logging in"
 msgstr "benötigt Anmeldung"
 
@@ -711,8 +699,8 @@ msgid "Some wizard page"
 msgstr ""
 
 #: shr_settings_modules/module.py:58
-msgid "Some descripion"
-msgstr ""
+msgid "Some description"
+msgstr "Eine Beschreibung"
 
 #: shr_settings_modules/shr_imageinfo.py:13
 msgid "Image information"
