@@ -68,7 +68,7 @@ class Phoneutils(module.AbstractModule):
 	name =_("Phoneutils settings")
 	section = _("Phone")
         wizard_name = _("Local numbers settings")
-        wizard_description = _("Please enter informations matching to phone numbers in your country.")
+        wizard_description = _("Please enter information matching to phone numbers in your country.")
 
 	def getEntryData(self):
 		"""

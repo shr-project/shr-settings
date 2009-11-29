@@ -55,7 +55,7 @@ class AbstractModule(object):
     """a toolbar section. If it is new section it will be created"""
 
     wizard_name = _("Some wizard page")
-    wizard_description = _("Some descripion")
+    wizard_description = _("Some description")
     """name and description displayed when module is used in wizard"""
 
     def __init__(self, window, dbus, wizard = False):
