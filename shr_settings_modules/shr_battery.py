@@ -93,7 +93,7 @@ class FastChargeBox(elementary.Box):
             self.toggle.state_set(False)
         self.toggle.show()
 
-    def toggleChanged(self, obj, event, *args, **kargs):
+    def toggleChanged(self, obj, *args, **kargs):
         """
         Toggle the charge rate on/off
         """
@@ -118,7 +118,7 @@ class FastChargeBox(elementary.Box):
         self.toggle = elementary.Toggle(self.window)
         self.toggle.label_set(_("USB charging rate:"))
         self.toggle.states_labels_set("500 mA","100 mA")
-        self.toggle.changed = self.toggleChanged
+        self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
 
         self.pack_start(self.toggle)
@@ -178,7 +178,7 @@ class Battery(module.AbstractModule):
         return ( hours, min )
         
 
-    def doupdate(self, obj, event, *args, **kargs):
+    def doupdate(self, obj, *args, **kargs):
         self.update()
 
     def update(self, signalData = None):
@@ -279,7 +279,7 @@ class Battery(module.AbstractModule):
             update_button = elementary.Button(self.window)
             update_button.size_hint_weight_set(0.0, 1.0)
             update_button.size_hint_align_set(0.0, -1.0)
-            update_button.clicked = self.doupdate
+            update_button._callback_add('clicked', self.doupdate)
             update_button.label_set(_("Update"))
             update_button.show()
 
@@ -298,7 +298,7 @@ class Battery(module.AbstractModule):
                 switchbtn.label_set(_('Switch to dumb battery driver'))
                 switchbtn.size_hint_weight_set(1.0, 0.0)
                 switchbtn.size_hint_align_set(-1.0, 0.0)
-                switchbtn.clicked = self.switchToDumb
+                switchbtn._callback_add('clicked', self.switchToDumb)
                 self.main.pack_end(switchbtn)
                 switchbtn.show()
 

@@ -227,7 +227,7 @@ class Phoneutils(module.AbstractModule):
 			self.btSave.size_hint_align_set(-1.0, 0.0)
 			self.main.pack_end(self.btSave)
 
-			self.btSave.clicked = self.Validate
+			self.btSave._callback_add('clicked', self.Validate)
 
 		self.main.show()
 

@@ -73,7 +73,7 @@ class FileButton(elementary.Button):
         return self.linked_value
 
 class SelectWindow(elementary.Window):
-    def __init__(self, title, status_set, obj, event, *args, **kargs):
+    def __init__(self, title, status_set, obj, *args, **kargs):
 
         self.parentObj = obj # 'Change' Button
         self.targetObj = self.parentObj.get_objectLink()
@@ -128,14 +128,14 @@ class SelectWindow(elementary.Window):
         updir.label_set(_("Up"))
         updir.size_hint_weight_set(1.0, 0.0)
         updir.size_hint_align_set(-1.0, -1.0)
-        updir.clicked = self.changeDirUp
+        updir._callback_add('clicked', self.changeDirUp)
         updir.show()
 
         exitbtn = elementary.Button(self)
         exitbtn.label_set(_("Done"))
         exitbtn.size_hint_weight_set(1.0, 0.0)
         exitbtn.size_hint_align_set(-1.0, -1.0)
-        exitbtn.clicked = self.quit
+        exitbtn._callback_add('clicked', self.quit)
         exitbtn.show()
 
         btnBar.pack_end(updir)
@@ -177,14 +177,14 @@ class SelectWindow(elementary.Window):
             for d in dirs:
                 self.filebuttons.append(FileButton(self))
                 self.filebuttons[-1].set_filename(d)
-                self.filebuttons[-1].clicked = self.changeDir
+                self.filebuttons[-1]._callback_add('clicked', self.changeDir)
                 self.filebuttons[-1].size_hint_align_set(-1.0, 0.0)
                 self.filebuttons[-1].show()
 
                 self.box1.pack_end(self.filebuttons[-1])
 
 
-    def changeDir(self, obj, event, *args, **kargs):
+    def changeDir(self, obj, *args, **kargs):
         """
         Callback function to change the current directory
         """
@@ -192,7 +192,7 @@ class SelectWindow(elementary.Window):
 
         self.update()
 
-    def changeDirUp(self, obj, event, *args, **kargs):
+    def changeDirUp(self, obj, *args, **kargs):
         """
         Callback function to change the current directory
         """
@@ -203,7 +203,7 @@ class SelectWindow(elementary.Window):
 
         self.update()
 
-    def quit(self, obj, event, *args, **kargs):
+    def quit(self, obj, *args, **kargs):
         """
         Callback function to destroy the Selection window
         """
@@ -240,7 +240,7 @@ class OptionsBox(elementary.Box):
         clearAll.size_hint_align_set(-1.0, 0.0)
         clearAll.set_filename(self.dir[0])
         clearAll.label_set(_("Delete Archives"))
-        clearAll.clicked = self.clearAllArchives
+        clearAll._callback_add('clicked', self.clearAllArchives)
         clearAll.size_hint_align_set(-1.0, 0.0)
         clearAll.show()
 
@@ -250,7 +250,7 @@ class OptionsBox(elementary.Box):
 
         self.pack_end(frame)
 
-    def clearAllArchives(self, obj, event, *args, **kargs):
+    def clearAllArchives(self, obj, *args, **kargs):
         deleteCmd = "rm " + self.dir[0] + "home_archive-*.tar"
         os.system(deleteCmd)
 
@@ -285,14 +285,14 @@ class ArchiveBox(elementary.Box):
         self.change = FileButton(self.window)
         self.change.size_hint_weight_set(1.0, 0.0)
         self.change.size_hint_align_set(-1.0, 0.0)
-        self.change.clicked = partial(SelectWindow, self.title, self.status_set)
+        self.change._callback_add('clicked', partial(SelectWindow, self.title, self.status_set))
         self.change.show()
 
         # Archive Do Button
         self.do = elementary.Button(self.window)
         self.do.label_set(_("Go"))
         self.do.size_hint_align_set(-1.0, 0.0)
-        self.do.clicked = self.runDoCallback
+        self.do._callback_add('clicked', self.runDoCallback)
         self.do.show()
 
         # Pack Archive H Box
@@ -313,7 +313,7 @@ class ArchiveBox(elementary.Box):
         # Pack the top level box
         self.pack_end(vbox)
 
-    def runDoCallback(self, obj, event, *args, **kargs):
+    def runDoCallback(self, obj, *args, **kargs):
         self.callback()
 
     def status_set(self, status):
@@ -506,7 +506,7 @@ class Backup(module.AbstractModule):
             self.archiveBox.files_set(True)
         self.status_set(" ")
 
-    def toggleChanged(self, obj, event, *args, **kargs):
+    def toggleChanged(self, obj, *args, **kargs):
         """
         Toggle the mode
         """
@@ -529,7 +529,7 @@ class Backup(module.AbstractModule):
         self.toggle = elementary.Toggle( self.window )
         self.toggle.label_set( _( "Backup Mode" ) )
         self.toggle.states_labels_set( _( "Archive" ), _( "Restore" ) )
-        self.toggle.changed = self.toggleChanged
+        self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set( -1.0, 0.0 )
         self.toggle.size_hint_weight_set( 1.0, 0.0 )
         self.toggle.state_set( self.mode )

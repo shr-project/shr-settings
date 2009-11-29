@@ -28,7 +28,7 @@ class Clock(module.AbstractModule):
     name = _("Time settings")
     section = _("Other")
 
-    def clockset(self, obj, event, *args, **kargs):
+    def clockset(self, obj, *args, **kargs):
 	    if self.editable:
                 now = datetime.datetime.now()
                 os.system("date "+str(now.month).zfill(2)+str(now.day).zfill(2)+str(self.cl.time_get()[0]).zfill(2)+str(self.cl.time_get()[1]).zfill(2)+str(now.year)+"."+str(self.cl.time_get()[2]).zfill(2))
@@ -51,7 +51,7 @@ class Clock(module.AbstractModule):
         self.but.label_set(_("Set time"))
         self.but.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(self.but)
-        self.but.clicked = self.clockset
+        self.but._callback_add('clicked', self.clockset)
         self.but.show()
 
         return box0

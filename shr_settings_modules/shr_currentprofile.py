@@ -150,7 +150,7 @@ class IncDecButtonBox(PreferenceBox):
     Layout derived taken from shr_device_timeouts.py
     """
 
-    def IncDecButtonClick(self, obj, event, *args, **kargs):
+    def IncDecButtonClick(self, obj, *args, **kargs):
         """
         Callback function when +-[1,10] timeout buttons have been pressed
         """
@@ -199,7 +199,7 @@ class IncDecButtonBox(PreferenceBox):
         for step in [-10, -1, 1, 10]:
             btn = IncDecButton(self.window)
             btn.set_Delta( step )
-            btn.clicked = self.IncDecButtonClick
+            btn._callback_add('clicked', self.IncDecButtonClick)
             btn.size_hint_align_set(-1.0, 0.0)
             btn.show()
 
@@ -223,7 +223,7 @@ class RadioOnOffBox(PreferenceBox):
 
     togglegroup = {}
 
-    def OnOffClick(self, obj, event, *args, **kargs):
+    def OnOffClick(self, obj, *args, **kargs):
         """
         Callback function either radio button has been selected
         """
@@ -283,13 +283,13 @@ class ToneChangeBox(PreferenceBox):
     Preferences items, specifically 'message-tone' and 'ring-tone'
     """
 
-    def destroy(self, obj, event, *args, **kargs):
+    def destroy(self, obj, *args, **kargs):
         """
         Callback function to destroy the FileListBox window
         """
         self.FLBWin.hide()
 
-    def ChangeTone(self, obj, event, *args, **kargs):
+    def ChangeTone(self, obj, *args, **kargs):
         """
         Callback function to change the tone file name in the settings
         """
@@ -299,7 +299,7 @@ class ToneChangeBox(PreferenceBox):
 
         self.update(self.tonefile)
 
-    def FileListBox(self, obj, event, *args, **kargs):
+    def FileListBox(self, obj, *args, **kargs):
         """
         Callback function to display the file selection window
         """
@@ -331,7 +331,7 @@ class ToneChangeBox(PreferenceBox):
         exitbtn.label_set(_("Quit"))
         exitbtn.size_hint_weight_set(1.0, 0.0)
         exitbtn.size_hint_align_set(-1.0, -1.0)
-        exitbtn.clicked = self.destroy
+        exitbtn._callback_add('clicked', self.destroy)
         box.pack_end(exitbtn)
         self.FLBWin.resize_object_add(box)
         box.show()
@@ -349,12 +349,12 @@ class ToneChangeBox(PreferenceBox):
         for filename in sndFiles:
             filebtn = FileButton(self.FLBWin)
             filebtn.set_filename(filename)
-            filebtn.clicked = self.ChangeTone
+            filebtn._callback_add('clicked', self.ChangeTone)
             filebtn.size_hint_align_set(-1.0, 0.0)
             box1.pack_end(filebtn)
             filebtn.show()
 
-    def SidButtonClick(self, obj, event, *args, **kargs):
+    def SidButtonClick(self, obj, *args, **kargs):
         """
         Callback function when +-1 SID track buttons have been pressed
         """
@@ -375,7 +375,7 @@ class ToneChangeBox(PreferenceBox):
         self.dbusObj.SetValue(self.item_name, new_tone, reply_handler=dbus_ok, error_handler=dbus_err)
         self.update(new_tone)
 
-    def PlayTone(self, obj, event, *args, **kargs):
+    def PlayTone(self, obj, *args, **kargs):
         # prep play parameters
         if self.sidValue:
             # Need to specificy the sid track
@@ -395,7 +395,7 @@ class ToneChangeBox(PreferenceBox):
         print self.item_name,"- Playing:", self.tonefile
         self.AudioDbusObj.PlaySound(play_tone, 0, duration, reply_handler=dbus_ok, error_handler=dbus_err)
 
-    def StopTone(self, obj, event, *args, **kargs):
+    def StopTone(self, obj, *args, **kargs):
         """
         Stop a playing tone
         """
@@ -420,13 +420,13 @@ class ToneChangeBox(PreferenceBox):
                 # Reset Play button
 ##                print "Stopped: Resetting to 'Play'"
                 self.testBtn.label_set(_("Play"))
-                self.testBtn.clicked = self.PlayTone
+                self.testBtn._callback_add('clicked', self.PlayTone)
                 self.playStatus = False
             elif status == 'playing': # tone is playing
                 # Reset Play button
 ##                print "Playing: Resetting to 'Stop'"
                 self.testBtn.label_set(_("Stop"))
-                self.testBtn.clicked = self.StopTone
+                self.testBtn._callback_add('clicked', self.StopTone)
                 self.playStatus = True
 
     def updateButtons( self, sid = False ):
@@ -452,7 +452,7 @@ class ToneChangeBox(PreferenceBox):
         self.testBtn.label_set(_("Play"))
         self.testBtn.size_hint_align_set(-1.0, 0.0)
         self.testBtn.size_hint_weight_set(1.0, 0.0)
-        self.testBtn.clicked = self.PlayTone
+        self.testBtn._callback_add('clicked', self.PlayTone)
         self.testBtn.show()
 
         # Tone change button
@@ -460,20 +460,20 @@ class ToneChangeBox(PreferenceBox):
         self.changeBtn.label_set(_("Change"))
         self.changeBtn.size_hint_align_set(-1.0, 0.0)
         self.changeBtn.size_hint_weight_set(1.0, 0.0)
-        self.changeBtn.clicked = self.FileListBox
+        self.changeBtn._callback_add('clicked', self.FileListBox)
         self.changeBtn.show()
 
         if sid:
             # Controls for sid files
             self.sidDnBtn = IncDecButton(self.window)
             self.sidDnBtn.set_Delta( -1 )
-            self.sidDnBtn.clicked = self.SidButtonClick
+            self.sidDnBtn._callback_add('clicked', self.SidButtonClick)
             self.sidDnBtn.size_hint_align_set(-1.0, 0.0)
             self.sidDnBtn.show()
 
             self.sidUpBtn = IncDecButton(self.window)
             self.sidUpBtn.set_Delta( 1 )
-            self.sidUpBtn.clicked = self.SidButtonClick
+            self.sidUpBtn._callback_add('clicked', self.SidButtonClick)
             self.sidUpBtn.size_hint_align_set(-1.0, 0.0)
             self.sidUpBtn.show()
 

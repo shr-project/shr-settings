@@ -97,10 +97,10 @@ class ModulesWindow:
         self.win2 = elementary.Window("settingsMods", elementary.ELM_WIN_BASIC)
         self.win2.title_set(modulesList[0])
         if fromcli:
-            self.win2.destroy = self.destroy
+            self.win2._callback_add('destroy', self.destroy)
         else:
 #            self.win2.autodel_set(True)
-            self.win2.destroy = partial(self.destroy2, self.win2)
+            self.win2._callback_add('destroy', partial(self.destroy2, self.win2))
 
         #add background to module window
         bg = elementary.Background(self.win2)
@@ -129,9 +129,9 @@ class ModulesWindow:
 
         quitbt2 = elementary.Button(self.win2)
         if fromcli:
-            quitbt2.clicked = self.destroy
+            quitbt2._callback_add('clicked', self.destroy)
         else:
-            quitbt2.clicked = partial(self.destroy2, self.win2)
+            quitbt2._callback_add('clicked', partial(self.destroy2, self.win2))
         quitbt2.label_set(_("Quit"))
         quitbt2.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt2)
@@ -200,7 +200,7 @@ class ModulesWindow:
         del win
         del self
 
-    def destroy(self, obj, event, *args, **kargs):
+    def destroy(self, obj, *args, **kargs):
         log( "window destroy callback called! kabum!", logtype.DEBUG)
         elementary.exit()
 
@@ -208,11 +208,11 @@ class ModulesWindow:
 
 class MainWindow:
 
-    def destroy(self, obj, event, *args, **kargs):
+    def destroy(self, obj, *args, **kargs):
         log("window destroy callback called! kabum!", logtype.DEBUG)
         elementary.exit()
 
-    def displayModulesWin(self, obj, event, *args, **kargs):
+    def displayModulesWin(self, obj, *args, **kargs):
         #print "displayModulesWin 1"
         if self.dbus_system == None:
            log( "idler had not inited dbus yet, do it now", logtype.WARN)
@@ -220,19 +220,19 @@ class MainWindow:
         ModulesWindow().makeGui(  obj.get_modules(), self.dbus_system )
         #print "displayModulesWin 2"
 
-    def start_ophonekitd(self, obj, event, *args, **kargs):
+    def start_ophonekitd(self, obj, *args, **kargs):
         os.system( "/etc/init.d/phonefsod start" )
         self.opkinwin.delete()
 
-    def destroyDebug(self, obj, event, *args, **kargs):
+    def destroyDebug(self, obj, *args, **kargs):
         self.windeb.hide()
         self.windeb.delete()
 
-    def clean_ophonekitd_log(self, obj, event, *args, **kargs):
+    def clean_ophonekitd_log(self, obj, *args, **kargs):
         os.system("echo \"\" >  /var/log/phonefsod.log")
-        self.destroyDebug(self, obj, event, *args, **kargs)
+        self.destroyDebug(self, obj, *args, **kargs)
 
-    def view_ophonekitd_log(self, obj, event, *args, **kargs):
+    def view_ophonekitd_log(self, obj, *args, **kargs):
         #print "ophonekitd log"
         self.windeb = elementary.Window("ophonekitdLog", elementary.ELM_WIN_BASIC )
         self.windeb.title_set(_("phonefsod log"))
@@ -261,14 +261,14 @@ class MainWindow:
         sc.show()
 
         cleanbt = elementary.Button(self.windeb)
-        cleanbt.clicked = self.clean_ophonekitd_log
+        cleanbt._callback_add('clicked', self.clean_ophonekitd_log)
         cleanbt.label_set(_("Clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
         box0.pack_end(cleanbt)
 
         cancelbt = elementary.Button(self.windeb)
-        cancelbt.clicked = self.destroyDebug
+        cancelbt._callback_add('clicked', self.destroyDebug)
         cancelbt.label_set(_("Close"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
@@ -295,7 +295,7 @@ class MainWindow:
             lb.show()
 
 
-    def opk_hide(self, obj, event, *args, **kargs):
+    def opk_hide(self, obj, *args, **kargs):
         self.opkinwin.delete()
 
     def init_dbus_idler(self):
@@ -313,7 +313,7 @@ class MainWindow:
         self.dbus_system = None
         self.win = elementary.Window("settings", elementary.ELM_WIN_BASIC)
         self.win.title_set(_("Settings"))
-        self.win.destroy = self.destroy
+        self.win._callback_add('destroy', self.destroy)
 
         #self.m = ModulesWindow()
 
@@ -339,7 +339,7 @@ class MainWindow:
 
         # quit button
         quitbt = elementary.Button(mainbox)
-        quitbt.clicked = self.destroy
+        quitbt._callback_add('clicked', self.destroy)
         quitbt.label_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)
@@ -363,7 +363,7 @@ class MainWindow:
             bt = CategoryButton(cat_table)
             bt.set_modules( d )
 
-            bt.clicked = self.displayModulesWin
+            bt._callback_add('clicked', self.displayModulesWin)
             bt.size_hint_weight_set(1.0, 1.0)
             bt.size_hint_align_set(-1.0, -1.0)
             bt.label_set( d[0] )
@@ -403,12 +403,12 @@ class MainWindow:
             opkstart = elementary.Button(opkbox)
             opkstart.label_set(_("Start"))
             opkstart.show()
-            opkstart.clicked = self.start_ophonekitd
+            opkstart._callback_add('clicked', self.start_ophonekitd)
             opkbox.pack_end(opkstart)
 
             opklog = elementary.Button(opkbox)
             opklog.label_set(_("View log"))
-            opklog.clicked = self.view_ophonekitd_log
+            opklog._callback_add('clicked', self.view_ophonekitd_log)
             opklog.show()
             opkbox.pack_end(opklog)
 
@@ -432,7 +432,7 @@ class MainWindow:
             opkhide = elementary.Button(self.opkmainbox)
             opkhide.label_set(_("Close"))
             opkhide.size_hint_align_set(-1.0, 0.0)
-            opkhide.clicked = self.opk_hide
+            opkhide._callback_add('clicked', self.opk_hide)
             opkhide.show()
             opkoutbox.pack_end(opkhide)
 

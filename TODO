@@ -1,3 +1,6 @@
+- IMPORTANT
+    fix callbacks!
+    check callbacks in GPRS module
 - shr-settings
     load modules in categories dynamicaly
 - shr_gsm.py
