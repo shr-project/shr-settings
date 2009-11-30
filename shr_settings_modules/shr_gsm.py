@@ -112,7 +112,7 @@ class GSMstateContener:
 class Gsm(module.AbstractModule):
     name = _("GSM settings")
 
-    def goto_settingsbtClick(self, obj, event, *args, **kargs):
+    def goto_settingsbtClick(self, obj, *args, **kargs):
         try:
             self.wininfo.hide()
             self.wininfo.delete()
@@ -132,12 +132,12 @@ class Gsm(module.AbstractModule):
         self.status.label_set(_("Could not connect to network"))
         self.status.show()
 
-    def operatorAutomatic(self, obj, event, *args, **kwargs):
+    def operatorAutomatic(self, obj, *args, **kwargs):
         self.gsmsc.gsmnetwork_Register()
         self.winope.hide()
         self.winope.delete()
 
-    def operatorSelect(self, obj, event, *args, **kargs):
+    def operatorSelect(self, obj, *args, **kargs):
         #os.popen("echo \"gsmnetwork.RegisterWithProvider( "+obj.get_opeNr()+" )\" | cli-framework", "r");
         print "GSM operatorSelect [info] ["+str(obj.get_opeNr())+"]"
         if self.gsmsc.gsmnetwork_RegisterWithProvider( obj.get_opeNr(), self.operatorSelectError ):
@@ -148,21 +148,21 @@ class Gsm(module.AbstractModule):
     def nothing(self,obj,event, *args, **kargs):
         print "nothing called"
 
-    def operatorsList(self, obj, event, *args, **kargs):
+    def operatorsList(self, obj, *args, **kargs):
         obj.label_set(_("Please wait..."))
-        obj.clicked=self.nothing
+        obj._callback_add('clicked', self.nothing)
         self.gsmsc.gsmnetwork_ListProviders(self.operatorsList2, self.operatorsListError)        
 
     def operatorsListError(self, why):
         print "operatorsListError! " + str(why)
         self.opebt.label_set(_("Operators"))
-        self.opebt.clicked=self.operatorsList
+        self.opebt._callback_add('clicked', self.operatorsList)
         return 0
 
     def operatorsList2(self,l):
         print "GSM operatorsList [inf]"
         self.opebt.label_set(_("Operators"))
-        self.opebt.clicked=self.operatorsList
+        self.opebt._callback_add('clicked', self.operatorsList)
 
         self.winope = elementary.Window("listProviders", elementary.ELM_WIN_BASIC)
         self.winope.title_set(_("List Providers"))
@@ -192,7 +192,7 @@ class Gsm(module.AbstractModule):
         sc.show()
 
         cancelbt = elementary.Button(self.winope)
-        cancelbt.clicked = self.goto_settingsbtClick
+        cancelbt._callback_add('clicked', self.goto_settingsbtClick)
         cancelbt.label_set(_("Cancel"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
@@ -205,7 +205,7 @@ class Gsm(module.AbstractModule):
 
         opeautobt = elementary.Button(self.winope)
         opeautobt.label_set(_("Automatic"))
-        opeautobt.clicked = self.operatorAutomatic
+        opeautobt._callback_add('clicked', self.operatorAutomatic)
         opeautobt.size_hint_align_set(-1.0, 0.0)
         opeautobt.show()
         box1.pack_end(opeautobt)
@@ -223,7 +223,7 @@ class Gsm(module.AbstractModule):
                 add = "";
             opeAvbt.label_set( str(i[2])+add )
             opeAvbt.set_opeNr( i[0] )
-            opeAvbt.clicked = self.operatorSelect
+            opeAvbt._callback_add('clicked', self.operatorSelect)
             opeAvbt.size_hint_align_set(-1.0, 0.0)
             opeAvbt.show()
             box1.pack_end(opeAvbt)
@@ -242,14 +242,14 @@ class Gsm(module.AbstractModule):
 
         if self.buttonshidden:
           self.opebt = elementary.Button(self.window)
-          self.opebt.clicked = self.operatorsList
+          self.opebt._callback_add('clicked', self.operatorsList)
           self.opebt.label_set(_("Operators"))
           self.opebt.size_hint_align_set(-1.0, 0.0)
           self.box1.pack_end(self.opebt)
           self.opebt.show()
 
           self.infobt = elementary.Button(self.window)
-          self.infobt.clicked = self.informationbt
+          self.infobt._callback_add('clicked', self.informationbt)
           self.infobt.label_set(_("Modem information"))
           self.infobt.size_hint_align_set(-1.0, 0.0)
           self.box1.pack_end(self.infobt)
@@ -270,7 +270,7 @@ class Gsm(module.AbstractModule):
 
 #        self.opela.label_set( self.gsmsc.gsmnetwork_GetStatusOperatorName() )
 
-    def toggle0bt(self, obj, event, *args, **kargs):
+    def toggle0bt(self, obj, *args, **kargs):
         if self.gsmsc.gsmdevice_getAntennaPower()==obj.state_get():
 		return 0
 	if obj.state_get()==0:
@@ -282,7 +282,7 @@ class Gsm(module.AbstractModule):
 
         self.GSMmodGUIupdate()
 
-    def informationbt(self, obj, event, *args, **kargs):
+    def informationbt(self, obj, *args, **kargs):
         print "GSM infobt [inf]"
         self.wininfo = elementary.Window("deviceInfo", elementary.ELM_WIN_BASIC)
         self.wininfo.title_set(_("GSM modem information"))
@@ -312,7 +312,7 @@ class Gsm(module.AbstractModule):
         sc.show()
 
         cancelbt = elementary.Button(self.wininfo)
-        cancelbt.clicked = self.goto_settingsbtClick
+        cancelbt._callback_add('clicked', self.goto_settingsbtClick)
         cancelbt.label_set(_("Cancel"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
@@ -370,7 +370,7 @@ class Gsm(module.AbstractModule):
             self.toggle0.show()
             self.box1.pack_start(self.toggle0)
 
-            self.toggle0.changed = self.toggle0bt
+            self.toggle0._callback_add('changed', self.toggle0bt)
 
             self.buttonshidden = 1
 

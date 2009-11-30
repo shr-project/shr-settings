@@ -52,7 +52,7 @@ class IncDecButtonBox(elementary.Box):
     Preferences values
     """
 
-    def IncDecButtonClick(self, obj, event, *args, **kargs):
+    def IncDecButtonClick(self, obj, *args, **kargs):
         """
         Callback function when +-[1,10] timeout buttons have been pressed
         """
@@ -110,7 +110,7 @@ class IncDecButtonBox(elementary.Box):
         for step in [-10, -1, 1, 10]:
             btn = IncDecButton(self.window)
             btn.set_Delta( step )
-            btn.clicked = self.IncDecButtonClick
+            btn._callback_add('clicked', self.IncDecButtonClick)
             btn.size_hint_align_set(-1.0, 0.0)
             btn.show()
 

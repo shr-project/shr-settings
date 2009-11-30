@@ -166,7 +166,7 @@ class PhbookInfoFrame(elementary.Frame):
         # clear TODO
         cleanbt = Button2(boxS)
         cleanbt.set_name( self.booktype )
-        cleanbt.clicked = self.simclass.cleanPhoneBookClick
+        cleanbt._callback_add('clicked', self.simclass.cleanPhoneBookClick)
         cleanbt.label_set(_("clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
@@ -208,22 +208,22 @@ class Sim(module.AbstractModule):
         box2.show()
         btnyes = elementary.Button(dia)
         btnyes.label_set(_('Yes'))
-        btnyes.clicked = partial(self.sure, dia, callback)
+        btnyes._callback_add('clicked', partial(self.sure, dia, callback))
         btnyes.show()
         box2.pack_start(btnyes)
         btnno = elementary.Button(dia)
         btnno.label_set(_('No'))
-        btnno.clicked = partial(self.notsure, dia)
+        btnno._callback_add('clicked', partial(self.notsure, dia))
         btnno.show()
         box2.pack_end(btnno)
         box.pack_end(box2)
         dia.activate()
 
 
-    def cleanMessageBookClick(self, obj, event, *args, **kargs):
+    def cleanMessageBookClick(self, obj, *args, **kargs):
         self.are_you_sure(self.simmc.MessageBookClean)
 
-    def cleanPhoneBookClick(self, obj, event, *args, **kargs):
+    def cleanPhoneBookClick(self, obj, *args, **kargs):
         name = obj.get_name()
         print "clean phone book: ["+str(name)+"]"
         self.are_you_sure(partial(self.simmc.PhoneBookClean, name ))
@@ -317,7 +317,7 @@ class Sim(module.AbstractModule):
 
         # clear TODO
         cleanbt = elementary.Button(self.window)
-        cleanbt.clicked = self.cleanMessageBookClick
+        cleanbt._callback_add('clicked', self.cleanMessageBookClick)
         cleanbt.label_set(_("clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()

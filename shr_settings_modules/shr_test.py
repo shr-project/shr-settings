@@ -29,7 +29,7 @@ class Test(module.AbstractModule):
 	label.show()
 
         bt = elementary.Button(self.window)
-        bt.clicked = self.totest
+        bt._callback_add('clicked', self.totest)
         bt.label_set(_("Just for fun"))
         bt.size_hint_align_set(-1.0, 0.0)
         bt.show()

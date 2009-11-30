@@ -30,7 +30,7 @@ class Elementary(module.AbstractModule):
             btn.size_hint_align_set(-1.0, -1.0)
             btn.size_hint_weight_set(1.0, 0.0)
             btn.show()
-            btn.clicked = self.xrestart
+            btn._callback_add('clicked', self.xrestart)
             self.main.pack_end(btn)
             self.changed = True
 
@@ -101,13 +101,13 @@ class Elementary(module.AbstractModule):
         yes = elementary.Button(self.window)
         yes.label_set(_('Yes'))
         yes.show()
-        yes.clicked = partial(self.closex, dia, obj)
+        yes._callback_add('clicked', partial(self.closex, dia, obj))
         hbox.pack_start(yes)
 
         no = elementary.Button(self.window)
         no.label_set(_('No'))
         no.show()
-        no.clicked = partial(self.closedia, dia)
+        no._callback_add('clicked', partial(self.closedia, dia))
         hbox.pack_end(no)
 
         dia.show()

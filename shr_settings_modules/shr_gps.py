@@ -27,7 +27,7 @@ class Gps(module.AbstractModule):
     def isEnabled(self):
         return True
     
-    def power_handle(self, obj, event, *args, **kargs):
+    def power_handle(self, obj, *args, **kargs):
        # if ResourceState already equals off/on setting do nothing
        if self.gps.GetResourceState("GPS") == obj.state_get():
             return 0
@@ -39,7 +39,7 @@ class Gps(module.AbstractModule):
            obj.state_set(0)
 
 
-    def res_handle(self, obj, event, *args, **kargs):
+    def res_handle(self, obj, *args, **kargs):
         if obj.state_get():
             # slider has been moved to 'Auto'
             self.gps.SetResourcePolicy("GPS","auto",reply_handler=self.callback,error_handler=self.error)
@@ -66,7 +66,7 @@ class Gps(module.AbstractModule):
         self.toggle1 = elementary.Toggle(self.window)
         self.toggle1.size_hint_align_set(-1.0, 0.0)
         self.toggle1.states_labels_set(_("On"),_("Off"))
-        self.toggle1.changed = self.power_handle
+        self.toggle1._callback_add('changed', self.power_handle)
         self.box1.pack_end(self.toggle1)
         self.toggle1hidden=0  
         gpsstate =  self.gps.GetResourceState("GPS")
@@ -87,7 +87,7 @@ class Gps(module.AbstractModule):
         self.toggle0.label_set(_("GPS radio:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
         self.toggle0.states_labels_set(_("Auto"),_("Manual"))
-        self.toggle0.changed = self.res_handle
+        self.toggle0._callback_add('changed', self.res_handle)
         self.box1.pack_start(self.toggle0)
         self.toggle0.show()
 

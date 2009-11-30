@@ -72,11 +72,11 @@ class SimAuth(module.AbstractModule):
             btn.show()
             if kwargs.get('callback'):
                 if kwargs.get('entry'):
-                    btn.clicked = partial(kwargs['callback'], entry, dia)
+                    btn._callback_add('clicked', partial(kwargs['callback'], entry, dia))
                 else:
-                    btn.clicked = partial(kwargs['callback'], dia)
+                    btn._callback_add('clicked', partial(kwargs['callback'], dia))
             else:
-                btn.clicked = partial(self.diaclose, dia)
+                btn._callback_add('clicked', partial(self.diaclose, dia))
             box.pack_end(btn)
 
             dia.content_set(box)
@@ -140,10 +140,10 @@ class SimAuth(module.AbstractModule):
             self.diaclose(dia)
             self.dialog(_('Enter new SIM PIN:'), callback = partial(self.change_enter_new_callback, oldpin), entry = True)
 
-        def change_pin(self, obj, event, *args, **kwargs):
+        def change_pin(self, obj, *args, **kwargs):
             self.dialog(_('Enter actual SIM PIN:'), callback = self.change_enter_old_callback, entry = True)
 
-	def auth_handle(self, obj, event, *args, **kargs):
+	def auth_handle(self, obj, *args, **kargs):
 		if self.sim.GetAuthCodeRequired()==obj.state_get():
 			return 0
 
@@ -157,14 +157,14 @@ class SimAuth(module.AbstractModule):
 		self.toggle0.size_hint_align_set(-1.0, 0.0)
 		self.toggle0.states_labels_set(_("Enabled"),_("Disabled"))
 		self.toggle0.state_set(state)
-		self.toggle0.changed = self.auth_handle
+		self.toggle0._callback_add('changed', self.auth_handle)
 		self.box1.pack_end(self.toggle0)
 		self.toggle0.show()
 
 		self.btn = elementary.Button(self.window)
 		self.btn.label_set(_("Change PIN"))
 		self.btn.size_hint_align_set(-1.0, 0.0)
-		self.btn.clicked = self.change_pin
+		self.btn._callback_add('clicked', self.change_pin)
 		self.box1.pack_end(self.btn)
 		self.btn.show()
 

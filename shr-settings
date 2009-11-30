@@ -97,10 +97,10 @@ class ModulesWindow:
         self.win2 = elementary.Window("settingsMods", elementary.ELM_WIN_BASIC)
         self.win2.title_set(modulesList[0])
         if fromcli:
-            self.win2._callback_add('destroy', self.destroy)
+            self.win2.callback_destroy_add(self.destroy)
         else:
 #            self.win2.autodel_set(True)
-            self.win2._callback_add('destroy', partial(self.destroy2, self.win2))
+            self.win2.callback_destroy_add(partial(self.destroy2, self.win2))
 
         #add background to module window
         bg = elementary.Background(self.win2)
@@ -313,7 +313,7 @@ class MainWindow:
         self.dbus_system = None
         self.win = elementary.Window("settings", elementary.ELM_WIN_BASIC)
         self.win.title_set(_("Settings"))
-        self.win._callback_add('destroy', self.destroy)
+        self.win.callback_destroy_add(self.destroy)
 
         #self.m = ModulesWindow()
 

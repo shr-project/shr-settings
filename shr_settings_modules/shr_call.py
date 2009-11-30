@@ -28,7 +28,7 @@ class Call(module.AbstractModule):
     def callback(self):
         print "async dbus callback"
 
-    def power_handle(self, obj, event, *args, **kargs):
+    def power_handle(self, obj, *args, **kargs):
        if obj.state_get(): 
            self.gps.SetCallingIdentification("on",reply_handler=self.callback,error_handler=self.error)
            obj.state_set(1)
@@ -37,7 +37,7 @@ class Call(module.AbstractModule):
            obj.state_set(0)
 
 
-    def res_handle(self, obj, event, *args, **kargs):
+    def res_handle(self, obj, *args, **kargs):
         if obj.state_get():
             self.gps.SetCallingIdentification("network",reply_handler=self.callback,error_handler=self.error)
             self.toggle1hide()
@@ -54,7 +54,7 @@ class Call(module.AbstractModule):
         self.toggle0.label_set(_("Show my number:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
         self.toggle0.states_labels_set(_("By network"),_("Manual"))
-        self.toggle0.changed = self.res_handle
+        self.toggle0._callback_add('changed', self.res_handle)
         self.box1.pack_start(self.toggle0)
 
         if state == "network":
@@ -74,7 +74,7 @@ class Call(module.AbstractModule):
         self.toggle1 = elementary.Toggle(self.window)
         self.toggle1.size_hint_align_set(-1.0, 0.0)
         self.toggle1.states_labels_set(_("On"),_("Off"))
-        self.toggle1.changed = self.power_handle
+        self.toggle1._callback_add('changed', self.power_handle)
         self.box1.pack_end(self.toggle1)
         self.toggle1.show()
         self.toggle1hidden=0

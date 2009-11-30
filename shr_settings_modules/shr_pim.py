@@ -32,17 +32,17 @@ class Pim(module.AbstractModule):
         self.main.pack_start(label)
         label.show()
 
-    def pagerPop(self, obj, event, pager, *args, **kargs):
+    def pagerPop(self, obj, pager, *args, **kargs):
         pager.content_pop()
 
-    def setAsDefault(self, obj, event, arguments, *args, **kargs):
+    def setAsDefault(self, obj, arguments, *args, **kargs):
         backend = arguments[0]
         domain = arguments[1]
         pager = arguments[2]
         win = arguments[3]
 
         backend.SetAsDefault(domain)
-        self.domainWindow(obj, event, domain)
+        self.domainWindow(obj, domain)
         win.delete()
 
     def pleasewait(self, win):
@@ -59,7 +59,7 @@ class Pim(module.AbstractModule):
     def dbus_finished(self, win, *args, **kwargs):
         win.delete()
 
-    def enableOrDisable(self, backend, win, obj, event, *args, **kargs):
+    def enableOrDisable(self, backend, win, obj, *args, **kargs):
         dia = self.pleasewait(win)
         if obj.state_get():
             backend.Enable(reply_handler = partial(self.dbus_finished, dia), error_handler = partial(self.dbus_finished, dia))
@@ -67,7 +67,7 @@ class Pim(module.AbstractModule):
             backend.Disable(reply_handler = partial(self.dbus_finished, dia), error_handler = partial(self.dbus_finished, dia))
         
 
-    def backendOptions(self, arguments, obj, event, *args, **kargs):
+    def backendOptions(self, arguments, obj, *args, **kargs):
 
         backend = arguments[0]
         domain = arguments[1]
@@ -150,7 +150,7 @@ class Pim(module.AbstractModule):
     def destroywin(self, win, *args, **kargs):
         win.delete()
 
-    def domainWindow(self, domain, obj, event, *args, **kargs):
+    def domainWindow(self, domain, obj, *args, **kargs):
         win = elementary.Window("domain", elementary.ELM_WIN_BASIC)
         win.show()
         win.autodel_set(1)
@@ -170,7 +170,7 @@ class Pim(module.AbstractModule):
         list.show()
 
         quitbt = elementary.Button(win)
-        quitbt.clicked = partial(self.destroywin, win)
+        quitbt_callback_add('clicked', partial(self.destroywin, win))
         quitbt.label_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)

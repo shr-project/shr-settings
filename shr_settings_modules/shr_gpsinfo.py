@@ -22,7 +22,7 @@ class SatDetails():
        self.win = elementary.Window("sat-details", elementary.ELM_WIN_BASIC)
        self.win.title_set(_("Satellite details"))
        self.win.show()
-       self.win.destroy = self.destroy
+       self.win.callback_destroy_add(self.destroy)
 
        bg = elementary.Background(self.win)
        bg.show()
@@ -41,7 +41,7 @@ class SatDetails():
        self.quit_button.label_set(_("Quit"))
        self.quit_button.size_hint_weight_set(1.0, 0.0)
        self.quit_button.size_hint_align_set(-1.0, -1.0)
-       self.quit_button.clicked = self.quit
+       self.quit_button._callback_add('clicked', self.quit)
        self.quit_button.show()
        ic = elementary.Icon(self.quit_button)
        ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
@@ -106,7 +106,7 @@ class GpsInfoBox(elementary.Table):
     #TODO on init fill in values once (at least 'fix') and not only when changed
     #use org.freedesktop.Gypsy.Device.GetConnectionStatus == True
 
-    def cb_show_sat_details(self, bt, event, *args):
+    def cb_show_sat_details(self, bt, *args):
         self.satdetails = SatDetails(self)
         if self.values.has_key('sats'):
             self.satdetails.update(self.values['sats'])
@@ -220,7 +220,7 @@ class GpsInfoBox(elementary.Table):
         sat_details_bt.size_hint_weight_set(-1.0, 0.0)
         sat_details_bt.size_hint_align_set(-1.0, 0.0)
         sat_details_bt.show()
-        sat_details_bt.clicked = self.cb_show_sat_details
+        sat_details_bt._callback_add('clicked', self.cb_show_sat_details)
         self.pack(sat_details_bt, 0, row, 4, 1)
         
         # catch all gypsy signals and udate values            
@@ -239,7 +239,7 @@ class GpsInfo(module.AbstractModule):
     def isEnabled(self):
         return True
 
-    def rempickle(self, obj, event, *args, **kargs):
+    def rempickle(self, obj, *args, **kargs):
         os.unlink("/etc/freesmartphone/persist/ogpsd.pickle")
         obj.delete()
     
@@ -257,7 +257,7 @@ class GpsInfo(module.AbstractModule):
             picklebtn.label_set(_("Remove AGPS data"))
             self.box1.pack_end(picklebtn)
             picklebtn.size_hint_align_set(-1.0, 0.0)
-            picklebtn.clicked = self.rempickle
+            picklebtn._callback_add('clicked', self.rempickle)
             picklebtn.show()
 
         return self.box1

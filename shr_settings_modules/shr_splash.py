@@ -17,7 +17,7 @@ except IOError:
 class Splash(module.AbstractModule):
     name = _("Splash settings")
 
-    def setTheme(self, path, obj, event, *args, **kargs):
+    def setTheme(self, path, obj, *args, **kargs):
         """
         Set the current theme to `path`
         """
@@ -73,7 +73,7 @@ class Splash(module.AbstractModule):
         del self.prevwin
         return False
 
-    def preview(self, obj, event, *args, **kwargs):
+    def preview(self, obj, *args, **kwargs):
 #        print self.currentTheme
         self.prevwin = elementary.Window('preview', 0)
         bg = elementary.Background(self.prevwin)
@@ -110,7 +110,7 @@ class Splash(module.AbstractModule):
         # Preview button
         previewbtn = elementary.Button(self.window)
         previewbtn.label_set(_("Preview"))
-        previewbtn.clicked = self.preview
+        previewbtn._callback_add('clicked', self.preview)
         previewbtn.show()
         previewbtn.size_hint_align_set(-1.0, 0.0)
         hozBox.pack_end(previewbtn)        

@@ -24,11 +24,11 @@ class ButtonServer( elementary.Button ):
 class Services(module.AbstractModule):
     name = _("Services settings")
 
-    def destroyDebug(self, obj, event, *args, **kargs):
+    def destroyDebug(self, obj, *args, **kargs):
         self.windeb.hide()
         self.windeb.delete()
 
-    def hover_hide(self, obj, event, *args, **kargs):
+    def hover_hide(self, obj, *args, **kargs):
         self.ser_box.delete()
         self.ser_hover.delete()
 
@@ -65,20 +65,20 @@ class Services(module.AbstractModule):
         yes = elementary.Button(self.win)
         yes.label_set(_('Yes'))
         yes.show()
-        yes.clicked = partial(self.closex, action, dia)
+        yes._callback_add('clicked', partial(self.closex, action, dia))
         hbox.pack_start(yes)
 
         no = elementary.Button(self.win)
         no.label_set(_('No'))
         no.show()
-        no.clicked = partial(self.closedia, dia)
+        no._callback_add('clicked', partial(self.closedia, dia))
         hbox.pack_end(no)
 
         dia.show()
         dia.activate()
 
 
-    def startbtClick(self, obj, event, *args, **kargs):
+    def startbtClick(self, obj, *args, **kargs):
         """ Callback when start/stop/reload has been pressed """
         # delete the hover with Start/stop buttons
         self.ser_box.delete()
@@ -148,7 +148,7 @@ class Services(module.AbstractModule):
         sc.show()
 
         cancelbt = elementary.Button(self.windeb)
-        cancelbt.clicked = self.destroyDebug
+        cancelbt._callback_add('clicked', self.destroyDebug)
         cancelbt.label_set(_("Close"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
@@ -172,7 +172,7 @@ class Services(module.AbstractModule):
         dia.activate()
         idler_add(partial(self.debugIdler, dia, box1, cmd))
 
-    def clicked_serviceBox(self, win, event, *args, **kargs):
+    def clicked_serviceBox(self, win, *args, **kargs):
         service = win.name_get()
 
         self.ser_hover = elementary.Hover(self.win)
@@ -180,7 +180,7 @@ class Services(module.AbstractModule):
         self.ser_hover.size_hint_weight_set(1.0, 1.0)
 #        self.ser_hover.style_set("hoversel_vertical")
         self.ser_hover.show()
-        self.ser_hover.clicked = self.hover_hide
+        self.ser_hover._callback_add('clicked', self.hover_hide)
 #        self.window.resize_object_add(self.ser_hover)
 
         ser_box = elementary.Box(self.ser_hover)       
@@ -193,7 +193,7 @@ class Services(module.AbstractModule):
 
         startbt = ButtonServer(self.win)
         startbt.set_osCmd("/etc/init.d/" + service + " start")
-        startbt.clicked = partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text'))
+        startbt._callback_add('clicked', partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text')))
         startbt.label_set(_("start") )
 #        startbt.size_hint_align_set(-1.0, 0.0)
 #        startbt.size_hint_weight_set(1.0, 1.0)
@@ -202,7 +202,7 @@ class Services(module.AbstractModule):
 
         restartbt = ButtonServer(self.win)
         restartbt.set_osCmd("/etc/init.d/"+ service +" restart")
-        restartbt.clicked = partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text'))
+        restartbt._callback_add('clicked', partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text')))
         restartbt.label_set(_("restart"))
 #        restartbt.size_hint_align_set(-1.0, 0.0)
         restartbt.show()
@@ -210,7 +210,7 @@ class Services(module.AbstractModule):
 
         stopbt = ButtonServer(self.win)
         stopbt.set_osCmd("/etc/init.d/"+ service +" stop")
-        stopbt.clicked = partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text'))
+        stopbt._callback_add('clicked', partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text')))
         stopbt.label_set(_("stop"))
 #        stopbt.size_hint_align_set(-1.0, 0.0)
         stopbt.show()
@@ -223,7 +223,7 @@ class Services(module.AbstractModule):
         """ main entry to the module that creates and returns the view """
         btn = elementary.Button(self.window)
         btn.label_set(_('Services list'))
-        btn.clicked = self.makeWindow
+        btn._callback_add('clicked', self.makeWindow)
         return btn
 
     def makeWindow(self, *args, **kwargs):
@@ -253,7 +253,7 @@ class Services(module.AbstractModule):
         scroller.show()
 
         quitbt = elementary.Button(win)
-        quitbt.clicked = partial(self.windowClose, win)
+        quitbt._callback_add('clicked', partial(self.windowClose, win))
         quitbt.label_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)
@@ -304,7 +304,7 @@ class Services(module.AbstractModule):
             btn.name = top[0]
             btn.size_hint_align_set(-1.0, -1.0)
             btn.size_hint_weight_set(1.0, 1.0)
-            btn.clicked = partial(self.clicked_serviceBox, warning = True, warning_text = top[1])
+            btn._callback_add('clicked', partial(self.clicked_serviceBox, warning = True, warning_text = top[1]))
             btn.show()
             topbox.pack_end(btn)
         box0.pack_start(frame)
@@ -322,7 +322,7 @@ class Services(module.AbstractModule):
                 #boxSSS.horizontal_set(True)
                 boxSSS.size_hint_align_set(-1.0, -1.0)
                 boxSSS.size_hint_weight_set(1.0, 1.0)
-                boxSSS.clicked = self.clicked_serviceBox
+                boxSSS._callback_add('clicked', self.clicked_serviceBox)
                 boxSSS.show()
                 box0.pack_end(boxSSS)
              

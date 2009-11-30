@@ -22,7 +22,7 @@ class WifiToggleBox(elementary.Box):
         """ Set the toggle to the wifi power state """
         self.toggle.state_set(state)
 
-    def toggleChanged(self, obj, event, *args, **kargs):
+    def toggleChanged(self, obj, *args, **kargs):
         """
         Toggle the resource to opposite the toggle changed-to state
         Update the toggles to match current system settings
@@ -66,7 +66,7 @@ class WifiToggleBox(elementary.Box):
         self.toggle = elementary.Toggle(self.wifi.window)
         self.toggle.label_set(_("WiFi radio:"))
         self.toggle.states_labels_set(_("On"),_("Off"))
-        self.toggle.changed = self.toggleChanged
+        self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
 
         #ask async for WiFi state and set & show toggle then
