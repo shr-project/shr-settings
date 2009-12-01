@@ -170,7 +170,7 @@ class Pim(module.AbstractModule):
         list.show()
 
         quitbt = elementary.Button(win)
-        quitbt_callback_add('clicked', partial(self.destroywin, win))
+        quitbt._callback_add('clicked', partial(self.destroywin, win))
         quitbt.label_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)
