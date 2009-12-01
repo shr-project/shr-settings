@@ -16,7 +16,7 @@ print "SHR: import "+classname+" from "+submodname
 module   = __import__('shr_settings_modules.' + submodname, globals(), locals(), classname)
 ModClass = module.__getattribute__(classname)
 
-def close(obj, event, *args, **kargs):
+def close(obj, *args, **kargs):
     print "SHR: stopUpdate"
     mod.stopUpdate()
     print "SHR: destroy"
@@ -58,7 +58,7 @@ scroll.content_set(frame)
 view.size_hint_align_set(-1.0, -1.0)
 view.size_hint_weight_set(1.0, 0.0)
 view.show()
-win.destroy = close
+win.callback_destroy_add(close)
 
 elementary.run()
 elementary.shutdown()
