@@ -32,17 +32,17 @@ class Pim(module.AbstractModule):
         self.main.pack_start(label)
         label.show()
 
-    def pagerPop(self, obj, pager, *args, **kargs):
+    def pagerPop(self, pager, obj, *args, **kargs):
         pager.content_pop()
 
-    def setAsDefault(self, obj, arguments, *args, **kargs):
+    def setAsDefault(self, arguments, obj, *args, **kargs):
         backend = arguments[0]
         domain = arguments[1]
         pager = arguments[2]
         win = arguments[3]
 
         backend.SetAsDefault(domain)
-        self.domainWindow(obj, domain)
+        self.domainWindow(domain, obj)
         win.delete()
 
     def pleasewait(self, win):
@@ -133,14 +133,14 @@ class Pim(module.AbstractModule):
         if defaultbackend.lower() != backendname.lower() and 'add_entry' in props:
             default = elementary.Button(pager)
             default.label_set(_("Set as default"))
-            default._callback_add("clicked", (self.setAsDefault, [backend, domain, pager, win]))
+            default._callback_add("clicked", partial(self.setAsDefault, [backend, domain, pager, win]))
             default.show()
 
             box.pack_end(default)
 
         back = elementary.Button(pager)
         back.label_set(_("Quit"))
-        back._callback_add("clicked", (self.pagerPop, pager))
+        back._callback_add("clicked", partial(self.pagerPop, pager))
         back.show()
 
         box.pack_end(back)
@@ -237,7 +237,7 @@ class Pim(module.AbstractModule):
 #                dombutton.label_set(domain)
 #                dombutton.size_hint_align_set(-1.0, -1.0)
 #                dombutton.size_hint_weight_set(1.0, 1.0)
-#                dombutton._callback_add("clicked", (self.domainWindow, domain))
+#                dombutton._callback_add("clicked", partial(self.domainWindow, domain))
 #                self.main.pack_end(dombutton)
 #                dombutton.show()
 
