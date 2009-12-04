@@ -73,20 +73,20 @@ class Password(module.AbstractModule):
 	def changePassword(self, user, password):
 		child = pexpect.spawn("/usr/bin/passwd %s" % user)
 
-		print password
+		#print password
 		child.expect("Enter new password: ", timeout = 2)
 		child.sendline(password)
 		time.sleep(0.5)
 		child.expect("Re-enter new password: ", timeout = 2)
 		child.sendline(password)
 		time.sleep(0.5)
-		print "done"
+		#print "done"
 		child.expect(pexpect.EOF)
-		print child.before
-		if "Password changed" in child.before:
-			print "DONE!!"
-		else:
-			print "NOT DONE :/"
+		#print child.before
+		#if "Password changed" in child.before:
+		#	print "DONE!!"
+		#else:
+		#	print "NOT DONE :/"
 
 	def isEnabled(self):
 		return self.wizard
