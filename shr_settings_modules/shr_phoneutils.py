@@ -166,11 +166,11 @@ class Phoneutils(module.AbstractModule):
 
         def simInfoArrived(self, siminfo):
                 if siminfo['country'] in self.countries:
-                        self.ip, self.np, self.cc = self.countries[siminfo['country']]
+                        self.cc, self.ip, self.np = self.countries[siminfo['country']]
                 else:
                         prefix = siminfo['dial_prefix']
                         prefix.replace('+','')
-                        self.ip, self.np, self.cc = self.countries[self.prefixes[prefix]]
+                        self.cc, self.ip, self.np = self.countries[self.prefixes[prefix]]
                 self.entryIP.entry_set(self.ip)
                 self.entryNP.entry_set(self.np)
                 self.entryCC.entry_set(self.cc)
