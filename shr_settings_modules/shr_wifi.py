@@ -27,8 +27,9 @@ class WifiToggleBox(elementary.Box):
         policy = self.dbusObj.GetResourcePolicy('WiFi')
         auto = (policy == 'auto')
         self.toggleAuto.state_set(auto)
-        # Also set the On/Off toggle according to current state
+        # Also set the On/Off toggle according to current state and disable
         self.toggle.state_set(state)
+        self.toggle.disabled_set(auto)
 
     def toggleAutoChanged(self, toggle, *args, **kargs):
         """ Callback when the manual/auto toggle changed """
@@ -54,9 +55,8 @@ class WifiToggleBox(elementary.Box):
         Handler that sets the initial toggle setting 
         It also makes the toggle visible
         """
-        self.update(state)
         self.toggleAuto.disabled_set(False)
-        self.toggle.disabled_set(False)
+        self.update(state)
 
     def init_toggle_error_handler(self, e):
         """ if the initial state could not be retrieved """
