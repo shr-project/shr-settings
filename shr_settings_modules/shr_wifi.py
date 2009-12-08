@@ -11,16 +11,34 @@ except IOError:
 
 
 def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
+    dbusObject = bus.get_object(busname, objectpath)
+    return dbus.Interface(dbusObject, dbus_interface=interface)
 
  
 class WifiToggleBox(elementary.Box):
     """ Class for Wifi Connection power toggle """
 
     def update(self, state):
-        """ Set the toggle to the wifi power state """
+        """ Set the toggle to the wifi power state. This function is called
+            on the initial display and when the state has changed from the 
+            outside. 
+        """
+        # The ResourcePolicy might have changed so query and set that too
+        policy = self.dbusObj.GetResourcePolicy('WiFi')
+        auto = (policy == 'auto')
+        self.toggleAuto.state_set(auto)
+        # Also set the On/Off toggle according to current state
         self.toggle.state_set(state)
+
+    def toggleAutoChanged(self, toggle, *args, **kargs):
+        """ Callback when the manual/auto toggle changed """
+        if toggle.state_get():
+            self.dbusObj.SetResourcePolicy('WiFi', 'auto')
+            self.toggle.disabled_set(True)
+        else:
+            # pretend we switched the On/Off toggle to enable/disable Wifi
+            self.toggleChanged(self.toggle)
+      self.toggle.disabled_set(False)
 
     def toggleChanged(self, obj, *args, **kargs):
         """
@@ -32,20 +50,22 @@ class WifiToggleBox(elementary.Box):
         self.dbusObj.SetResourcePolicy('WiFi', policy)
 
     def init_toggle_reply_handler(self, state):
-        """ Handler that sets the initial toggle setting 
-            It also makes the toggle visible
+        """ 
+        Handler that sets the initial toggle setting 
+        It also makes the toggle visible
         """
         self.update(state)
-        self.pack_start(self.toggle)
-        self.toggle.show()
+        self.toggleAuto.disabled_set(False)
+        self.toggle.disabled_set(False)
 
     def init_toggle_error_handler(self, e):
         """ if the initial state could not be retrieved """
-        # we'll not show the toggle here
         print "received exception " + str(e)
         reason = 'Unknown DBus Exception'
         if e._dbus_error_name == 'org.freesmartphone.Usage.ResourceUnknown':
             reason= "Wifi not available"
+        # we'll not show the togglebox here
+        self.hide()
         # Show an error message instead
         label = elementary.Label(self.wifi.main)
         label.label_set(reason)
@@ -57,17 +77,28 @@ class WifiToggleBox(elementary.Box):
         initialize the box and load objects
         Update the toggles to match current system settings
         """
-
         super(WifiToggleBox, self).__init__(wifi.window)
         self.wifi = wifi
         self.dbusObj = dbusObj
         self.state = None
 
+        self.toggleAuto = elementary.Toggle(self.wifi.window)
+        self.toggleAuto.disabled_set(True)
+        self.toggleAuto.label_set(_("Automatic"))
+        self.toggleAuto.states_labels_set(_("Automatic"),_("Manual"))
+        self.toggleAuto.size_hint_align_set(-1.0, 0.0)
+        self.toggleAuto._callback_add('changed', self.toggleAutoChanged)
+        self.pack_end(self.toggleAuto)
+        self.toggleAuto.show()
+
         self.toggle = elementary.Toggle(self.wifi.window)
-        self.toggle.label_set(_("WiFi radio:"))
+        self.toggle.disabled_set(True)
+        self.toggle.label_set(_("WiFi Power"))
         self.toggle.states_labels_set(_("On"),_("Off"))
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
+        self.pack_end(self.toggle)
+        self.toggle.show()
 
         #ask async for WiFi state and set & show toggle then
         self.dbusObj.GetResourceState('WiFi', 
@@ -88,8 +119,7 @@ class Wifi(module.AbstractModule):
         self.main.pack_start(label)
 
     def update(self, name, state, attr):
-        """ catches the ResourceChanged signal and acts if WiFi changes
-        """
+        """ catches the ResourceChanged signal and acts if WiFi changes """
         if name != 'WiFi': return
         self.wifiToggle.update(state)
 
