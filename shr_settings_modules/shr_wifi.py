@@ -38,7 +38,7 @@ class WifiToggleBox(elementary.Box):
         else:
             # pretend we switched the On/Off toggle to enable/disable Wifi
             self.toggleChanged(self.toggle)
-      self.toggle.disabled_set(False)
+            self.toggle.disabled_set(False)
 
     def toggleChanged(self, obj, *args, **kargs):
         """
