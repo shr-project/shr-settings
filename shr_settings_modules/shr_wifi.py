@@ -30,16 +30,22 @@ class WifiToggleBox(elementary.Box):
         # Also set the On/Off toggle according to current state and disable
         self.toggle.state_set(state)
         self.toggle.disabled_set(auto)
+        #FIXME: remove next line once labels don't disappear when disabling
+        self.toggle.label_set(_("WiFi Power"))
 
     def toggleAutoChanged(self, toggle, *args, **kargs):
         """ Callback when the manual/auto toggle changed """
         if toggle.state_get():
             self.dbusObj.SetResourcePolicy('WiFi', 'auto')
             self.toggle.disabled_set(True)
+            #FIXME: remove next line once labels don't disappear when disabling
+            self.toggle.label_set(_("WiFi Power"))
         else:
             # pretend we switched the On/Off toggle to enable/disable Wifi
             self.toggleChanged(self.toggle)
             self.toggle.disabled_set(False)
+            #FIXME: remove next line once labels don't disappear when disabling
+            self.toggle.label_set(_("WiFi Power"))
 
     def toggleChanged(self, obj, *args, **kargs):
         """
@@ -56,6 +62,8 @@ class WifiToggleBox(elementary.Box):
         It also makes the toggle visible
         """
         self.toggleAuto.disabled_set(False)
+        #FIXME: remove next line once labels don't disappear when disabling
+        self.toggleAuto.label_set(_("Automatic"))
         self.update(state)
 
     def init_toggle_error_handler(self, e):
