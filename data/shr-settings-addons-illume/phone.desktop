@@ -1,6 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Name=Phone settings
+Name[es]=Ajustes del teléfono
+Name[gl]=Axustes do teléfono
 StartupNotify=true
 Exec=shr-settings Phone shr_gsm.Gsm shr_call.Call shr_simauth.SimAuth shr_sim.Sim
 Terminal=false

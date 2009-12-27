@@ -1,6 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Name=Date/time settings
+Name[es]=Ajustes de Fecha y hora
+Name[gl]=Axustes de Data e hora
 StartupNotify=true
 Exec=shr-settings Date/time shr_clock.Clock shr_date.Date
 Terminal=false

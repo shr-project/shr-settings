@@ -1,6 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Name=Power settings
+Name[es]=Ajustes de energía
+Name[gl]=Axustes de enerxía
 StartupNotify=true
 Exec=shr-settings Power shr_battery.Battery shr_display.Display shr_pm.Pm shr_device_timeouts.Timeouts
 Terminal=false

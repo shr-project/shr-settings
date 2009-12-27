@@ -1,6 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Name=Profiles settings
+Name[es]=Ajustes de perfiles
+Name[gl]=Axustes de perfís
 StartupNotify=true
 Exec=shr-settings Profiles shr_profile.Profile shr_currentprofile.CurrentProfile
 Terminal=false

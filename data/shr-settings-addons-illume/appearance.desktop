@@ -1,6 +1,8 @@
 [Desktop Entry]
 Version=1.0
 Name=Appearance settings
+Name[es]=Ajustes de apariencia
+Name[gl]=Axustes de aparencia
 StartupNotify=true
 Exec=shr-settings Appearance shr_elementary.Elementary shr_splash.Splash
 Terminal=false
