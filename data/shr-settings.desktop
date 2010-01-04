@@ -8,6 +8,7 @@ Name[it]=Impostazioni
 Name[pl]=Ustawienia
 Name[de]=Einstellungen
 Name[gl]=Axustes
+Name[nb]=Oppsett
 TryExec=shr-settings
 GenericName=SHR Settings
 Comment=Settings of SHR based Openmoko phone
