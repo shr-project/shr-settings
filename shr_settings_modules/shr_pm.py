@@ -100,7 +100,7 @@ class Pm(module.AbstractModule):
             #       - Cameron
             #
             self.dbusObj = getDbusObject (self.dbus,
-                "org.shr.phonefso.Usage",
+                "org.shr.phonefso",
                 "/org/shr/phonefso/Usage",
                 "org.shr.phonefso.Usage")
 
