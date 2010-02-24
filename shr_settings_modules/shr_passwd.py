@@ -101,7 +101,8 @@ class Password(module.AbstractModule):
 
 	def saveData(self, *args):
 		self.password = self.getEntryData()
-		self.changePassword('root', self.password)
+		if len(self.password) > 0:
+			self.changePassword('root', self.password)
 		return True
 
 	def wizardClose(self):
