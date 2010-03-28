@@ -160,10 +160,12 @@ class Timeouts(module.AbstractModule):
             self.dbus_state = 0
             self.error()
 
+        tmptimeouts = sorted(self.timeouts.iteritems(), key=lambda (k,v): (v,k))
+
         if self.dbus_state:
-            for i in self.timeouts:
-                if not str(i) in ("awake","busy","none"):
-                    box = IncDecButtonBox(self.window, self.dbusObj, i, self.timeouts[i])
+            for i in tmptimeouts:
+                if not str(i[0]) in ("awake","busy","none"):
+                    box = IncDecButtonBox(self.window, self.dbusObj, i[0], i[1])
                     self.main.pack_end(box)
             self.main.show()
 
