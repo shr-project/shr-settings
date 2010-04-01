@@ -27,16 +27,18 @@ class Display(module.AbstractModule):
 
     def setbacklight(self, obj, *args, **kargs):
         if self.value != self.slider.value:
-            self.display.SetBrightness(self.slider.value, reply_handler=handler, error_handler=error)
+            self.display.SetDefaultBrightness(self.slider.value, reply_handler=handler, error_handler=error)
             self.value = self.slider.value
         return 1
 
     def getbacklight(self):
-        return self.display.GetBrightness()
+        return self.display.GetDefaultBrightness()
     
     def isEnabled(self):
         try:
-            self.display = getDbusObject (self.dbus, "org.freesmartphone.odeviced", "/org/freesmartphone/Device/Display/0", "org.freesmartphone.Device.Display")
+            self.display = getDbusObject (self.dbus, "org.shr.phonefso", 
+                                          "/org/shr/phonefso/Usage",
+                                          "org.shr.phonefso.Usage")
             return 1
         except:
             return 0
@@ -44,9 +46,6 @@ class Display(module.AbstractModule):
     def createView(self):
         self.slider = elementary.Slider(self.window)
         self.slider.label_set(_("Backlight "))
-        #slider.span_size_set(160)
-        #slider.size_hint_align_set(0, 0.5)
-        #slider.size_hint_weight_set(0, 1)
         self.slider.unit_format_set(" %3.0f%% ")
         self.slider.min_max_set(2, 100)
         self.value = self.getbacklight()
