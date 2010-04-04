@@ -24,7 +24,7 @@ class ResourceToggleBox(elementary.Box):
         Set the object state to be opposite the current state of the resource
         Set the toggle to the object state
         """
-        self.state = not(self.dbusObj.GetResourceState(self.resource))
+        self.state = True if self.dbusObj.GetResourcePolicy(self.resource) == "enabled" else False
         self.toggle.state_set(self.state)
 
     def toggleChanged(self, obj, *args, **kargs):
@@ -33,9 +33,9 @@ class ResourceToggleBox(elementary.Box):
         Update the toggles to match current system settings
         """
         if not(obj.state_get()):
-            self.dbusObj.RequestResource(self.resource)
+            self.dbusObj.SetResourcePolicy(self.resource, "auto")
         else:
-            self.dbusObj.ReleaseResource(self.resource)
+            self.dbusObj.SetResourcePolicy(self.resource, "enabled")
         self.update()
 
     def __init__(self, win, dbusObj, resource, label):
@@ -52,7 +52,7 @@ class ResourceToggleBox(elementary.Box):
 
         self.toggle = elementary.Toggle(self.window)
         self.toggle.label_set(label)
-        self.toggle.states_labels_set(_("On"),_("Off"))
+        self.toggle.states_labels_set(_("Forbid"),_("Allow"))
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
         self.toggle.show()
@@ -92,28 +92,13 @@ class Pm(module.AbstractModule):
         try:
 
             # connect to dbus
-            # (controls and info;
-            #   some abilities are not implemented in org.freesmartphone.Usage)
-            #
-            # Will the differences between org.shr.ophonekitd.Usage and
-            # org.freesmartphone.ousaged ever be resolved into one?
-            #       - Cameron
-            #
-            self.dbusObj = getDbusObject (self.dbus,
-                "org.shr.phonefso",
-                "/org/shr/phonefso/Usage",
-                "org.shr.phonefso.Usage")
-
-            # connect to dbus
-            # (signals;
-            #   which are not implemented in org.shr.ophonekitd.Usage)
-            self.dbusSignalsObj = getDbusObject(self.dbus,
+            self.dbusObj = getDbusObject(self.dbus,
                 "org.freesmartphone.ousaged",
                 "/org/freesmartphone/Usage",
                 "org.freesmartphone.Usage")
 
             # set update triggers
-            self.signal = self.dbusSignalsObj.connect_to_signal("ResourceChanged", self.update)
+            self.signal = self.dbusObj.connect_to_signal("ResourceChanged", self.update)
 
             # Create ToggleBoxes
             self.display = ResourceToggleBox(self.window, self.dbusObj, 'Display', _("Auto-dimming:"))
