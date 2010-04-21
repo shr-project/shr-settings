@@ -33,8 +33,8 @@ class PhoneUtilsEntryBox(elementary.Box):
 		super(PhoneUtilsEntryBox, self).__init__(win)
 		self.horizontal_set(True)
 
-                self.size_hint_weight_set(1.0, 0.0)
-                self.size_hint_align_set(-1.0, 0.0)
+		self.size_hint_weight_set(1.0, 0.0)
+		self.size_hint_align_set(-1.0, 0.0)
 														
 		self.window = win
 		self.label  = label
@@ -47,15 +47,15 @@ class PhoneUtilsEntryBox(elementary.Box):
 										
 		self.phoneutilsEntry = elementary.Entry(self.window)
 		self.phoneutilsEntry.single_line_set(True)
-                self.phoneutilsEntry.size_hint_weight_set(1.0, 0.0)
-                self.phoneutilsEntry.size_hint_align_set(-1.0, 0.0)
+		self.phoneutilsEntry.size_hint_weight_set(1.0, 0.0)
+		self.phoneutilsEntry.size_hint_align_set(-1.0, 0.0)
 		self.phoneutilsEntry.entry_set(self.value)
 		self.phoneutilsEntry.show()
 
 		self.phoneutilsEntryFrame = elementary.Frame(self.window)
 		self.phoneutilsEntryFrame.style_set("outdent_top")
-                self.phoneutilsEntryFrame.size_hint_weight_set(1.0, 0.0)
-                self.phoneutilsEntryFrame.size_hint_align_set(-1.0, 0.0)
+		self.phoneutilsEntryFrame.size_hint_weight_set(1.0, 0.0)
+		self.phoneutilsEntryFrame.size_hint_align_set(-1.0, 0.0)
 		self.phoneutilsEntryFrame.content_set(self.phoneutilsEntry)
 		self.phoneutilsEntryFrame.show()
 
@@ -67,8 +67,8 @@ class PhoneUtilsEntryBox(elementary.Box):
 class Phoneutils(module.AbstractModule):
 	name =_("Phoneutils settings")
 	section = _("Phone")
-        wizard_name = _("Local numbers settings")
-        wizard_description = _("Please enter information matching to phone numbers in your country.")
+	wizard_name = _("Local numbers settings")
+	wizard_description = _("Please enter information matching to phone numbers in your country.")
 
 	def getEntryData(self):
 		"""
@@ -93,28 +93,28 @@ class Phoneutils(module.AbstractModule):
 
 		return ip,np,cc,ac
 
-        def parsePrefixData(self):
-                file = open('/etc/phoneprefix', 'r' )
+	def parsePrefixData(self):
+		file = open('/etc/phoneprefix', 'r' )
 
-                self.countries = {}
-                self.prefixes = {}
+		self.countries = {}
+		self.prefixes = {}
 
-                s=1
-                while s:
-                        line = file.readline()
-                        if not line:
-                                s = 0
-                        else:
-                                line = line[:len(line)-1]
-                                res = re.match(r'^([\w\-.()/&]+)\s*=\s*([0-9|]*)\s*,\s*([0-9|]*)\s*,\s*([0-9|]*)\s*$', line)
-                                if res:
-                                        self.countries[res.group(1)] = [res.group(2), res.group(3), res.group(4)]
-                                        self.prefixes[res.group(2)] = res.group(1)
+		s=1
+		while s:
+			line = file.readline()
+			if not line:
+				s = 0
+			else:
+				line = line[:len(line)-1]
+				res = re.match(r'^([\w\-.()/&]+)\s*=\s*([0-9|]*)\s*,\s*([0-9|]*)\s*,\s*([0-9|]*)\s*$', line)
+				if res:
+					self.countries[res.group(1)] = [res.group(2), res.group(3), res.group(4)]
+					self.prefixes[res.group(2)] = res.group(1)
 
 
-        def closeInwin(self, dia, *args, **kargs):
-                dia.delete()
-                return False
+	def closeInwin(self, dia, *args, **kargs):
+		dia.delete()
+		return False
 
 	def saveData(self, *args):
 
@@ -124,16 +124,16 @@ class Phoneutils(module.AbstractModule):
 		phoneutils.set_codes(self.ip, self.np, self.cc, self.ac)
 		phoneutils.save_config()
 		if not self.wizard:
-	                dia = elementary.InnerWindow(self.window)
-        	        dia.style_set('minimal')
-                	lab = elementary.Label(self.window)
-                	lab.label_set(_("Settings saved!"))
-                	lab.show()
-                	dia.content_set(lab)
-                	self.window.resize_object_add(dia)
-                	dia.show()
-                	dia.activate()
-                	timer_add(1.5, self.closeInwin, dia)
+			dia = elementary.InnerWindow(self.window)
+			dia.style_set('minimal')
+			lab = elementary.Label(self.window)
+			lab.label_set(_("Settings saved!"))
+			lab.show()
+			dia.content_set(lab)
+			self.window.resize_object_add(dia)
+			dia.show()
+			dia.activate()
+			timer_add(1.5, self.closeInwin, dia)
 
 
 	def Validate(self, *args):
@@ -164,21 +164,24 @@ class Phoneutils(module.AbstractModule):
 	def wizardClose(self):
 		return self.Validate()
 
-        def simInfoArrived(self, siminfo):
-                if siminfo['country'] in self.countries:
-                        self.cc, self.ip, self.np = self.countries[siminfo['country']]
-                else:
-                        prefix = siminfo['dial_prefix']
-                        prefix.replace('+','')
-                        self.cc, self.ip, self.np = self.countries[self.prefixes[prefix]]
-                self.entryIP.entry_set(self.ip)
-                self.entryNP.entry_set(self.np)
-                self.entryCC.entry_set(self.cc)
-                self.dia.delete()
+	def simInfoArrived(self, siminfo):
+		try:   
+			if siminfo['country'] in self.countries:
+				self.cc, self.ip, self.np = self.countries[siminfo['country']]
+			else:  
+				prefix = siminfo['dial_prefix']
+				prefix.replace('+','')
+				self.cc, self.ip, self.np = self.countries[self.prefixes[prefix]]
+			self.entryIP.entry_set(self.ip)
+			self.entryNP.entry_set(self.np)
+			self.entryCC.entry_set(self.cc)
+		except:
+			print "parsing org.freesmartphone.GSM.SIM.GetSimInfo failed, using fsogsmd?"
+		self.dia.delete()
 
-        def simInfoFailed(self, error):
-                print str(error)
-                self.dia.delete()
+	def simInfoFailed(self, error):
+		print str(error)
+		self.dia.delete()
 
 	def createView(self):
 		"""
@@ -188,27 +191,27 @@ class Phoneutils(module.AbstractModule):
 		self.main = elementary.Box(self.window)
 
 		phoneutils.init()
-                self.parsePrefixData()
+		self.parsePrefixData()
 		self.ip, self.np, self.cc, self.ac = self.loadEntryData()
 
-                if self.wizard:
-                        try:
-                                gsm_sim_obj = self.dbus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
-                                gsm_sim_iface = dbus.Interface(gsm_sim_obj, 'org.freesmartphone.GSM.SIM')
+		if self.wizard:
+			try:
+				gsm_sim_obj = self.dbus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
+				gsm_sim_iface = dbus.Interface(gsm_sim_obj, 'org.freesmartphone.GSM.SIM')
 
-                                siminfo = gsm_sim_iface.GetSimInfo(reply_handler = self.simInfoArrived, error_handler = self.simInfoFailed)
+				siminfo = gsm_sim_iface.GetSimInfo(reply_handler = self.simInfoArrived, error_handler = self.simInfoFailed)
 
-                                self.dia = elementary.InnerWindow(self.window)
-                                self.dia.style_set('minimal')
-                                lab = elementary.Label(self.window)
-                                lab.label_set(_("Please wait..."))
-                                lab.show()
-                                self.dia.content_set(lab)
-                                self.window.resize_object_add(self.dia)
-                                self.dia.show()
-                                self.dia.activate()
-                        except:
-                                print "dbus fail"
+				self.dia = elementary.InnerWindow(self.window)
+				self.dia.style_set('minimal')
+				lab = elementary.Label(self.window)
+				lab.label_set(_("Please wait..."))
+				lab.show()
+				self.dia.content_set(lab)
+				self.window.resize_object_add(self.dia)
+				self.dia.show()
+				self.dia.activate()
+			except:
+				print "dbus fail"
 
 		self.entryIP = PhoneUtilsEntryBox(self.window, _("Your international prefix: "), self.ip)
 		self.entryNP = PhoneUtilsEntryBox(self.window, _("Your national prefix: "), self.np)
@@ -220,7 +223,7 @@ class Phoneutils(module.AbstractModule):
 		self.main.pack_end(self.entryCC)
 		self.main.pack_end(self.entryAC)
 
-                if not self.wizard:
+		if not self.wizard:
 			self.btSave = elementary.Button(self.window)
 			self.btSave.label_set(_("Save"))
 			self.btSave.show()
