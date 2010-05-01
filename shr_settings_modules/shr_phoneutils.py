@@ -165,10 +165,25 @@ class Phoneutils(module.AbstractModule):
 		return self.Validate()
 
 	def simInfoArrived(self, siminfo):
-		try:   
-			if siminfo['country'] in self.countries:
-				self.cc, self.ip, self.np = self.countries[siminfo['country']]
-			else:  
+		try:
+			country = None
+			if 'country' in siminfo.keys():
+				# country is in -> ogsmd
+				country = siminfo['country']
+			else:
+				# country is not in -> fsogsmd
+				mcc = siminfo['imsi'][:6]
+				data_world_obj = self.dbus.get_object( 'org.freesmartphone.odatad', '/org/freesmartphone/Data/World' )
+				data_world_iface = dbus.Interface(data_world_obj, 'org.freesmartphone.Data.World')
+				country_code = data_world_iface.GetCountryCodeForMccMnc(mcc)
+				country_codes = data_world_iface.GetAllCountries()
+				for item in country_codes:
+					if item[0] == country_code:
+						country = item[1].replace(" ", "_")
+			if country in self.countries:
+				self.cc, self.ip, self.np = self.countries[country]
+				print self.cc;
+			elif 'dial_prefix' in siminfo.keys():
 				prefix = siminfo['dial_prefix']
 				prefix.replace('+','')
 				self.cc, self.ip, self.np = self.countries[self.prefixes[prefix]]
