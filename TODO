@@ -1,21 +1,15 @@
 - IMPORTANT
-    fix callbacks!
-    check callbacks in GPRS module
+    fsogsmd support!
+- launcher
+    make it able to display backtraces from modules
 - shr-settings
-    load modules in categories dynamicaly
+    load modules in categories dynamicaly (?)
 - shr_gsm.py
     replace [forbidden] and [current] by icons
     'update' button in modem information
 - shr_usb.py
     check if it works with gta01, and if not - fix it
     connection sharing by onetworkd interface
-- shr_wifi.py
-    use ousaged interface
-    when auto, display current status
-- shr_bt.py
-    when auto, display current status
-- shr_gps.py
-    when auto, display current status
 - shr_services.py
     don't display warning after clicking on 'start'
     add button for phoneuid
@@ -23,7 +17,5 @@
     implement mixer settings
 - shr_theme.py
     implement general theme viewer and selector
-- module.py
-    check if it is done in the most flexible way (init, destroy etc.) and if not, do it and prepare all modules to use it
 - TODO
     sync with good ideas from SHR wiki :)
