@@ -205,8 +205,8 @@ class Gprs(module.AbstractModule):
         if id == None:
             self.dbusObj.GetContextStatus(reply_handler = self.updateStatus, error_handler=self.dbuserror)
         else:
-            if gprs_status == None:
-                gprs_status = id
+            if gprs_status == None or gprs_status == {}:
+                gprs_status = id.lower()
             if gprs_status == 'release' or gprs_status == 'released':
                 status=_("disconnected")
                 self.btConnectDisconnect.label_set(_("Connect"))
