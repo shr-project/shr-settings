@@ -34,6 +34,7 @@ class GSMstateContener:
             gsm_device_obj = bus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
             self.gsm_network_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.GSM.Network')
             self.gsm_device_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.GSM.Device')
+            self.info_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.Info')
             #test
             #self.gsm_device_iface.GetAntennaPower()
             #test end
@@ -67,9 +68,9 @@ class GSMstateContener:
                 #TODO: disable the resource? freesmartphone.Resource.Disable()
                 self.gsm_device_iface.SetAntennaPower(False)
 
-    def gsmdevice_GetInfo(self):
+    def info_GetInfo(self):
         if self.dbus_state==1:
-            return self.gsm_device_iface.GetInfo()
+            return self.info_iface.GetInfo()
 
     def gsmnetwork_ListProviders(self, handler, error):
         if self.dbus_state==1:
@@ -337,7 +338,7 @@ class Gsm(module.AbstractModule):
             lab.show()
             fo.content_set( lab )
 
-        i = self.gsmsc.gsmdevice_GetInfo()
+        i = self.gsmsc.info_GetInfo()
         for b in i:
             fo = elementary.Frame(self.wininfo)
             fo.label_set( str(b) )
