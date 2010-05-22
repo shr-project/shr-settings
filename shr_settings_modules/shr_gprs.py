@@ -188,7 +188,8 @@ class Gprs(module.AbstractModule):
 
     def connect(self, obj, *args, **kargs):
         apn, login, password = self.getEntryData()
-        self.dbusObj.ActivateContext(apn, login, password,
+        self.dbusObj.SetCredentials(apn, login, password)
+        self.dbusObj.ActivateContext(
             reply_handler = self.dbusnothing,
             error_handler = self.dbuserror)
         return 0
