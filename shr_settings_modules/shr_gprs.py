@@ -173,6 +173,9 @@ class Gprs(module.AbstractModule):
         pickle.dump(pickleData,pickleFile)
         pickleFile.close()
 
+        apn, login, password = self.getEntryData()
+        self.phonefso.SetPdpCredentials(apn, login, password)
+
     def wizardClose(self):
         self.saveConnectionData()
 	return True
@@ -243,6 +246,11 @@ class Gprs(module.AbstractModule):
         """
 
         self.main = elementary.Box(self.window)
+
+        self.phonefso = getDbusObject(self.dbus,
+                    "org.shr.phonefso",
+                    "/org/shr/phonefso/Usage",
+                    "org.shr.phonefso.Usage")
 
         try:
             if not self.wizard:
