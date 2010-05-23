@@ -12,19 +12,6 @@ try:
 except IOError:
     _ = lambda x: x
 
-
-"""
-- gta01
-/sys/devices/platform/s3c2410-i2c/i2c-adapter/i2c-0/0-0008/neo1973-pm-bt.0/
-- gta02
-/sys/devices/platform/s3c2440-i2c/i2c-adapter/i2c-0/0-0073/neo1973-pm-bt.0/
-
-"""
-btModels = [ \
-"/sys/devices/platform/s3c2410-i2c/i2c-adapter/i2c-0/0-0008/neo1973-pm-bt.0",
-"/sys/devices/platform/s3c2440-i2c/i2c-adapter/i2c-0/0-0073/neo1973-pm-bt.0",
-"/sys/bus/platform/devices/neo1973-pm-bt.0"]
-
 class SimMstateContener:
     def __init__(self, bus):
         self.state = 0
@@ -44,7 +31,8 @@ class SimMstateContener:
         if self.state == 0:
             return 0
         else:
-            return self.gsm_sim_iface.ListPhonebooks()
+            books = self.gsm_sim_iface.GetSimInfo()['phonebooks']
+            return books.split(' ')
 
     def GetPhonebookInfo(self, a):
         if self.state == 0:
@@ -113,31 +101,29 @@ class PhbookInfoFrame(elementary.Frame):
         assert self.tableobj == 'elementary.c_elementary.Table'
         # call elementary.Frame.__init__
         super(PhbookInfoFrame, self).__init__(par_tableobj)        
+        self.label_set(_("Book ")+ self.booktype)
 
     #-------------------------------------------------------------------
-    def phonebookinfo_reply_handler(self, phoneBookInfo):
+    def phonebookinfo_reply_handler(self, slots, number, name):
     #-------------------------------------------------------------------
         """ Callback for the 'PhonebookInfo' dbus call.
             Receives info and adds corresponding frame to table.
         """
         print "async book "+ self.booktype +" arrived"
         #frame
-        frameBook = elementary.Frame(self.tableobj)
-        frameBook.label_set(_("Book ")+ self.booktype)
-        (row,col) = divmod(PhbookInfoFrame.table_pos, 2)
-        self.tableobj.pack(frameBook, col, row, 1, 1)
+        frameBook = self
+#        frameBook = elementary.Frame(self.tableobj)
         frameBook.size_hint_weight_set(0.5, 0.5)
         frameBook.size_hint_align_set(-1.0, 0.0)
-        frameBook.show()
 
         boxBook = elementary.Box(frameBook)
-        boxBook.show()
-        frameBook.content_set(boxBook)
 
+        phoneBookInfo = {_('Slots'):slots, _('Name length'):name, _('Number length'):number}
+        
         # create a new box for each line and show it
         for (key, val) in phoneBookInfo.iteritems():
            if not key in ('first','min_index'):
-                boxS = elementary.Box(boxBook)
+                boxS = elementary.Box(self)
                 boxS.horizontal_set(True)
                 boxS.size_hint_align_set(-1.0, 0.0)
                 boxS.show()
@@ -156,15 +142,15 @@ class PhbookInfoFrame(elementary.Frame):
                 boxS.pack_end(labelV)
 
                 boxBook.pack_start( boxS )
-
+        
         # actions
-        boxS = elementary.Box(boxBook)
+        boxS = elementary.Box(self)
         boxS.horizontal_set(True)
         boxS.size_hint_align_set(-1.0, 0.0)
         boxS.show()
 
         # clear TODO
-        cleanbt = Button2(boxS)
+        cleanbt = Button2(self)
         cleanbt.set_name( self.booktype )
         cleanbt._callback_add('clicked', self.simclass.cleanPhoneBookClick)
         cleanbt.label_set(_("clean"))
@@ -173,8 +159,8 @@ class PhbookInfoFrame(elementary.Frame):
         boxS.pack_end(cleanbt)
 
         boxBook.pack_end( boxS )
-        # increase table cell for next frame
-        PhbookInfoFrame.table_pos += 1
+        boxBook.show()
+        frameBook.content_set(boxBook)
 
 
 class Sim(module.AbstractModule):
@@ -238,33 +224,34 @@ class Sim(module.AbstractModule):
 
         # iterate through all values and display them
         for (key, val) in siminfo.iteritems():
-          
-            print key+': '+str(val)
-            boxS = elementary.Box(self.window)
-            boxS.horizontal_set(True)
-            boxS.size_hint_align_set(-1.0, 0.0)
-            boxS.show()
 
-            labelN =elementary.Label(self.window)
-            labelN.label_set(key.replace('_',' ') + ':')
-            labelN.size_hint_align_set(-1.0, -1.0)
-            labelN.size_hint_weight_set(1.0, 1.0)
-            labelN.show()
-            boxS.pack_start(labelN)
+            if not key == 'phonebooks':
+                print key+': '+str(val)
+                boxS = elementary.Box(self.window)
+                boxS.horizontal_set(True)
+                boxS.size_hint_align_set(-1.0, 0.0)
+                boxS.show()
 
-            labelV =elementary.Label(self.window)
-            labelV.size_hint_align_set(-1.0, 0.0)
-            try:
-              labelV.label_set(val)
-            except:
-              vall = ''
-              for va in val:
-                vall = vall + va[1] + '<br>'
-              labelV.label_set(vall.replace('"',''))
-            labelV.show()
-            boxS.pack_end(labelV)
+                labelN =elementary.Label(self.window)
+                labelN.label_set(key.replace('_',' ') + ':')
+                labelN.size_hint_align_set(-1.0, -1.0)
+                labelN.size_hint_weight_set(1.0, 1.0)
+                labelN.show()
+                boxS.pack_start(labelN)
 
-            self.boxSIMInfo.pack_start( boxS )
+                labelV =elementary.Label(self.window)
+                labelV.size_hint_align_set(-1.0, 0.0)
+                if isinstance(val, (str, int, dbus.String)):
+                    labelV.label_set(str(val))
+                else:
+                    vall = ''
+                    for va in val:
+                        vall = vall + va[1] + '<br>'
+                    labelV.label_set(vall.replace('"',''))
+                labelV.show()
+                boxS.pack_end(labelV)
+
+                self.boxSIMInfo.pack_start( boxS )
 
 
     #-------------------------------------------------------------------
@@ -381,20 +368,26 @@ class Sim(module.AbstractModule):
 	  reply_handler = self.msgbookinfo_reply_handler, 
           error_handler=self.dbusasync_error_handler
         )
-
+        '''
         # List phonebook statistics
         phoneBooks = self.simmc.ListPhonebooks()
         # reset table cell pos to 1, so we always start correctly
-        PhbookInfoFrame.table_pos = 1
+        table_pos = 1
         frames = []
         for b in phoneBooks:
             frame = PhbookInfoFrame(self.books_table, b, self)
             frames.append(frame)
+
+            (row,col) = divmod(table_pos, 2)
+            self.books_table.pack(frame, col, row, 1, 1)
+            frame.show()
+            table_pos = table_pos + 1
+
             self.simmc.gsm_sim_iface.GetPhonebookInfo( b,
      	      reply_handler = frame.phonebookinfo_reply_handler, 
               error_handler=self.dbusasync_error_handler
             )
-
+        '''
         return box1
 
     def stopUpdate(self):
