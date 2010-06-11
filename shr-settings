@@ -215,7 +215,7 @@ class MainWindow:
     def displayModulesWin(self, obj, *args, **kargs):
         #print "displayModulesWin 1"
         if self.dbus_system == None:
-           log( "idler had not inited dbus yet, do it now", logtype.WARN)
+           log( "idler had not inited dbus yet, do it now", logtype.WARNING)
            self.init_dbus_idler()
         ModulesWindow().makeGui(  obj.get_modules(), self.dbus_system )
         #print "displayModulesWin 2"
