@@ -1,7 +1,5 @@
 - IMPORTANT
     fsogsmd support!
-- launcher
-    make it able to display backtraces from modules
 - shr-settings
     load modules in categories dynamicaly (?)
 - shr_gsm.py

@@ -23,7 +23,7 @@ log('SHR Settings', logtype.HEADER)
 
 import elementary, ecore
 import os.path
-from sys import argv
+from sys import argv, exc_info
 from functools import partial
 from gettext import Catalog
 
@@ -85,7 +85,33 @@ class ModulesWindow:
                     else:
                         log("error! module %s method createView() return's nothing!" % mod2, logtype.FAIL)
             except:
+                import traceback
                 log("Module %s can't be loaded!" % modname, logtype.FAIL)
+                tr = traceback.format_exc()
+                exc_type, exc_value, exc_traceback = exc_info()
+                line = exc_traceback.tb_lineno
+                msg = tr.splitlines()
+                msg = msg[-1]
+                err = _("Could not load module: error in line %d\n%s" % (line, msg))
+                print tr
+
+                frame = elementary.Frame(self.win2)
+                try:
+                  frame.label_set(mod2.getName())
+                except:
+                  frame.label_set(modname)
+                self.box12.pack_end(frame)
+                frame.size_hint_align_set(-1.0, 0.0)
+                frame.show()
+
+                cont = elementary.AnchorBlock(self.win2)
+                cont.text_set(err)
+                cont.show()
+
+                frame.content_set(cont)
+                cont.show()
+
+
         self.loading.hide()
         log("Page loaded in %.2f sec" % (time() - nowtime), logtype.OK)
         return None
