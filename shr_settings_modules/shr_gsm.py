@@ -32,12 +32,12 @@ class GSMstateContener:
         self.dbus_state = 0
         try:
             gsm_device_obj = bus.get_object( 'org.freesmartphone.ogsmd', '/org/freesmartphone/GSM/Device' )
+            phonefso_obj = bus.get_object( 'org.shr.phonefso', '/org/shr/phonefso/Usage' )
             self.gsm_network_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.GSM.Network')
             self.gsm_device_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.GSM.Device')
             self.info_iface = dbus.Interface(gsm_device_obj, 'org.freesmartphone.Info')
-            #test
-            #self.gsm_device_iface.GetAntennaPower()
-            #test end
+            self.phonefso_iface = dbus.Interface(phonefso_obj, 'org.shr.phonefso.Usage')
+
             self.dbus_state = 1
         except:
             self.dbus_state = 0
@@ -51,7 +51,7 @@ class GSMstateContener:
             return False
         else:
             try:
-                tr = self.gsm_device_iface.GetAntennaPower()
+                tr = not(self.phonefso_iface.GetOfflineMode())
             except:
                 tr = False
             return tr
@@ -59,14 +59,12 @@ class GSMstateContener:
     def gsmdevice_setAntennaPower(self, b):
         if self.dbus_state==1:
             if b:
-                #TODO: enable the resource? freesmartphone.Resource.Enable()    
                 try:
-                    self.gsm_device_iface.SetAntennaPower(True)
+                    self.phonefso_iface.SetOfflineMode(False)
                 except:
                     pass
             else:
-                #TODO: disable the resource? freesmartphone.Resource.Disable()
-                self.gsm_device_iface.SetAntennaPower(False)
+                self.phonefso_iface.SetOfflineMode(True)
 
     def info_GetInfo(self):
         if self.dbus_state==1:
@@ -150,20 +148,28 @@ class Gsm(module.AbstractModule):
         print "nothing called"
 
     def operatorsList(self, obj, *args, **kargs):
-        obj.label_set(_("Please wait..."))
-        obj._callback_add('clicked', self.nothing)
+        self.wait = elementary.InnerWindow(self.window)
+        waitlabel = elementary.Label(self.wait)
+        waitlabel.label_set(_('Please wait...'))
+        self.wait.style_set('minimal')
+        self.wait.content_set(waitlabel)
+        waitlabel.show()
+        self.wait.show()
+        self.wait.activate()
+
         self.gsmsc.gsmnetwork_ListProviders(self.operatorsList2, self.operatorsListError)        
 
     def operatorsListError(self, why):
         print "operatorsListError! " + str(why)
-        self.opebt.label_set(_("Operators"))
-        self.opebt._callback_add('clicked', self.operatorsList)
+        self.wait.delete()
+        del self.wait
         return 0
 
     def operatorsList2(self,l):
         print "GSM operatorsList [inf]"
-        self.opebt.label_set(_("Operators"))
-        self.opebt._callback_add('clicked', self.operatorsList)
+
+        self.wait.delete()
+        del self.wait
 
         self.winope = elementary.Window("listProviders", elementary.ELM_WIN_BASIC)
         self.winope.title_set(_("List Providers"))
@@ -216,14 +222,14 @@ class Gsm(module.AbstractModule):
         for i in l:
             print "GSM operatorsList [inf] add operator to list - "+str(i[2])+" - "+str(i[1])+" - "+str(i[0])
             opeAvbt = Button2(self.winope)
-            if str(i[1])=="current":
+            if str(i[0])=="current":
                 add = _(" [current]")
-            elif str(i[1])=="forbidden":
+            elif str(i[0])=="forbidden":
                 add = _(" [forbidden]")
             else:
                 add = "";
             opeAvbt.label_set( str(i[2])+add )
-            opeAvbt.set_opeNr( i[0] )
+            opeAvbt.set_opeNr( i[3] )
             opeAvbt._callback_add('clicked', self.operatorSelect)
             opeAvbt.size_hint_align_set(-1.0, 0.0)
             opeAvbt.show()
