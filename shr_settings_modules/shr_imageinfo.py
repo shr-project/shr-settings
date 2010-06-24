@@ -25,7 +25,11 @@ class ImageInfo(module.AbstractModule):
             if len(line)>1:
                 dic[line[0]] = self.mergeList(line[1:])
             else:
-                dic[line[0]] = None
+                line = line[0].split(' -')
+                if len(line)>1:
+                    dic[line[0]] = self.mergeList(line[1:])
+                else:
+                    dic[line[0]] = None
         return dic
 
     def infoadd(self, text):
@@ -38,24 +42,18 @@ class ImageInfo(module.AbstractModule):
         self.main.size_hint_weight_set(1.0, 1.0)
         self.main.size_hint_align_set(-1.0, 0.0)
 
-        omverFile = open("/etc/om-version", "r").read().split('\n')
-        angverFile = open("/etc/angstrom-version", "r").read().split('\n')
+        verFile = open("/etc/shr-version", "r").read().split('\n')
 
 #        matchPattern = r'(.+)_(.+)\+r(\d+)\+([a-z0-9A-Z]+)-r(\d+)_armv4t\.ipk'
 #        ipkInfo = re.match(matchPattern,ipkFile).groups()
 #        aboutText = ABOUT_TEXT.format(ipkInfo)
 #        print aboutText
 
-        omver = self.dictFromFile(omverFile)
-        angver = self.dictFromFile(angverFile)
+        ver = self.dictFromFile(verFile)
 
-#        print omver
-#        print angver
-
-        info  = self.infoadd(_("Buildhost: ") + omver['Build Host'])
-        info += self.infoadd(_("Revision: ") + angver['Revision'])
-        info += self.infoadd(_("Branch: ") + angver['Built from branch'])
-        info += self.infoadd(_("Timestamp: ") + omver['Time Stamp'])
+        info = self.infoadd(_("SHR: ") + ver['SHR'])
+        info += self.infoadd(_("Branch: ") + ver['Built from branch'])
+        info += self.infoadd(_("Revision: ") + ver['Revision'])
 
         text = elementary.AnchorBlock(self.window)
         text.text_set(info)
