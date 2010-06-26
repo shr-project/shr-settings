@@ -1,5 +1,7 @@
 - shr-settings
     load modules in categories dynamicaly (?)
+- shr_passwd.py
+    handle "Weak password" message
 - shr_gsm.py
     replace [forbidden] and [current] by icons
     'update' button in modem information
