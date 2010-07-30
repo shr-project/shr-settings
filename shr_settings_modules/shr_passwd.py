@@ -1,5 +1,6 @@
 import elementary, module
 import pexpect, sys, time
+from ecore import timer_add
 
 # Locale support
 import gettext
@@ -32,8 +33,8 @@ class PasswordEntryBox(elementary.Box):
 		super(PasswordEntryBox, self).__init__(win)
 		self.horizontal_set(True)
 
-                self.size_hint_weight_set(1.0, 0.0)
-                self.size_hint_align_set(-1.0, 0.0)
+		self.size_hint_weight_set(1.0, 0.0)
+		self.size_hint_align_set(-1.0, 0.0)
 														
 		self.window = win
 		self.label  = label
@@ -47,15 +48,15 @@ class PasswordEntryBox(elementary.Box):
 		self.PasswordEntry = elementary.Entry(self.window)
 		self.PasswordEntry.single_line_set(True)
 		self.PasswordEntry.password_set(True)
-                self.PasswordEntry.size_hint_weight_set(1.0, 0.0)
-                self.PasswordEntry.size_hint_align_set(-1.0, 0.0)
+		self.PasswordEntry.size_hint_weight_set(1.0, 0.0)
+		self.PasswordEntry.size_hint_align_set(-1.0, 0.0)
 		self.PasswordEntry.entry_set(self.value)
 		self.PasswordEntry.show()
 
 		self.PasswordEntryFrame = elementary.Frame(self.window)
 		self.PasswordEntryFrame.style_set("outdent_top")
-                self.PasswordEntryFrame.size_hint_weight_set(1.0, 0.0)
-                self.PasswordEntryFrame.size_hint_align_set(-1.0, 0.0)
+		self.PasswordEntryFrame.size_hint_weight_set(1.0, 0.0)
+		self.PasswordEntryFrame.size_hint_align_set(-1.0, 0.0)
 		self.PasswordEntryFrame.content_set(self.PasswordEntry)
 		self.PasswordEntryFrame.show()
 
@@ -67,26 +68,29 @@ class PasswordEntryBox(elementary.Box):
 class Password(module.AbstractModule):
 	name =_("Root password")
 	section = _("Others")
-        wizard_name = _("Root password")
-        wizard_description = _("Please enter password which you want to use when, for instance, loging by SSH.")
+	wizard_name = _("Root password")
+	wizard_description = _("Please enter password which you want to use when, for instance, loging by SSH.")
 
 	def changePassword(self, user, password):
 		child = pexpect.spawn("/usr/bin/passwd %s" % user)
 
 		#print password
-		child.expect("Enter new password: ", timeout = 2)
+		child.expect("New password: ", timeout = 2)
 		child.sendline(password)
 		time.sleep(0.5)
-		child.expect("Re-enter new password: ", timeout = 2)
+		result = child.expect(["Re-enter new password: ", "New password: "], timeout = 2)
 		child.sendline(password)
 		time.sleep(0.5)
-		#print "done"
+		if result==1:
+			result = child.expect("Re-enter new password: ", timeout = 2)
+			child.sendline(password)
+			time.sleep(0.5)
 		child.expect(pexpect.EOF)
 		#print child.before
-		#if "Password changed" in child.before:
-		#	print "DONE!!"
+		#if "passwd: password changed." in child.before:
+		#	print "done"
 		#else:
-		#	print "NOT DONE :/"
+		#	print "not done"
 
 	def isEnabled(self):
 		return self.wizard
@@ -96,11 +100,31 @@ class Password(module.AbstractModule):
 		Returns clean values for the text entries
 		"""
 		password = self.entryPass.entry_get()
+		password2 = self.reentryPass.entry_get()
+		if password != password2:
+			return -1
+		
 
 		return password
 
+	def dialog(self, text, autoclose = False):
+		dia = elementary.InnerWindow(self.window)
+		dia.style_set("minimal")
+		dia.show()
+		label = elementary.Label(dia)
+		label.label_set(text)
+		label.show()
+		dia.content_set(label)
+		dia.activate()
+		if autoclose:
+			timer_add(3, dia.delete)
+		return dia
+
 	def saveData(self, *args):
 		self.password = self.getEntryData()
+		if self.password == -1:
+			self.dialog("Passwords do not match!", True)
+			return False
 		if len(self.password) > 0:
 			self.changePassword('root', self.password)
 		return True
@@ -115,9 +139,11 @@ class Password(module.AbstractModule):
 
 		self.main = elementary.Box(self.window)
 
-		self.entryPass = PasswordEntryBox(self.window, _("Password: "), '')
+		self.entryPass = PasswordEntryBox(self.window, _("Enter password: "), '')
+		self.reentryPass = PasswordEntryBox(self.window, _("Re-enter password: "), '')
 
 		self.main.pack_end(self.entryPass)
+		self.main.pack_end(self.reentryPass)
 
 		self.main.show()
 
