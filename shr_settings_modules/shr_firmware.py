@@ -1,7 +1,9 @@
 import module, elementary
 
-MODELS = { # 'GTA02':'Neo Freerunner', # for tests :) 
-	'Nokia RX-51 board':'Nokia N900'}
+MODELS = {
+	#'???':'Palm Pre',
+	'Nokia RX-51 board':'Nokia N900',
+	'trout':'HTC Dream' }
 
 # Locale support
 import gettext
