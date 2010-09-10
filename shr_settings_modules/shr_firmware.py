@@ -1,7 +1,7 @@
 import module, elementary
 
 MODELS = {
-	#'???':'Palm Pre',
+	'Sirloin OMAP3430 board':'Palm Pre',
 	'Nokia RX-51 board':'Nokia N900',
 	'trout':'HTC Dream' }
 
