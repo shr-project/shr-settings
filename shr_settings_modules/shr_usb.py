@@ -1,5 +1,6 @@
 import elementary, module, dbus
 import gettext
+import os
 
 try:
     cat = gettext.Catalog("shr-settings")
@@ -26,6 +27,15 @@ class Usb(module.AbstractModule):
 
     def isEnabled(self):
         return True
+        
+    def usbhidIsLoaded(self):
+        return os.system("lsmod | grep usbhid") == 0
+    
+    def hid_handle(self, obj, *args, **kargs):
+        if obj.state_get():
+            os.system("modprobe usbhid")
+        else:
+            os.system("modprobe -r usbhid")    
     
     def power_handle(self, obj, *args, **kargs):
        # if ResourceState already equals off/on setting do nothing
@@ -72,6 +82,15 @@ class Usb(module.AbstractModule):
         usbstate =  self.usb.GetResourceState("UsbHost")
         self.toggle1.state_set(usbstate)
         self.toggle1.show()
+        
+    def toggle2show(self):
+        self.toggle2 = elementary.Toggle(self.window)
+        self.toggle2.size_hint_align_set(-1.0, 0.0)
+        self.toggle2.states_labels_set(_("HID On"),_("HID Off"))
+        self.toggle2._callback_add('changed', self.hid_handle)
+        self.box1.pack_end(self.toggle2) 
+        self.toggle2.state_set(self.usbhidIsLoaded())
+        self.toggle2.show()
 
     def createView(self):
         try:
@@ -90,6 +109,7 @@ class Usb(module.AbstractModule):
         self.toggle0._callback_add('changed', self.res_handle)
         self.box1.pack_start(self.toggle0)
         self.toggle0.show()
+        self.toggle2show()
 
         usbpolicy =  self.usb.GetResourcePolicy("UsbHost")
         if usbpolicy == "auto":
