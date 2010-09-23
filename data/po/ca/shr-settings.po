@@ -2,106 +2,691 @@ msgid ""
 msgstr ""
 "Project-Id-Version: shr-settings\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-28 01:49+0200\n"
-"PO-Revision-Date: 2009-08-04 02:57+0100\n"
+"POT-Creation-Date: 2010-09-23 19:08+0200\n"
+"PO-Revision-Date: 2010-09-23 19:43+0100\n"
 "Last-Translator: Pau Espin Pedrol <pespin.shar@gmail.com>\n"
 "Language-Team: \n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Catalan\n"
 "X-Poedit-Country: SPAIN\n"
 
-#: shr-settings:34
+#: shr-settings:36
+#: shr_settings_modules/shr_phoneutils.py:69
 msgid "Phone"
 msgstr "Telèfon"
 
-#: shr-settings:35
+#: shr-settings:37
 msgid "Profiles"
 msgstr "Perfils"
 
-#: shr-settings:36
-#: shr_settings_modules/shr_bt.py:74
-#: shr_settings_modules/shr_sim.py:182
+#: shr-settings:38
+#: shr_settings_modules/shr_bt.py:71
+#: shr_settings_modules/shr_sim.py:168
 msgid "Connectivity"
 msgstr "Connectivitat"
-
-#: shr-settings:37
-msgid "GPS"
-msgstr "GPS"
-
-#: shr-settings:38
-msgid "Date/time"
-msgstr "Data/hora"
 
 #: shr-settings:39
 msgid "Power"
 msgstr "Alimentació"
 
 #: shr-settings:40
-msgid "Services"
-msgstr "Serveis"
+msgid "Appearance"
+msgstr "Aparença"
 
 #: shr-settings:41
+msgid "Position"
+msgstr "Posició"
+
+#: shr-settings:42
+msgid "Date/time"
+msgstr "Data/hora"
+
+#: shr-settings:43
+#: shr_settings_modules/shr_passwd.py:70
+#: shr_settings_modules/shr_firmware.py:19
 msgid "Others"
 msgstr "Altres"
 
-#: shr-settings:133
-#: shr-settings:340
-#: shr_settings_modules/shr_gpsinfo.py:41
-#: shr_settings_modules/shr_currentprofile.py:307
-#: shr_settings_modules/shr_pim.py:131
-#: shr_settings_modules/shr_pim.py:163
-msgid "Quit"
-msgstr "Sortir"
+#: shr-settings:95
+#, python-format
+msgid ""
+"Could not load module: error in line %d\n"
+"%s"
+msgstr ""
+"No s'ha pogut carregar el mòdul: error a la línia %d\n"
+"%s"
 
-#: shr-settings:158
+#: shr-settings:161
+#: shr-settings:369
+#: shr_settings_modules/shr_pim.py:142
+#: shr_settings_modules/shr_pim.py:174
+#: shr_settings_modules/shr_currentprofile.py:331
+#: shr_settings_modules/shr_gpsinfo.py:41
+#: shr_settings_modules/shr_services.py:257
+msgid "Quit"
+msgstr "Surt"
+
+#: shr-settings:186
 #, python-format
 msgid "Please wait...<br>Loading %d modules..."
 msgstr "Si us plau espera...<br>Carregant %d mòduls"
 
-#: shr-settings:235
-#: shr-settings:249
-msgid "ophonekitd log"
-msgstr "Registre de l'ophonekitd"
+#: shr-settings:264
+#: shr-settings:278
+msgid "phonefsod log"
+msgstr "Registre del phonefsod"
 
-#: shr-settings:262
+#: shr-settings:291
 msgid "Clean"
-msgstr "Buidar"
+msgstr "Buida"
 
-#: shr-settings:269
-#: shr-settings:430
-#: shr_settings_modules/shr_services.py:77
+#: shr-settings:298
+#: shr-settings:459
+#: shr_settings_modules/shr_services.py:152
 msgid "Close"
-msgstr "Tancar"
+msgstr "Tanca"
 
-#: shr-settings:312
+#: shr-settings:341
 msgid "Settings"
 msgstr "Configuració"
 
-#: shr-settings:391
-msgid "ophonekitd"
-msgstr "ophonekitd"
+#: shr-settings:420
+msgid "phonefsod"
+msgstr "phonefsod"
 
-#: shr-settings:396
+#: shr-settings:425
 msgid "is not running!"
 msgstr "no està corrent!"
 
-#: shr-settings:401
+#: shr-settings:430
 msgid "Start"
 msgstr "Inicia"
 
-#: shr-settings:407
+#: shr-settings:436
 msgid "View log"
 msgstr "Visualitzar el registre"
 
-#: shr-settings:426
+#: shr-settings:455
 msgid "Information"
 msgstr "Informació"
+
+#: shr_settings_modules/shr_bt.py:70
+msgid "Bluetooth settings"
+msgstr "Configuració del bluetooth"
+
+#: shr_settings_modules/shr_bt.py:78
+#: shr_settings_modules/shr_simauth.py:26
+#: shr_settings_modules/shr_simauth.py:179
+#: shr_settings_modules/shr_pim.py:31
+#: shr_settings_modules/shr_battery.py:138
+#: shr_settings_modules/shr_currentprofile.py:568
+#: shr_settings_modules/shr_wifi.py:125
+#: shr_settings_modules/shr_gsm.py:388
+#: shr_settings_modules/shr_profile.py:31
+#: shr_settings_modules/shr_gps.py:81
+#: shr_settings_modules/shr_usb.py:100
+#: shr_settings_modules/shr_call.py:87
+#: shr_settings_modules/shr_device_timeouts.py:144
+#: shr_settings_modules/shr_gprs.py:137
+#: shr_settings_modules/shr_sim.py:335
+msgid "Couldn't connect to FSO"
+msgstr "No s'ha pogut connectar amb l' FSO"
+
+#: shr_settings_modules/shr_bt.py:143
+msgid "Visibility:"
+msgstr "Visibilitat:"
+
+#: shr_settings_modules/shr_bt.py:145
+#: shr_settings_modules/shr_bt.py:170
+#: shr_settings_modules/shr_currentprofile.py:253
+#: shr_settings_modules/shr_wifi.py:105
+#: shr_settings_modules/shr_gsm.py:376
+#: shr_settings_modules/shr_gps.py:68
+#: shr_settings_modules/shr_call.py:76
+msgid "On"
+msgstr "On"
+
+#: shr_settings_modules/shr_bt.py:145
+#: shr_settings_modules/shr_bt.py:170
+#: shr_settings_modules/shr_currentprofile.py:261
+#: shr_settings_modules/shr_wifi.py:105
+#: shr_settings_modules/shr_gsm.py:376
+#: shr_settings_modules/shr_gps.py:68
+#: shr_settings_modules/shr_call.py:76
+msgid "Off"
+msgstr "Off"
+
+#: shr_settings_modules/shr_bt.py:205
+msgid "Bluetooth radio:"
+msgstr "Antena Bluetooth:"
+
+#: shr_settings_modules/shr_bt.py:207
+#: shr_settings_modules/shr_gps.py:89
+#: shr_settings_modules/shr_usb.py:108
+msgid "Auto"
+msgstr "Auto"
+
+#: shr_settings_modules/shr_bt.py:207
+#: shr_settings_modules/shr_wifi.py:96
+#: shr_settings_modules/shr_gps.py:89
+#: shr_settings_modules/shr_usb.py:108
+#: shr_settings_modules/shr_call.py:56
+msgid "Manual"
+msgstr "Manual"
+
+#: shr_settings_modules/shr_splash.py:18
+msgid "Splash settings"
+msgstr "Configuració de la pantalla d'inici"
+
+#: shr_settings_modules/shr_splash.py:65
+#: shr_settings_modules/shr_elementary.py:63
+#, python-format
+msgid "Themes (%s)"
+msgstr "Temes (%s)"
+
+#: shr_settings_modules/shr_splash.py:112
+msgid "Preview"
+msgstr "Previsualitza"
+
+#: shr_settings_modules/shr_sim_manager.py:22
+#: shr_settings_modules/shr_sim_manager.py:34
+msgid "SIM Manager"
+msgstr "Gestor de la SIM"
+
+#: shr_settings_modules/shr_simauth.py:20
+msgid "PIN settings"
+msgstr "Configuració del PIN"
+
+#: shr_settings_modules/shr_simauth.py:93
+#: shr_settings_modules/shr_simauth.py:128
+#: shr_settings_modules/shr_simauth.py:138
+msgid "Incorrect PIN!"
+msgstr "PIN incorrecte!"
+
+#: shr_settings_modules/shr_simauth.py:99
+msgid "Wrong PIN!"
+msgstr "PIN incorrecte!"
+
+#: shr_settings_modules/shr_simauth.py:115
+msgid "Wrong PIN or unknown error"
+msgstr "PIN incorrecte o error descongut"
+
+#: shr_settings_modules/shr_simauth.py:117
+msgid "PIN changed!"
+msgstr "PIN modificat!"
+
+#: shr_settings_modules/shr_simauth.py:119
+msgid "PINs don't match!"
+msgstr "Els PINs no coincideixen!"
+
+#: shr_settings_modules/shr_simauth.py:131
+msgid "Enter again new SIM PIN:"
+msgstr "Torna a inserir el nou PIN de la SIM:"
+
+#: shr_settings_modules/shr_simauth.py:141
+msgid "Enter new SIM PIN:"
+msgstr "Insereix el PIN nou de la SIM:"
+
+#: shr_settings_modules/shr_simauth.py:144
+msgid "Enter actual SIM PIN:"
+msgstr "Insereix el PIN actual de la SIM:"
+
+#: shr_settings_modules/shr_simauth.py:150
+msgid "Enter SIM PIN:"
+msgstr "Insereix el PIN de la SIM:"
+
+#: shr_settings_modules/shr_simauth.py:156
+msgid "PIN code: "
+msgstr "Codi PIN:"
+
+#: shr_settings_modules/shr_simauth.py:158
+msgid "Enabled"
+msgstr "Activat"
+
+#: shr_settings_modules/shr_simauth.py:158
+msgid "Disabled"
+msgstr "Desactivat"
+
+#: shr_settings_modules/shr_simauth.py:165
+msgid "Change PIN"
+msgstr "Canvia el PIN"
+
+#: shr_settings_modules/shr_simauth.py:185
+#: shr_settings_modules/shr_pim.py:51
+#: shr_settings_modules/shr_gsm.py:153
+#: shr_settings_modules/shr_phoneutils.py:222
+#: shr_settings_modules/shr_call.py:93
+#: shr_settings_modules/shr_services.py:271
+msgid "Please wait..."
+msgstr "Si us plau espera..."
+
+#: shr_settings_modules/shr_clock.py:28
+msgid "Time settings"
+msgstr "Configuració del temps"
+
+#: shr_settings_modules/shr_clock.py:29
+msgid "Other"
+msgstr "Altres"
+
+#: shr_settings_modules/shr_clock.py:36
+#: shr_settings_modules/shr_clock.py:51
+msgid "Set time"
+msgstr "Estableix l'hora"
+
+#: shr_settings_modules/shr_clock.py:40
+msgid "OK"
+msgstr "D'acord"
+
+#: shr_settings_modules/shr_pim.py:24
+msgid "PIM settings"
+msgstr "Configuració del PIM"
+
+#: shr_settings_modules/shr_pim.py:87
+#, python-format
+msgid "%(backend)s<br>(domain: %(domain)s)"
+msgstr "%(backend)s<br>(domini: %(domain)s)"
+
+#: shr_settings_modules/shr_pim.py:92
+msgid "enabled"
+msgstr "activat"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "adding entries"
+msgstr "afegint entrades"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "updating entries"
+msgstr "actualitzant entrades"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "deleting entries"
+msgstr "eliminant entrades"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "adding new fields to entries"
+msgstr "afegint nous camps a les entrades"
+
+#: shr_settings_modules/shr_pim.py:100
+#, fuzzy
+msgid "needs logging in"
+msgstr "requereix haver iniciat sessió"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "needs syncing"
+msgstr "requereix sincronització"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "it's handler"
+msgstr "és gestor"
+
+#: shr_settings_modules/shr_pim.py:102
+msgid "Properties"
+msgstr "Propietats"
+
+#: shr_settings_modules/shr_pim.py:124
+msgid "Initialized"
+msgstr "Inicialitzat"
+
+#: shr_settings_modules/shr_pim.py:126
+msgid "Not initialized"
+msgstr "No inicialitzat"
+
+#: shr_settings_modules/shr_pim.py:135
+msgid "Set as default"
+msgstr "Defineix com a predeterminat"
+
+#: shr_settings_modules/shr_pim.py:207
+msgid " (default)"
+msgstr " (predeterminat)"
+
+#: shr_settings_modules/shr_pim.py:229
+msgid "Domains"
+msgstr "Dominis"
+
+#: shr_settings_modules/shr_elementary.py:19
+msgid "Elementary settings"
+msgstr "Configuració de l'Elementary"
+
+#: shr_settings_modules/shr_elementary.py:29
+msgid "Restart X server"
+msgstr "Reinicia el servidor X"
+
+#: shr_settings_modules/shr_elementary.py:84
+#: shr_settings_modules/shr_sim.py:188
+#: shr_settings_modules/shr_services.py:48
+msgid "Are you sure?"
+msgstr "N'estàs segur?"
+
+#: shr_settings_modules/shr_elementary.py:93
+msgid "Restarting X server will close running applications. Do you really want to proceed?"
+msgstr "Reiniciar el servidor X tancarà totes les aplicacions obertes. Vols continuar de totes maneres?"
+
+#: shr_settings_modules/shr_elementary.py:102
+#: shr_settings_modules/shr_sim.py:196
+#: shr_settings_modules/shr_services.py:66
+msgid "Yes"
+msgstr "Sí"
+
+#: shr_settings_modules/shr_elementary.py:108
+#: shr_settings_modules/shr_sim.py:201
+#: shr_settings_modules/shr_services.py:72
+msgid "No"
+msgstr "No"
+
+#: shr_settings_modules/shr_elementary.py:166
+msgid "Engine:"
+msgstr "Motor:"
+
+#: shr_settings_modules/shr_elementary.py:174
+msgid "x11"
+msgstr "x11"
+
+#: shr_settings_modules/shr_elementary.py:182
+msgid "x11-16"
+msgstr "x11-16"
+
+#: shr_settings_modules/shr_elementary.py:197
+msgid "Finger size "
+msgstr "Mida del dit"
+
+#: shr_settings_modules/shr_test.py:27
+msgid "test"
+msgstr "prova"
+
+#: shr_settings_modules/shr_test.py:33
+msgid "Just for fun"
+msgstr "Simplement per diversió"
+
+#: shr_settings_modules/shr_battery.py:119
+msgid "USB charging rate:"
+msgstr "Velocitat de càrrega de l'USB:"
+
+#: shr_settings_modules/shr_battery.py:131
+msgid "Battery settings"
+msgstr "Configuració de la bateria"
+
+#: shr_settings_modules/shr_battery.py:256
+msgid "Charge: "
+msgstr "Càrrega: "
+
+#: shr_settings_modules/shr_battery.py:257
+msgid "Power info: "
+msgstr "Alimentació: "
+
+#: shr_settings_modules/shr_battery.py:258
+msgid "Status: "
+msgstr "Estat: "
+
+#: shr_settings_modules/shr_battery.py:283
+msgid "Update"
+msgstr "Actualitza"
+
+#: shr_settings_modules/shr_battery.py:298
+msgid "Switch to dumb battery driver"
+msgstr "Commuta al controlador de bateria passiu"
+
+#: shr_settings_modules/shr_passwd.py:69
+#: shr_settings_modules/shr_passwd.py:71
+msgid "Root password"
+msgstr "Contranseya de root: "
+
+#: shr_settings_modules/shr_passwd.py:72
+msgid "Please enter password which you want to use when, for instance, loging by SSH."
+msgstr "Per favor, insereix la contrassenya que vols usar quan, per exemple, et connectis via SSH."
+
+#: shr_settings_modules/shr_passwd.py:142
+#, fuzzy
+msgid "Enter password: "
+msgstr "La teva contrasenya: "
+
+#: shr_settings_modules/shr_passwd.py:143
+msgid "Re-enter password: "
+msgstr "Torna a escriure la teva contrasenya: "
+
+#: shr_settings_modules/shr_currentprofile.py:306
+#: shr_settings_modules/shr_currentprofile.py:309
+msgid "Change ringtone"
+msgstr "Canviar so de trucada"
+
+#: shr_settings_modules/shr_currentprofile.py:316
+msgid "Select ringtone"
+msgstr "Seleccionar to de trucada"
+
+#: shr_settings_modules/shr_currentprofile.py:318
+msgid "Ringtones are placed in /usr/share/sounds/"
+msgstr "Els sons de trucada es troben a /usr/share/sounds/"
+
+#: shr_settings_modules/shr_currentprofile.py:422
+#: shr_settings_modules/shr_currentprofile.py:452
+msgid "Play"
+msgstr "Reprodueix"
+
+#: shr_settings_modules/shr_currentprofile.py:428
+msgid "Stop"
+msgstr "Atura"
+
+#: shr_settings_modules/shr_currentprofile.py:460
+msgid "Change"
+msgstr "Canvia"
+
+#: shr_settings_modules/shr_currentprofile.py:564
+msgid "Current profile settings"
+msgstr "Configuració del perfil actual"
+
+#: shr_settings_modules/shr_wifi.py:34
+#: shr_settings_modules/shr_wifi.py:42
+#: shr_settings_modules/shr_wifi.py:48
+#: shr_settings_modules/shr_wifi.py:104
+msgid "WiFi Power"
+msgstr "Alimentació del WiFi"
+
+#: shr_settings_modules/shr_wifi.py:66
+#: shr_settings_modules/shr_wifi.py:95
+#: shr_settings_modules/shr_wifi.py:96
+#: shr_settings_modules/shr_gsm.py:214
+msgid "Automatic"
+msgstr "Automàtic"
+
+#: shr_settings_modules/shr_wifi.py:121
+msgid "WiFi settings"
+msgstr "Configuració de la WiFi"
 
 #: shr_settings_modules/shr_date.py:15
 msgid "Date"
 msgstr "Data/hora"
+
+#: shr_settings_modules/shr_gsm.py:112
+msgid "GSM settings"
+msgstr "Configuració del GSM"
+
+#: shr_settings_modules/shr_gsm.py:131
+msgid "Could not connect to network"
+msgstr "No s'ha pogut connectar amb la xarxa"
+
+#: shr_settings_modules/shr_gsm.py:175
+#: shr_settings_modules/shr_gsm.py:189
+msgid "List Providers"
+msgstr "Llista els proveïdors"
+
+#: shr_settings_modules/shr_gsm.py:203
+#: shr_settings_modules/shr_gsm.py:323
+msgid "Cancel"
+msgstr "Canceŀla"
+
+#: shr_settings_modules/shr_gsm.py:226
+msgid " [current]"
+msgstr "[actual]"
+
+#: shr_settings_modules/shr_gsm.py:228
+msgid " [forbidden]"
+msgstr "[prohibit]"
+
+#: shr_settings_modules/shr_gsm.py:253
+msgid "Operators"
+msgstr "Operadors"
+
+#: shr_settings_modules/shr_gsm.py:260
+msgid "Modem information"
+msgstr "Informació del mòdem"
+
+#: shr_settings_modules/shr_gsm.py:295
+#: shr_settings_modules/shr_gsm.py:309
+msgid "GSM modem information"
+msgstr "Informació del mòdem GSM"
+
+#: shr_settings_modules/shr_gsm.py:374
+msgid "GSM antenna:"
+msgstr "Antena GSM"
+
+#: shr_settings_modules/shr_profile.py:24
+msgid "Profile settings"
+msgstr "Configuració dels perfils"
+
+#: shr_settings_modules/shr_profile.py:57
+#, python-format
+msgid "Profiles (%s)"
+msgstr "Perfils (%s)"
+
+#: shr_settings_modules/shr_display.py:26
+msgid "Display settings"
+msgstr "Configuració de la visualització"
+
+#: shr_settings_modules/shr_display.py:48
+msgid "Backlight "
+msgstr "Iŀluminació de fons"
+
+#: shr_settings_modules/shr_gps.py:19
+msgid "GPS settings"
+msgstr "Configuració del GPRS"
+
+#: shr_settings_modules/shr_gps.py:87
+msgid "GPS radio:"
+msgstr "Normes d'ús del GPS:"
+
+#: shr_settings_modules/shr_phoneutils.py:68
+msgid "Phoneutils settings"
+msgstr "Configuració del phoneutils"
+
+#: shr_settings_modules/shr_phoneutils.py:70
+msgid "Local numbers settings"
+msgstr "Configuració de números locals"
+
+#: shr_settings_modules/shr_phoneutils.py:71
+msgid "Please enter information matching to phone numbers in your country."
+msgstr "Per favor insereix la informació referent als números telefònics del teu país."
+
+#: shr_settings_modules/shr_phoneutils.py:130
+msgid "Settings saved!"
+msgstr "Configuració desada!"
+
+#: shr_settings_modules/shr_phoneutils.py:155
+msgid "Settings could not be saved!<br>All values must be numbers!"
+msgstr "La Configuració no s'ha pogut desar!<br> Tots els valors han de ser nombres!"
+
+#: shr_settings_modules/shr_phoneutils.py:231
+msgid "Your international prefix: "
+msgstr "El teu prefix internacional:"
+
+#: shr_settings_modules/shr_phoneutils.py:232
+msgid "Your national prefix: "
+msgstr "El teu prefix nacional:"
+
+#: shr_settings_modules/shr_phoneutils.py:233
+msgid "Your country code: "
+msgstr "El codi del teu país:"
+
+#: shr_settings_modules/shr_phoneutils.py:234
+msgid "Your area/network code: "
+msgstr "El teu codi d'àrea/xarxa:"
+
+#: shr_settings_modules/shr_phoneutils.py:243
+msgid "Save"
+msgstr "Desa"
+
+#: shr_settings_modules/shr_usb.py:20
+msgid "USB settings"
+msgstr "Configuració de l'USB"
+
+#: shr_settings_modules/shr_usb.py:78
+msgid "Host"
+msgstr "Amfitrió"
+
+#: shr_settings_modules/shr_usb.py:78
+msgid "Device"
+msgstr "Dispositiu"
+
+#: shr_settings_modules/shr_usb.py:89
+msgid "HID On"
+msgstr "HID On"
+
+#: shr_settings_modules/shr_usb.py:89
+msgid "HID Off"
+msgstr "HID Off"
+
+#: shr_settings_modules/shr_usb.py:106
+msgid "USB mode:"
+msgstr "mode USB:"
+
+#: shr_settings_modules/module.py:51
+msgid "OhMy! I have no name!"
+msgstr "Oh! No tinc cap nom!"
+
+#: shr_settings_modules/module.py:54
+msgid "main"
+msgstr "principal"
+
+#: shr_settings_modules/module.py:57
+msgid "Some wizard page"
+msgstr "Alguna pàgina de l'auxiliar de configuració."
+
+#: shr_settings_modules/module.py:58
+msgid "Some description"
+msgstr "Alguna descripció"
+
+#: shr_settings_modules/shr_firmware.py:18
+#: shr_settings_modules/shr_firmware.py:20
+msgid "Firmware"
+msgstr "Controlador (Firmware)"
+
+#: shr_settings_modules/shr_firmware.py:48
+#, python-format
+msgid "Your device, %s, needs some external firmware to be installed in order to make everything working correctly. Those firmwares are non-free and can't be redistributed with SHR, so you have to download them on your own. Please check this page for more details."
+msgstr "El teu dispositiu, %s, requereix d'uns controladors externs per a que tot funcioni correctament. Aquests controladors no són lliures, i no poden ésser distribuïts amb l'SHR, així que hauràs de descarregar-los tu personalment. Per favor, revisa aquesta pàgina per a obtenir-ne els detalls."
+
+#: shr_settings_modules/shr_imageinfo.py:13
+msgid "Image information"
+msgstr "Informació la imatge"
+
+#: shr_settings_modules/shr_imageinfo.py:54
+msgid "SHR: "
+msgstr "SHR:"
+
+#: shr_settings_modules/shr_imageinfo.py:55
+msgid "Branch: "
+msgstr "Bifurcació:"
+
+#: shr_settings_modules/shr_imageinfo.py:56
+msgid "Revision: "
+msgstr "Revisió:"
+
+#: shr_settings_modules/shr_call.py:18
+msgid "Call settings"
+msgstr "Configuració de trucades"
+
+#: shr_settings_modules/shr_call.py:26
+msgid "Turn GSM on."
+msgstr "Activar el GSM."
+
+#: shr_settings_modules/shr_call.py:54
+msgid "Show my number:"
+msgstr "Mostra el meu número"
+
+#: shr_settings_modules/shr_call.py:56
+msgid "By network"
+msgstr "xarxa"
 
 #: shr_settings_modules/shr_backup.py:104
 msgid "Select Item"
@@ -133,7 +718,8 @@ msgstr "Directori necessari."
 
 #: shr_settings_modules/shr_backup.py:469
 #: shr_settings_modules/shr_backup.py:482
-msgid "Config Files couldn't be loaded<br>Please investigate!"
+#, fuzzy
+msgid "Config files couldn't be loaded<br>Please investigate!"
 msgstr "Els fitxers de configuració no s'han pogut carregar<br> Si us plau, investiga-ho!"
 
 #: shr_settings_modules/shr_backup.py:480
@@ -172,28 +758,108 @@ msgstr "Arxiva"
 msgid "Restore"
 msgstr "Restaura"
 
-#: shr_settings_modules/shr_about.py:24
-msgid "About"
-msgstr "Quan a"
+#: shr_settings_modules/shr_device_timeouts.py:33
+msgid " sec."
+msgstr "seg."
 
-#: shr_settings_modules/shr_device_timeouts.py:133
+#: shr_settings_modules/shr_device_timeouts.py:140
 msgid "Timeouts settings"
 msgstr "Configuració del temps d'espera"
 
-#: shr_settings_modules/shr_device_timeouts.py:137
-#: shr_settings_modules/shr_gprs.py:125
-#: shr_settings_modules/shr_currentprofile.py:539
-#: shr_settings_modules/shr_bt.py:78
-#: shr_settings_modules/shr_pim.py:31
-#: shr_settings_modules/shr_battery.py:117
-#: shr_settings_modules/shr_profile.py:31
-#: shr_settings_modules/shr_gps.py:81
-#: shr_settings_modules/shr_call.py:87
-#: shr_settings_modules/shr_gsm.py:383
-#: shr_settings_modules/shr_sim.py:310
-#: shr_settings_modules/shr_wifi.py:119
-msgid "Couldn't connect to FSO"
+#: shr_settings_modules/shr_pm.py:55
+msgid "Forbid"
+msgstr "Prohibeix"
+
+#: shr_settings_modules/shr_pm.py:55
+msgid "Allow"
+msgstr "Permet"
+
+#: shr_settings_modules/shr_pm.py:68
+msgid "Power settings"
+msgstr "Configuració de l'alimentació"
+
+#: shr_settings_modules/shr_pm.py:75
+#, fuzzy
+msgid "Couldn't connect to FSO or phonefsod"
 msgstr "No s'ha pogut connectar amb l' FSO"
+
+#: shr_settings_modules/shr_pm.py:104
+msgid "Auto-dimming:"
+msgstr "Atenuat automàtic:"
+
+#: shr_settings_modules/shr_pm.py:105
+msgid "Auto-suspend:"
+msgstr "Suspensió automàtica:"
+
+#: shr_settings_modules/shr_gprs.py:126
+msgid "GPRS settings"
+msgstr "Configuració del GPRS"
+
+#: shr_settings_modules/shr_gprs.py:127
+msgid "networking"
+msgstr "xarxa"
+
+#: shr_settings_modules/shr_gprs.py:129
+msgid "GPRS connection data"
+msgstr "Dades de la connexió GPRS"
+
+#: shr_settings_modules/shr_gprs.py:130
+msgid "Please enter your GPRS login and password. You can also skip this step."
+msgstr "Per favor entreu les dades d'accés del GPRS. Pots saltar-te aquesta part si ho desitges."
+
+#: shr_settings_modules/shr_gprs.py:212
+msgid "disconnected"
+msgstr "Desconnectat"
+
+#: shr_settings_modules/shr_gprs.py:213
+#: shr_settings_modules/shr_gprs.py:227
+msgid "Connect"
+msgstr "Connectar"
+
+#: shr_settings_modules/shr_gprs.py:216
+msgid "connected"
+msgstr "Connectat"
+
+#: shr_settings_modules/shr_gprs.py:217
+#: shr_settings_modules/shr_gprs.py:223
+#: shr_settings_modules/shr_gprs.py:231
+msgid "Disconnect"
+msgstr "Desconnectar"
+
+#: shr_settings_modules/shr_gprs.py:222
+msgid "connecting"
+msgstr "connectant"
+
+#: shr_settings_modules/shr_gprs.py:226
+msgid "incoming"
+msgstr "rebent"
+
+#: shr_settings_modules/shr_gprs.py:230
+msgid "held"
+msgstr "esperant"
+
+#: shr_settings_modules/shr_gprs.py:234
+#: shr_settings_modules/shr_gprs.py:235
+#: shr_settings_modules/shr_gprs.py:275
+#: shr_settings_modules/shr_gprs.py:286
+msgid "UNKNOWN"
+msgstr "DESCONEGUT"
+
+#: shr_settings_modules/shr_gprs.py:271
+msgid "Your APN: "
+msgstr "El teu APN: "
+
+#: shr_settings_modules/shr_gprs.py:272
+msgid "Your login: "
+msgstr "Dades d'entrada: "
+
+#: shr_settings_modules/shr_gprs.py:273
+msgid "Your password: "
+msgstr "La teva contrasenya: "
+
+#: shr_settings_modules/shr_gprs.py:275
+msgid "Connection status: "
+msgstr "Estat de la connexió:"
 
 #: shr_settings_modules/shr_gpsinfo.py:23
 #: shr_settings_modules/shr_gpsinfo.py:219
@@ -241,263 +907,13 @@ msgid "Descend"
 msgstr "Descendeix"
 
 #: shr_settings_modules/shr_gpsinfo.py:237
-msgid "GPS informations"
+#, fuzzy
+msgid "GPS information"
 msgstr "Informació del GPS"
 
 #: shr_settings_modules/shr_gpsinfo.py:257
 msgid "Remove AGPS data"
 msgstr "Suprimir les dades de l'AGPS"
-
-#: shr_settings_modules/shr_clock.py:28
-msgid "Time settings"
-msgstr "Configuració del temps"
-
-#: shr_settings_modules/shr_clock.py:29
-msgid "Other"
-msgstr "Altres"
-
-#: shr_settings_modules/shr_clock.py:36
-#: shr_settings_modules/shr_clock.py:51
-msgid "Set time"
-msgstr "Estableix l'hora"
-
-#: shr_settings_modules/shr_clock.py:40
-msgid "OK"
-msgstr "D'acord"
-
-#: shr_settings_modules/shr_help.py:35
-msgid "Help"
-msgstr "Ajuda"
-
-#: shr_settings_modules/shr_pm.py:55
-#: shr_settings_modules/shr_currentprofile.py:230
-#: shr_settings_modules/shr_bt.py:113
-#: shr_settings_modules/shr_bt.py:154
-#: shr_settings_modules/shr_gps.py:68
-#: shr_settings_modules/shr_call.py:76
-#: shr_settings_modules/shr_wifi.py:102
-msgid "On"
-msgstr "On"
-
-#: shr_settings_modules/shr_pm.py:55
-#: shr_settings_modules/shr_currentprofile.py:238
-#: shr_settings_modules/shr_bt.py:113
-#: shr_settings_modules/shr_bt.py:154
-#: shr_settings_modules/shr_gps.py:68
-#: shr_settings_modules/shr_call.py:76
-#: shr_settings_modules/shr_wifi.py:102
-msgid "Off"
-msgstr "Off"
-
-#: shr_settings_modules/shr_pm.py:68
-msgid "Power settings"
-msgstr "Configuració de l'alimentació"
-
-#: shr_settings_modules/shr_pm.py:75
-msgid "Couldn't connect to FSO or ophonekitd"
-msgstr "No s'ha pogut connectar amb l' FSO"
-
-#: shr_settings_modules/shr_pm.py:119
-msgid "Auto-dimming:"
-msgstr "Atenuat automàtic:"
-
-#: shr_settings_modules/shr_pm.py:120
-msgid "Auto-suspend:"
-msgstr "Suspensió automàtica:"
-
-#: shr_settings_modules/shr_gprs.py:117
-msgid "GPRS settings"
-msgstr "Configuració del GPRS"
-
-#: shr_settings_modules/shr_gprs.py:118
-msgid "networking"
-msgstr "xarxa"
-
-#: shr_settings_modules/shr_gprs.py:188
-msgid "disconnected"
-msgstr "Desconnectat"
-
-#: shr_settings_modules/shr_gprs.py:189
-msgid "Connect"
-msgstr "Connectar"
-
-#: shr_settings_modules/shr_gprs.py:192
-msgid "connected"
-msgstr "Connectat"
-
-#: shr_settings_modules/shr_gprs.py:193
-#: shr_settings_modules/shr_gprs.py:199
-msgid "Disconnect"
-msgstr "Desconnectar"
-
-#: shr_settings_modules/shr_gprs.py:198
-msgid "connecting"
-msgstr "connectant"
-
-#: shr_settings_modules/shr_gprs.py:202
-#: shr_settings_modules/shr_gprs.py:203
-#: shr_settings_modules/shr_gprs.py:236
-#: shr_settings_modules/shr_gprs.py:246
-msgid "UNKNOWN"
-msgstr "DESCONEGUT"
-
-#: shr_settings_modules/shr_gprs.py:233
-msgid "Your APN: "
-msgstr "El teu APN: "
-
-#: shr_settings_modules/shr_gprs.py:234
-msgid "Your login: "
-msgstr "Dades d'entrada: "
-
-#: shr_settings_modules/shr_gprs.py:235
-msgid "Your password: "
-msgstr "La teva contrasenya: "
-
-#: shr_settings_modules/shr_gprs.py:236
-msgid "Connection status: "
-msgstr "Estat de la connexió:"
-
-#: shr_settings_modules/shr_currentprofile.py:282
-#: shr_settings_modules/shr_currentprofile.py:285
-msgid "Change ringtone"
-msgstr "Canviar so de trucada"
-
-#: shr_settings_modules/shr_currentprofile.py:292
-msgid "Select ringtone"
-msgstr "Seleccionar to de trucada"
-
-#: shr_settings_modules/shr_currentprofile.py:294
-msgid "Ringtones are placed in /usr/share/sounds/"
-msgstr "Els dons de trucada es troben a /usr/share/sounds/"
-
-#: shr_settings_modules/shr_currentprofile.py:398
-#: shr_settings_modules/shr_currentprofile.py:428
-msgid "Play"
-msgstr "Reprodueix"
-
-#: shr_settings_modules/shr_currentprofile.py:404
-msgid "Stop"
-msgstr "Atura"
-
-#: shr_settings_modules/shr_currentprofile.py:436
-msgid "Change"
-msgstr "Canviar"
-
-#: shr_settings_modules/shr_currentprofile.py:535
-msgid "Current profile settings"
-msgstr "Configuració del perfil actual"
-
-#: shr_settings_modules/shr_services.py:22
-msgid "Services settings"
-msgstr "Configuració dels serveis"
-
-#: shr_settings_modules/shr_services.py:50
-#: shr_settings_modules/shr_services.py:64
-msgid "Services start|stop debug"
-msgstr "Serveis start|stop debug"
-
-#: shr_settings_modules/shr_bt.py:73
-msgid "Bluetooth settings"
-msgstr "Configuració del bluetooth"
-
-#: shr_settings_modules/shr_bt.py:111
-msgid "Visibility:"
-msgstr "Visibilitat:"
-
-#: shr_settings_modules/shr_bt.py:152
-msgid "Bluetooth radio:"
-msgstr "Antena Bluetooth:"
-
-#: shr_settings_modules/shr_pim.py:24
-msgid "PIM settings"
-msgstr "Configuració del PIM"
-
-#: shr_settings_modules/shr_pim.py:51
-#: shr_settings_modules/shr_call.py:93
-#: shr_settings_modules/shr_gsm.py:154
-msgid "Please wait..."
-msgstr "Si us plau espera..."
-
-#: shr_settings_modules/shr_pim.py:85
-#, python-format
-msgid "%(backend)s<br>(domain: %(domain)s)"
-msgstr "%(backend)s<br>(domini: %(domain)s)"
-
-#: shr_settings_modules/shr_pim.py:90
-msgid "enabled"
-msgstr "activat"
-
-#: shr_settings_modules/shr_pim.py:98
-msgid "adding entries"
-msgstr "afegint entrades"
-
-#: shr_settings_modules/shr_pim.py:98
-msgid "updating entries"
-msgstr "actualitzant entrades"
-
-#: shr_settings_modules/shr_pim.py:98
-msgid "deleting entries"
-msgstr "eliminant entrades"
-
-#: shr_settings_modules/shr_pim.py:98
-msgid "adding new fields to entries"
-msgstr "afegint nous camps a les entrades"
-
-#: shr_settings_modules/shr_pim.py:98
-msgid "needs loging in"
-msgstr "requereix haver iniciat sessió"
-
-#: shr_settings_modules/shr_pim.py:98
-msgid "needs syncing"
-msgstr "requereix sincronització"
-
-#: shr_settings_modules/shr_pim.py:98
-msgid "it's handler"
-msgstr "és gestor"
-
-#: shr_settings_modules/shr_pim.py:100
-msgid "Properties"
-msgstr "Propietats"
-
-#: shr_settings_modules/shr_pim.py:124
-msgid "Set as default"
-msgstr "Defineix com a predeterminat"
-
-#: shr_settings_modules/shr_pim.py:196
-msgid " (default)"
-msgstr " (default)"
-
-#: shr_settings_modules/shr_pim.py:218
-msgid "Domains"
-msgstr "Dominis"
-
-#: shr_settings_modules/module.py:50
-msgid "OhMy! I have no name!"
-msgstr "Oh! No tinc cap nom!"
-
-#: shr_settings_modules/module.py:53
-msgid "main"
-msgstr "principal"
-
-#: shr_settings_modules/shr_imageinfo.py:13
-msgid "Image information"
-msgstr "Informació la imatge"
-
-#: shr_settings_modules/shr_imageinfo.py:55
-msgid "Buildhost: "
-msgstr "Buildhost:"
-
-#: shr_settings_modules/shr_imageinfo.py:56
-msgid "Revision: "
-msgstr "Revisió:"
-
-#: shr_settings_modules/shr_imageinfo.py:57
-msgid "Branch: "
-msgstr "Bifurcació:"
-
-#: shr_settings_modules/shr_imageinfo.py:58
-msgid "Timestamp: "
-msgstr "Marca horària:"
 
 #: shr_settings_modules/shr_misc.py:14
 msgid "Miscellaneous settings"
@@ -507,240 +923,169 @@ msgstr "Configuració miscel·lània"
 msgid "Suspend, dim time and etc."
 msgstr "Suspensió, temps d'atenuat, etc."
 
-#: shr_settings_modules/shr_battery.py:96
-msgid "USB charging rate:"
-msgstr "Velocitat de càrrega de l'USB:"
+#: shr_settings_modules/shr_help.py:35
+msgid "Help"
+msgstr "Ajuda"
 
-#: shr_settings_modules/shr_battery.py:110
-msgid "Battery settings"
-msgstr "Configuració de la bateria"
-
-#: shr_settings_modules/shr_battery.py:226
-msgid "Charge: "
-msgstr "Càrrega: "
-
-#: shr_settings_modules/shr_battery.py:227
-msgid "Power info: "
-msgstr "Alimentació: "
-
-#: shr_settings_modules/shr_battery.py:228
-msgid "Status: "
-msgstr "Estat: "
-
-#: shr_settings_modules/shr_battery.py:253
-msgid "Update"
-msgstr "Actualitza"
-
-#: shr_settings_modules/shr_test.py:27
-msgid "test"
-msgstr "prova"
-
-#: shr_settings_modules/shr_test.py:33
-msgid "Just for fun"
-msgstr "Just for fun"
-
-#: shr_settings_modules/shr_profile.py:24
-msgid "Profile settings"
-msgstr "Configuració dels perfils"
-
-#: shr_settings_modules/shr_profile.py:57
-#, python-format
-msgid "Profiles (%s)"
-msgstr "Perfils (%s)"
-
-#: shr_settings_modules/shr_usb.py:18
-msgid "USB settings"
-msgstr "Configuració de l'USB"
-
-#: shr_settings_modules/shr_usb.py:49
-msgid "USB mode:"
-msgstr "mode USB:"
-
-#: shr_settings_modules/shr_usb.py:51
-msgid "Device"
-msgstr "Dispositiu"
-
-#: shr_settings_modules/shr_usb.py:51
-msgid "Host"
-msgstr "Amfitrió"
-
-#: shr_settings_modules/shr_gps.py:19
-msgid "GPS settings"
-msgstr "Configuració del GPRS"
-
-#: shr_settings_modules/shr_gps.py:87
-msgid "GPS radio:"
-msgstr "Normes d'ús del GPS:"
-
-#: shr_settings_modules/shr_gps.py:89
-msgid "Auto"
-msgstr "Auto"
-
-#: shr_settings_modules/shr_gps.py:89
-#: shr_settings_modules/shr_call.py:56
-msgid "Manual"
-msgstr "Manual"
-
-#: shr_settings_modules/shr_display.py:26
-msgid "Display settings"
-msgstr "Configuració de la visualització"
-
-#: shr_settings_modules/shr_display.py:46
-msgid "Backlight "
-msgstr "Iŀluminació de fons"
-
-#: shr_settings_modules/shr_call.py:18
-msgid "Call settings"
-msgstr "Configuració de trucades"
-
-#: shr_settings_modules/shr_call.py:26
-msgid "Turn GSM on."
-msgstr "Activar el GSM."
-
-#: shr_settings_modules/shr_call.py:54
-msgid "Show my number:"
-msgstr "Mostra el meu número"
-
-#: shr_settings_modules/shr_call.py:56
-msgid "By network"
-msgstr "xarxa"
-
-#: shr_settings_modules/shr_gsm.py:115
-msgid "GSM settings"
-msgstr "Configuració del GSM"
-
-#: shr_settings_modules/shr_gsm.py:134
-msgid "Could not connect to network"
-msgstr "No s'ha pogut connectar amb la xarxa"
-
-#: shr_settings_modules/shr_gsm.py:160
-#: shr_settings_modules/shr_gsm.py:166
-#: shr_settings_modules/shr_gsm.py:248
-msgid "Operators"
-msgstr "Operadors"
-
-#: shr_settings_modules/shr_gsm.py:170
-#: shr_settings_modules/shr_gsm.py:184
-msgid "List Providers"
-msgstr "Llista els proveïdors"
-
-#: shr_settings_modules/shr_gsm.py:198
-#: shr_settings_modules/shr_gsm.py:318
-msgid "Cancel"
-msgstr "Canceŀla"
-
-#: shr_settings_modules/shr_gsm.py:209
-msgid "Automatic"
-msgstr "Automàtic"
-
-#: shr_settings_modules/shr_gsm.py:221
-msgid " [current]"
-msgstr "[actual]"
-
-#: shr_settings_modules/shr_gsm.py:223
-msgid " [forbidden]"
-msgstr "[prohibit]"
-
-#: shr_settings_modules/shr_gsm.py:255
-msgid "Modem information"
-msgstr "Informació del mòdem"
-
-#: shr_settings_modules/shr_gsm.py:290
-#: shr_settings_modules/shr_gsm.py:304
-msgid "GSM modem information"
-msgstr "Informació del mòdem GSM"
-
-#: shr_settings_modules/shr_gsm.py:369
-msgid "GSM antenna:"
-msgstr "Antena GSM"
-
-#: shr_settings_modules/shr_sim.py:126
+#: shr_settings_modules/shr_sim.py:104
 msgid "Book "
 msgstr "Llibre "
 
-#: shr_settings_modules/shr_sim.py:170
-#: shr_settings_modules/shr_sim.py:283
+#: shr_settings_modules/shr_sim.py:121
+msgid "Slots"
+msgstr "Caselles"
+
+#: shr_settings_modules/shr_sim.py:121
+msgid "Name length"
+msgstr "Longitud del nom"
+
+#: shr_settings_modules/shr_sim.py:121
+msgid "Number length"
+msgstr "Longitud del número"
+
+#: shr_settings_modules/shr_sim.py:156
+#: shr_settings_modules/shr_sim.py:308
 msgid "clean"
 msgstr "buidar"
 
-#: shr_settings_modules/shr_sim.py:181
+#: shr_settings_modules/shr_sim.py:167
 msgid "SIM settings"
 msgstr "Configuració de la SIM"
 
-#: shr_settings_modules/shr_sim.py:241
+#: shr_settings_modules/shr_sim.py:266
 msgid "Message book"
 msgstr "Missatges"
 
-#: shr_settings_modules/shr_sim.py:325
+#: shr_settings_modules/shr_sim.py:350
 msgid "SIM information:"
 msgstr "Informació de la SIM"
 
-#: shr_settings_modules/shr_wifi.py:30
-#: shr_settings_modules/shr_wifi.py:33
-msgid "WiFi Manager"
-msgstr "Gestor del WiFi"
+#: shr_settings_modules/shr_services.py:25
+msgid "Services settings"
+msgstr "Configuració dels serveis"
 
-#: shr_settings_modules/shr_wifi.py:101
-msgid "WiFi radio:"
-msgstr "Antena WiFi:"
+#: shr_settings_modules/shr_services.py:125
+#: shr_settings_modules/shr_services.py:139
+msgid "Service output"
+msgstr "Informació dels serveis"
 
-#: shr_settings_modules/shr_wifi.py:115
-msgid "WiFi settings"
-msgstr "Configuració de la WiFi"
+#: shr_settings_modules/shr_services.py:168
+msgid "Executing..."
+msgstr "Executant..."
 
-#: shr_settings_modules/shr_splash.py:18
-msgid "Splash settings"
-msgstr "Configuració de la pantalla d'inici"
+#: shr_settings_modules/shr_services.py:197
+msgid "start"
+msgstr "inicia"
 
-#: shr_settings_modules/shr_splash.py:65
-#, python-format
-msgid "Themes (%s)"
-msgstr "Temes (%s)"
+#: shr_settings_modules/shr_services.py:206
+msgid "restart"
+msgstr "Reinicia"
 
-#: shr_settings_modules/shr_splash.py:112
-msgid "Preview"
-msgstr "Previsualitza"
+#: shr_settings_modules/shr_services.py:214
+msgid "stop"
+msgstr "para"
+
+#: shr_settings_modules/shr_services.py:225
+#, fuzzy
+msgid "Services list"
+msgstr "Serveis"
+
+#: shr_settings_modules/shr_services.py:234
+msgid "Services"
+msgstr "Serveis"
+
+#: shr_settings_modules/shr_services.py:296
+msgid "Stopping frameworkd will stop all smartphone related functions. Do you really want to proceed?"
+msgstr "Parar el phoneuid pararà totes les funcions de l'smartphone. Vols continuar de totes maneres?"
+
+#: shr_settings_modules/shr_services.py:297
+msgid "Stopping fsodeviced will stop idle notifier and few other functions. Do you really want to proceed?"
+msgstr "Parar el fsodeviced pararà el salvapantalles i algunes altres funcions. Vols continuar de totes maneres?"
+
+#: shr_settings_modules/shr_services.py:298
+msgid "Stopping phonefsod will stop all phone related functions. Do you really want to proceed?"
+msgstr "Parar el phonefsod pararà totes les interfícies relacionades amb la telefonia. Vols continuar de totes maneres?"
+
+#: shr_settings_modules/shr_services.py:299
+msgid "Stopping phoneuid will stop all phone user interface related functions. Do you really want to proceed?"
+msgstr "Parar el phoneuid pararà totes les interfícies relacionades amb la telefonia. Vols continuar de totes maneres?"
+
+#: shr_settings_modules/shr_services.py:300
+msgid "Stopping X server will stop all running applications. Do you really want to proceed?"
+msgstr "Parar el servidor X tancarà totes les aplicacions obertes. Vols continuar de totes maneres?"
+
+#: shr_settings_modules/shr_about.py:24
+msgid "About"
+msgstr "Quant a"
+
+#~ msgid "GPS"
+#~ msgstr "GPS"
+
+#~ msgid "Services start|stop debug"
+#~ msgstr "Serveis start|stop debug"
+
+#~ msgid "Buildhost: "
+#~ msgstr "Buildhost:"
+
+#~ msgid "Timestamp: "
+#~ msgstr "Marca horària:"
+
+#~ msgid "WiFi radio:"
+#~ msgstr "Antena WiFi:"
 
 #~ msgid "Radio:"
 #~ msgstr "Ràdio:"
+
 #~ msgid "SIM"
 #~ msgstr "SIM"
+
 #~ msgid "GPRS"
 #~ msgstr "GPRS"
+
 #~ msgid "Display"
 #~ msgstr "Visualització"
+
 #~ msgid "GSM"
 #~ msgstr "GSM"
-#~ msgid "Yes"
-#~ msgstr "Sí"
+
 #~ msgid "USB"
 #~ msgstr "USB"
+
 #~ msgid "Device mode:"
 #~ msgstr "Mode del dispositiu:"
+
 #~ msgid "Ethernet"
 #~ msgstr "Ethernet"
+
 #~ msgid "Mass storage"
 #~ msgstr "Emmagatzematge"
+
 #~ msgid "Host powered:"
 #~ msgstr "Amfitrió alimentat:"
-#~ msgid "No"
-#~ msgstr "No"
+
 #~ msgid "Timeouts"
 #~ msgstr "Temps d'espera"
+
 #~ msgid "WiFi"
 #~ msgstr "WiFi"
+
 #~ msgid "Profile"
 #~ msgstr "Perfil"
+
 #~ msgid "Call"
 #~ msgstr "trucada"
+
 #~ msgid "Battery"
 #~ msgstr "Bateria"
+
 #~ msgid "Voltage: "
 #~ msgstr "Voltatge: "
+
 #~ msgid "Temperature: "
 #~ msgstr "Temperatura: "
+
 #~ msgid "Capacity: "
 #~ msgstr "Capacitat: "
+
 #~ msgid "Remaining time: "
 #~ msgstr "Temps restant: "
-
