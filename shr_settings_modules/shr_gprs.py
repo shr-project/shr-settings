@@ -134,7 +134,7 @@ class Gprs(module.AbstractModule):
 
     def error(self):
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO"))
+        label.label_set(_("Couldn't connect to FSO or phonefsod"))
         label.show()
         self.main.pack_start(label)
 
@@ -248,12 +248,12 @@ class Gprs(module.AbstractModule):
 
         self.main = elementary.Box(self.window)
 
-        self.phonefso = getDbusObject(self.dbus,
+        try:
+            self.phonefso = getDbusObject(self.dbus,
                     "org.shr.phonefso",
                     "/org/shr/phonefso/Usage",
                     "org.shr.phonefso.Usage")
 
-        try:
             if not self.wizard:
                 # GSM.PDP DBus interface
                 self.dbusObj = getDbusObject(self.dbus,
