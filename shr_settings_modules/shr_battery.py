@@ -7,8 +7,8 @@ import gettext
 
 SYSNODE = {
     # "short name"  : ("/sys/node/location", scaling_factor = 1)
-    "charge_limit"  : ("/sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/chg_curlim", 1),
-    "usb_limit"     : ("/sys/class/i2c-adapter/i2c-0/0-0073/pcf50633-mbc/usb_curlim", 1),
+    "charge_limit"  : ("/sys/devices/platform/s3c2440-i2c/i2c-0/0-0073/pcf50633-mbc.0/chg_curlim", 1),
+    "usb_limit"     : ("/sys/devices/platform/s3c2440-i2c/i2c-0/0-0073/pcf50633-mbc.0/usb_curlim", 1),
     "capacity"      : ("/sys/class/power_supply/battery/capacity", 1),
     "current"       : ("/sys/class/power_supply/battery/current_now", 1e-3),
     "temperature"   : ("/sys/class/power_supply/battery/temp", 1e-1),
