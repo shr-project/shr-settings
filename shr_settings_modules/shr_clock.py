@@ -31,7 +31,7 @@ class Clock(module.AbstractModule):
     def clockset(self, obj, *args, **kargs):
 	    if self.editable:
                 now = datetime.datetime.now()
-                os.system("busybox date "+str(now.year)+str(now.month).zfill(2)+str(now.day).zfill(2)+str(self.cl.time_get()[0]).zfill(2)+str(self.cl.time_get()[1]).zfill(2)+"."+str(self.cl.time_get()[2]).zfill(2))
+                os.system("busybox date \""+str(now.year)+"-"+str(now.month).zfill(2)+"-"+str(now.day).zfill(2)+" "+str(self.cl.time_get()[0]).zfill(2)+":"+str(self.cl.time_get()[1]).zfill(2)+":"+str(self.cl.time_get()[2]).zfill(2)+"\" && hwclock -w")
                 self.cl.edit_set(False)
                 obj.label_set(_("Set time"))
                 self.editable = False
