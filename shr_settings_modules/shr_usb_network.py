@@ -42,8 +42,9 @@ class InterfaceLabelBox(elementary.Box):
 
         super(InterfaceLabelBox, self).__init__(win)
         self.horizontal_set(True)
-
-        self.size_hint_align_set(0.0, 0.0)
+        
+        self.size_hint_weight_set(1.0, 0.0)
+        self.size_hint_align_set(-1.0, 0.0)
 
         self.window = win
         self.label  = label
@@ -51,14 +52,25 @@ class InterfaceLabelBox(elementary.Box):
 
         self.ifaceLabel = elementary.Label(self.window)
         self.ifaceLabel.label_set(self.label)
+        self.ifaceLabel.size_hint_align_set(-1.0, 0.0)
         self.ifaceLabel.show()
 
         self.ifaceStatus = elementary.Label(self.window)
+        self.ifaceStatus.size_hint_align_set(-1.0, 0.0)
+        self.ifaceStatus.size_hint_weight_set(1.0, 0.0)
         self.ifaceStatus.label_set(self.value)
         self.ifaceStatus.show()
 
+
+        self.ifaceStatusFrame = elementary.Frame(self.window)
+        self.ifaceStatusFrame.size_hint_align_set(-1.0, 0.0)
+        self.ifaceStatusFrame.size_hint_weight_set(1.0, 0.0)
+        self.ifaceStatusFrame.style_set("outdent_top")
+        self.ifaceStatusFrame.content_set(self.ifaceStatus)
+        self.ifaceStatusFrame.show()
+
         self.pack_start(self.ifaceLabel)
-        self.pack_end(self.ifaceStatus)
+        self.pack_end(self.ifaceStatusFrame)
         self.show()
 
 
@@ -217,7 +229,7 @@ class UsbNetwork(module.AbstractModule):
         self.entryUSB0 = InterfaceEntryBox(self.window, _(self.iface+" IP: "), self.get_ip_address())
         self.main.pack_end(self.entryUSB0)
 
-        self.macUSB0 = InterfaceEntryBox(self.window, _(self.iface+" MAC Address: "), self.get_mac_address())
+        self.macUSB0 = InterfaceLabelBox(self.window, _(self.iface+" MAC Address: "), self.get_mac_address())
         self.main.pack_end(self.macUSB0)
 
         bt = elementary.Button(self.window)
