@@ -76,7 +76,7 @@ class Timezone(module.AbstractModule):
             tzfile.close()
             return line
         except:
-            print "could not open "+tzf+" for reading"
+            print "could not open "+self.tzf+" for reading"
             return "unknown"
     
     def setNewTimezone(self, timezone):
