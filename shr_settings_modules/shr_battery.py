@@ -216,7 +216,7 @@ class Battery(module.AbstractModule):
 
     def switchToDumb(self, obj, *args, **kwargs):
         write_file('/sys/bus/platform/drivers/bq27000-battery/unbind', 'bq27000-battery.0')
-        os.system('modprobe gta01_battery')
+        os.system('modprobe platform_battery')
         obj.delete()
         self.update()
 
