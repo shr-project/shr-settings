@@ -95,7 +95,8 @@ class NTP(module.AbstractModule):
 
     def btClicked(self, obj, *args, **kwargs):
         self.SetNTPServer(self.NTPserver.entry_get())
-        os.system("ntpclient -s -h "+self.NTPserver.entry_get()+" && hwclock -w")
+        #os.system("ntpclient -s -h "+self.NTPserver.entry_get()+" && hwclock -w")
+        os.system("ntpd  -q -n -p "+self.NTPserver.entry_get()+" && hwclock -w")
 
     def createButton(self):
         self.bt = elementary.Button(self.window)
