@@ -37,6 +37,9 @@ __date__ ="$2008-12-27 21:53:00$"
 #=================
 """
 
+import elementary
+from functools import partial
+
 # Locale support
 import gettext
 
@@ -137,7 +140,22 @@ class AbstractModule(object):
         """ called when we hide the window, stop GUI updates here """
         pass
 
-    def bool_question_dialog(self, action, text, *args, **kargs):
+
+    def deleteDialog(self, obj, *args, **kargs):
+        obj.delete()
+
+
+    """
+    action example function to handle the user answer:
+
+        def action(self, answer, *args, **kargs):
+        if answer==1:
+            print "you clicked: yes"
+        else:
+            print "you clicked: no
+    """
+
+    def QuestionDialog(self, action, text, *args, **kargs):
         dia = elementary.InnerWindow(self.window)
         self.window.resize_object_add(dia)
         frame = elementary.Frame(self.window)
@@ -163,14 +181,59 @@ class AbstractModule(object):
         yes = elementary.Button(self.window)
         yes.label_set(_('Yes'))
         yes.show()
-        yes._callback_add('clicked', partial(action, 1))
+        if hasattr(action, '__call__'):
+            yes._callback_add('clicked', partial(action, 1))
+        yes._callback_add('clicked', partial(self.deleteDialog, dia))
         hbox.pack_start(yes)
 
-        no = elementary.Button(self.win)
+        no = elementary.Button(self.window)
         no.label_set(_('No'))
         no.show()
-        no._callback_add('clicked', partial(action, 0))
+        if hasattr(action, '__call__'):
+            no._callback_add('clicked', partial(action, 0))
+        no._callback_add('clicked', partial(self.deleteDialog, dia))
         hbox.pack_end(no)
+
+        dia.show()
+        dia.activate()
+
+
+    """
+    action example function to handle the user answer:
+
+        def action(self, *args, **kargs):
+            print "user ack"
+    """
+    def InfoDialog(self, action, text, *args, **kargs):
+        dia = elementary.InnerWindow(self.window)
+        self.window.resize_object_add(dia)
+        frame = elementary.Frame(self.window)
+        dia.style_set('minimal_vertical')
+        dia.scale_set(1.0)
+        frame.label_set(_('Information'))
+        dia.content_set(frame)
+        frame.show()
+        box = elementary.Box(self.window)
+        frame.content_set(box)
+        box.show()
+        label = elementary.AnchorBlock(self.window)
+        label.size_hint_align_set(-1.0, -1.0)
+        label.size_hint_weight_set(1.0, 0.0)
+        label.text_set(text)
+        label.show()
+        box.pack_start(label)
+        hbox = elementary.Box(self.window)
+        hbox.horizontal_set(True)
+        box.pack_end(hbox)
+        hbox.show()
+
+        ok = elementary.Button(self.window)
+        ok.label_set(_('Ok'))
+        ok.show()
+        if hasattr(action, '__call__'):
+            ok._callback_add('clicked', action)
+        ok._callback_add('clicked', partial(self.deleteDialog, dia))
+        hbox.pack_start(ok)
 
         dia.show()
         dia.activate()
