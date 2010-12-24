@@ -1,5 +1,6 @@
 import elementary
 import module
+from helper import ElmEntryBox
 import os
 
 
@@ -11,56 +12,6 @@ try:
     _ = cat.gettext
 except IOError:
     _ = lambda x: x
-
-
-
-class EntryBox(elementary.Box):
-    """
-    Class for Interface info entry
-    """
-
-    def entry_get(self):
-        return self.Entry.entry_get()
-
-    def entry_set(self, value):
-        return self.Entry.entry_set(value)
-
-    def __init__(self, win, label, value):
-        """
-        """
-
-        super(EntryBox, self).__init__(win)
-        self.horizontal_set(True)
-
-        self.size_hint_weight_set(1.0, 0.0)
-        self.size_hint_align_set(-1.0, 0.0)
-
-        self.window = win
-        self.label  = label
-        self.value  = value
-
-        self.Label = elementary.Label(self.window)
-        self.Label.size_hint_align_set(-1.0, 0.0)
-        self.Label.label_set(self.label)
-        self.Label.show()
-
-        self.Entry = elementary.Entry(self.window)
-        self.Entry.size_hint_align_set(-1.0, 0.0)
-        self.Entry.size_hint_weight_set(1.0, 0.0)
-        self.Entry.single_line_set(True)
-        self.Entry.entry_set(self.value)
-        self.Entry.show()
-
-        self.EntryFrame = elementary.Frame(self.window)
-        self.EntryFrame.size_hint_align_set(-1.0, 0.0)
-        self.EntryFrame.size_hint_weight_set(1.0, 0.0)
-        self.EntryFrame.style_set("outdent_top")
-        self.EntryFrame.content_set(self.Entry)
-        self.EntryFrame.show()
-
-        self.pack_start(self.Label)
-        self.pack_end(self.EntryFrame)
-        self.show()
 
 
 class NTP(module.AbstractModule):
@@ -114,7 +65,7 @@ class NTP(module.AbstractModule):
         if server=="unknown":
             server="europe.pool.ntp.org"
 
-        self.NTPserver = EntryBox(self.window, _("NTP Server: "), server)
+        self.NTPserver = ElmEntryBox(self.window, _("NTP Server: "), server)
         self.main.pack_end(self.NTPserver)
         self.createButton()
         return self.main

@@ -8,6 +8,8 @@ import fcntl
 import struct
 
 
+from helper import ElmEntryBox,ElmLabelBox
+
 
 
 # Locale support
@@ -21,108 +23,6 @@ try:
     _ = cat.gettext
 except IOError:
     _ = lambda x: x
-
-
-
-
-
-class InterfaceLabelBox(elementary.Box):
-    """
-    Class for HW ADDRESS info
-    """
-    def label_get(self):
-        return self.ifaceStatus.label_get()
-
-    def label_set(self, value):
-        return self.ifaceStatus.label_set(value.title())
-
-    def __init__(self, win, label, value):
-        """
-        """
-
-        super(InterfaceLabelBox, self).__init__(win)
-        self.horizontal_set(True)
-        
-        self.size_hint_weight_set(1.0, 0.0)
-        self.size_hint_align_set(-1.0, 0.0)
-
-        self.window = win
-        self.label  = label
-        self.value  = value
-
-        self.ifaceLabel = elementary.Label(self.window)
-        self.ifaceLabel.label_set(self.label)
-        self.ifaceLabel.size_hint_align_set(-1.0, 0.0)
-        self.ifaceLabel.show()
-
-        self.ifaceStatus = elementary.Label(self.window)
-        self.ifaceStatus.size_hint_align_set(-1.0, 0.0)
-        self.ifaceStatus.size_hint_weight_set(1.0, 0.0)
-        self.ifaceStatus.label_set(self.value)
-        self.ifaceStatus.show()
-
-
-        self.ifaceStatusFrame = elementary.Frame(self.window)
-        self.ifaceStatusFrame.size_hint_align_set(-1.0, 0.0)
-        self.ifaceStatusFrame.size_hint_weight_set(1.0, 0.0)
-        self.ifaceStatusFrame.style_set("outdent_top")
-        self.ifaceStatusFrame.content_set(self.ifaceStatus)
-        self.ifaceStatusFrame.show()
-
-        self.pack_start(self.ifaceLabel)
-        self.pack_end(self.ifaceStatusFrame)
-        self.show()
-
-
-class InterfaceEntryBox(elementary.Box):
-    """
-    Class for Interface info entry
-    """
-
-    def entry_get(self):
-        return self.ifaceEntry.entry_get()
-
-    def entry_set(self, value):
-        return self.ifaceEntry.entry_set(value)
-
-    def __init__(self, win, label, value):
-        """
-        """
-
-        super(InterfaceEntryBox, self).__init__(win)
-        self.horizontal_set(True)
-
-        self.size_hint_weight_set(1.0, 0.0)
-        self.size_hint_align_set(-1.0, 0.0)
-
-        self.window = win
-        self.label  = label
-        self.value  = value
-
-        self.ifaceLabel = elementary.Label(self.window)
-        self.ifaceLabel.size_hint_align_set(-1.0, 0.0)
-        self.ifaceLabel.label_set(self.label)
-        self.ifaceLabel.show()
-
-        self.ifaceEntry = elementary.Entry(self.window)
-        self.ifaceEntry.size_hint_align_set(-1.0, 0.0)
-        self.ifaceEntry.size_hint_weight_set(1.0, 0.0)
-        self.ifaceEntry.single_line_set(True)
-        self.ifaceEntry.entry_set(self.value)
-        self.ifaceEntry.show()
-
-        self.ifaceEntryFrame = elementary.Frame(self.window)
-        self.ifaceEntryFrame.size_hint_align_set(-1.0, 0.0)
-        self.ifaceEntryFrame.size_hint_weight_set(1.0, 0.0)
-        self.ifaceEntryFrame.style_set("outdent_top")
-        self.ifaceEntryFrame.content_set(self.ifaceEntry)
-        self.ifaceEntryFrame.show()
-
-        self.pack_start(self.ifaceLabel)
-        self.pack_end(self.ifaceEntryFrame)
-        self.show()
-
-
 
 
 
@@ -207,7 +107,7 @@ class UsbNetwork(module.AbstractModule):
 
        self.updating = True
 
-       ip = self.entryUSB0.ifaceEntry.entry_get()
+       ip = self.entryUSB0.Entry.entry_get()
        print "Setting ip on interface "+ self.iface + " to "+ ip +"\n"
        if self.save_ip_address(ip)==True:
            print "IP saved successfully to /etc/network/interfaces\n"
@@ -226,10 +126,10 @@ class UsbNetwork(module.AbstractModule):
     def createView(self):
         self.main = elementary.Box(self.window)
 
-        self.entryUSB0 = InterfaceEntryBox(self.window, _(self.iface+" IP: "), self.get_ip_address())
+        self.entryUSB0 = ElmEntryBox(self.window, _(self.iface+" IP: "), self.get_ip_address())
         self.main.pack_end(self.entryUSB0)
 
-        self.macUSB0 = InterfaceLabelBox(self.window, _(self.iface+" MAC Address: "), self.get_mac_address())
+        self.macUSB0 = ElmLabelBox(self.window, _(self.iface+" MAC Address: "), self.get_mac_address())
         self.main.pack_end(self.macUSB0)
 
         bt = elementary.Button(self.window)

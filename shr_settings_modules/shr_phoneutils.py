@@ -1,5 +1,6 @@
 import phoneutils, elementary, module
 from ecore import timer_add
+from helper import ElmEntryBox
 import re, dbus
 
 # Locale support
@@ -15,53 +16,7 @@ __author__ = "soltys"
 
 
 
-class PhoneUtilsEntryBox(elementary.Box):
-	"""
-	Class for libphoneutils entry
-	"""
 
-	def entry_get(self):
-		return self.phoneutilsEntry.entry_get()
-					
-	def entry_set(self, value):
-		return self.phoneutilsEntry.entry_set(value)
-									
-	def __init__(self, win, label, value):
-		"""
-		"""
-															
-		super(PhoneUtilsEntryBox, self).__init__(win)
-		self.horizontal_set(True)
-
-		self.size_hint_weight_set(1.0, 0.0)
-		self.size_hint_align_set(-1.0, 0.0)
-														
-		self.window = win
-		self.label  = label
-		self.value  = value
-																	
-		self.phoneutilsLabel = elementary.Label(self.window)
-		self.phoneutilsLabel.size_hint_align_set(-1.0, 0.0)
-		self.phoneutilsLabel.label_set(self.label)
-		self.phoneutilsLabel.show()
-										
-		self.phoneutilsEntry = elementary.Entry(self.window)
-		self.phoneutilsEntry.single_line_set(True)
-		self.phoneutilsEntry.size_hint_weight_set(1.0, 0.0)
-		self.phoneutilsEntry.size_hint_align_set(-1.0, 0.0)
-		self.phoneutilsEntry.entry_set(self.value)
-		self.phoneutilsEntry.show()
-
-		self.phoneutilsEntryFrame = elementary.Frame(self.window)
-		self.phoneutilsEntryFrame.style_set("outdent_top")
-		self.phoneutilsEntryFrame.size_hint_weight_set(1.0, 0.0)
-		self.phoneutilsEntryFrame.size_hint_align_set(-1.0, 0.0)
-		self.phoneutilsEntryFrame.content_set(self.phoneutilsEntry)
-		self.phoneutilsEntryFrame.show()
-
-		self.pack_start(self.phoneutilsLabel)
-		self.pack_end(self.phoneutilsEntryFrame)
-		self.show()
 
 
 class Phoneutils(module.AbstractModule):
@@ -228,10 +183,10 @@ class Phoneutils(module.AbstractModule):
 			except:
 				print "dbus fail"
 
-		self.entryIP = PhoneUtilsEntryBox(self.window, _("Your international prefix: "), self.ip)
-		self.entryNP = PhoneUtilsEntryBox(self.window, _("Your national prefix: "), self.np)
-		self.entryCC = PhoneUtilsEntryBox(self.window, _("Your country code: "), self.cc)
-		self.entryAC = PhoneUtilsEntryBox(self.window, _("Your area/network code: "), self.ac)
+		self.entryIP = ElmEntryBox(self.window, _("Your international prefix: "), self.ip)
+		self.entryNP = ElmEntryBox(self.window, _("Your national prefix: "), self.np)
+		self.entryCC = ElmEntryBox(self.window, _("Your country code: "), self.cc)
+		self.entryAC = ElmEntryBox(self.window, _("Your area/network code: "), self.ac)
 
 		self.main.pack_end(self.entryIP)
 		self.main.pack_end(self.entryNP)

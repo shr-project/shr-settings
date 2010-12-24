@@ -1,4 +1,5 @@
 import elementary
+from helper import ElmLabelBox
 import module
 import os
 
@@ -14,53 +15,6 @@ try:
     _ = cat.gettext
 except IOError:
     _ = lambda x: x
-    
-class LabelBox(elementary.Box):
-    """
-    Class for HW ADDRESS info
-    """
-    def label_get(self):
-        return self.Status.label_get()
-
-    def label_set(self, value):
-        return self.Status.label_set(value.title())
-
-    def __init__(self, win, label, value):
-        """
-        """
-
-        super(LabelBox, self).__init__(win)
-        self.horizontal_set(True)
-        
-        self.size_hint_weight_set(1.0, 0.0)
-        self.size_hint_align_set(-1.0, 0.0)
-
-        self.window = win
-        self.label  = label
-        self.value  = value
-
-        self.Label = elementary.Label(self.window)
-        self.Label.label_set(self.label)
-        self.Label.size_hint_align_set(-1.0, 0.0)
-        self.Label.show()
-
-        self.Status = elementary.Label(self.window)
-        self.Status.size_hint_align_set(-1.0, 0.0)
-        self.Status.size_hint_weight_set(1.0, 0.0)
-        self.Status.label_set(self.value)
-        self.Status.show()
-
-
-        self.StatusFrame = elementary.Frame(self.window)
-        self.StatusFrame.size_hint_align_set(-1.0, 0.0)
-        self.StatusFrame.size_hint_weight_set(1.0, 0.0)
-        self.StatusFrame.style_set("outdent_top")
-        self.StatusFrame.content_set(self.Status)
-        self.StatusFrame.show()
-
-        self.pack_start(self.Label)
-        self.pack_end(self.StatusFrame)
-        self.show()
 
     
 class Timezone(module.AbstractModule):
@@ -158,7 +112,7 @@ class Timezone(module.AbstractModule):
         
     def createView(self):
         self.main = elementary.Box(self.window)
-        self.CurrentTZ = LabelBox(self.window, _("Current Timezone: "), self.GetCurrentTimezone())
+        self.CurrentTZ = ElmLabelBox(self.window, _("Current Timezone: "), self.GetCurrentTimezone())
         self.main.pack_end(self.CurrentTZ)
         self.createButton()
         return self.main

@@ -1,5 +1,6 @@
 import elementary
 import module
+from helper import ElmEntryBox,ElmLabelBox
 
 import dbus
 
@@ -37,89 +38,6 @@ def getDbusObject (bus, busname , objectpath , interface):
         return dbus.Interface(dbusObject, dbus_interface=interface)
 
 
-class GPRSLabelBox(elementary.Box):
-    """
-    Class for GPRS connection status
-    """
-    def label_get(self):
-        return self.gprsStatus.label_get()
-
-    def label_set(self, value):
-        return self.gprsStatus.label_set(value.title())
-
-    def __init__(self, win, label, value):
-        """
-        """
-
-        super(GPRSLabelBox, self).__init__(win)
-        self.horizontal_set(True)
-
-        self.size_hint_align_set(0.0, 0.0)
-
-        self.window = win
-        self.label  = label
-        self.value  = value
-
-        self.gprsLabel = elementary.Label(self.window)
-        self.gprsLabel.label_set(self.label)
-        self.gprsLabel.show()
-
-        self.gprsStatus = elementary.Label(self.window)
-        self.gprsStatus.label_set(self.value)
-        self.gprsStatus.show()
-
-        self.pack_start(self.gprsLabel)
-        self.pack_end(self.gprsStatus)
-        self.show()
-
-
-class GPRSEntryBox(elementary.Box):
-    """
-    Class for GPRS info entry
-    """
-
-    def entry_get(self):
-        return self.gprsEntry.entry_get()
-
-    def entry_set(self, value):
-        return self.gprsEntry.entry_set(value)
-
-    def __init__(self, win, label, value):
-        """
-        """
-
-        super(GPRSEntryBox, self).__init__(win)
-        self.horizontal_set(True)
-
-        self.size_hint_weight_set(1.0, 0.0)
-        self.size_hint_align_set(-1.0, 0.0)
-
-        self.window = win
-        self.label  = label
-        self.value  = value
-
-        self.gprsLabel = elementary.Label(self.window)
-        self.gprsLabel.size_hint_align_set(-1.0, 0.0)
-        self.gprsLabel.label_set(self.label)
-        self.gprsLabel.show()
-
-        self.gprsEntry = elementary.Entry(self.window)
-        self.gprsEntry.size_hint_align_set(-1.0, 0.0)
-        self.gprsEntry.size_hint_weight_set(1.0, 0.0)
-        self.gprsEntry.single_line_set(True)
-        self.gprsEntry.entry_set(self.value)
-        self.gprsEntry.show()
-
-        self.grpsEntryFrame = elementary.Frame(self.window)
-        self.grpsEntryFrame.size_hint_align_set(-1.0, 0.0)
-        self.grpsEntryFrame.size_hint_weight_set(1.0, 0.0)
-        self.grpsEntryFrame.style_set("outdent_top")
-        self.grpsEntryFrame.content_set(self.gprsEntry)
-        self.grpsEntryFrame.show()
-
-        self.pack_start(self.gprsLabel)
-        self.pack_end(self.grpsEntryFrame)
-        self.show()
 
 
 class Gprs(module.AbstractModule):
@@ -268,11 +186,11 @@ class Gprs(module.AbstractModule):
             self.apn, self.login, self.password = self.loadConnectionData()
 
             # connection_name, apn, login, password entries
-            self.entryAPN       = GPRSEntryBox(self.window, _("Your APN: "), self.apn)
-            self.entryLogin     = GPRSEntryBox(self.window, _("Your login: "), self.login)
-            self.entryPassword  = GPRSEntryBox(self.window, _("Your password: "), self.password)
+            self.entryAPN       = ElmEntryBox(self.window, _("Your APN: "), self.apn)
+            self.entryLogin     = ElmEntryBox(self.window, _("Your login: "), self.login)
+            self.entryPassword  = ElmEntryBox(self.window, _("Your password: "), self.password)
             if not self.wizard:
-                self.labelStatus    = GPRSLabelBox(self.window, _("Connection status: "),_("UNKNOWN"))
+                self.labelStatus    = ElmLabelBox(self.window, _("Connection status: "),_("UNKNOWN"))
                 #self.laTransferred = self.newLabel(_("Transferred bytes (RX/TX): UNKNOWN"))
 
             self.main.pack_end(self.entryAPN)

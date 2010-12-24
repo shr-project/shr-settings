@@ -136,3 +136,41 @@ class AbstractModule(object):
     def stopUpdate(self):
         """ called when we hide the window, stop GUI updates here """
         pass
+
+    def bool_question_dialog(self, action, text, *args, **kargs):
+        dia = elementary.InnerWindow(self.window)
+        self.window.resize_object_add(dia)
+        frame = elementary.Frame(self.window)
+        dia.style_set('minimal_vertical')
+        dia.scale_set(1.0)
+        frame.label_set(_('Warning'))
+        dia.content_set(frame)
+        frame.show()
+        box = elementary.Box(self.window)
+        frame.content_set(box)
+        box.show()
+        label = elementary.AnchorBlock(self.window)
+        label.size_hint_align_set(-1.0, -1.0)
+        label.size_hint_weight_set(1.0, 0.0)
+        label.text_set(text)
+        label.show()
+        box.pack_start(label)
+        hbox = elementary.Box(self.window)
+        hbox.horizontal_set(True)
+        box.pack_end(hbox)
+        hbox.show()
+
+        yes = elementary.Button(self.window)
+        yes.label_set(_('Yes'))
+        yes.show()
+        yes._callback_add('clicked', partial(action, 1))
+        hbox.pack_start(yes)
+
+        no = elementary.Button(self.win)
+        no.label_set(_('No'))
+        no.show()
+        no._callback_add('clicked', partial(action, 0))
+        hbox.pack_end(no)
+
+        dia.show()
+        dia.activate()
