@@ -18,7 +18,6 @@ class NTP(module.AbstractModule):
     name = _("NTP settings")
     ntpconf = "/etc/ntp.conf"
 
-
     def GetNTPServer(self):
         server="unknown"
         try:

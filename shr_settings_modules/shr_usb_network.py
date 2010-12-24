@@ -102,7 +102,7 @@ class UsbNetwork(module.AbstractModule):
     def setIP(self, obj, *args, **kwargs):
 
        if self.updating == True:
-           print "Please, wait for the last ip update to complete before trying another time\n"
+           self.InfoDialog(None, "Please, wait for the last ip update to complete before trying another time")
            return #don't update if there's a callback still running
 
        self.updating = True
@@ -116,7 +116,7 @@ class UsbNetwork(module.AbstractModule):
        print "Running ifconfig... "
        ret = os.system("ifconfig "+self.iface+" "+ip)
        if ret:
-           print "Error executing: ifconfig "+self.iface+" "+ip+"\n"
+           self.InfoDialog("Error executing: ifconfig "+self.iface+" "+ip)
        else:
            print "Done\n"
 

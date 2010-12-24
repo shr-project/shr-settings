@@ -49,59 +49,29 @@ class PhoneuiTheme(module.AbstractModule):
             btn.size_hint_align_set(-1.0, -1.0)
             btn.size_hint_weight_set(1.0, 0.0)
             btn.show()
-            btn._callback_add('clicked', self.phoneui_restart)
+            #btn._callback_add('clicked', self.phoneui_restart)
+            btn._callback_add('clicked',
+                partial(self.QuestionDialog, self.handle_question,
+                _('Stopping phoneuid will stop all phone user interface related functions. Do you really want to proceed?')
+                )
+            )
             self.main.pack_end(btn)
             self.hselCurrentTheme()
+
+    def handle_question(self, answer, *args, **kargs):
+        if answer==1:
+            self.restart_phoneui()
 
     def hselCurrentTheme(self):
         self.hoverSel.label_set(_("Themes (%s)") % self.current_theme)
 
 
-    def close_phoneui(self, dia, obj, *args, **kwargs):
-        os.system('killall phoneuid; /usr/bin/phoneui-wrapper.sh &')
-        self.closedia(dia)
-        obj.delete()
-
-    def closedia(self, dia, *args, **kwargs):
-        dia.delete()
-
-    def phoneui_restart(self, obj, *args, **kargs):
-        dia = elementary.InnerWindow(self.window)
-        self.window.resize_object_add(dia)
-        frame = elementary.Frame(self.window)
-        dia.style_set('minimal_vertical')
-        dia.scale_set(1.0)
-        frame.label_set(_('Are you sure?'))
-        dia.content_set(frame)
-        frame.show()
-        box = elementary.Box(self.window)
-        frame.content_set(box)
-        box.show()
-        label = elementary.AnchorBlock(self.window)
-        label.size_hint_align_set(-1.0, -1.0)
-        label.size_hint_weight_set(1.0, 0.0)
-        label.text_set(_('Stopping phoneuid will stop all phone user interface related functions. Do you really want to proceed?'))
-        label.show()
-        box.pack_start(label)
-        hbox = elementary.Box(self.window)
-        hbox.horizontal_set(True)
-        box.pack_end(hbox)
-        hbox.show()
-
-        yes = elementary.Button(self.window)
-        yes.label_set(_('Yes'))
-        yes.show()
-        yes._callback_add('clicked', partial(self.close_phoneui, dia, obj))
-        hbox.pack_start(yes)
-
-        no = elementary.Button(self.window)
-        no.label_set(_('No'))
-        no.show()
-        no._callback_add('clicked', partial(self.closedia, dia))
-        hbox.pack_end(no)
-
-        dia.show()
-        dia.activate()
+    def restart_phoneui(self):
+        ret = os.system('killall phoneuid; /usr/bin/phoneui-wrapper.sh &')
+        if ret:
+            self.InfoDialog(None, "Error ["+str(ret)+"] happened while trying to restart phoneui")
+        else:
+            self.InfoDialog(None, _("Phoneui restart process ended without errors"))
 
     def listThemes(self):
         """

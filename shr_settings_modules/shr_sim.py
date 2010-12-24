@@ -22,7 +22,7 @@ class SimMstateContener:
             print "SimMstateContener can connect to dbus"
         except:
             self.state = 0
-            print "SimMstateContener can't connect to dbus"
+            self.InfoDialog(None, "SimMstateContener can't connect to dbus")
 
     def getDbusState(self):
         return self.state

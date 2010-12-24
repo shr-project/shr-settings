@@ -30,7 +30,11 @@ class Elementary(module.AbstractModule):
             btn.size_hint_align_set(-1.0, -1.0)
             btn.size_hint_weight_set(1.0, 0.0)
             btn.show()
-            btn._callback_add('clicked', self.xrestart)
+            btn._callback_add('clicked',
+                partial(self.QuestionDialog, self.handle_question,
+                _('Restarting X server will close running applications. Do you really want to proceed?')
+                )
+            )
             self.main.pack_end(btn)
             self.changed = True
 
@@ -67,51 +71,14 @@ class Elementary(module.AbstractModule):
             self.engine.value_set(0)
         self.slider.value = int(self.keys['ELM_FINGER_SIZE'])
 
-    def closex(self, dia, obj, *args, **kwargs):
+
+    def handle_question(self, answer, *args, **kargs):
+        if answer==1:
+            self.closex()
+
+
+    def closex(self):
         os.system('. /etc/profile.d/elementary.sh; /etc/init.d/xserver-nodm restart &')
-        self.closedia(dia)
-        obj.delete()
-
-    def closedia(self, dia, *args, **kwargs):
-        dia.delete()
-
-    def xrestart(self, obj, *args, **kargs):
-        dia = elementary.InnerWindow(self.window)
-        self.window.resize_object_add(dia)
-        frame = elementary.Frame(self.window)
-        dia.style_set('minimal_vertical')
-        dia.scale_set(1.0)
-        frame.label_set(_('Are you sure?'))
-        dia.content_set(frame)
-        frame.show()
-        box = elementary.Box(self.window)
-        frame.content_set(box)
-        box.show()
-        label = elementary.AnchorBlock(self.window)
-        label.size_hint_align_set(-1.0, -1.0)
-        label.size_hint_weight_set(1.0, 0.0)
-        label.text_set(_('Restarting X server will close running applications. Do you really want to proceed?'))
-        label.show()
-        box.pack_start(label)
-        hbox = elementary.Box(self.window)
-        hbox.horizontal_set(True)
-        box.pack_end(hbox)
-        hbox.show()
-
-        yes = elementary.Button(self.window)
-        yes.label_set(_('Yes'))
-        yes.show()
-        yes._callback_add('clicked', partial(self.closex, dia, obj))
-        hbox.pack_start(yes)
-
-        no = elementary.Button(self.window)
-        no.label_set(_('No'))
-        no.show()
-        no._callback_add('clicked', partial(self.closedia, dia))
-        hbox.pack_end(no)
-
-        dia.show()
-        dia.activate()
 
     def OnOffClick(self, obj, *args, **kargs):
         if obj.value_get():
