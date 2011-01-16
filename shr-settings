@@ -34,7 +34,7 @@ except IOError:
     _ = lambda x: x
 
 DIRS = [	[_("Phone"),"icon_phone.png",			[ 'shr_gsm.Gsm', 'shr_call.Call', 'shr_phoneutils.Phoneutils', 'shr_simauth.SimAuth', 'shr_sim.Sim' ] ],
-		[_("Profiles"),"icon_profiles.png",		[ 'shr_profile.Profile', 'shr_currentprofile.CurrentProfile' ] ],
+		[_("Profiles"),"icon_profiles.png",		[ 'shr_profile.Profile', 'shr_currentprofile.CurrentProfile', 'shr_alsa_scenarios.AlsaScenarios' ] ],
 		[_("Connectivity"),"icon_connectivity.png",	[ 'shr_wifi.Wifi', 'shr_gprs.Gprs', 'shr_usb.Usb', 'shr_usb_network.UsbNetwork', 'shr_bt.Bt' ] ],
 		[_("Power"),"icon_power.png",			[ 'shr_battery.Battery', 'shr_display.Display', 'shr_pm.Pm' , 'shr_device_timeouts.Timeouts' ] ],
 		[_("Appearance"),"icon_appearance.png",		[ 'shr_phoneui_theme.PhoneuiTheme', 'shr_elementary.Elementary', 'shr_splash.Splash' ] ],
