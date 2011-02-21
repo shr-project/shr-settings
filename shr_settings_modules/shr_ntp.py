@@ -17,6 +17,7 @@ except IOError:
 class NTP(module.AbstractModule):
     name = _("NTP settings")
     ntpconf = "/etc/ntp.conf"
+    rcsconf = "/etc/default/rcS"
 
     def GetNTPServer(self):
         server="unknown"
@@ -44,9 +45,29 @@ class NTP(module.AbstractModule):
 
 
     def btClicked(self, obj, *args, **kwargs):
+        utcmode=False
+        try:
+            rcsfile = open(self.rcsconf, "r")
+            while True:
+                line = rcsfile.readline()
+                if line=="": #EOF
+                    break
+
+                li = line.strip('\t\n').split('=')
+                if li[0]=="UTC":
+                    if li[1]=="yes":
+                        utcmode=True
+                    break
+            rcsfile.close()
+        except:
+            print "could not open "+self.ntpconf+" for reading"
+
         self.SetNTPServer(self.NTPserver.entry_get())
         #os.system("ntpclient -s -h "+self.NTPserver.entry_get()+" && hwclock -w")
-        os.system("ntpd  -q -n -p "+self.NTPserver.entry_get()+" && hwclock -w")
+        if utcmode==True:
+            os.system("ntpd  -q -n -p "+self.NTPserver.entry_get()+" && hwclock -uw")
+        else:
+            os.system("ntpd  -q -n -p "+self.NTPserver.entry_get()+" && hwclock -w")
 
     def createButton(self):
         self.bt = elementary.Button(self.window)
