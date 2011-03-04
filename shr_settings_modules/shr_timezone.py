@@ -47,6 +47,7 @@ class Timezone(module.AbstractModule):
         ret = os.system("ln  -s %s /etc/localtime" % os.path.join(self.tzdir,timezone))
         if ret:
             self.InfoDialog(None, "error linking timezone to /etc/localtime")
+	self.CurrentTZ.label_set(self.GetCurrentTimezone())
             
             
     def receivedTimezone(self, timezone, obj, *args, **kargs):
