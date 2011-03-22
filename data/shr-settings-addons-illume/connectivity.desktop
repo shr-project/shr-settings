@@ -3,6 +3,7 @@ Version=1.0
 Name=Connectivity settings
 Name[es]=Ajustes de conectividad
 Name[gl]=Axustes de conectividade
+Name[sv]=Inställningar för anslutbarhet
 StartupNotify=true
 Exec=shr-settings Connectivity shr_wifi.Wifi shr_gprs.Gprs shr_usb.Usb shr_bt.Bt
 Terminal=false

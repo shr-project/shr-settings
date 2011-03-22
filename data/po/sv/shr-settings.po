@@ -1,0 +1,1097 @@
+# Swedish translation for shr-settings.
+# This file is put in the public domain.
+# John Gustafsson <jamminjohn@users.sourceforge.net>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shr-settings\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-03-22 21:19+0100\n"
+"PO-Revision-Date: 2011-03-22 23:54+0100\n"
+"Last-Translator: John Gustafsson <jamminjohn@users.sourceforge.net>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: shr_settings_modules/shr_elementary.py:19
+msgid "Elementary settings"
+msgstr "Inställningar för Elementary"
+
+#: shr_settings_modules/shr_elementary.py:29
+msgid "Restart X server"
+msgstr "Starta om X-servern"
+
+#: shr_settings_modules/shr_elementary.py:35
+msgid "Restarting X server will close running applications. Do you really want to proceed?"
+msgstr "Omstart av X-servern kommer stänga program som körs. Vill du verkligen fortsätta?"
+
+#: shr_settings_modules/shr_elementary.py:67
+#: shr_settings_modules/shr_splash.py:65
+#: shr_settings_modules/shr_phoneui_theme.py:66
+#, python-format
+msgid "Themes (%s)"
+msgstr "Teman (%s)"
+
+#: shr_settings_modules/shr_elementary.py:133
+msgid "Engine:"
+msgstr "Motor:"
+
+#: shr_settings_modules/shr_elementary.py:141
+msgid "x11"
+msgstr "x11"
+
+#: shr_settings_modules/shr_elementary.py:149
+msgid "x11-16"
+msgstr "x11-16"
+
+#: shr_settings_modules/shr_elementary.py:164
+msgid "Finger size "
+msgstr "Fingerstorlek "
+
+#: shr_settings_modules/shr_simauth.py:20
+msgid "PIN settings"
+msgstr "Inställningar för PIN"
+
+#: shr_settings_modules/shr_simauth.py:26
+#: shr_settings_modules/shr_simauth.py:179
+#: shr_settings_modules/shr_currentprofile.py:568
+#: shr_settings_modules/shr_bt.py:78
+#: shr_settings_modules/shr_device_timeouts.py:144
+#: shr_settings_modules/shr_profile.py:31
+#: shr_settings_modules/shr_battery.py:138
+#: shr_settings_modules/shr_usb.py:100
+#: shr_settings_modules/shr_gsm.py:388
+#: shr_settings_modules/shr_sim.py:335
+#: shr_settings_modules/shr_alsa_scenarios.py:31
+#: shr_settings_modules/shr_call.py:87
+#: shr_settings_modules/shr_gps.py:81
+#: shr_settings_modules/shr_pim.py:31
+#: shr_settings_modules/shr_wifi.py:125
+msgid "Couldn't connect to FSO"
+msgstr "Kunde inte ansluta till FSO"
+
+#: shr_settings_modules/shr_simauth.py:93
+#: shr_settings_modules/shr_simauth.py:128
+#: shr_settings_modules/shr_simauth.py:138
+msgid "Incorrect PIN!"
+msgstr "Felaktig PIN!"
+
+#: shr_settings_modules/shr_simauth.py:99
+msgid "Wrong PIN!"
+msgstr "Fel PIN!"
+
+#: shr_settings_modules/shr_simauth.py:115
+msgid "Wrong PIN or unknown error"
+msgstr "Fel PIN eller okänt fel"
+
+#: shr_settings_modules/shr_simauth.py:117
+msgid "PIN changed!"
+msgstr "PIN ändrad!"
+
+#: shr_settings_modules/shr_simauth.py:119
+msgid "PINs don't match!"
+msgstr "PIN-koderna stämmer inte överens!"
+
+#: shr_settings_modules/shr_simauth.py:131
+msgid "Enter again new SIM PIN:"
+msgstr "Ange ny SIM-PIN igen:"
+
+#: shr_settings_modules/shr_simauth.py:141
+msgid "Enter new SIM PIN:"
+msgstr "Ange ny SIM-PIN:"
+
+#: shr_settings_modules/shr_simauth.py:144
+msgid "Enter actual SIM PIN:"
+msgstr "Ange aktuell SIM-PIN:"
+
+#: shr_settings_modules/shr_simauth.py:150
+msgid "Enter SIM PIN:"
+msgstr "Ange SIM-PIN:"
+
+#: shr_settings_modules/shr_simauth.py:156
+msgid "PIN code: "
+msgstr "PIN-kod: "
+
+#: shr_settings_modules/shr_simauth.py:158
+msgid "Enabled"
+msgstr "Aktiverad"
+
+#: shr_settings_modules/shr_simauth.py:158
+msgid "Disabled"
+msgstr "Inaktiverad"
+
+#: shr_settings_modules/shr_simauth.py:165
+msgid "Change PIN"
+msgstr "Ändra PIN"
+
+#: shr_settings_modules/shr_simauth.py:185
+#: shr_settings_modules/shr_gsm.py:153
+#: shr_settings_modules/shr_phoneutils.py:177
+#: shr_settings_modules/shr_call.py:93
+#: shr_settings_modules/shr_pim.py:51
+#: shr_settings_modules/shr_services.py:271
+msgid "Please wait..."
+msgstr "Var god vänta..."
+
+#: shr_settings_modules/shr_currentprofile.py:253
+#: shr_settings_modules/shr_bt.py:145
+#: shr_settings_modules/shr_bt.py:170
+#: shr_settings_modules/shr_gsm.py:376
+#: shr_settings_modules/shr_call.py:76
+#: shr_settings_modules/shr_gps.py:68
+#: shr_settings_modules/shr_wifi.py:105
+msgid "On"
+msgstr "På"
+
+#: shr_settings_modules/shr_currentprofile.py:261
+#: shr_settings_modules/shr_bt.py:145
+#: shr_settings_modules/shr_bt.py:170
+#: shr_settings_modules/shr_gsm.py:376
+#: shr_settings_modules/shr_call.py:76
+#: shr_settings_modules/shr_gps.py:68
+#: shr_settings_modules/shr_wifi.py:105
+msgid "Off"
+msgstr "Av"
+
+#: shr_settings_modules/shr_currentprofile.py:306
+#: shr_settings_modules/shr_currentprofile.py:309
+msgid "Change ringtone"
+msgstr "Byt ringsignal"
+
+#: shr_settings_modules/shr_currentprofile.py:316
+msgid "Select ringtone"
+msgstr "Välj ringsignal"
+
+#: shr_settings_modules/shr_currentprofile.py:318
+msgid "Ringtones are placed in /usr/share/sounds/"
+msgstr "Ringsignaler är placerade i /usr/share/sounds/"
+
+#: shr_settings_modules/shr_currentprofile.py:331
+#: shr_settings_modules/shr_gpsinfo.py:41
+#: shr_settings_modules/shr_pim.py:142
+#: shr_settings_modules/shr_pim.py:174
+#: shr_settings_modules/shr_services.py:257
+#: shr-settings:161
+#: shr-settings:369
+msgid "Quit"
+msgstr "Avsluta"
+
+#: shr_settings_modules/shr_currentprofile.py:422
+#: shr_settings_modules/shr_currentprofile.py:452
+msgid "Play"
+msgstr "Spela"
+
+#: shr_settings_modules/shr_currentprofile.py:428
+msgid "Stop"
+msgstr "Stoppa"
+
+#: shr_settings_modules/shr_currentprofile.py:460
+msgid "Change"
+msgstr "Ändra"
+
+#: shr_settings_modules/shr_currentprofile.py:564
+msgid "Current profile settings"
+msgstr "Inställningar för aktuell profil"
+
+#: shr_settings_modules/shr_test.py:27
+msgid "test"
+msgstr "test"
+
+#: shr_settings_modules/shr_test.py:33
+msgid "Just for fun"
+msgstr "Bara för skoj skull"
+
+#: shr_settings_modules/shr_imageinfo.py:13
+msgid "Image information"
+msgstr "Information om avbild"
+
+#: shr_settings_modules/shr_imageinfo.py:54
+msgid "SHR: "
+msgstr "SHR: "
+
+#: shr_settings_modules/shr_imageinfo.py:55
+msgid "Branch: "
+msgstr "Gren: "
+
+#: shr_settings_modules/shr_imageinfo.py:56
+msgid "Revision: "
+msgstr "Revision: "
+
+#: shr_settings_modules/shr_splash.py:18
+msgid "Splash settings"
+msgstr "Inställningar för startskärm"
+
+#: shr_settings_modules/shr_splash.py:112
+msgid "Preview"
+msgstr "Förhandsgranska"
+
+#: shr_settings_modules/shr_display.py:26
+msgid "Display settings"
+msgstr "Inställningar för skärm"
+
+#: shr_settings_modules/shr_display.py:48
+msgid "Backlight "
+msgstr "Bakgrundsljus "
+
+#: shr_settings_modules/shr_date.py:15
+msgid "Date"
+msgstr "Datum"
+
+#: shr_settings_modules/shr_bt.py:70
+msgid "Bluetooth settings"
+msgstr "Inställningar för blåtand"
+
+# http://www.datatermgruppen.se/ordlista.html#b313
+#: shr_settings_modules/shr_bt.py:71
+#: shr_settings_modules/shr_sim.py:168
+#: shr-settings:38
+msgid "Connectivity"
+msgstr "Anslutbarhet"
+
+#: shr_settings_modules/shr_bt.py:143
+msgid "Visibility:"
+msgstr "Synlighet:"
+
+#: shr_settings_modules/shr_bt.py:205
+msgid "Bluetooth radio:"
+msgstr "Blåtandsradio:"
+
+#: shr_settings_modules/shr_bt.py:207
+#: shr_settings_modules/shr_usb.py:108
+#: shr_settings_modules/shr_gps.py:89
+msgid "Auto"
+msgstr "Auto"
+
+#: shr_settings_modules/shr_bt.py:207
+#: shr_settings_modules/shr_usb.py:108
+#: shr_settings_modules/shr_call.py:56
+#: shr_settings_modules/shr_gps.py:89
+#: shr_settings_modules/shr_wifi.py:96
+msgid "Manual"
+msgstr "Manuell"
+
+#: shr_settings_modules/shr_device_timeouts.py:33
+msgid " sec."
+msgstr " sek."
+
+#: shr_settings_modules/shr_device_timeouts.py:140
+msgid "Timeouts settings"
+msgstr "Inställningar för tidsgränser"
+
+#: shr_settings_modules/shr_gpsinfo.py:23
+#: shr_settings_modules/shr_gpsinfo.py:219
+msgid "Satellite details"
+msgstr "Satellitdetaljer"
+
+#: shr_settings_modules/shr_gpsinfo.py:94
+msgid "Time"
+msgstr "Tid"
+
+#: shr_settings_modules/shr_gpsinfo.py:95
+msgid "Fix"
+msgstr "Fix"
+
+#: shr_settings_modules/shr_gpsinfo.py:96
+msgid "Lat"
+msgstr "Lat"
+
+#: shr_settings_modules/shr_gpsinfo.py:97
+msgid "Lon"
+msgstr "Lon"
+
+#: shr_settings_modules/shr_gpsinfo.py:98
+msgid "Alt"
+msgstr "Alt"
+
+#: shr_settings_modules/shr_gpsinfo.py:99
+msgid "Accuracy"
+msgstr "Noggrannhet"
+
+#: shr_settings_modules/shr_gpsinfo.py:100
+msgid "Satellites"
+msgstr "Satelliter"
+
+#: shr_settings_modules/shr_gpsinfo.py:101
+msgid "Heading"
+msgstr "Riktning"
+
+#: shr_settings_modules/shr_gpsinfo.py:102
+msgid "Speed"
+msgstr "Hastighet"
+
+#: shr_settings_modules/shr_gpsinfo.py:103
+msgid "Descend"
+msgstr "Nedgång"
+
+#: shr_settings_modules/shr_gpsinfo.py:237
+msgid "GPS information"
+msgstr "GPS-information"
+
+#: shr_settings_modules/shr_gpsinfo.py:257
+msgid "Remove AGPS data"
+msgstr "Ta bort AGPS-data"
+
+#: shr_settings_modules/shr_profile.py:24
+msgid "Profile settings"
+msgstr "Inställningar för profiler"
+
+#: shr_settings_modules/shr_profile.py:57
+#, python-format
+msgid "Profiles (%s)"
+msgstr "Profiler (%s)"
+
+#: shr_settings_modules/shr_pm.py:55
+msgid "Forbid"
+msgstr "Förbjud"
+
+#: shr_settings_modules/shr_pm.py:55
+msgid "Allow"
+msgstr "Tillåt"
+
+#: shr_settings_modules/shr_pm.py:68
+msgid "Power settings"
+msgstr "Inställningar för strömhantering"
+
+#: shr_settings_modules/shr_pm.py:75
+#: shr_settings_modules/shr_gprs.py:55
+msgid "Couldn't connect to FSO or phonefsod"
+msgstr "Kunde inte ansluta till FSO eller phonefsod"
+
+#: shr_settings_modules/shr_pm.py:104
+msgid "Auto-dimming:"
+msgstr "Autodimning:"
+
+#: shr_settings_modules/shr_pm.py:105
+msgid "Auto-suspend:"
+msgstr "Autovänteläge:"
+
+#: shr_settings_modules/shr_usb_network.py:30
+msgid "Usb Network Settings"
+msgstr "Inställningar för USB-nätverk"
+
+#: shr_settings_modules/shr_usb_network.py:129
+msgid " IP: "
+msgstr " IP:  "
+
+#: shr_settings_modules/shr_usb_network.py:132
+msgid " MAC Address: "
+msgstr " MAC-adress: "
+
+#: shr_settings_modules/shr_usb_network.py:136
+msgid "Save IP"
+msgstr "Spara IP"
+
+#: shr_settings_modules/shr_battery.py:119
+msgid "USB charging rate:"
+msgstr "Laddningshastighet via USB:"
+
+#: shr_settings_modules/shr_battery.py:131
+msgid "Battery settings"
+msgstr "Inställningar för batteri"
+
+#: shr_settings_modules/shr_battery.py:256
+msgid "Charge: "
+msgstr "Laddning: "
+
+#: shr_settings_modules/shr_battery.py:257
+msgid "Power info: "
+msgstr "Effektinfo: "
+
+#: shr_settings_modules/shr_battery.py:258
+msgid "Status: "
+msgstr "Status: "
+
+#: shr_settings_modules/shr_battery.py:283
+msgid "Update"
+msgstr "Uppdatera"
+
+#: shr_settings_modules/shr_battery.py:298
+msgid "Switch to dumb battery driver"
+msgstr "Växla till atrappbatteridrivrutin "
+
+#: shr_settings_modules/shr_usb.py:20
+msgid "USB settings"
+msgstr "Inställningar för USB"
+
+#: shr_settings_modules/shr_usb.py:78
+msgid "Host"
+msgstr "Värd"
+
+#: shr_settings_modules/shr_usb.py:78
+msgid "Device"
+msgstr "Enhet"
+
+#: shr_settings_modules/shr_usb.py:89
+msgid "HID On"
+msgstr "HID på"
+
+#: shr_settings_modules/shr_usb.py:89
+msgid "HID Off"
+msgstr "HID av"
+
+#: shr_settings_modules/shr_usb.py:106
+msgid "USB mode:"
+msgstr "USB-läge:"
+
+#: shr_settings_modules/shr_clock.py:28
+msgid "Time settings"
+msgstr "Inställningar för tid"
+
+#: shr_settings_modules/shr_clock.py:29
+msgid "Other"
+msgstr "Annat"
+
+#: shr_settings_modules/shr_clock.py:36
+#: shr_settings_modules/shr_clock.py:51
+msgid "Set time"
+msgstr "Ställ in tid"
+
+#: shr_settings_modules/shr_clock.py:40
+msgid "OK"
+msgstr "Ok"
+
+#: shr_settings_modules/shr_phoneui_theme.py:18
+msgid "Phoneui themes"
+msgstr "Teman för phoneui"
+
+#: shr_settings_modules/shr_phoneui_theme.py:48
+msgid "Restart phoneui"
+msgstr "Starta om phoneui"
+
+#: shr_settings_modules/shr_phoneui_theme.py:55
+#: shr_settings_modules/shr_services.py:299
+msgid "Stopping phoneuid will stop all phone user interface related functions. Do you really want to proceed?"
+msgstr "Stoppa phoneuid kommer att stoppa alla telefonens användargränssnittsfunktioner. Vill du verkligen fortsätta?"
+
+#: shr_settings_modules/shr_phoneui_theme.py:74
+msgid "Phoneui restart process ended without errors"
+msgstr "Omstartsprocessen av phoneui avslutades utan fel"
+
+#: shr_settings_modules/shr_backup.py:104
+msgid "Select Item"
+msgstr "Välj post"
+
+#: shr_settings_modules/shr_backup.py:128
+msgid "Up"
+msgstr "Upp"
+
+#: shr_settings_modules/shr_backup.py:135
+msgid "Done"
+msgstr "Klar"
+
+#: shr_settings_modules/shr_backup.py:242
+msgid "Delete Archives"
+msgstr "Ta bort arkiv"
+
+#: shr_settings_modules/shr_backup.py:293
+msgid "Go"
+msgstr "Kör"
+
+#: shr_settings_modules/shr_backup.py:337
+msgid "Userspace Backup"
+msgstr "Säkerhetskopia av userspace"
+
+#: shr_settings_modules/shr_backup.py:467
+msgid "Directory required."
+msgstr "Katalog krävs."
+
+#: shr_settings_modules/shr_backup.py:469
+#: shr_settings_modules/shr_backup.py:482
+msgid "Config files couldn't be loaded<br>Please investigate!"
+msgstr "Kunde inte ladda konfigurationsfiler<br>Var vänlig undersök!"
+
+#: shr_settings_modules/shr_backup.py:480
+msgid "File required."
+msgstr "Fil krävs."
+
+#: shr_settings_modules/shr_backup.py:486
+msgid " In Progress."
+msgstr " pågår."
+
+#: shr_settings_modules/shr_backup.py:490
+msgid " Complete."
+msgstr " färdig."
+
+#: shr_settings_modules/shr_backup.py:492
+msgid " Failed. "
+msgstr " misslyckades."
+
+#: shr_settings_modules/shr_backup.py:498
+msgid "Archive Directory"
+msgstr "Katalog för arkiv"
+
+#: shr_settings_modules/shr_backup.py:504
+msgid "Restore File"
+msgstr "Återställningsfil"
+
+#: shr_settings_modules/shr_backup.py:530
+msgid "Backup Mode"
+msgstr "Säkerhetskopieringsläge"
+
+#: shr_settings_modules/shr_backup.py:531
+msgid "Archive"
+msgstr "Arkivera"
+
+#: shr_settings_modules/shr_backup.py:531
+msgid "Restore"
+msgstr "Återställ"
+
+#: shr_settings_modules/shr_gsm.py:112
+msgid "GSM settings"
+msgstr "Inställningar för GSM"
+
+#: shr_settings_modules/shr_gsm.py:131
+msgid "Could not connect to network"
+msgstr "Kunde inte ansluta till nätverk"
+
+#: shr_settings_modules/shr_gsm.py:175
+#: shr_settings_modules/shr_gsm.py:189
+msgid "List Providers"
+msgstr "Lista med leverantörer"
+
+#: shr_settings_modules/shr_gsm.py:203
+#: shr_settings_modules/shr_gsm.py:323
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: shr_settings_modules/shr_gsm.py:214
+#: shr_settings_modules/shr_wifi.py:66
+#: shr_settings_modules/shr_wifi.py:95
+#: shr_settings_modules/shr_wifi.py:96
+msgid "Automatic"
+msgstr "Automatisk"
+
+#: shr_settings_modules/shr_gsm.py:226
+msgid " [current]"
+msgstr " [nuvarande]"
+
+#: shr_settings_modules/shr_gsm.py:228
+msgid " [forbidden]"
+msgstr " [förbjuden]"
+
+#: shr_settings_modules/shr_gsm.py:253
+msgid "Operators"
+msgstr "Operatörer"
+
+#: shr_settings_modules/shr_gsm.py:260
+msgid "Modem information"
+msgstr "Modeminformation"
+
+#: shr_settings_modules/shr_gsm.py:295
+#: shr_settings_modules/shr_gsm.py:309
+msgid "GSM modem information"
+msgstr "GSM-modeminformation"
+
+#: shr_settings_modules/shr_gsm.py:374
+msgid "GSM antenna:"
+msgstr "GSM-antenn:"
+
+#: shr_settings_modules/shr_about.py:24
+msgid "About"
+msgstr "Om"
+
+#: shr_settings_modules/shr_sim_manager.py:22
+#: shr_settings_modules/shr_sim_manager.py:34
+msgid "SIM Manager"
+msgstr "SIM-hanterare"
+
+#: shr_settings_modules/shr_gprs.py:44
+msgid "GPRS settings"
+msgstr "Inställningar för GPRS"
+
+#: shr_settings_modules/shr_gprs.py:45
+msgid "networking"
+msgstr "nätverk"
+
+#: shr_settings_modules/shr_gprs.py:47
+msgid "GPRS connection data"
+msgstr "Anslutningsdata för GPRS"
+
+#: shr_settings_modules/shr_gprs.py:48
+msgid "Please enter your GPRS login and password. You can also skip this step."
+msgstr "Ange din GPRS-login och -lösenord. Du kan också hoppa över detta steg."
+
+#: shr_settings_modules/shr_gprs.py:130
+msgid "disconnected"
+msgstr "frånkopplad"
+
+#: shr_settings_modules/shr_gprs.py:131
+#: shr_settings_modules/shr_gprs.py:145
+msgid "Connect"
+msgstr "Anslut"
+
+#: shr_settings_modules/shr_gprs.py:134
+msgid "connected"
+msgstr "ansluten"
+
+#: shr_settings_modules/shr_gprs.py:135
+#: shr_settings_modules/shr_gprs.py:141
+#: shr_settings_modules/shr_gprs.py:149
+msgid "Disconnect"
+msgstr "Koppla från"
+
+#: shr_settings_modules/shr_gprs.py:140
+msgid "connecting"
+msgstr "ansluter"
+
+#: shr_settings_modules/shr_gprs.py:144
+msgid "incoming"
+msgstr "inkommande"
+
+#: shr_settings_modules/shr_gprs.py:148
+msgid "held"
+msgstr "parkerad"
+
+#: shr_settings_modules/shr_gprs.py:152
+#: shr_settings_modules/shr_gprs.py:153
+#: shr_settings_modules/shr_gprs.py:193
+#: shr_settings_modules/shr_gprs.py:204
+msgid "UNKNOWN"
+msgstr "OKÄND"
+
+#: shr_settings_modules/shr_gprs.py:189
+msgid "Your APN: "
+msgstr "Din APN: "
+
+#: shr_settings_modules/shr_gprs.py:190
+msgid "Your login: "
+msgstr "Ditt login: "
+
+#: shr_settings_modules/shr_gprs.py:191
+msgid "Your password: "
+msgstr "Ditt lösenord: "
+
+#: shr_settings_modules/shr_gprs.py:193
+msgid "Connection status: "
+msgstr "Anslutningsstatus: "
+
+#: shr_settings_modules/shr_phoneutils.py:23
+msgid "Phoneutils settings"
+msgstr "Inställningar för phoneutils"
+
+#: shr_settings_modules/shr_phoneutils.py:24
+#: shr-settings:36
+msgid "Phone"
+msgstr "Telefon"
+
+#: shr_settings_modules/shr_phoneutils.py:25
+msgid "Local numbers settings"
+msgstr "Inställningar för lokalnummer"
+
+#: shr_settings_modules/shr_phoneutils.py:26
+msgid "Please enter information matching to phone numbers in your country."
+msgstr "Ange information som matchar telefonnummer i ditt land."
+
+#: shr_settings_modules/shr_phoneutils.py:85
+msgid "Settings saved!"
+msgstr "Inställningar sparade!"
+
+#: shr_settings_modules/shr_phoneutils.py:110
+msgid "Settings could not be saved!<br>All values must be numbers!"
+msgstr "Inställningar kunde inte sparas!<br>Alla värden måste vara nummer!"
+
+# http://www.pts.se/sv/Bransch/Telefoni/Nummerfragor/Nummer--och-adressplaner/Telefonnummers-struktur/
+#: shr_settings_modules/shr_phoneutils.py:186
+msgid "Your international prefix: "
+msgstr "Ditt internationella prefix: "
+
+# http://www.pts.se/sv/Bransch/Telefoni/Nummerfragor/Nummer--och-adressplaner/Telefonnummers-struktur/
+#: shr_settings_modules/shr_phoneutils.py:187
+msgid "Your national prefix: "
+msgstr "Ditt nationella prefix: "
+
+# http://www.pts.se/sv/Bransch/Telefoni/Nummerfragor/Nummer--och-adressplaner/Telefonnummers-struktur/
+#: shr_settings_modules/shr_phoneutils.py:188
+msgid "Your country code: "
+msgstr "Din landskod: "
+
+# http://www.pts.se/sv/Bransch/Telefoni/Nummerfragor/Nummer--och-adressplaner/Telefonnummers-struktur/
+#: shr_settings_modules/shr_phoneutils.py:189
+msgid "Your area/network code: "
+msgstr "Din destinations-/nätverkskod: "
+
+#: shr_settings_modules/shr_phoneutils.py:198
+msgid "Save"
+msgstr "Spara"
+
+#: shr_settings_modules/shr_sim.py:104
+msgid "Book "
+msgstr "Bok"
+
+# http://www.datatermgruppen.se/ordlista.html#b318
+#: shr_settings_modules/shr_sim.py:121
+msgid "Slots"
+msgstr "Kortplatser"
+
+#: shr_settings_modules/shr_sim.py:121
+msgid "Name length"
+msgstr "Längd på namn"
+
+#: shr_settings_modules/shr_sim.py:121
+msgid "Number length"
+msgstr "Längd på nummer"
+
+#: shr_settings_modules/shr_sim.py:156
+#: shr_settings_modules/shr_sim.py:308
+msgid "clean"
+msgstr "rensa"
+
+#: shr_settings_modules/shr_sim.py:167
+msgid "SIM settings"
+msgstr "Inställningar för SIM"
+
+#: shr_settings_modules/shr_sim.py:188
+#: shr_settings_modules/shr_services.py:48
+msgid "Are you sure?"
+msgstr "Är du säker?"
+
+#: shr_settings_modules/shr_sim.py:196
+#: shr_settings_modules/shr_services.py:66
+#: shr_settings_modules/module.py:182
+msgid "Yes"
+msgstr "Ja"
+
+#: shr_settings_modules/shr_sim.py:201
+#: shr_settings_modules/shr_services.py:72
+#: shr_settings_modules/module.py:190
+msgid "No"
+msgstr "Nej"
+
+#: shr_settings_modules/shr_sim.py:266
+msgid "Message book"
+msgstr "Meddelandebok"
+
+#: shr_settings_modules/shr_sim.py:350
+msgid "SIM information:"
+msgstr "SIM-information:"
+
+# http://www.datatermgruppen.se/ordlista.html#b184
+#: shr_settings_modules/shr_firmware.py:18
+#: shr_settings_modules/shr_firmware.py:20
+msgid "Firmware"
+msgstr "Fast program"
+
+#: shr_settings_modules/shr_firmware.py:19
+#: shr_settings_modules/shr_passwd.py:70
+#: shr-settings:43
+msgid "Others"
+msgstr "Övrigt"
+
+#: shr_settings_modules/shr_firmware.py:48
+#, python-format
+msgid "Your device, %s, needs some external firmware to be installed in order to make everything working correctly. Those firmwares are non-free and can't be redistributed with SHR, so you have to download them on your own. Please check this page for more details."
+msgstr "Din enhet, % s, behöver några externa fasta program installerade för att allting skall fungerar korrekt. Dessa fasta program är ickefria och kan inte distribueras med SHR, så du måste hämta dem på egen hand. Kontrollera denna sida för mer information."
+
+#: shr_settings_modules/shr_alsa_scenarios.py:24
+msgid "Alsa Scenario settings"
+msgstr "Inställningar för alsa-scenarier"
+
+#: shr_settings_modules/shr_alsa_scenarios.py:57
+#, python-format
+msgid "Scenarios (%s)"
+msgstr "Scenarier (%s)"
+
+#: shr_settings_modules/shr_call.py:18
+msgid "Call settings"
+msgstr "Inställningar för samtal"
+
+#: shr_settings_modules/shr_call.py:26
+msgid "Turn GSM on."
+msgstr "Sätt på GSM."
+
+#: shr_settings_modules/shr_call.py:54
+msgid "Show my number:"
+msgstr "Visa mitt nummer:"
+
+#: shr_settings_modules/shr_call.py:56
+msgid "By network"
+msgstr "Nätstandard"
+
+#: shr_settings_modules/shr_gps.py:19
+msgid "GPS settings"
+msgstr "Inställningar för GPS"
+
+#: shr_settings_modules/shr_gps.py:87
+msgid "GPS radio:"
+msgstr "GPS-radio:"
+
+#: shr_settings_modules/shr_help.py:35
+msgid "Help"
+msgstr "Hjälp"
+
+#: shr_settings_modules/shr_ntp.py:18
+msgid "NTP settings"
+msgstr "Inställningar för NTP"
+
+#: shr_settings_modules/shr_ntp.py:74
+msgid "Sync Time"
+msgstr "Synkronisera tid"
+
+#: shr_settings_modules/shr_ntp.py:88
+msgid "NTP Server: "
+msgstr "NTP-server: "
+
+#: shr_settings_modules/shr_pim.py:24
+msgid "PIM settings"
+msgstr "PIM-inställningar"
+
+#: shr_settings_modules/shr_pim.py:87
+#, python-format
+msgid "%(backend)s<br>(domain: %(domain)s)"
+msgstr "%(backend)s<br>(domän: %(domain)s)"
+
+#: shr_settings_modules/shr_pim.py:92
+msgid "enabled"
+msgstr "aktiverad"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "adding entries"
+msgstr "lägger till poster"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "updating entries"
+msgstr "uppdaterar poster"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "deleting entries"
+msgstr "tar bort poster"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "adding new fields to entries"
+msgstr "lägger till nya fält till poster"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "needs logging in"
+msgstr "behöver inloggning"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "needs syncing"
+msgstr "behöver synkronisering"
+
+#: shr_settings_modules/shr_pim.py:100
+msgid "it's handler"
+msgstr "dess hanterare"
+
+#: shr_settings_modules/shr_pim.py:102
+msgid "Properties"
+msgstr "Egenskaper"
+
+#: shr_settings_modules/shr_pim.py:124
+msgid "Initialized"
+msgstr "Initialiserad"
+
+#: shr_settings_modules/shr_pim.py:126
+msgid "Not initialized"
+msgstr "Inte initialiserad"
+
+#: shr_settings_modules/shr_pim.py:135
+msgid "Set as default"
+msgstr "Sätt som standard"
+
+#: shr_settings_modules/shr_pim.py:207
+msgid " (default)"
+msgstr " (standard)"
+
+#: shr_settings_modules/shr_pim.py:229
+msgid "Domains"
+msgstr "Domäner"
+
+#: shr_settings_modules/shr_services.py:25
+msgid "Services settings"
+msgstr "Inställningar för tjänster"
+
+#: shr_settings_modules/shr_services.py:125
+#: shr_settings_modules/shr_services.py:139
+msgid "Service output"
+msgstr "Utdata från tjänst"
+
+#: shr_settings_modules/shr_services.py:152
+#: shr-settings:298
+#: shr-settings:459
+msgid "Close"
+msgstr "Stäng"
+
+#: shr_settings_modules/shr_services.py:168
+msgid "Executing..."
+msgstr "Kör..."
+
+#: shr_settings_modules/shr_services.py:197
+msgid "start"
+msgstr "starta"
+
+#: shr_settings_modules/shr_services.py:206
+msgid "restart"
+msgstr "starta om"
+
+#: shr_settings_modules/shr_services.py:214
+msgid "stop"
+msgstr "stoppa"
+
+#: shr_settings_modules/shr_services.py:225
+msgid "Services list"
+msgstr "Lista med tjänster"
+
+#: shr_settings_modules/shr_services.py:234
+msgid "Services"
+msgstr "Tjänster"
+
+#: shr_settings_modules/shr_services.py:296
+msgid "Stopping frameworkd will stop all smartphone related functions. Do you really want to proceed?"
+msgstr "Stoppa frameworkd kommer att stoppa alla smarttelefonrelaterade funktioner. Vill du verkligen fortsätta?"
+
+#: shr_settings_modules/shr_services.py:297
+msgid "Stopping fsodeviced will stop idle notifier and few other functions. Do you really want to proceed?"
+msgstr "Stoppa fsodeviced kommer att stoppa idle notifier och några andra funktioner. Vill du verkligen fortsätta?"
+
+#: shr_settings_modules/shr_services.py:298
+msgid "Stopping phonefsod will stop all phone related functions. Do you really want to proceed?"
+msgstr "Stoppa phonefsod kommer att stoppa alla telefonrelaterade funktioner. Vill du verkligen fortsätta?"
+
+#: shr_settings_modules/shr_services.py:300
+msgid "Stopping X server will stop all running applications. Do you really want to proceed?"
+msgstr "Stoppa X-servern kommer att stoppa alla program som körs. Vill du verkligen fortsätta?"
+
+#: shr_settings_modules/module.py:54
+msgid "OhMy! I have no name!"
+msgstr "Ojdå! Jag har inget namn!"
+
+#: shr_settings_modules/module.py:57
+msgid "main"
+msgstr "huvud"
+
+#: shr_settings_modules/module.py:60
+msgid "Some wizard page"
+msgstr "Någon guidesida"
+
+#: shr_settings_modules/module.py:61
+msgid "Some description"
+msgstr "Någon beskrivning"
+
+#: shr_settings_modules/module.py:164
+msgid "Warning"
+msgstr "Varning"
+
+#: shr_settings_modules/module.py:213
+#: shr-settings:455
+msgid "Information"
+msgstr "Information"
+
+#: shr_settings_modules/module.py:231
+msgid "Ok"
+msgstr "Ok"
+
+#: shr_settings_modules/shr_misc.py:14
+msgid "Miscellaneous settings"
+msgstr "Diverse inställningar"
+
+#: shr_settings_modules/shr_misc.py:18
+msgid "Suspend, dim time and etc."
+msgstr "Vänteläge, dimningstid etc."
+
+#: shr_settings_modules/shr_wifi.py:34
+#: shr_settings_modules/shr_wifi.py:42
+#: shr_settings_modules/shr_wifi.py:48
+#: shr_settings_modules/shr_wifi.py:104
+msgid "WiFi Power"
+msgstr "Wi-Fi-kraft"
+
+# http://www.datatermgruppen.se/foerkortningslistan.html#d99
+#: shr_settings_modules/shr_wifi.py:121
+msgid "WiFi settings"
+msgstr "Inställningar för Wi-Fi"
+
+#: shr_settings_modules/shr_passwd.py:69
+#: shr_settings_modules/shr_passwd.py:71
+msgid "Root password"
+msgstr "Lösenord för root"
+
+#: shr_settings_modules/shr_passwd.py:72
+msgid "Please enter password which you want to use when, for instance, loging by SSH."
+msgstr "Ange det lösenord som du vill använda när du, till exempel, loggar in med SSH."
+
+#: shr_settings_modules/shr_passwd.py:142
+msgid "Enter password: "
+msgstr "Ange lösenord: "
+
+#: shr_settings_modules/shr_passwd.py:143
+msgid "Re-enter password: "
+msgstr "Ange lösenord igen: "
+
+#: shr_settings_modules/shr_timezone.py:21
+msgid "Timezone settings"
+msgstr "Inställningar för tidzon"
+
+#: shr_settings_modules/shr_timezone.py:107
+msgid "Set Timezone"
+msgstr "Ställ in tidszon"
+
+#: shr_settings_modules/shr_timezone.py:116
+msgid "Current Timezone: "
+msgstr "Nuvarande tidszon:"
+
+#: shr-settings:37
+msgid "Profiles"
+msgstr "Profiler"
+
+#: shr-settings:39
+msgid "Power"
+msgstr "Ström"
+
+#: shr-settings:40
+msgid "Appearance"
+msgstr "Utseende"
+
+#: shr-settings:41
+msgid "Position"
+msgstr "Position"
+
+#: shr-settings:42
+msgid "Date/time"
+msgstr "Datum & tid"
+
+#: shr-settings:95
+#, python-format
+msgid ""
+"Could not load module: error in line %d\n"
+"%s"
+msgstr ""
+"Kunde inte ladda modul: fel på rad %d\n"
+"%s"
+
+#: shr-settings:186
+#, python-format
+msgid "Please wait...<br>Loading %d modules..."
+msgstr "Var god vänta...<br>Laddar %d moduler..."
+
+#: shr-settings:264
+#: shr-settings:278
+msgid "phonefsod log"
+msgstr "Logg för phonefsod"
+
+#: shr-settings:291
+msgid "Clean"
+msgstr "Rensa"
+
+#: shr-settings:341
+msgid "Settings"
+msgstr "Inställningar"
+
+#: shr-settings:420
+msgid "phonefsod"
+msgstr "phonefsod"
+
+#: shr-settings:425
+msgid "is not running!"
+msgstr "körs inte!"
+
+#: shr-settings:430
+msgid "Start"
+msgstr "Starta"
+
+#: shr-settings:436
+msgid "View log"
+msgstr "Visa logg"
+
