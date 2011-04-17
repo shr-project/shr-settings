@@ -1,5 +1,8 @@
 import elementary, module, os, dbus
 from datetime import datetime
+
+from helper import getDbusObject
+
 import gettext
 
 try:
@@ -7,12 +10,6 @@ try:
     _ = cat.gettext
 except IOError:
     _ = lambda x: x
-
-
-def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
-
 
 #-------------------------------------------------------------------
 class SatDetails():

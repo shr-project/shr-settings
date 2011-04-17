@@ -1,18 +1,14 @@
-import elementary, module, dbus
+import elementary, module, dbus, os
+
+from helper import getDbusObject
+
 import gettext
-import os
 
 try:
     cat = gettext.Catalog("shr-settings")
     _ = cat.gettext
 except IOError:
     _ = lambda x: x
-
-
-def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
-
 
 #-------------------------------------------------------------------
 class Usb(module.AbstractModule):

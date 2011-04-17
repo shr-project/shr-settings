@@ -1,5 +1,7 @@
 import elementary, module, dbus
 
+from helper import getDbusObject
+
 # Locale support
 import gettext
 
@@ -9,10 +11,6 @@ try:
 except IOError:
     _ = lambda x: x
 
-
-def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class Call(module.AbstractModule):
     name = _("Call settings")

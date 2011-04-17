@@ -3,6 +3,8 @@ import module
 import dbus
 import os, re
 
+from helper import getDbusObject
+
 # Locale support
 import gettext
 
@@ -43,11 +45,6 @@ def dbus_ok(*args, **kargs):
 
 def dbus_err(x, *args, **kargs):
     print str(x)
-
-def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
-
 
 class FileButton(elementary.Button):
     def set_filename( self, filename ):

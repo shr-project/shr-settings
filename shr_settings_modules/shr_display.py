@@ -2,6 +2,8 @@ import elementary
 import module
 import dbus
 
+from helper import getDbusObject
+
 # Locale support
 import gettext
 
@@ -11,10 +13,6 @@ try:
 except IOError:
     _ = lambda x: x
 
-
-def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
 
 def handler():
     return 0

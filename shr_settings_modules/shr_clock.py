@@ -4,6 +4,8 @@ import os
 import datetime
 import dbus
 
+from helper import getDbusObject
+
 # Locale support
 import gettext
 
@@ -19,10 +21,6 @@ except IOError:
 
 #kurde, raz spacja, raz tabulator.. wtf?
 #tak to jest, jak sie pisze kod na freerunnrze ;) - dos
-
-def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
 
 class Clock(module.AbstractModule):
     name = _("Time settings")

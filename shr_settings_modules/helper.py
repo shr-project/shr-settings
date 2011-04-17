@@ -1,4 +1,9 @@
 import elementary
+import dbus
+
+def getDbusObject (bus, busname , objectpath , interface):
+    dbusObject = bus.get_object(busname, objectpath)
+    return dbus.Interface(dbusObject, dbus_interface=interface)
 
 
 class ElmLabelBox(elementary.Box):

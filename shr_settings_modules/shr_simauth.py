@@ -1,4 +1,7 @@
 import elementary, module, dbus
+
+from helper import getDbusObject
+
 from functools import partial
 
 # Locale support
@@ -9,11 +12,6 @@ try:
 		_ = cat.gettext
 except IOError:
 		_ = lambda x: x
-
-
-def getDbusObject (bus, busname , objectpath , interface):
-	dbusObject = bus.get_object(busname, objectpath)
-	return dbus.Interface(dbusObject, dbus_interface=interface)
 
 
 class SimAuth(module.AbstractModule):

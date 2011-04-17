@@ -1,6 +1,6 @@
 import elementary
 import module
-from helper import ElmEntryBox,ElmLabelBox
+from helper import getDbusObject,ElmEntryBox,ElmLabelBox
 
 import dbus
 
@@ -32,12 +32,6 @@ __author__ = "hiciu, dos, Toaster`"
 # ---
 #  Polacz / Rozlacz
 #
-
-def getDbusObject (bus, busname , objectpath , interface):
-        dbusObject = bus.get_object(busname, objectpath)
-        return dbus.Interface(dbusObject, dbus_interface=interface)
-
-
 
 
 class Gprs(module.AbstractModule):
