@@ -92,22 +92,43 @@ class Gprs(module.AbstractModule):
         self.saveConnectionData()
 	return True
 
-    def dbusnothing(self):
+    def dbusContextActivationReply(self):
+        print "ack reply from De/ActivateContext"
+        self.updateStatus()
         return 0
 
-    def dbuserror(self, error):
+    def dbuserror(self):
+        print "error handler on GetContextStatus"
         return 0
 
-    def connect(self, obj, *args, **kargs):
+    def dbusContextActivationError(self, error):
+        print "error when trying to de/activate context"
+        print str(error)
+        self.InfoDialog(None, "error when trying to de/Activate context:\n"+str(error))
+        return 0
+
+    def connectioncb(self, obj, *args, **kargs):
+        if self.connectionStatus == "connected":
+            self.disconnect()
+        elif self.connectionStatus == "disconnected":
+                self.connect()
+        elif self.connectionStatus == "UNKNOWN":
+                self.nothing()
+
+    def connect(self):
+        print "connect() called"
         apn, login, password = self.getEntryData()
         self.dbusObj.SetCredentials(apn, login, password)
         self.dbusObj.ActivateContext(
-            reply_handler = self.dbusnothing,
-            error_handler = self.dbuserror)
+            reply_handler = self.dbusContextActivationReply,
+            error_handler = self.dbusContextActivationError)
         return 0
 
-    def disconnect(self, obj, *args, **kargs):
-        self.dbusObj.DeactivateContext(reply_handler = self.dbusnothing, error_handler = self.dbuserror)
+    def disconnect(self):
+        print "disconnect() called"
+        self.dbusObj.DeactivateContext(
+            reply_handler = self.dbusContextActivationReply,
+            error_handler = self.dbusContextActivationError)
         return 0
 
     def nothing(self, obj, *args, **kargs):
@@ -115,6 +136,7 @@ class Gprs(module.AbstractModule):
         return 0
 
     def updateStatus(self, id = None, gprs_status = None, *args, **kargs):
+        print "updating GPRS status..."
         if id == None:
             self.dbusObj.GetContextStatus(reply_handler = self.updateStatus, error_handler=self.dbuserror)
         else:
@@ -123,34 +145,31 @@ class Gprs(module.AbstractModule):
             if gprs_status == 'release' or gprs_status == 'released':
                 status=_("disconnected")
                 self.btConnectDisconnect.label_set(_("Connect"))
-                self.btConnectDisconnect._callback_add('clicked',self.connect)
+                self.connectionStatus = "disconnected";
             elif gprs_status == 'active':
                 status=_("connected")
                 self.btConnectDisconnect.label_set(_("Disconnect"))
-                self.btConnectDisconnect._callback_add('clicked', self.disconnect)
+                self.connectionStatus = "connected";
                 # Since connection was successful, save login data
                 self.saveConnectionData()
             elif gprs_status == 'outgoing':
                 status=_("connecting")
                 self.btConnectDisconnect.label_set(_("Disconnect"))
-                self.btConnectDisconnect._callback_add('clicked', self.disconnect)
+                self.connectionStatus = "connected";
             elif gprs_status == 'incoming':
                 status=_("incoming")
                 self.btConnectDisconnect.label_set(_("Connect"))
-                self.btConnectDisconnect._callback_add('clicked', self.connect)
+                self.connectionStatus = "disconnected";
             elif gprs_status == 'held':
                 status=_("held")
                 self.btConnectDisconnect.label_set(_("Disconnect"))
-                self.btConnectDisconnect._callback_add('clicked', self.disconnect)
+                self.connectionStatus = "connected";
             else:
                 status=_("UNKNOWN")+" ("+str(id) + ' ' + str(gprs_status)+")"
                 self.btConnectDisconnect.label_set(_("UNKNOWN"))
-                self.btConnectDisconnect._callback_add('clicked', self.nothing)
+                self.connectionStatus = "UNKNOWN";
             self.labelStatus.label_set(status)
             return True
-
-    def stopUpdate(self):
-        self.signal.remove()
 
     def createView(self):
         """
@@ -199,7 +218,7 @@ class Gprs(module.AbstractModule):
                 self.btConnectDisconnect.show()
                 self.btConnectDisconnect.size_hint_align_set(-1.0, 0.0)
                 self.main.pack_end(self.btConnectDisconnect)
-
+                self.btConnectDisconnect._callback_add('clicked',self.connectioncb)
                 self.updateStatus()
 
         except:
