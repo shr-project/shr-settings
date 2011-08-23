@@ -29,7 +29,7 @@ class Splash(module.AbstractModule):
         """
         Updates the displayed value of the current theme
         """
-        file = open('/usr/lib/opkg/alternatives/shr-splash-theme', 'r' )
+        file = open('/var/lib/opkg/alternatives/shr-splash-theme', 'r' )
 
         self.themes = {} # items: 'path' : ('name', priority)
         self.priority_idx = {} # items: priority : [theme paths]
