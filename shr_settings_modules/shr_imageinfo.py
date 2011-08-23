@@ -25,7 +25,7 @@ class ImageInfo(module.AbstractModule):
             if len(line)>1:
                 dic[line[0]] = self.mergeList(line[1:])
             else:
-                line = line[0].split(' -')
+                line = line[0].split(' ')
                 if len(line)>1:
                     dic[line[0]] = self.mergeList(line[1:])
                 else:
@@ -50,7 +50,7 @@ class ImageInfo(module.AbstractModule):
 #        print aboutText
 
         ver = self.dictFromFile(verFile)
-
+        print ver
         info = self.infoadd(_("SHR: ") + ver['SHR'])
         info += self.infoadd(_("Branch: ") + ver['Built from branch'])
         info += self.infoadd(_("Revision: ") + ver['Revision'])
