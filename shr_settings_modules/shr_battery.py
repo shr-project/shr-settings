@@ -55,7 +55,7 @@ class BatteryLabel(elementary.Label):
 
     def setLabel(self, dynamic_label):
         """
-        Call elementary.Label.label_set with static label values
+        Call elementary.Label.text_set with static label values
         and formatted appropriately
         """
         try:
@@ -65,7 +65,7 @@ class BatteryLabel(elementary.Label):
                 finalLabel = str(self.fs2).format(self.sl, dynamic_label)
             except:
                 finalLabel = self.sl + 'N/A'
-        self.label_set(finalLabel)
+        self.text_set(finalLabel)
 
 
 class FastChargeBox(elementary.Box):
@@ -113,7 +113,7 @@ class FastChargeBox(elementary.Box):
         self.usbNodePath    = SYSNODE["usb_limit"][0]
 
         self.toggle = elementary.Toggle(self.window)
-        self.toggle.label_set(_("USB charging rate:"))
+        self.toggle.text_set(_("USB charging rate:"))
         self.toggle.states_labels_set("500 mA","100 mA")
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
@@ -132,7 +132,7 @@ class Battery(module.AbstractModule):
         Report the DBus is fsck'd
         """
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO"))
+        label.text_set(_("Couldn't connect to FSO"))
         self.main.pack_start(label)
         label.show()
 
@@ -277,7 +277,7 @@ class Battery(module.AbstractModule):
             update_button.size_hint_weight_set(0.0, 1.0)
             update_button.size_hint_align_set(0.0, -1.0)
             update_button._callback_add('clicked', self.doupdate)
-            update_button.label_set(_("Update"))
+            update_button.text_set(_("Update"))
             update_button.show()
 
             status_box.pack_end(labels_box)
@@ -292,7 +292,7 @@ class Battery(module.AbstractModule):
             self.main.pack_end(self.fastChargeToggle)
             if not present:
                 switchbtn = elementary.Button(self.window)
-                switchbtn.label_set(_('Switch to dumb battery driver'))
+                switchbtn.text_set(_('Switch to dumb battery driver'))
                 switchbtn.size_hint_weight_set(1.0, 0.0)
                 switchbtn.size_hint_align_set(-1.0, 0.0)
                 switchbtn._callback_add('clicked', self.switchToDumb)

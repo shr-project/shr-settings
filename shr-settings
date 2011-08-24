@@ -73,7 +73,7 @@ class ModulesWindow:
 
                     frame = elementary.Frame(self.win2)
 
-                    frame.label_set(mod2.getName())
+                    frame.text_set(mod2.getName())
                     self.box12.pack_end(frame)
                     frame.size_hint_align_set(-1.0, 0.0)
                     frame.show()
@@ -97,9 +97,9 @@ class ModulesWindow:
 
                 frame = elementary.Frame(self.win2)
                 try:
-                  frame.label_set(mod2.getName())
+                  frame.text_set(mod2.getName())
                 except:
-                  frame.label_set(modname)
+                  frame.text_set(modname)
                 self.box12.pack_end(frame)
                 frame.size_hint_align_set(-1.0, 0.0)
                 frame.show()
@@ -158,7 +158,7 @@ class ModulesWindow:
             quitbt2._callback_add('clicked', self.destroy)
         else:
             quitbt2._callback_add('clicked', partial(self.destroy2, self.win2))
-        quitbt2.label_set(_("Quit"))
+        quitbt2.text_set(_("Quit"))
         quitbt2.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt2)
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
@@ -183,7 +183,7 @@ class ModulesWindow:
         loadingframe2.size_hint_align_set(0.5, 0.5)
         loadinglabel = elementary.Label(self.win2)
         modulescount = len(modulesList[2])
-        loadinglabel.label_set(_("Please wait...<br>Loading %d modules...") % modulescount)
+        loadinglabel.text_set(_("Please wait...<br>Loading %d modules...") % modulescount)
 
         loadingframe.content_set(loadingframe2)
         loadingframe2.content_set(loadinglabel)
@@ -275,7 +275,7 @@ class MainWindow:
         box0.show()
 
         fr = elementary.Frame(self.windeb)
-        fr.label_set(_("phonefsod log"))
+        fr.text_set(_("phonefsod log"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -288,14 +288,14 @@ class MainWindow:
 
         cleanbt = elementary.Button(self.windeb)
         cleanbt._callback_add('clicked', self.clean_ophonekitd_log)
-        cleanbt.label_set(_("Clean"))
+        cleanbt.text_set(_("Clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
         box0.pack_end(cleanbt)
 
         cancelbt = elementary.Button(self.windeb)
         cancelbt._callback_add('clicked', self.destroyDebug)
-        cancelbt.label_set(_("Close"))
+        cancelbt.text_set(_("Close"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
         box0.pack_end(cancelbt)
@@ -315,7 +315,7 @@ class MainWindow:
                 break
             #print "line ["+line+"]"
             lb = elementary.Label(self.windeb)
-            lb.label_set(line)
+            lb.text_set(line)
             lb.size_hint_align_set(-1.0, 0.0)
             box1.pack_end(lb)
             lb.show()
@@ -366,7 +366,7 @@ class MainWindow:
         # quit button
         quitbt = elementary.Button(mainbox)
         quitbt._callback_add('clicked', self.destroy)
-        quitbt.label_set(_("Quit"))
+        quitbt.text_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
@@ -392,7 +392,7 @@ class MainWindow:
             bt._callback_add('clicked', self.displayModulesWin)
             bt.size_hint_weight_set(1.0, 1.0)
             bt.size_hint_align_set(-1.0, -1.0)
-            bt.label_set( d[0] )
+            bt.text_set( d[0] )
             bt.show()
 
             icon_paths = [ "/usr/share/pixmaps/shr-settings/"+str(d[1]), "data/icons/"+str(d[1])]
@@ -417,23 +417,23 @@ class MainWindow:
             opklabbox = elementary.Box(opkbox)
             opkbox.horizontal_set(1)
             opklab1 = elementary.Label(opklabbox)
-            opklab1.label_set(_("phonefsod"))
+            opklab1.text_set(_("phonefsod"))
             opklab1.show()
             opklabbox.pack_start(opklab1)
 
             opklab2 = elementary.Label(opklabbox)
-            opklab2.label_set(_("is not running!"))
+            opklab2.text_set(_("is not running!"))
             opklab2.show()
             opklabbox.pack_end(opklab2)
 
             opkstart = elementary.Button(opkbox)
-            opkstart.label_set(_("Start"))
+            opkstart.text_set(_("Start"))
             opkstart.show()
             opkstart._callback_add('clicked', self.start_ophonekitd)
             opkbox.pack_end(opkstart)
 
             opklog = elementary.Button(opkbox)
-            opklog.label_set(_("View log"))
+            opklog.text_set(_("View log"))
             opklog._callback_add('clicked', self.view_ophonekitd_log)
             opklog.show()
             opkbox.pack_end(opklog)
@@ -452,11 +452,11 @@ class MainWindow:
 
             self.opkmainbox = elementary.Box(self.win)
             self.opkmainbox.pack_start(self.opkframe)
-            self.opkframe.label_set(_("Information"))
+            self.opkframe.text_set(_("Information"))
             self.opkmainbox.show()
 
             opkhide = elementary.Button(self.opkmainbox)
-            opkhide.label_set(_("Close"))
+            opkhide.text_set(_("Close"))
             opkhide.size_hint_align_set(-1.0, 0.0)
             opkhide._callback_add('clicked', self.opk_hide)
             opkhide.show()

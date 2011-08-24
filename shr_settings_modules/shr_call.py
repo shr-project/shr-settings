@@ -21,7 +21,7 @@ class Call(module.AbstractModule):
 
     def error(self, result):
         print "async dbus error"
-        self.loading.label_set(_("Turn GSM on."))
+        self.loading.text_set(_("Turn GSM on."))
 
     def callback(self):
         print "async dbus callback"
@@ -49,7 +49,7 @@ class Call(module.AbstractModule):
         self.loading.delete()
 
         self.toggle0 = elementary.Toggle(self.window)
-        self.toggle0.label_set(_("Show my number:"))
+        self.toggle0.text_set(_("Show my number:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
         self.toggle0.states_labels_set(_("By network"),_("Manual"))
         self.toggle0._callback_add('changed', self.res_handle)
@@ -82,13 +82,13 @@ class Call(module.AbstractModule):
             self.gps = getDbusObject (self.dbus, "org.freesmartphone.ogsmd", "/org/freesmartphone/GSM/Device", "org.freesmartphone.GSM.Network") 
         except:
             label = elementary.Label(self.window)
-            label.label_set(_("Couldn't connect to FSO"))
+            label.text_set(_("Couldn't connect to FSO"))
             return label
 
         self.box1 = elementary.Box(self.window)
 
         self.loading = elementary.Label(self.window)
-        self.loading.label_set(_("Please wait..."))
+        self.loading.text_set(_("Please wait..."))
         self.loading.show()
         self.box1.pack_start(self.loading)
 

@@ -41,7 +41,7 @@ class FileButton(elementary.Button):
         self.set_label(self.label)
 
     def set_label( self, label):
-        self.label_set( label )
+        self.text_set( label )
 
     def set_objectLink( self, obj ):
         self.linked_object = obj
@@ -101,7 +101,7 @@ class SelectWindow(elementary.Window):
         self.lab.show()
 
         fr = elementary.Frame(self)
-        fr.label_set(_("Select Item"))
+        fr.text_set(_("Select Item"))
         fr.size_hint_align_set(-1.0, 0.0)
         fr.content_set(self.lab)
         fr.show()
@@ -125,14 +125,14 @@ class SelectWindow(elementary.Window):
         btnBar.show()
 
         updir = elementary.Button(self)
-        updir.label_set(_("Up"))
+        updir.text_set(_("Up"))
         updir.size_hint_weight_set(1.0, 0.0)
         updir.size_hint_align_set(-1.0, -1.0)
         updir._callback_add('clicked', self.changeDirUp)
         updir.show()
 
         exitbtn = elementary.Button(self)
-        exitbtn.label_set(_("Done"))
+        exitbtn.text_set(_("Done"))
         exitbtn.size_hint_weight_set(1.0, 0.0)
         exitbtn.size_hint_align_set(-1.0, -1.0)
         exitbtn._callback_add('clicked', self.quit)
@@ -159,7 +159,7 @@ class SelectWindow(elementary.Window):
         self.targetObj[0] = cs
 
         self.parentObj.set_filename(cs)
-        self.lab.label_set(self.title +":<br>"+ self.parentObj.get_trunc_path(40))
+        self.lab.text_set(self.title +":<br>"+ self.parentObj.get_trunc_path(40))
 
         if os.path.isdir(cs):
             dirs = sorted([ cs+f+"/" for f in os.listdir(cs) if os.path.isdir(cs+f) ])
@@ -222,7 +222,7 @@ class OptionsBox(elementary.Box):
 
         # Options Frame
         frame = elementary.Frame(self.window)
-        frame.label_set("Options")
+        frame.text_set("Options")
         frame.size_hint_weight_set(1.0, 0.0)
         frame.size_hint_align_set(-1.0, 0.0)
         frame.show()
@@ -239,7 +239,7 @@ class OptionsBox(elementary.Box):
         clearAll.size_hint_weight_set(1.0, 0.0)
         clearAll.size_hint_align_set(-1.0, 0.0)
         clearAll.set_filename(self.dir[0])
-        clearAll.label_set(_("Delete Archives"))
+        clearAll.text_set(_("Delete Archives"))
         clearAll._callback_add('clicked', self.clearAllArchives)
         clearAll.size_hint_align_set(-1.0, 0.0)
         clearAll.show()
@@ -290,7 +290,7 @@ class ArchiveBox(elementary.Box):
 
         # Archive Do Button
         self.do = elementary.Button(self.window)
-        self.do.label_set(_("Go"))
+        self.do.text_set(_("Go"))
         self.do.size_hint_align_set(-1.0, 0.0)
         self.do._callback_add('clicked', self.runDoCallback)
         self.do.show()
@@ -303,7 +303,7 @@ class ArchiveBox(elementary.Box):
         self.status = elementary.Label(self.window)
         self.status.size_hint_weight_set(1.0, 0.0)
         self.status.size_hint_align_set(-1.0, 0.0)
-        self.status.label_set(" ")
+        self.status.text_set(" ")
         self.status.show()
 
         # Pack Archive V Box
@@ -317,7 +317,7 @@ class ArchiveBox(elementary.Box):
         self.callback()
 
     def status_set(self, status):
-        self.status.label_set(status)
+        self.status.text_set(status)
 
     def target_set( self, targetObj ):
         self.change.set_filename(targetObj[0])
@@ -344,7 +344,7 @@ class Backup(module.AbstractModule):
         self.toggle.delete()
 
         label = elementary.Label(self.window)
-        label.label_set(message)
+        label.text_set(message)
         label.show()
 
         self.main.pack_start(label)
@@ -527,7 +527,7 @@ class Backup(module.AbstractModule):
 
         # create mode toggle
         self.toggle = elementary.Toggle( self.window )
-        self.toggle.label_set( _( "Backup Mode" ) )
+        self.toggle.text_set( _( "Backup Mode" ) )
         self.toggle.states_labels_set( _( "Archive" ), _( "Restore" ) )
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set( -1.0, 0.0 )

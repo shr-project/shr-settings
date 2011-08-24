@@ -46,7 +46,7 @@ class Gprs(module.AbstractModule):
 
     def error(self):
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO or phonefsod"))
+        label.text_set(_("Couldn't connect to FSO or phonefsod"))
         label.show()
         self.main.pack_start(label)
 
@@ -144,31 +144,31 @@ class Gprs(module.AbstractModule):
                 gprs_status = id.lower()
             if gprs_status == 'release' or gprs_status == 'released':
                 status=_("disconnected")
-                self.btConnectDisconnect.label_set(_("Connect"))
+                self.btConnectDisconnect.text_set(_("Connect"))
                 self.connectionStatus = "disconnected";
             elif gprs_status == 'active':
                 status=_("connected")
-                self.btConnectDisconnect.label_set(_("Disconnect"))
+                self.btConnectDisconnect.text_set(_("Disconnect"))
                 self.connectionStatus = "connected";
                 # Since connection was successful, save login data
                 self.saveConnectionData()
             elif gprs_status == 'outgoing':
                 status=_("connecting")
-                self.btConnectDisconnect.label_set(_("Disconnect"))
+                self.btConnectDisconnect.text_set(_("Disconnect"))
                 self.connectionStatus = "connected";
             elif gprs_status == 'incoming':
                 status=_("incoming")
-                self.btConnectDisconnect.label_set(_("Connect"))
+                self.btConnectDisconnect.text_set(_("Connect"))
                 self.connectionStatus = "disconnected";
             elif gprs_status == 'held':
                 status=_("held")
-                self.btConnectDisconnect.label_set(_("Disconnect"))
+                self.btConnectDisconnect.text_set(_("Disconnect"))
                 self.connectionStatus = "connected";
             else:
                 status=_("UNKNOWN")+" ("+str(id) + ' ' + str(gprs_status)+")"
-                self.btConnectDisconnect.label_set(_("UNKNOWN"))
+                self.btConnectDisconnect.text_set(_("UNKNOWN"))
                 self.connectionStatus = "UNKNOWN";
-            self.labelStatus.label_set(status)
+            self.labelStatus.text_set(status)
             return True
 
     def createView(self):
@@ -214,7 +214,7 @@ class Gprs(module.AbstractModule):
 
                 #CONNECT / DISCONNECT button
                 self.btConnectDisconnect = elementary.Button(self.window)
-                self.btConnectDisconnect.label_set(_("UNKNOWN"))
+                self.btConnectDisconnect.text_set(_("UNKNOWN"))
                 self.btConnectDisconnect.show()
                 self.btConnectDisconnect.size_hint_align_set(-1.0, 0.0)
                 self.main.pack_end(self.btConnectDisconnect)

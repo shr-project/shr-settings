@@ -42,7 +42,7 @@ class PasswordEntryBox(elementary.Box):
 																	
 		self.PasswordLabel = elementary.Label(self.window)
 		self.PasswordLabel.size_hint_align_set(-1.0, 0.0)
-		self.PasswordLabel.label_set(self.label)
+		self.PasswordLabel.text_set(self.label)
 		self.PasswordLabel.show()
 										
 		self.PasswordEntry = elementary.Entry(self.window)
@@ -112,7 +112,7 @@ class Password(module.AbstractModule):
 		dia.style_set("minimal")
 		dia.show()
 		label = elementary.Label(dia)
-		label.label_set(text)
+		label.text_set(text)
 		label.show()
 		dia.content_set(label)
 		dia.activate()

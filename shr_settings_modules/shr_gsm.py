@@ -128,7 +128,7 @@ class Gsm(module.AbstractModule):
         print "Error happened: " + str(e)
         self.status = elementary.Label(self.winope)
         self.opefr.content_set(self.status)
-        self.status.label_set(_("Could not connect to network"))
+        self.status.text_set(_("Could not connect to network"))
         self.status.show()
 
     def operatorAutomatic(self, obj, *args, **kwargs):
@@ -150,7 +150,7 @@ class Gsm(module.AbstractModule):
     def operatorsList(self, obj, *args, **kargs):
         self.wait = elementary.InnerWindow(self.window)
         waitlabel = elementary.Label(self.wait)
-        waitlabel.label_set(_('Please wait...'))
+        waitlabel.text_set(_('Please wait...'))
         self.wait.style_set('minimal')
         self.wait.content_set(waitlabel)
         waitlabel.show()
@@ -186,7 +186,7 @@ class Gsm(module.AbstractModule):
         box0.show()
 
         self.opefr = elementary.Frame(self.winope)
-        self.opefr.label_set(_("List Providers"))
+        self.opefr.text_set(_("List Providers"))
         self.opefr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(self.opefr)
         self.opefr.show()
@@ -200,7 +200,7 @@ class Gsm(module.AbstractModule):
 
         cancelbt = elementary.Button(self.winope)
         cancelbt._callback_add('clicked', self.goto_settingsbtClick)
-        cancelbt.label_set(_("Cancel"))
+        cancelbt.text_set(_("Cancel"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
         box0.pack_end(cancelbt)
@@ -211,7 +211,7 @@ class Gsm(module.AbstractModule):
         box1.show()
 
         opeautobt = elementary.Button(self.winope)
-        opeautobt.label_set(_("Automatic"))
+        opeautobt.text_set(_("Automatic"))
         opeautobt._callback_add('clicked', self.operatorAutomatic)
         opeautobt.size_hint_align_set(-1.0, 0.0)
         opeautobt.show()
@@ -228,7 +228,7 @@ class Gsm(module.AbstractModule):
                 add = _(" [forbidden]")
             else:
                 add = "";
-            opeAvbt.label_set( str(i[2])+add )
+            opeAvbt.text_set( str(i[2])+add )
             opeAvbt.set_opeNr( i[3] )
             opeAvbt._callback_add('clicked', self.operatorSelect)
             opeAvbt.size_hint_align_set(-1.0, 0.0)
@@ -250,14 +250,14 @@ class Gsm(module.AbstractModule):
         if self.buttonshidden:
           self.opebt = elementary.Button(self.window)
           self.opebt._callback_add('clicked', self.operatorsList)
-          self.opebt.label_set(_("Operators"))
+          self.opebt.text_set(_("Operators"))
           self.opebt.size_hint_align_set(-1.0, 0.0)
           self.box1.pack_end(self.opebt)
           self.opebt.show()
 
           self.infobt = elementary.Button(self.window)
           self.infobt._callback_add('clicked', self.informationbt)
-          self.infobt.label_set(_("Modem information"))
+          self.infobt.text_set(_("Modem information"))
           self.infobt.size_hint_align_set(-1.0, 0.0)
           self.box1.pack_end(self.infobt)
           self.infobt.show()
@@ -275,7 +275,7 @@ class Gsm(module.AbstractModule):
             self.buttonshide()
             self.toggle0.state_set( self.ap )
 
-#        self.opela.label_set( self.gsmsc.gsmnetwork_GetStatusOperatorName() )
+#        self.opela.text_set( self.gsmsc.gsmnetwork_GetStatusOperatorName() )
 
     def toggle0bt(self, obj, *args, **kargs):
         if self.gsmsc.gsmdevice_getAntennaPower()==obj.state_get():
@@ -306,7 +306,7 @@ class Gsm(module.AbstractModule):
         box0.show()
 
         fr = elementary.Frame(self.wininfo)
-        fr.label_set(_("GSM modem information"))
+        fr.text_set(_("GSM modem information"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -320,7 +320,7 @@ class Gsm(module.AbstractModule):
 
         cancelbt = elementary.Button(self.wininfo)
         cancelbt._callback_add('clicked', self.goto_settingsbtClick)
-        cancelbt.label_set(_("Cancel"))
+        cancelbt.text_set(_("Cancel"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
         box0.pack_end(cancelbt)
@@ -333,13 +333,13 @@ class Gsm(module.AbstractModule):
         i = self.gsmsc.gsmnetwork_GetStatus()
         for b in i:
             fo = elementary.Frame(self.wininfo)
-            fo.label_set( str(b) )
+            fo.text_set( str(b) )
             fo.size_hint_align_set(-1.0, 0.0)
             fo.show()
             box1.pack_end(fo)
 
             lab = elementary.Label(self.wininfo)
-            lab.label_set( str(i[b]) )
+            lab.text_set( str(i[b]) )
             lab.size_hint_align_set(-1.0, 0.0)
             lab.show()
             fo.content_set( lab )
@@ -347,13 +347,13 @@ class Gsm(module.AbstractModule):
         i = self.gsmsc.info_GetInfo()
         for b in i:
             fo = elementary.Frame(self.wininfo)
-            fo.label_set( str(b) )
+            fo.text_set( str(b) )
             fo.size_hint_align_set(-1.0, 0.0)
             fo.show()
             box1.pack_end(fo)
 
             lab = elementary.Label(self.wininfo)
-            lab.label_set( str(i[b]) )
+            lab.text_set( str(i[b]) )
             lab.size_hint_align_set(-1.0, 0.0)
             lab.show()
             fo.content_set( lab )
@@ -371,7 +371,7 @@ class Gsm(module.AbstractModule):
 
         try:
             self.toggle0 = elementary.Toggle(self.window)
-            self.toggle0.label_set(_("GSM antenna:"))
+            self.toggle0.text_set(_("GSM antenna:"))
             self.toggle0.size_hint_align_set(-1.0, 0.0)
             self.toggle0.states_labels_set(_("On"),_("Off"))
             self.toggle0.show()
@@ -385,7 +385,7 @@ class Gsm(module.AbstractModule):
         except:
             print "GSM view [info] can't connect to dbus"
             errlab = elementary.Label(self.window)
-            errlab.label_set(_("Couldn't connect to FSO"))
+            errlab.text_set(_("Couldn't connect to FSO"))
             errlab.size_hint_align_set(-1.0, 0.0)
             errlab.show()
             self.box1.pack_end( errlab )

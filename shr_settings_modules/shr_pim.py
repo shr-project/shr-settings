@@ -26,7 +26,7 @@ class Pim(module.AbstractModule):
         Report the DBus is fsck'd
         """
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO"))
+        label.text_set(_("Couldn't connect to FSO"))
         self.main.pack_start(label)
         label.show()
 
@@ -46,7 +46,7 @@ class Pim(module.AbstractModule):
     def pleasewait(self, win):
         dia = elementary.InnerWindow(win)
         label = elementary.Label(dia)
-        label.label_set(_('Please wait...'))
+        label.text_set(_('Please wait...'))
         dia.style_set('minimal')
         label.show()
         dia.content_set(label)
@@ -81,13 +81,13 @@ class Pim(module.AbstractModule):
         box.show()
 
         label = elementary.Label(pager)
-        #label.label_set(backendname + "<br>(domain: "+domain+")")
-        label.label_set(_("%(backend)s<br>(domain: %(domain)s)") % {'backend':backendname, 'domain':domain})
+        #label.text_set(backendname + "<br>(domain: "+domain+")")
+        label.text_set(_("%(backend)s<br>(domain: %(domain)s)") % {'backend':backendname, 'domain':domain})
         label.show()
         box.pack_start(label)
  
         check = elementary.Check(pager)
-        check.label_set(_("enabled"))
+        check.text_set(_("enabled"))
         check._callback_add("changed", partial(self.enableOrDisable, backend, win))
 
         check.state_set(backend.GetEnabled())
@@ -105,7 +105,7 @@ class Pim(module.AbstractModule):
         if len(props):
             propan = elementary.AnchorBlock(pager)
             propfr = elementary.Frame(pager)
-#            propfr.label_set(_('Properties'))
+#            propfr.text_set(_('Properties'))
             propfr.style_set('outdent_top')
             propfr.content_set(propan)
             propfr.show()
@@ -119,9 +119,9 @@ class Pim(module.AbstractModule):
 
         inited = elementary.Label(pager)
         if initialized:
-            inited.label_set(_('Initialized'))
+            inited.text_set(_('Initialized'))
         else:
-            inited.label_set(_('Not initialized'))
+            inited.text_set(_('Not initialized'))
         inited.show()
         box.pack_end(inited)
 
@@ -130,14 +130,14 @@ class Pim(module.AbstractModule):
 
         if defaultbackend.lower() != backendname.lower() and 'add_entry' in props:
             default = elementary.Button(pager)
-            default.label_set(_("Set as default"))
+            default.text_set(_("Set as default"))
             default._callback_add("clicked", partial(self.setAsDefault, [backend, domain, pager, win]))
             default.show()
 
             box.pack_end(default)
 
         back = elementary.Button(pager)
-        back.label_set(_("Quit"))
+        back.text_set(_("Quit"))
         back._callback_add("clicked", partial(self.pagerPop, pager))
         back.show()
 
@@ -169,7 +169,7 @@ class Pim(module.AbstractModule):
 
         quitbt = elementary.Button(win)
         quitbt._callback_add('clicked', partial(self.destroywin, win))
-        quitbt.label_set(_("Quit"))
+        quitbt.text_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
@@ -224,7 +224,7 @@ class Pim(module.AbstractModule):
 
             self.hoverSel = elementary.Hoversel(self.window)
             self.hoverSel.hover_parent_set(self.window)
-            self.hoverSel.label_set(_("Domains"))
+            self.hoverSel.text_set(_("Domains"))
             self.hoverSel.size_hint_weight_set(-1.0, 0.0)
             self.hoverSel.size_hint_align_set(-1.0, 0.0)
             self.main.pack_end(self.hoverSel)
@@ -232,7 +232,7 @@ class Pim(module.AbstractModule):
 
             for domain in self.domains:
 #                dombutton = elementary.Button(self.main)
-#                dombutton.label_set(domain)
+#                dombutton.text_set(domain)
 #                dombutton.size_hint_align_set(-1.0, -1.0)
 #                dombutton.size_hint_weight_set(1.0, 1.0)
 #                dombutton._callback_add("clicked", partial(self.domainWindow, domain))

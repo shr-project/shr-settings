@@ -28,7 +28,7 @@ class WifiToggleBox(elementary.Box):
         self.toggle.state_set(state)
         self.toggle.disabled_set(auto)
         #FIXME: remove next line once labels don't disappear when disabling
-        self.toggle.label_set(_("WiFi Power"))
+        self.toggle.text_set(_("WiFi Power"))
 
     def toggleAutoChanged(self, toggle, *args, **kargs):
         """ Callback when the manual/auto toggle changed """
@@ -36,13 +36,13 @@ class WifiToggleBox(elementary.Box):
             self.dbusObj.SetResourcePolicy('WiFi', 'auto')
             self.toggle.disabled_set(True)
             #FIXME: remove next line once labels don't disappear when disabling
-            self.toggle.label_set(_("WiFi Power"))
+            self.toggle.text_set(_("WiFi Power"))
         else:
             # pretend we switched the On/Off toggle to enable/disable Wifi
             self.toggleChanged(self.toggle)
             self.toggle.disabled_set(False)
             #FIXME: remove next line once labels don't disappear when disabling
-            self.toggle.label_set(_("WiFi Power"))
+            self.toggle.text_set(_("WiFi Power"))
 
     def toggleChanged(self, obj, *args, **kargs):
         """
@@ -60,7 +60,7 @@ class WifiToggleBox(elementary.Box):
         """
         self.toggleAuto.disabled_set(False)
         #FIXME: remove next line once labels don't disappear when disabling
-        self.toggleAuto.label_set(_("Automatic"))
+        self.toggleAuto.text_set(_("Automatic"))
         self.update(state)
 
     def init_toggle_error_handler(self, e):
@@ -73,7 +73,7 @@ class WifiToggleBox(elementary.Box):
         self.hide()
         # Show an error message instead
         label = elementary.Label(self.wifi.main)
-        label.label_set(reason)
+        label.text_set(reason)
         label.show()
         self.wifi.main.pack_start(label)
 
@@ -89,7 +89,7 @@ class WifiToggleBox(elementary.Box):
 
         self.toggleAuto = elementary.Toggle(self.wifi.window)
         self.toggleAuto.disabled_set(True)
-        self.toggleAuto.label_set(_("Automatic"))
+        self.toggleAuto.text_set(_("Automatic"))
         self.toggleAuto.states_labels_set(_("Automatic"),_("Manual"))
         self.toggleAuto.size_hint_align_set(-1.0, 0.0)
         self.toggleAuto._callback_add('changed', self.toggleAutoChanged)
@@ -98,7 +98,7 @@ class WifiToggleBox(elementary.Box):
 
         self.toggle = elementary.Toggle(self.wifi.window)
         self.toggle.disabled_set(True)
-        self.toggle.label_set(_("WiFi Power"))
+        self.toggle.text_set(_("WiFi Power"))
         self.toggle.states_labels_set(_("On"),_("Off"))
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
@@ -119,7 +119,7 @@ class Wifi(module.AbstractModule):
 
     def error(self):
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO"))
+        label.text_set(_("Couldn't connect to FSO"))
         label.show()
         self.main.pack_start(label)
 

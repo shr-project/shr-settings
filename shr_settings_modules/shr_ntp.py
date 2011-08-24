@@ -71,7 +71,7 @@ class NTP(module.AbstractModule):
 
     def createButton(self):
         self.bt = elementary.Button(self.window)
-        self.bt.label_set(_("Sync Time"))
+        self.bt.text_set(_("Sync Time"))
         self.bt.size_hint_weight_set(-1.0, 0.0)
         self.bt.size_hint_align_set(-1.0, 0.0)
         self.main.pack_end(self.bt)

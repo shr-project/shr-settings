@@ -43,7 +43,7 @@ class Display(module.AbstractModule):
 
     def createView(self):
         self.slider = elementary.Slider(self.window)
-        self.slider.label_set(_("Backlight "))
+        self.slider.text_set(_("Backlight "))
         self.slider.unit_format_set(" %3.0f%% ")
         self.slider.min_max_set(2, 100)
         self.value = self.getbacklight()

@@ -62,7 +62,7 @@ class Splash(module.AbstractModule):
 
         self.currentProfile = self.themes[self.priority_idx[max_prio][len(self.priority_idx[max_prio])-1]][0]
 
-        self.hoverSel.label_set(_("Themes (%s)") % self.currentProfile)
+        self.hoverSel.text_set(_("Themes (%s)") % self.currentProfile)
 
         self.max_prio = max_prio
         self.currentTheme = self.priority_idx[max_prio][len(self.priority_idx[max_prio])-1]
@@ -109,7 +109,7 @@ class Splash(module.AbstractModule):
 
         # Preview button
         previewbtn = elementary.Button(self.window)
-        previewbtn.label_set(_("Preview"))
+        previewbtn.text_set(_("Preview"))
         previewbtn._callback_add('clicked', self.preview)
         previewbtn.show()
         previewbtn.size_hint_align_set(-1.0, 0.0)

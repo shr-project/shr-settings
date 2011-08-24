@@ -15,6 +15,6 @@ class Misc(module.AbstractModule):
     
     def createView(self):
         la = elementary.Label(self.window)
-        la.label_set(_("Suspend, dim time and etc."))
+        la.text_set(_("Suspend, dim time and etc."))
         return la
 

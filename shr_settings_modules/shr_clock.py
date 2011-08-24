@@ -31,11 +31,11 @@ class Clock(module.AbstractModule):
                 now = datetime.datetime.now()
                 os.system("busybox date \""+str(now.year)+"-"+str(now.month).zfill(2)+"-"+str(now.day).zfill(2)+" "+str(self.cl.time_get()[0]).zfill(2)+":"+str(self.cl.time_get()[1]).zfill(2)+":"+str(self.cl.time_get()[2]).zfill(2)+"\" && hwclock -w")
                 self.cl.edit_set(False)
-                obj.label_set(_("Set time"))
+                obj.text_set(_("Set time"))
                 self.editable = False
             else:
                 self.cl.edit_set(True)
-                obj.label_set(_("OK"))
+                obj.text_set(_("OK"))
                 self.editable = True
 
     def createView(self):
@@ -46,7 +46,7 @@ class Clock(module.AbstractModule):
         box0.pack_end(self.cl)
         self.cl.show()
         self.but = elementary.Button(self.window)
-        self.but.label_set(_("Set time"))
+        self.but.text_set(_("Set time"))
         self.but.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(self.but)
         self.but._callback_add('clicked', self.clockset)

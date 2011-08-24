@@ -101,7 +101,7 @@ class PhbookInfoFrame(elementary.Frame):
         assert self.tableobj == 'elementary.c_elementary.Table'
         # call elementary.Frame.__init__
         super(PhbookInfoFrame, self).__init__(par_tableobj)        
-        self.label_set(_("Book ")+ self.booktype)
+        self.text_set(_("Book ")+ self.booktype)
 
     #-------------------------------------------------------------------
     def phonebookinfo_reply_handler(self, slots, number, name):
@@ -129,7 +129,7 @@ class PhbookInfoFrame(elementary.Frame):
                 boxS.show()
 
                 labelN =elementary.Label(boxS)
-                labelN.label_set(key)
+                labelN.text_set(key)
                 labelN.size_hint_align_set(-1.0, -1.0)
                 labelN.size_hint_weight_set(1.0, 1.0)
                 labelN.show()
@@ -137,7 +137,7 @@ class PhbookInfoFrame(elementary.Frame):
 
                 labelV =elementary.Label(boxS)
                 labelV.size_hint_align_set(-1.0, 0.0)
-                labelV.label_set(str( val ))
+                labelV.text_set(str( val ))
                 labelV.show()
                 boxS.pack_end(labelV)
 
@@ -153,7 +153,7 @@ class PhbookInfoFrame(elementary.Frame):
         cleanbt = Button2(self)
         cleanbt.set_name( self.booktype )
         cleanbt._callback_add('clicked', self.simclass.cleanPhoneBookClick)
-        cleanbt.label_set(_("clean"))
+        cleanbt.text_set(_("clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
         boxS.pack_end(cleanbt)
@@ -185,7 +185,7 @@ class Sim(module.AbstractModule):
         box = elementary.Box(dia)
         dia.content_set(box)
         label = elementary.Label(dia)
-        label.label_set(_('Are you sure?'))
+        label.text_set(_('Are you sure?'))
         label.show()
         box.pack_start(label)
         box.show()
@@ -193,12 +193,12 @@ class Sim(module.AbstractModule):
         box2.horizontal_set(True)
         box2.show()
         btnyes = elementary.Button(dia)
-        btnyes.label_set(_('Yes'))
+        btnyes.text_set(_('Yes'))
         btnyes._callback_add('clicked', partial(self.sure, dia, callback))
         btnyes.show()
         box2.pack_start(btnyes)
         btnno = elementary.Button(dia)
-        btnno.label_set(_('No'))
+        btnno.text_set(_('No'))
         btnno._callback_add('clicked', partial(self.notsure, dia))
         btnno.show()
         box2.pack_end(btnno)
@@ -233,7 +233,7 @@ class Sim(module.AbstractModule):
                 boxS.show()
 
                 labelN =elementary.Label(self.window)
-                labelN.label_set(key.replace('_',' ') + ':')
+                labelN.text_set(key.replace('_',' ') + ':')
                 labelN.size_hint_align_set(-1.0, -1.0)
                 labelN.size_hint_weight_set(1.0, 1.0)
                 labelN.show()
@@ -242,12 +242,12 @@ class Sim(module.AbstractModule):
                 labelV =elementary.Label(self.window)
                 labelV.size_hint_align_set(-1.0, 0.0)
                 if isinstance(val, (str, int, dbus.String)):
-                    labelV.label_set(str(val))
+                    labelV.text_set(str(val))
                 else:
                     vall = ''
                     for va in val:
                         vall = vall + va[1] + '<br>'
-                    labelV.label_set(vall.replace('"',''))
+                    labelV.text_set(vall.replace('"',''))
                 labelV.show()
                 boxS.pack_end(labelV)
 
@@ -263,7 +263,7 @@ class Sim(module.AbstractModule):
         print "async Msg book arrived"
 
         frameBook = elementary.Frame(self.window)
-        frameBook.label_set(_("Message book"))
+        frameBook.text_set(_("Message book"))
         self.books_table.pack(frameBook, 0, 0, 1, 1)
         frameBook.size_hint_weight_set(1.0, 1.0)
         frameBook.size_hint_align_set(-1.0, -1.0)
@@ -282,7 +282,7 @@ class Sim(module.AbstractModule):
                 boxS.show()
 
                 labelN =elementary.Label(self.window)
-                labelN.label_set(key)
+                labelN.text_set(key)
                 labelN.size_hint_align_set(-1.0, -1.0)
                 labelN.size_hint_weight_set(1.0, 1.0)
                 labelN.show()
@@ -290,7 +290,7 @@ class Sim(module.AbstractModule):
 
                 labelV =elementary.Label(self.window)
                 labelV.size_hint_align_set(-1.0, 0.0)
-                labelV.label_set(str( val ))
+                labelV.text_set(str( val ))
                 labelV.show()
                 boxS.pack_end(labelV)
 
@@ -305,7 +305,7 @@ class Sim(module.AbstractModule):
         # clear TODO
         cleanbt = elementary.Button(self.window)
         cleanbt._callback_add('clicked', self.cleanMessageBookClick)
-        cleanbt.label_set(_("clean"))
+        cleanbt.text_set(_("clean"))
         cleanbt.size_hint_align_set(-1.0, 0.0)
         cleanbt.show()
         boxS.pack_end(cleanbt)
@@ -332,7 +332,7 @@ class Sim(module.AbstractModule):
         # If we can't connect to the right DBus object crap out here
         if self.simmc.getDbusState==0:
             label =elementary.Label(self.window)
-            label.label_set(_("Couldn't connect to FSO"))
+            label.text_set(_("Couldn't connect to FSO"))
             label.size_hint_align_set(-1.0, 0.0)
             label.show()
             box1.pack_start(label)
@@ -347,7 +347,7 @@ class Sim(module.AbstractModule):
         )
 
         frameInfo = elementary.Frame(self.window)
-        frameInfo.label_set(_("SIM information:"))
+        frameInfo.text_set(_("SIM information:"))
         box1.pack_start(frameInfo)
         frameInfo.size_hint_align_set(-1.0, 0.0)
         frameInfo.show()

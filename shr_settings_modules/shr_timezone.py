@@ -47,7 +47,7 @@ class Timezone(module.AbstractModule):
         ret = os.system("ln  -s %s /etc/localtime" % os.path.join(self.tzdir,timezone))
         if ret:
             self.InfoDialog(None, "error linking timezone to /etc/localtime")
-	self.CurrentTZ.label_set(self.GetCurrentTimezone())
+	self.CurrentTZ.text_set(self.GetCurrentTimezone())
             
             
     def receivedTimezone(self, timezone, obj, *args, **kargs):
@@ -69,7 +69,7 @@ class Timezone(module.AbstractModule):
         self.timezones = sorted(self.timezones)
         for tz in self.timezones:
             btz = elementary.Button(self.inwin)
-            btz.label_set(tz)
+            btz.text_set(tz)
             btz.size_hint_weight_set(-1.0, 0.0)
             btz.size_hint_align_set(-1.0, 0.0)
             self.inbox.pack_end(btz)
@@ -104,7 +104,7 @@ class Timezone(module.AbstractModule):
 
     def createButton(self):
         self.bt = elementary.Button(self.window)
-        self.bt.label_set(_("Set Timezone"))
+        self.bt.text_set(_("Set Timezone"))
         self.bt.size_hint_weight_set(-1.0, 0.0)
         self.bt.size_hint_align_set(-1.0, 0.0)
         self.main.pack_end(self.bt)

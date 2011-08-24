@@ -45,7 +45,7 @@ class Services(module.AbstractModule):
         frame = elementary.Frame(self.win)
         dia.style_set('minimal_vertical')
         dia.scale_set(1.0)
-        frame.label_set(_('Are you sure?'))
+        frame.text_set(_('Are you sure?'))
         dia.content_set(frame)
         frame.show()
         box = elementary.Box(self.win)
@@ -63,13 +63,13 @@ class Services(module.AbstractModule):
         hbox.show()
 
         yes = elementary.Button(self.win)
-        yes.label_set(_('Yes'))
+        yes.text_set(_('Yes'))
         yes.show()
         yes._callback_add('clicked', partial(self.closex, action, dia))
         hbox.pack_start(yes)
 
         no = elementary.Button(self.win)
-        no.label_set(_('No'))
+        no.text_set(_('No'))
         no.show()
         no._callback_add('clicked', partial(self.closedia, dia))
         hbox.pack_end(no)
@@ -108,7 +108,7 @@ class Services(module.AbstractModule):
                 break  
             print "line ["+line+"]"
             lb = elementary.Label(self.windeb)
-            lb.label_set(line)
+            lb.text_set(line)
             lb.size_hint_align_set(-1.0, 0.0)
             box1.pack_end(lb)
             lb.show()
@@ -136,7 +136,7 @@ class Services(module.AbstractModule):
         box0.show()
 
         fr = elementary.Frame(self.windeb)
-        fr.label_set(_("Service output"))
+        fr.text_set(_("Service output"))
         fr.size_hint_align_set(-1.0, 0.0)
         box0.pack_end(fr)
         fr.show()
@@ -149,7 +149,7 @@ class Services(module.AbstractModule):
 
         cancelbt = elementary.Button(self.windeb)
         cancelbt._callback_add('clicked', self.destroyDebug)
-        cancelbt.label_set(_("Close"))
+        cancelbt.text_set(_("Close"))
         cancelbt.size_hint_align_set(-1.0, 0.0)
         cancelbt.show()
         box0.pack_end(cancelbt)
@@ -165,7 +165,7 @@ class Services(module.AbstractModule):
         dia.show()
         self.windeb.resize_object_add(dia)
         diala = elementary.Label(dia)
-        diala.label_set(_('Executing...'))
+        diala.text_set(_('Executing...'))
         diala.show()
         dia.content_set(diala)
         dia.style_set('minimal')
@@ -194,7 +194,7 @@ class Services(module.AbstractModule):
         startbt = ButtonServer(self.win)
         startbt.set_osCmd("/etc/init.d/" + service + " start")
         startbt._callback_add('clicked', partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text')))
-        startbt.label_set(_("start") )
+        startbt.text_set(_("start") )
 #        startbt.size_hint_align_set(-1.0, 0.0)
 #        startbt.size_hint_weight_set(1.0, 1.0)
         startbt.show()
@@ -203,7 +203,7 @@ class Services(module.AbstractModule):
         restartbt = ButtonServer(self.win)
         restartbt.set_osCmd("/etc/init.d/"+ service +" restart")
         restartbt._callback_add('clicked', partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text')))
-        restartbt.label_set(_("restart"))
+        restartbt.text_set(_("restart"))
 #        restartbt.size_hint_align_set(-1.0, 0.0)
         restartbt.show()
         ser_box.pack_end(restartbt)
@@ -211,7 +211,7 @@ class Services(module.AbstractModule):
         stopbt = ButtonServer(self.win)
         stopbt.set_osCmd("/etc/init.d/"+ service +" stop")
         stopbt._callback_add('clicked', partial( self.startbtClick, warning = kargs.get('warning'), warning_text = kargs.get('warning_text')))
-        stopbt.label_set(_("stop"))
+        stopbt.text_set(_("stop"))
 #        stopbt.size_hint_align_set(-1.0, 0.0)
         stopbt.show()
         ser_box.pack_end(stopbt)
@@ -222,7 +222,7 @@ class Services(module.AbstractModule):
     def createView(self):
         """ main entry to the module that creates and returns the view """
         btn = elementary.Button(self.window)
-        btn.label_set(_('Services list'))
+        btn.text_set(_('Services list'))
         btn._callback_add('clicked', self.makeWindow)
         return btn
 
@@ -240,7 +240,7 @@ class Services(module.AbstractModule):
         scroller = elementary.Scroller(win)
         scroller.bounce_set(0,0)
         frame = elementary.Frame(win)
-        frame.label_set(self.name)
+        frame.text_set(self.name)
         frame.size_hint_align_set(-1.0, -1.0)
         frame.size_hint_weight_set(1.0, 0.0)
         scroller.content_set(frame)
@@ -254,7 +254,7 @@ class Services(module.AbstractModule):
 
         quitbt = elementary.Button(win)
         quitbt._callback_add('clicked', partial(self.windowClose, win))
-        quitbt.label_set(_("Quit"))
+        quitbt.text_set(_("Quit"))
         quitbt.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt)
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
@@ -268,7 +268,7 @@ class Services(module.AbstractModule):
         box0 = elementary.Box(win)
 
         label = elementary.Label(box0)
-        label.label_set(_("Please wait..."))
+        label.text_set(_("Please wait..."))
         box0.pack_start(label)
         label.show()
 
@@ -300,7 +300,7 @@ class Services(module.AbstractModule):
                 ('xserver-nodm', _('Stopping X server will stop all running applications. Do you really want to proceed?'))]
         for top in tops:
             btn = elementary.Button(box0)
-            btn.label_set(top[0])
+            btn.text_set(top[0])
             btn.name = top[0]
             btn.size_hint_align_set(-1.0, -1.0)
             btn.size_hint_weight_set(1.0, 1.0)
@@ -317,7 +317,7 @@ class Services(module.AbstractModule):
         for i in servicesList:
             if ((len(i.split(".sh"))==1) and (not(i in dontshow))):
                 boxSSS = elementary.Button(box0)
-                boxSSS.label_set(i)
+                boxSSS.text_set(i)
                 boxSSS.name = i
                 #boxSSS.horizontal_set(True)
                 boxSSS.size_hint_align_set(-1.0, -1.0)

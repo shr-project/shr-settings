@@ -48,7 +48,7 @@ class ResourceToggleBox(elementary.Box):
         self.state = None
 
         self.toggle = elementary.Toggle(self.window)
-        self.toggle.label_set(label)
+        self.toggle.text_set(label)
         self.toggle.states_labels_set(_("Forbid"),_("Allow"))
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
@@ -69,7 +69,7 @@ class Pm(module.AbstractModule):
         Report the DBus is fsck'd
         """
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO or phonefsod"))
+        label.text_set(_("Couldn't connect to FSO or phonefsod"))
         label.show()
 
         self.main.pack_start(label)

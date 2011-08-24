@@ -45,7 +45,7 @@ class PhoneuiTheme(module.AbstractModule):
             self.current_theme=value
             os.system('sed "s/'+field+' = .*/'+field+' = '+value+'/" '+self.config_file+' -i')
             btn = elementary.Button(self.window)
-            btn.label_set(_('Restart phoneui'))
+            btn.text_set(_('Restart phoneui'))
             btn.size_hint_align_set(-1.0, -1.0)
             btn.size_hint_weight_set(1.0, 0.0)
             btn.show()
@@ -63,7 +63,7 @@ class PhoneuiTheme(module.AbstractModule):
             self.restart_phoneui()
 
     def hselCurrentTheme(self):
-        self.hoverSel.label_set(_("Themes (%s)") % self.current_theme)
+        self.hoverSel.text_set(_("Themes (%s)") % self.current_theme)
 
 
     def restart_phoneui(self):

@@ -24,7 +24,7 @@ class AlsaScenarios(module.AbstractModule):
         Report the DBus is fsck'd
         """
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO"))
+        label.text_set(_("Couldn't connect to FSO"))
         self.main.pack_start(label)
         label.show()
 
@@ -50,7 +50,7 @@ class AlsaScenarios(module.AbstractModule):
         Updates the displayed value of the current scenario
         """
         self.currentScenario = self.dbusObj.GetScenario().title()
-        self.hoverSel.label_set(_("Scenarios (%s)") % self.currentScenario)
+        self.hoverSel.text_set(_("Scenarios (%s)") % self.currentScenario)
 
     def listScenarios(self):
         """

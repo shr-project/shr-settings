@@ -26,7 +26,7 @@ class Elementary(module.AbstractModule):
             kargs['callback']()
         if not self.changed:
             btn = elementary.Button(self.window)
-            btn.label_set(_('Restart X server'))
+            btn.text_set(_('Restart X server'))
             btn.size_hint_align_set(-1.0, -1.0)
             btn.size_hint_weight_set(1.0, 0.0)
             btn.show()
@@ -64,7 +64,7 @@ class Elementary(module.AbstractModule):
                     value = s[1].replace('\n', '')
                     self.keys[name]=value
 
-        self.hoverSel.label_set(_("Themes (%s)") % self.keys['ELM_THEME'])
+        self.hoverSel.text_set(_("Themes (%s)") % self.keys['ELM_THEME'])
         if self.keys['ELM_ENGINE']=='x11':
             self.engine.value_set(1)
         else:
@@ -130,7 +130,7 @@ class Elementary(module.AbstractModule):
         radiobox.show()
 
         engine = elementary.Frame(self.window)
-        engine.label_set(_("Engine:"))
+        engine.text_set(_("Engine:"))
         engine.show()
         engine.content_set(radiobox)
 
@@ -138,7 +138,7 @@ class Elementary(module.AbstractModule):
         engine.size_hint_weight_set(1.0, 0.0)
 
         radioOn = elementary.Radio(self.window)
-        radioOn.label_set(_("x11"))
+        radioOn.text_set(_("x11"))
         radioOn.size_hint_weight_set(1.0, 0.0)
         radioOn.size_hint_align_set(0.5, 0.0)
         radioOn.state_value_set(1)
@@ -146,7 +146,7 @@ class Elementary(module.AbstractModule):
         radioOn.show()
 
         radioOff = elementary.Radio(self.window)
-        radioOff.label_set(_("x11-16"))
+        radioOff.text_set(_("x11-16"))
         radioOff.size_hint_weight_set(1.0, 0.0)
         radioOff.size_hint_align_set(0.5, 0.0)
         radioOff.state_value_set(0)
@@ -161,7 +161,7 @@ class Elementary(module.AbstractModule):
         self.engine = radioOff
 
         self.slider = elementary.Slider(self.window)
-        self.slider.label_set(_('Finger size '))
+        self.slider.text_set(_('Finger size '))
         self.slider.size_hint_align_set(-1.0, -1.0)
         self.slider.size_hint_weight_set(1.0, 0.0)
         self.slider.unit_format_set(" %0.f ")

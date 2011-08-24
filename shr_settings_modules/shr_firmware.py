@@ -48,7 +48,7 @@ class Firmware(module.AbstractModule):
         self.wizard_description =  _("Your device, %s, needs some external firmware to be installed in order to make everything working correctly. Those firmwares are non-free and can't be redistributed with SHR, so you have to download them on your own. Please check this page for more details." % MODELS[self.model])
 
         text = elementary.Label(self.window)
-        text.label_set("http://wiki.shr-project.org/trac/wiki/Firmware ")
+        text.text_set("http://wiki.shr-project.org/trac/wiki/Firmware ")
         text.size_hint_weight_set(1.0, 1.0)
         text.size_hint_align_set(0.0, 0.0)
         text.show()

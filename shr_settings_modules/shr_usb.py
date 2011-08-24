@@ -93,13 +93,13 @@ class Usb(module.AbstractModule):
             self.usb = getDbusObject (self.dbus, "org.freesmartphone.ousaged", "/org/freesmartphone/Usage", "org.freesmartphone.Usage") 
         except:
             label = elementary.Label(self.window)
-            label.label_set(_("Couldn't connect to FSO"))
+            label.text_set(_("Couldn't connect to FSO"))
             return label
 
         self.box1 = elementary.Box(self.window)
 
         self.toggle0 = elementary.Toggle(self.window)
-        self.toggle0.label_set(_("USB mode:"))
+        self.toggle0.text_set(_("USB mode:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
         self.toggle0.states_labels_set(_("Auto"),_("Manual"))
         self.toggle0._callback_add('changed', self.res_handle)

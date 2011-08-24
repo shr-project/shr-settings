@@ -10,11 +10,11 @@ class ElmLabelBox(elementary.Box):
     """
     Implements read only title+option box 
     """
-    def label_get(self):
-        return self.Status.label_get()
+    def text_get(self):
+        return self.Status.text_get()
 
-    def label_set(self, value):
-        return self.Status.label_set(value.title())
+    def text_set(self, value):
+        return self.Status.text_set(value.title())
 
     def __init__(self, win, label, value):
         """
@@ -30,11 +30,11 @@ class ElmLabelBox(elementary.Box):
         self.value  = value
 
         self.Label = elementary.Label(self.window)
-        self.Label.label_set(self.label)
+        self.Label.text_set(self.label)
         self.Label.show()
 
         self.Status = elementary.Label(self.window)
-        self.Status.label_set(self.value)
+        self.Status.text_set(self.value)
         self.Status.show()
 
         self.pack_start(self.Label)
@@ -69,7 +69,7 @@ class ElmEntryBox(elementary.Box):
 
         self.Label = elementary.Label(self.window)
         self.Label.size_hint_align_set(-1.0, 0.0)
-        self.Label.label_set(self.label)
+        self.Label.text_set(self.label)
         self.Label.show()
 
         self.Entry = elementary.Entry(self.window)

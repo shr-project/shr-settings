@@ -49,7 +49,7 @@ def dbus_err(x, *args, **kargs):
 class FileButton(elementary.Button):
     def set_filename( self, filename ):
         self.filename = filename
-        self.label_set(filename)
+        self.text_set(filename)
 
     def get_filename( self ):
         return self.filename
@@ -65,7 +65,7 @@ class ValueLabel(elementary.Label):
         return self._value
 
     def set_value(self, val):
-         self.label_set(str(val))
+         self.text_set(str(val))
          self._value = val
 
 
@@ -76,7 +76,7 @@ class IncDecButton(elementary.Button):
 
     def set_Delta(self, delta):
         self._delta = delta
-        self.label_set("{0:+d}".format(delta))
+        self.text_set("{0:+d}".format(delta))
 
 
     def get_Delta( self ):
@@ -97,7 +97,7 @@ class PreferenceBox(elementary.Box):
         if value == None:
             value = self.dbusObj.GetValue(self.item_name, reply_handler=self.update, error_handler=dbus_err)
         else:
-            self.label.label_set(str(value))
+            self.label.text_set(str(value))
 
     def setup(self):
         """
@@ -108,7 +108,7 @@ class PreferenceBox(elementary.Box):
 #        cur_value = self.dbusObj.GetValue(self.item_name)
 
         self.label = elementary.Label(self.window)
-#        self.label.label_set(str(cur_value))
+#        self.label.text_set(str(cur_value))
         self.update()
 
         self.pack_start(self.label)
@@ -247,7 +247,7 @@ class RadioOnOffBox(PreferenceBox):
         self.horizontal_set(True)
 
         radioOn = elementary.Radio(self.window)
-        radioOn.label_set(_("On"))
+        radioOn.text_set(_("On"))
         radioOn.size_hint_weight_set(1.0, 0.0)
         radioOn.size_hint_align_set(0.5, 0.0)
         radioOn.state_value_set(True)
@@ -255,7 +255,7 @@ class RadioOnOffBox(PreferenceBox):
         radioOn.show()
 
         radioOff = elementary.Radio(self.window)
-        radioOff.label_set(_("Off"))
+        radioOff.text_set(_("Off"))
         radioOff.size_hint_weight_set(1.0, 0.0)
         radioOff.size_hint_align_set(0.5, 0.0)
         radioOff.state_value_set(False)
@@ -310,9 +310,9 @@ class ToneChangeBox(PreferenceBox):
         box = elementary.Box(self.FLBWin)
 
         fr = elementary.Frame(self.FLBWin)
-        fr.label_set(_("Select ringtone"))
+        fr.text_set(_("Select ringtone"))
         lab = elementary.Label(self.FLBWin)
-        lab.label_set(_("Ringtones are placed in /usr/share/sounds/"))
+        lab.text_set(_("Ringtones are placed in /usr/share/sounds/"))
         fr.content_set(lab)
         lab.show()
         fr.show()
@@ -325,7 +325,7 @@ class ToneChangeBox(PreferenceBox):
         scr.bounce_set(0, 0)
         box.pack_end(scr)
         exitbtn = elementary.Button(self.FLBWin)
-        exitbtn.label_set(_("Quit"))
+        exitbtn.text_set(_("Quit"))
         exitbtn.size_hint_weight_set(1.0, 0.0)
         exitbtn.size_hint_align_set(-1.0, -1.0)
         exitbtn._callback_add('clicked', self.destroy)
@@ -416,13 +416,13 @@ class ToneChangeBox(PreferenceBox):
             if status == 'stopped': # tone has stopped
                 # Reset Play button
 ##                print "Stopped: Resetting to 'Play'"
-                self.testBtn.label_set(_("Play"))
+                self.testBtn.text_set(_("Play"))
                 self.testBtn._callback_add('clicked', self.PlayTone)
                 self.playStatus = False
             elif status == 'playing': # tone is playing
                 # Reset Play button
 ##                print "Playing: Resetting to 'Stop'"
-                self.testBtn.label_set(_("Stop"))
+                self.testBtn.text_set(_("Stop"))
                 self.testBtn._callback_add('clicked', self.StopTone)
                 self.playStatus = True
 
@@ -446,7 +446,7 @@ class ToneChangeBox(PreferenceBox):
 
         # Tone Test button
         self.testBtn = elementary.Button(self.window)
-        self.testBtn.label_set(_("Play"))
+        self.testBtn.text_set(_("Play"))
         self.testBtn.size_hint_align_set(-1.0, 0.0)
         self.testBtn.size_hint_weight_set(1.0, 0.0)
         self.testBtn._callback_add('clicked', self.PlayTone)
@@ -454,7 +454,7 @@ class ToneChangeBox(PreferenceBox):
 
         # Tone change button
         self.changeBtn = elementary.Button(self.window)
-        self.changeBtn.label_set(_("Change"))
+        self.changeBtn.text_set(_("Change"))
         self.changeBtn.size_hint_align_set(-1.0, 0.0)
         self.changeBtn.size_hint_weight_set(1.0, 0.0)
         self.changeBtn._callback_add('clicked', self.FileListBox)
@@ -491,7 +491,7 @@ class ToneChangeBox(PreferenceBox):
         else:
             self.tonefile = str(value)
         self.tonepath = SND_DIR + self.tonefile
-        self.label.label_set(self.tonefile)
+        self.label.text_set(self.tonefile)
 
         isSid = re.match(r'(.*sid)(;tune=(.+))?',self.tonefile)
 
@@ -510,7 +510,7 @@ class ToneChangeBox(PreferenceBox):
                 else:
                     self.sidValue = 1
 
-                self.label.label_set("{0}  {1}/{2}".format(self.tonefile,self.sidValue, self.sidTracks))
+                self.label.text_set("{0}  {1}/{2}".format(self.tonefile,self.sidValue, self.sidTracks))
 
                 self.updateButtons( True )
             except:
@@ -562,7 +562,7 @@ class CurrentProfile(module.AbstractModule):
 
     def error(self):
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO"))
+        label.text_set(_("Couldn't connect to FSO"))
         label.show()
         self.main.pack_start(label)
 
@@ -594,7 +594,7 @@ class CurrentProfile(module.AbstractModule):
                     # exist and create it
                     frame = elementary.Frame(self.window)
                     frameTitle = str(i).replace("-"," ").title()
-                    frame.label_set(frameTitle)
+                    frame.text_set(frameTitle)
 
                     if i=='ring-tone' or i == 'message-tone':
                         box = ToneChangeBox(self.window, (self.dbusObj, self.AudioDbusObj), i)

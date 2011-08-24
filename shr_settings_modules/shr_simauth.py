@@ -21,7 +21,7 @@ class SimAuth(module.AbstractModule):
             return True
 
 	def error(self, result):
-		self.loading.label_set(_("Couldn't connect to FSO"))
+		self.loading.text_set(_("Couldn't connect to FSO"))
 
         def diaclose(self, dia, *args, **kwargs):
             dia.delete()
@@ -66,7 +66,7 @@ class SimAuth(module.AbstractModule):
             btn = elementary.Button(dia)
 #            btn.size_hint_weight_set(1.0, 0.0)
             btn.size_hint_align_set(-1.0, 0.0)
-            btn.label_set('OK')
+            btn.text_set('OK')
             btn.show()
             if kwargs.get('callback'):
                 if kwargs.get('entry'):
@@ -151,7 +151,7 @@ class SimAuth(module.AbstractModule):
 		self.loading.delete()
 
 		self.toggle0 = elementary.Toggle(self.window)
-		self.toggle0.label_set(_("PIN code: "))
+		self.toggle0.text_set(_("PIN code: "))
 		self.toggle0.size_hint_align_set(-1.0, 0.0)
 		self.toggle0.states_labels_set(_("Enabled"),_("Disabled"))
 		self.toggle0.state_set(state)
@@ -160,7 +160,7 @@ class SimAuth(module.AbstractModule):
 		self.toggle0.show()
 
 		self.btn = elementary.Button(self.window)
-		self.btn.label_set(_("Change PIN"))
+		self.btn.text_set(_("Change PIN"))
 		self.btn.size_hint_align_set(-1.0, 0.0)
 		self.btn._callback_add('clicked', self.change_pin)
 		self.box1.pack_end(self.btn)
@@ -174,13 +174,13 @@ class SimAuth(module.AbstractModule):
 					"org.freesmartphone.GSM.SIM")
 		except:
 			label = elementary.Label(self.window)
-			label.label_set(_("Couldn't connect to FSO"))
+			label.text_set(_("Couldn't connect to FSO"))
 			return label
 
 		self.box1 = elementary.Box(self.window)
 
 		self.loading = elementary.Label(self.window)
-		self.loading.label_set(_("Please wait..."))
+		self.loading.text_set(_("Please wait..."))
 		self.box1.pack_start(self.loading)
 		self.loading.show()
 

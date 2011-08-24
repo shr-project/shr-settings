@@ -14,7 +14,7 @@ class Test(module.AbstractModule):
     def totest(self, obj, event, *args, **kargs):
         print event
         print "it works!"
-        obj.label_set("lol")
+        obj.text_set("lol")
     def getName(self, ):
         print "name"
         return "Test"
@@ -24,19 +24,19 @@ class Test(module.AbstractModule):
 
 	box = elementary.Box(self.window)
 	label = elementary.Label(self.window)
-	label.label_set(_("test"))
+	label.text_set(_("test"))
 	box.pack_end(label)
 	label.show()
 
         bt = elementary.Button(self.window)
         bt._callback_add('clicked', self.totest)
-        bt.label_set(_("Just for fun"))
+        bt.text_set(_("Just for fun"))
         bt.size_hint_align_set(-1.0, 0.0)
         bt.show()
 
 	bb = elementary.Bubble(self.window)
 
-	bb.label_set("label_test")
+	bb.text_set("label_test")
 	bb.info_set("info_test")
 	bb.content_set(box)
 #	bb.corner_set("corner_test")

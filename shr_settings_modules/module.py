@@ -25,7 +25,7 @@ __date__ ="$2008-12-27 21:53:00$"
         def createView(self):
             self.box1 = elementary.Box(self.window)
             self.toggle0 = elementary.Toggle(self.window)
-            self.toggle0.label_set("GSM antenna:")
+            self.toggle0.text_set("GSM antenna:")
             self.toggle0.size_hint_align_set(-1.0, 0.0)
             self.toggle0.states_labels_set("On","Off")
             self.box1.pack_start(toggle0)
@@ -127,7 +127,7 @@ class AbstractModule(object):
             def createView(self):
                 self.box1 = elementary.Box(self.window)
                 self.toggle0 = elementary.Toggle(self.window)
-                self.toggle0.label_set("GSM antenna:")
+                self.toggle0.text_set("GSM antenna:")
                 self.toggle0.size_hint_align_set(-1.0, 0.0)
                 self.toggle0.states_labels_set("On","Off")
                 self.box1.pack_start(toggle0)
@@ -161,7 +161,7 @@ class AbstractModule(object):
         frame = elementary.Frame(self.window)
         dia.style_set('minimal_vertical')
         dia.scale_set(1.0)
-        frame.label_set(_('Warning'))
+        frame.text_set(_('Warning'))
         dia.content_set(frame)
         frame.show()
         box = elementary.Box(self.window)
@@ -179,7 +179,7 @@ class AbstractModule(object):
         hbox.show()
 
         yes = elementary.Button(self.window)
-        yes.label_set(_('Yes'))
+        yes.text_set(_('Yes'))
         yes.show()
         if hasattr(action, '__call__'):
             yes._callback_add('clicked', partial(action, 1))
@@ -187,7 +187,7 @@ class AbstractModule(object):
         hbox.pack_start(yes)
 
         no = elementary.Button(self.window)
-        no.label_set(_('No'))
+        no.text_set(_('No'))
         no.show()
         if hasattr(action, '__call__'):
             no._callback_add('clicked', partial(action, 0))
@@ -210,7 +210,7 @@ class AbstractModule(object):
         frame = elementary.Frame(self.window)
         dia.style_set('minimal_vertical')
         dia.scale_set(1.0)
-        frame.label_set(_('Information'))
+        frame.text_set(_('Information'))
         dia.content_set(frame)
         frame.show()
         box = elementary.Box(self.window)
@@ -228,7 +228,7 @@ class AbstractModule(object):
         hbox.show()
 
         ok = elementary.Button(self.window)
-        ok.label_set(_('Ok'))
+        ok.text_set(_('Ok'))
         ok.show()
         if hasattr(action, '__call__'):
             ok._callback_add('clicked', action)

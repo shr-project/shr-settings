@@ -27,6 +27,6 @@ class SimManager(module.AbstractModule):
     def createView(self):
         bt = elementary.Button(self.window)
         bt._callback_add('clicked', self.startSimManager)
-        bt.label_set(_("SIM Manager"))
+        bt.text_set(_("SIM Manager"))
 
         return bt

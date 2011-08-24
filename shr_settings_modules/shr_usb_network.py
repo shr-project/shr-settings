@@ -133,7 +133,7 @@ class UsbNetwork(module.AbstractModule):
         self.main.pack_end(self.macUSB0)
 
         bt = elementary.Button(self.window)
-        bt.label_set(_('Save IP'))
+        bt.text_set(_('Save IP'))
         bt.size_hint_weight_set(1.0, 0.0)
         bt.size_hint_align_set(-1.0, 0.0)
         bt._callback_add('clicked', self.setIP)

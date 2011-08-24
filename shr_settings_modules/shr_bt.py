@@ -72,7 +72,7 @@ class Bt(module.AbstractModule):
 
     def error(self):
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO"))
+        label.text_set(_("Couldn't connect to FSO"))
         label.show()
         self.main.pack_start(label)
 
@@ -137,7 +137,7 @@ class Bt(module.AbstractModule):
     def toggle1show(self):
         if self.toggle1hidden:
             self.toggle1 = elementary.Toggle(self.window)
-            self.toggle1.label_set(_("Visibility:"))
+            self.toggle1.text_set(_("Visibility:"))
             self.toggle1.size_hint_align_set(-1.0, 0.0)
             self.toggle1.states_labels_set(_("On"),_("Off"))
             self.toggle1.state_set(self.btmc.getVisibility())
@@ -199,7 +199,7 @@ class Bt(module.AbstractModule):
             self.btmc = BtMstateContener(self.dbusObjPower)
 
             self.toggles = elementary.Toggle(self.window)
-            self.toggles.label_set(_("Bluetooth radio:"))
+            self.toggles.text_set(_("Bluetooth radio:"))
             self.toggles.size_hint_align_set(-1.0, 0.0)
             self.toggles.states_labels_set(_("Auto"),_("Manual"))
             self.toggles.show()

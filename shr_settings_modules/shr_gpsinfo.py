@@ -35,7 +35,7 @@ class SatDetails():
        self.box.pack_start(self.tab)
 
        self.quit_button = elementary.Button(self.win)
-       self.quit_button.label_set(_("Quit"))
+       self.quit_button.text_set(_("Quit"))
        self.quit_button.size_hint_weight_set(1.0, 0.0)
        self.quit_button.size_hint_align_set(-1.0, -1.0)
        self.quit_button._callback_add('clicked', self.quit)
@@ -69,11 +69,11 @@ class SatDetails():
                self.satlab[row].color_set(255,255,255,255)
            else:
                self.satlab[row].color_set(255,255,255,100)
-           self.satlab[row].label_set("%d (%d,%d) %d" % (prn, ele, azi, srn))
+           self.satlab[row].text_set("%d (%d,%d) %d" % (prn, ele, azi, srn))
 
          else:
            # delete empty rows 
-           self.satlab[row].label_set("")
+           self.satlab[row].text_set("")
 
     def destroy(self, win, *args, **kargs):
        win.delete()
@@ -115,7 +115,7 @@ class GpsInfoBox(elementary.Table):
         if signal == 'TimeChanged':
             self.values['tstamp'] = args[0]
             t = datetime.utcfromtimestamp(self.values['tstamp']).strftime('%H:%M:%S')
-            self.value_labels[signal].label_set(t)
+            self.value_labels[signal].text_set(t)
 
         # Course has changed
         elif signal == 'CourseChanged':
@@ -128,7 +128,7 @@ class GpsInfoBox(elementary.Table):
                 if args[0] & (1 << i):
                     # then update
                     self.values[val] = args[i+2]
-                    self.value_labels[val].label_set(str(round(args[i+2],2)))
+                    self.value_labels[val].text_set(str(round(args[i+2],2)))
 
         # Position has changed
         elif signal == 'PositionChanged':
@@ -141,7 +141,7 @@ class GpsInfoBox(elementary.Table):
                 if args[0] & (1 << i):
                     # then update
                     self.values[val] = args[i+2]
-                    self.value_labels[val].label_set(str(round(args[i+2],2)))
+                    self.value_labels[val].text_set(str(round(args[i+2],2)))
 
         #Accuracy has changed
         elif signal == 'AccuracyChanged':
@@ -154,14 +154,14 @@ class GpsInfoBox(elementary.Table):
                 label_str.append(str(round(self.values[val],1)))
 
             # update label
-            self.value_labels[signal].label_set('/'.join(label_str))
+            self.value_labels[signal].text_set('/'.join(label_str))
 
         # FixStatus has changed
         elif signal == 'FixStatusChanged':
             #args: 0: invalid 1:no fix 2:2d fix 3:3d fix
             status = ['invalid','no fix','2D fix', '3D fix']
             # update label
-            self.value_labels[signal].label_set(status[args[0]])
+            self.value_labels[signal].text_set(status[args[0]])
 
         # Satellites have changed
         elif signal == 'SatellitesChanged':
@@ -172,7 +172,7 @@ class GpsInfoBox(elementary.Table):
             #satnums.sort()
             #sats = '/' + ','.join(map(lambda x: str(x), satnums))
             total = str(len(satellites))
-            self.value_labels[signal].label_set(str(len(inuse)) + '/' + total)
+            self.value_labels[signal].text_set(str(len(inuse)) + '/' + total)
             #update the satellite detail window if necessary
             if self.satdetails and self.satdetails.win: 
                 self.satdetails.update(satellites)
@@ -197,7 +197,7 @@ class GpsInfoBox(elementary.Table):
             # put caption label in cell
             cap_l = elementary.Label(self)
             cap_l.size_hint_align_set(-1.0, 0.0)
-            cap_l.label_set(item['cap'] + ':')
+            cap_l.text_set(item['cap'] + ':')
             (row, col) = divmod(i,2)
             self.pack(cap_l, col*2, row, 1, 1)
             cap_l.show()
@@ -206,14 +206,14 @@ class GpsInfoBox(elementary.Table):
             val_l = elementary.Label(self)
             val_l.size_hint_align_set(-1.0, 0.0)
             cap_l.size_hint_weight_set(1.0, -1.0)
-            val_l.label_set('<i>unknown</i>')
+            val_l.text_set('<i>unknown</i>')
             val_l.show()
             self.pack(val_l, col*2 +1, row, 1, 1)
             self.value_labels[item['signal']] = val_l
 
         row = len(GpsInfoBox.items) // 2 + 1
         sat_details_bt = elementary.Button(self)
-        sat_details_bt.label_set(_("Satellite details"))
+        sat_details_bt.text_set(_("Satellite details"))
         sat_details_bt.size_hint_weight_set(-1.0, 0.0)
         sat_details_bt.size_hint_align_set(-1.0, 0.0)
         sat_details_bt.show()
@@ -251,7 +251,7 @@ class GpsInfo(module.AbstractModule):
 
         if os.path.exists("/etc/freesmartphone/persist/ogpsd.pickle"):
             picklebtn = elementary.Button(self.window)
-            picklebtn.label_set(_("Remove AGPS data"))
+            picklebtn.text_set(_("Remove AGPS data"))
             self.box1.pack_end(picklebtn)
             picklebtn.size_hint_align_set(-1.0, 0.0)
             picklebtn._callback_add('clicked', self.rempickle)

@@ -28,7 +28,7 @@ class ValueLabel( elementary.Label ):
         return self._value
 
     def set_value(self, val):
-         self.label_set(str(val) + _(" sec."))
+         self.text_set(str(val) + _(" sec."))
          self._value = val
 
 class IncDecButton(elementary.Button):
@@ -38,7 +38,7 @@ class IncDecButton(elementary.Button):
 
     def set_Delta(self, delta):
         self._delta = delta
-        self.label_set("{0:+d}".format(delta))
+        self.text_set("{0:+d}".format(delta))
 
     def get_Delta( self ):
         return self._delta
@@ -84,7 +84,7 @@ class IncDecButtonBox(elementary.Box):
 
         itemLabel = elementary.Label(self.window)
         itemLabel.size_hint_weight_set(1.0, 0.0)
-        itemLabel.label_set(self.item_name.replace("_"," ").title())
+        itemLabel.text_set(self.item_name.replace("_"," ").title())
         itemLabel.show()
 
         itemFrame = elementary.Frame(self.window)
@@ -139,7 +139,7 @@ class Timeouts(module.AbstractModule):
 
     def error(self):
         label = elementary.Label(self.window)
-        label.label_set(_("Couldn't connect to FSO"))
+        label.text_set(_("Couldn't connect to FSO"))
         label.show()
         self.main.pack_start(label)
 
