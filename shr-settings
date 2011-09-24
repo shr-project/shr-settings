@@ -408,7 +408,7 @@ class MainWindow:
             cat_table.pack(bt,col,row,1,1)
 
         #ophonekitd or phonefsod not running?
-        if os.popen("ps -A | grep 'ophonekitd\|phonefsod'").read() == "":
+        if os.popen("pidof phonefsod").read() == "":
             log('neither ophonekitd nor phonefsod is running!', logtype.FAIL)
 
             self.opkframe = elementary.Frame(self.win)
