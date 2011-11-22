@@ -175,6 +175,7 @@ class ModulesWindow:
         self.box12.show()
 
         self.loading = elementary.Box(self.win2)
+        self.loading.size_hint_weight_set(1.0, 1.0)
         loadingframe = elementary.Frame(self.win2)
         loadingframe.style_set("outdent_bottom")
         loadingframe2 = elementary.Frame(self.win2)
