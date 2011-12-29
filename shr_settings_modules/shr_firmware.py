@@ -3,7 +3,8 @@ import module, elementary
 MODELS = {
 	'Sirloin OMAP3430 board':'Palm Pre',
 	'Nokia RX-51 board':'Nokia N900',
-	'trout':'HTC Dream' }
+	'trout':'HTC Dream',
+ 	'GTA04':'Goldelico GTA04' }
 
 # Locale support
 import gettext
