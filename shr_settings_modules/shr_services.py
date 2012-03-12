@@ -51,7 +51,7 @@ class Services(module.AbstractModule):
         box = elementary.Box(self.win)
         frame.content_set(box)
         box.show()
-        label = elementary.AnchorBlock(self.win)
+        label = elementary.Entry(self.win)
         label.size_hint_align_set(-1.0, -1.0)
         label.size_hint_weight_set(1.0, 0.0)
         label.text_set(text)

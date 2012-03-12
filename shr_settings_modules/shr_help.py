@@ -41,7 +41,7 @@ class Help(module.AbstractModule):
         self.main.size_hint_weight_set(1.0, 1.0)
         self.main.size_hint_align_set(-1.0, 0.0)
 
-        text = elementary.AnchorBlock(self.window)
+        text = elementary.Entry(self.window)
         text.text_set(HELP_TEXT)
         text.size_hint_weight_set(1.0, 1.0)
         text.size_hint_align_set(-1.0, 0.0)

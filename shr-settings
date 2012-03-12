@@ -104,7 +104,7 @@ class ModulesWindow:
                 frame.size_hint_align_set(-1.0, 0.0)
                 frame.show()
 
-                cont = elementary.AnchorBlock(self.win2)
+                cont = elementary.Entry(self.win2)
                 cont.text_set(err)
                 cont.show()
 

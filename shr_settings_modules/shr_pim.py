@@ -103,7 +103,7 @@ class Pim(module.AbstractModule):
             prop_text += '* ' + prop_texts[prop] + '<br>'
 
         if len(props):
-            propan = elementary.AnchorBlock(pager)
+            propan = elementary.Entry(pager)
             propfr = elementary.Frame(pager)
 #            propfr.text_set(_('Properties'))
             propfr.style_set('outdent_top')

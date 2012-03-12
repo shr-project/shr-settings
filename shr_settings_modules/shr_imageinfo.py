@@ -55,7 +55,7 @@ class ImageInfo(module.AbstractModule):
         info += self.infoadd(_("Branch: ") + ver['Built from branch'])
         info += self.infoadd(_("Revision: ") + ver['Revision'])
 
-        text = elementary.AnchorBlock(self.window)
+        text = elementary.Entry(self.window)
         text.text_set(info)
         text.scale_set(0.9)
         text.size_hint_weight_set(1.0, 1.0)

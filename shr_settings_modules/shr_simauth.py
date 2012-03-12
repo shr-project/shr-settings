@@ -31,7 +31,7 @@ class SimAuth(module.AbstractModule):
             dia = elementary.InnerWindow(self.window)
             dia.scale_set(1.0)
 
-            txt = elementary.AnchorBlock(self.window)
+            txt = elementary.Entry(self.window)
             txt.text_set(msg)
             txt.show()
             fr = elementary.Frame(dia)
