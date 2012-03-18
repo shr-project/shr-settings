@@ -31,7 +31,7 @@ class Pim(module.AbstractModule):
         label.show()
 
     def pagerPop(self, pager, obj, *args, **kargs):
-        pager.content_pop()
+        pager.item_pop()
 
     def setAsDefault(self, arguments, obj, *args, **kargs):
         backend = arguments[0]
@@ -143,7 +143,7 @@ class Pim(module.AbstractModule):
 
         box.pack_end(back)
 
-        pager.content_push(box)
+        pager.item_simple_push(box)
 
     def destroywin(self, win, *args, **kargs):
         win.delete()
@@ -180,9 +180,9 @@ class Pim(module.AbstractModule):
         box.pack_end(quitbt)
 
 
-        pager = elementary.Pager(win)
+        pager = elementary.Naviframe(win)
 
-        pager.content_push(box)
+        pager.item_simple_push(box)
 
         pager.show()
 

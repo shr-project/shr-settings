@@ -210,7 +210,7 @@ class Settings(object):
             tb.show()
 
             # Pager widget
-            self.pager = elementary.Pager(self.win)
+            self.pager = elementary.Naviframe(self.win)
             self.pager.size_hint_weight_set(1.0, 1.0)
             self.pager.size_hint_align_set(-1.0, -1.0)
             box.pack_end(self.pager)
@@ -219,7 +219,7 @@ class Settings(object):
             self.pages = []
             for id,m in enumerate(MODULES):
                 self.pages.append(ModuleBox(self.win, self.dbus_system, id))
-                self.pager.content_push(self.pages[id])
+                self.pager.item_simple_push(self.pages[id])
 
             # set pager to first page
             tbItems[0].select()
@@ -230,7 +230,7 @@ class Settings(object):
 ##        print "Clicked: "+MODULES[id][0]
         if not self.pages[id].isLoaded:
             self.pages[id].loadModule()
-        self.pager.content_promote(self.pages[id])
+        self.pager.item_simple_promote(self.pages[id])
 
     def init_dbus_idler(self):
         # dbus init if not done before:

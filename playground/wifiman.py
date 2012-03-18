@@ -23,7 +23,7 @@ def error_callback(err):
   print str(err)
 
 def disconnect_callback():
-  #pager.content_pop()
+  #pager.item_pop()
   print "Disconnected"
 
 def disconnect2(obj, event, networkbus, *args, **kargs):
@@ -37,22 +37,22 @@ def disconnect(obj, event, networkbus, *args, **kargs):
   box = elementary.Box(pager)
   box.pack_end(disconnecting)
   box.show()
-  pager.content_push(box)
+  pager.item_simple_push(box)
   disconnect2(obj, event, networkbus, args, kargs)
   #update_networks(dev.GetProperties()['Networks'])
   #dev.ProposeScan()
 
 def connect_callback():
   print "connect_callback()"
-  #pager.content_pop()
+  #pager.item_pop()
   #update_networksdev.GetProperties()['Networks'])
   #dev.ProposeScan()  
 
 def close_passphrase(obj, event, *args, **kargs):
-  pager.content_pop()
+  pager.item_pop()
 
 def get_passphrase(obj, event, array, *args, **kargs):
-  pager.content_pop()
+  pager.item_pop()
   entry=array[1]
   networkbus=array[0]
   networkbus.SetProperty('WiFi.Passphrase',entry.entry_get().replace("<br>",""))
@@ -86,7 +86,7 @@ def request_for_passphrase(networkbus):
   close.clicked = close_passphrase
   box.pack_end(close)
 
-  pager.content_push(box)
+  pager.item_simple_push(box)
 
 def connect(obj, event, networkbus, *args, **kargs):
   network = networkbus.GetProperties()
@@ -123,7 +123,7 @@ def connect(obj, event, networkbus, *args, **kargs):
   macaddress.show()
   strength.show()
   btn_disconnect.show()
-  scanpage = pager.content_push(box)
+  scanpage = pager.item_simple_push(box)
 
   #networkbus.SetProperty('WiFi.Passphrase','YOUR-PASSPHRASE')
   if network['WiFi.Security']=='none':
@@ -182,16 +182,16 @@ def onsignal (*args, **kargs):
         #box.show()
         #box.pack_end(scanning)
         scanning.activate()
-        #scanpage = pager.content_push(box)
+        #scanpage = pager.item_simple_push(box)
       else:
         print "Scan ended"
         scanning.hide()
-        #pager.content_pop()
+        #pager.item_pop()
     elif args[0]=='Networks':
       print "Available networks: " + str(args[1])
       update_networks(args[1])
     elif args[0]=='Connected':
-      pager.content_pop()
+      pager.item_pop()
       update_networks(dev.GetProperties()['Networks'])
     else:
       print "Property " + str(args[0]) + " changed to: " + str(args[1])
@@ -211,7 +211,7 @@ def show_connmand_error():
   box.pack_end(btn)
   msg.show()
   btn.show()
-  pager.content_push(box)
+  pager.item_simple_push(box)
   elementary.run()
   elementary.shutdown()
   exit(0)
@@ -232,7 +232,7 @@ bg = elementary.Background(win)
 win.resize_object_add(bg)
 bg.show()
 
-pager = elementary.Pager(win)
+pager = elementary.Naviframe(win)
 pager.show()
 win.resize_object_add(pager)
 
@@ -263,7 +263,7 @@ li.show()
 
 #win.resize_object_add(box)
 
-pager.content_push(li)
+pager.item_simple_push(li)
 
 li.go()
 properties = connman.GetProperties()
