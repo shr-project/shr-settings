@@ -48,10 +48,12 @@ class Call(module.AbstractModule):
     def cb_get_callidenti(self, state):
         self.loading.delete()
 
-        self.toggle0 = elementary.Toggle(self.window)
+        self.toggle0 = elementary.Check(self.window)
+        self.toggle0.style_set("toggle");
         self.toggle0.text_set(_("Show my number:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
-        self.toggle0.states_labels_set(_("By network"),_("Manual"))
+        self.toggle0.text_part_set("on", _("By network"));
+        self.toggle0.text_part_set("off", _("Manual"));
         self.toggle0._callback_add('changed', self.res_handle)
         self.box1.pack_start(self.toggle0)
 
@@ -69,9 +71,11 @@ class Call(module.AbstractModule):
         self.toggle1hidden=1
 
     def toggle1show(self):
-        self.toggle1 = elementary.Toggle(self.window)
+        self.toggle1 = elementary.Check(self.window)
+        self.toggle1.style_set("toggle");
         self.toggle1.size_hint_align_set(-1.0, 0.0)
-        self.toggle1.states_labels_set(_("On"),_("Off"))
+        self.toggle1.text_part_set("on", _("On"));
+        self.toggle1.text_part_set("off", _("Off"));
         self.toggle1._callback_add('changed', self.power_handle)
         self.box1.pack_end(self.toggle1)
         self.toggle1.show()

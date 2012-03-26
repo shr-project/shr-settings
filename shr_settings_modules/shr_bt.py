@@ -136,10 +136,12 @@ class Bt(module.AbstractModule):
 
     def toggle1show(self):
         if self.toggle1hidden:
-            self.toggle1 = elementary.Toggle(self.window)
+            self.toggle1 = elementary.Check(self.window)
+            self.toggle1.style_set("toggle");
             self.toggle1.text_set(_("Visibility:"))
             self.toggle1.size_hint_align_set(-1.0, 0.0)
-            self.toggle1.states_labels_set(_("On"),_("Off"))
+            self.toggle1.text_part_set("on", _("On"));
+            self.toggle1.text_part_set("off", _("Off"));
             self.toggle1.state_set(self.btmc.getVisibility())
             self.toggle1._callback_add('changed', self.toggle1Click)
             self.main.pack_end(self.toggle1)
@@ -162,9 +164,11 @@ class Bt(module.AbstractModule):
 
     def toggle0show(self):
         if self.toggle0hidden:
-          self.toggle0 = elementary.Toggle(self.window)
+          self.toggle0 = elementary.Check(self.window)
+          self.toggle0.style_set("toggle");
           self.toggle0.size_hint_align_set(-1.0, 0.0)
-          self.toggle0.states_labels_set(_("On"),_("Off"))
+          self.toggle0.text_part_set("on", _("On"));
+          self.toggle0.text_part_set("off", _("Off"));
           self.toggle0._callback_add('changed', self.power_handle)
           self.main.pack_end(self.toggle0)
           self.toggle0hidden=0
@@ -198,10 +202,12 @@ class Bt(module.AbstractModule):
             self.bt = self.dbusObjPower
             self.btmc = BtMstateContener(self.dbusObjPower)
 
-            self.toggles = elementary.Toggle(self.window)
+            self.toggles = elementary.Check(self.window)
+            self.toggles.style_set("toggle");
             self.toggles.text_set(_("Bluetooth radio:"))
             self.toggles.size_hint_align_set(-1.0, 0.0)
-            self.toggles.states_labels_set(_("Auto"),_("Manual"))
+            self.toggles.text_part_set("on", _("Auto"));
+            self.toggles.text_part_set("off", _("Manual"));
             self.toggles.show()
             self.toggles._callback_add('changed', self.res_handle)
             self.main.pack_start(self.toggles)

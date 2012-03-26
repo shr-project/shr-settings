@@ -60,9 +60,11 @@ class Gps(module.AbstractModule):
         self.toggle1hidden=1
 
     def toggle1show(self):
-        self.toggle1 = elementary.Toggle(self.window)
+        self.toggle1 = elementary.Check(self.window)
+        self.toggle1.style_set("toggle");
         self.toggle1.size_hint_align_set(-1.0, 0.0)
-        self.toggle1.states_labels_set(_("On"),_("Off"))
+        self.toggle1.text_part_set("on", _("On"));
+        self.toggle1.text_part_set("off", _("Off"));
         self.toggle1._callback_add('changed', self.power_handle)
         self.box1.pack_end(self.toggle1)
         self.toggle1hidden=0  
@@ -80,10 +82,12 @@ class Gps(module.AbstractModule):
 
         self.box1 = elementary.Box(self.window)
 
-        self.toggle0 = elementary.Toggle(self.window)
+        self.toggle0 = elementary.Check(self.window)
+        self.toggle0.style_set("toggle");
         self.toggle0.text_set(_("GPS radio:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
-        self.toggle0.states_labels_set(_("Auto"),_("Manual"))
+        self.toggle0.text_part_set("on", _("Auto"));
+        self.toggle0.text_part_set("off", _("Manual"));
         self.toggle0._callback_add('changed', self.res_handle)
         self.box1.pack_start(self.toggle0)
         self.toggle0.show()

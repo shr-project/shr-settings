@@ -87,19 +87,23 @@ class WifiToggleBox(elementary.Box):
         self.dbusObj = dbusObj
         self.state = None
 
-        self.toggleAuto = elementary.Toggle(self.wifi.window)
+        self.toggleAuto = elementary.Check(self.wifi.window)
+        self.toggleAuto.style_set("toggle");
         self.toggleAuto.disabled_set(True)
         self.toggleAuto.text_set(_("Automatic"))
-        self.toggleAuto.states_labels_set(_("Automatic"),_("Manual"))
+        self.toggleAuto.text_part_set("on", _("Automatic"));
+        self.toggleAuto.text_part_set("off", _("Manual"));
         self.toggleAuto.size_hint_align_set(-1.0, 0.0)
         self.toggleAuto._callback_add('changed', self.toggleAutoChanged)
         self.pack_end(self.toggleAuto)
         self.toggleAuto.show()
 
-        self.toggle = elementary.Toggle(self.wifi.window)
+        self.toggle = elementary.Check(self.wifi.window)
+        self.toggle.style_set("toggle");
         self.toggle.disabled_set(True)
         self.toggle.text_set(_("WiFi Power"))
-        self.toggle.states_labels_set(_("On"),_("Off"))
+        self.toggle.text_part_set("on", _("On"));
+        self.toggle.text_part_set("off", _("Off"));
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
         self.pack_end(self.toggle)

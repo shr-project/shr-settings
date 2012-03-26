@@ -150,10 +150,12 @@ class SimAuth(module.AbstractModule):
 	def cb_get_auth(self, state):
 		self.loading.delete()
 
-		self.toggle0 = elementary.Toggle(self.window)
+		self.toggle0 = elementary.Check(self.window)
+		self.toggle0.style_set("toggle");
 		self.toggle0.text_set(_("PIN code: "))
 		self.toggle0.size_hint_align_set(-1.0, 0.0)
-		self.toggle0.states_labels_set(_("Enabled"),_("Disabled"))
+		self.toggle0.text_part_set("on", _("Enabled"));
+		self.toggle0.text_part_set("off", _("Disabled"));
 		self.toggle0.state_set(state)
 		self.toggle0._callback_add('changed', self.auth_handle)
 		self.box1.pack_end(self.toggle0)

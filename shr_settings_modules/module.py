@@ -24,10 +24,12 @@ __date__ ="$2008-12-27 21:53:00$"
 
         def createView(self):
             self.box1 = elementary.Box(self.window)
-            self.toggle0 = elementary.Toggle(self.window)
+            self.toggle0 = elementary.Check(self.window)
+            self.toggle0.style_set("toggle");
             self.toggle0.text_set("GSM antenna:")
             self.toggle0.size_hint_align_set(-1.0, 0.0)
-            self.toggle0.states_labels_set("On","Off")
+            self.toggle0.text_part_set("on", "On");
+            self.toggle0.text_part_set("off", "Off");
             self.box1.pack_start(toggle0)
             return self.box1
 
@@ -126,10 +128,12 @@ class AbstractModule(object):
 
             def createView(self):
                 self.box1 = elementary.Box(self.window)
-                self.toggle0 = elementary.Toggle(self.window)
+                self.toggle0 = elementary.Check(self.window)
+                self.toggle0.style_set("toggle");
                 self.toggle0.text_set("GSM antenna:")
                 self.toggle0.size_hint_align_set(-1.0, 0.0)
-                self.toggle0.states_labels_set("On","Off")
+                self.toggle0.text_part_set("on", "On");
+                self.toggle0.text_part_set("off", "Off");
                 self.box1.pack_start(toggle0)
                 return self.box1
         """

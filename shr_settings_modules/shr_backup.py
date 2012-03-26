@@ -526,9 +526,11 @@ class Backup(module.AbstractModule):
         self.main.size_hint_align_set( -1.0, 0.0 )
 
         # create mode toggle
-        self.toggle = elementary.Toggle( self.window )
+        self.toggle = elementary.Check( self.window )
+        self.toggle.style_set("toggle");
         self.toggle.text_set( _( "Backup Mode" ) )
-        self.toggle.states_labels_set( _( "Archive" ), _( "Restore" ) )
+        self.toggle.text_part_set("on", _( "Archive" ));
+        self.toggle.text_part_set("off", _( "Restore" ));
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set( -1.0, 0.0 )
         self.toggle.size_hint_weight_set( 1.0, 0.0 )

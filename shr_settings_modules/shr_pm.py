@@ -47,9 +47,11 @@ class ResourceToggleBox(elementary.Box):
         self.dbusObj = dbusObj
         self.state = None
 
-        self.toggle = elementary.Toggle(self.window)
+        self.toggle = elementary.Check(self.window)
+        self.toggle.style_set("toggle");
         self.toggle.text_set(label)
-        self.toggle.states_labels_set(_("Forbid"),_("Allow"))
+        self.toggle.text_part_set("on", _("Forbid"));
+        self.toggle.text_part_set("off", _("Allow"));
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
         self.toggle.show()

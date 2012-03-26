@@ -112,9 +112,11 @@ class FastChargeBox(elementary.Box):
         self.chgNodePath    = SYSNODE["charge_limit"][0]
         self.usbNodePath    = SYSNODE["usb_limit"][0]
 
-        self.toggle = elementary.Toggle(self.window)
+        self.toggle = elementary.Check(self.window)
+        self.toggle.style_set("toggle");
         self.toggle.text_set(_("USB charging rate:"))
-        self.toggle.states_labels_set("500 mA","100 mA")
+        self.toggle.text_part_set("on", "500 mA");
+        self.toggle.text_part_set("off", "100 mA");
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
 
