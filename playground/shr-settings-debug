@@ -58,7 +58,7 @@ scroll.content_set(frame)
 view.size_hint_align_set(-1.0, -1.0)
 view.size_hint_weight_set(1.0, 0.0)
 view.show()
-win.callback_destroy_add(close)
+win.callback_delete_request_add(close)
 
 elementary.run()
 elementary.shutdown()

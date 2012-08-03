@@ -19,7 +19,7 @@ class SatDetails():
        self.win = elementary.Window("sat-details", elementary.ELM_WIN_BASIC)
        self.win.title_set(_("Satellite details"))
        self.win.show()
-       self.win.callback_destroy_add(self.destroy)
+       self.win.callback_delete_request_add(self.destroy)
 
        bg = elementary.Background(self.win)
        bg.show()
