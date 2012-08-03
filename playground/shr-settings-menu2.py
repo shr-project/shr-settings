@@ -18,7 +18,7 @@ class Button2(elementary.Button):
             if path.exists(loc % icon_name):
                 ic = elementary.Icon(self)
                 ic.file_set("data/%s.png" % icon_name)
-                ic.scale_set(0, 0)
+                ic.resizeble_set(0, 0)
                 self.icon_set(ic)
                 ic.show()
                 return

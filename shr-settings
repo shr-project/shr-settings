@@ -162,7 +162,7 @@ class ModulesWindow:
         quitbt2.size_hint_align_set(-1.0, 0.0)
         ic = elementary.Icon(quitbt2)
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
-        ic.scale_set(1,1)
+        ic.resizeble_set(1,1)
         ic.smooth_set(1)
         quitbt2.icon_set(ic)
         quitbt2.show()
@@ -372,7 +372,7 @@ class MainWindow:
         ic = elementary.Icon(quitbt)
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
         ic.smooth_set(1)
-        ic.scale_set(1, 1)
+        ic.resizeble_set(1, 1)
         quitbt.icon_set(ic)
         quitbt.show()
         mainbox.pack_end(quitbt)
@@ -401,7 +401,7 @@ class MainWindow:
                 if os.path.exists(i_path):
                     ic = elementary.Icon(bt)
                     ic.file_set( i_path )
-                    ic.scale_set(1, 1)
+                    ic.resizeble_set(1, 1)
                     bt.icon_set(ic)
                     break
 

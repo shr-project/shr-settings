@@ -43,7 +43,7 @@ class SatDetails():
        ic = elementary.Icon(self.quit_button)
        ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
        ic.smooth_set(1)
-       ic.scale_set(1, 1)
+       ic.resizable_set(1, 1)
        self.quit_button.icon_set(ic)
 
 

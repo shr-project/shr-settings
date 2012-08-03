@@ -220,7 +220,7 @@ class MainWindow:
                 f = open("data/icons/"+str(d[1]), "r")
                 ic = elementary.Icon(self.win)
                 ic.file_set("data/"+str(d[1]) )
-                ic.scale_set(0, 0)
+                ic.resizeble_set(0, 0)
                 bt.icon_set(ic)
                 ic.show()
 
@@ -229,7 +229,7 @@ class MainWindow:
                     f = open("/usr/share/pixmaps/"+str(d[1]), "r")
                     ic = elementary.Icon(self.win)
                     ic.file_set("/usr/share/pixmaps/"+str(d[1]) )
-                    ic.scale_set(0, 0)
+                    ic.resizeble_set(0, 0)
                     bt.icon_set(ic)
                     ic.show()
                 except:
