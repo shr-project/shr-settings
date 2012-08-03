@@ -164,7 +164,7 @@ if __name__ == "__main__":
 
         ico = elementary.Icon(win)
         ico.file_set("data/"+str(d[1]) )
-        ico.resizeble_set(0,0)
+        ico.resizable_set(0,0)
 
         bt = Button2(win)
         bt.set_nr( i )
