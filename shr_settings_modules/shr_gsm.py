@@ -374,8 +374,8 @@ class Gsm(module.AbstractModule):
             self.toggle0.style_set("toggle");
             self.toggle0.text_set(_("GSM antenna:"))
             self.toggle0.size_hint_align_set(-1.0, 0.0)
-            self.toggle0.text_part_set("on", _("On"));
-            self.toggle0.text_part_set("off", _("Off"));
+            self.toggle0.part_text_set("on", _("On"));
+            self.toggle0.part_text_set("off", _("Off"));
             self.toggle0.show()
             self.box1.pack_start(self.toggle0)
 

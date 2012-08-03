@@ -140,8 +140,8 @@ class Bt(module.AbstractModule):
             self.toggle1.style_set("toggle");
             self.toggle1.text_set(_("Visibility:"))
             self.toggle1.size_hint_align_set(-1.0, 0.0)
-            self.toggle1.text_part_set("on", _("On"));
-            self.toggle1.text_part_set("off", _("Off"));
+            self.toggle1.part_text_set("on", _("On"));
+            self.toggle1.part_text_set("off", _("Off"));
             self.toggle1.state_set(self.btmc.getVisibility())
             self.toggle1._callback_add('changed', self.toggle1Click)
             self.main.pack_end(self.toggle1)
@@ -167,8 +167,8 @@ class Bt(module.AbstractModule):
           self.toggle0 = elementary.Check(self.window)
           self.toggle0.style_set("toggle");
           self.toggle0.size_hint_align_set(-1.0, 0.0)
-          self.toggle0.text_part_set("on", _("On"));
-          self.toggle0.text_part_set("off", _("Off"));
+          self.toggle0.part_text_set("on", _("On"));
+          self.toggle0.part_text_set("off", _("Off"));
           self.toggle0._callback_add('changed', self.power_handle)
           self.main.pack_end(self.toggle0)
           self.toggle0hidden=0
@@ -206,8 +206,8 @@ class Bt(module.AbstractModule):
             self.toggles.style_set("toggle");
             self.toggles.text_set(_("Bluetooth radio:"))
             self.toggles.size_hint_align_set(-1.0, 0.0)
-            self.toggles.text_part_set("on", _("Auto"));
-            self.toggles.text_part_set("off", _("Manual"));
+            self.toggles.part_text_set("on", _("Auto"));
+            self.toggles.part_text_set("off", _("Manual"));
             self.toggles.show()
             self.toggles._callback_add('changed', self.res_handle)
             self.main.pack_start(self.toggles)

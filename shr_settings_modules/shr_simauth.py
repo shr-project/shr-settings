@@ -154,8 +154,8 @@ class SimAuth(module.AbstractModule):
 		self.toggle0.style_set("toggle");
 		self.toggle0.text_set(_("PIN code: "))
 		self.toggle0.size_hint_align_set(-1.0, 0.0)
-		self.toggle0.text_part_set("on", _("Enabled"));
-		self.toggle0.text_part_set("off", _("Disabled"));
+		self.toggle0.part_text_set("on", _("Enabled"));
+		self.toggle0.part_text_set("off", _("Disabled"));
 		self.toggle0.state_set(state)
 		self.toggle0._callback_add('changed', self.auth_handle)
 		self.box1.pack_end(self.toggle0)

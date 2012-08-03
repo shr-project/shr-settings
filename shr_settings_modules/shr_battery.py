@@ -115,8 +115,8 @@ class FastChargeBox(elementary.Box):
         self.toggle = elementary.Check(self.window)
         self.toggle.style_set("toggle");
         self.toggle.text_set(_("USB charging rate:"))
-        self.toggle.text_part_set("on", "500 mA");
-        self.toggle.text_part_set("off", "100 mA");
+        self.toggle.part_text_set("on", "500 mA");
+        self.toggle.part_text_set("off", "100 mA");
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
 

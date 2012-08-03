@@ -91,8 +91,8 @@ class WifiToggleBox(elementary.Box):
         self.toggleAuto.style_set("toggle");
         self.toggleAuto.disabled_set(True)
         self.toggleAuto.text_set(_("Automatic"))
-        self.toggleAuto.text_part_set("on", _("Automatic"));
-        self.toggleAuto.text_part_set("off", _("Manual"));
+        self.toggleAuto.part_text_set("on", _("Automatic"));
+        self.toggleAuto.part_text_set("off", _("Manual"));
         self.toggleAuto.size_hint_align_set(-1.0, 0.0)
         self.toggleAuto._callback_add('changed', self.toggleAutoChanged)
         self.pack_end(self.toggleAuto)
@@ -102,8 +102,8 @@ class WifiToggleBox(elementary.Box):
         self.toggle.style_set("toggle");
         self.toggle.disabled_set(True)
         self.toggle.text_set(_("WiFi Power"))
-        self.toggle.text_part_set("on", _("On"));
-        self.toggle.text_part_set("off", _("Off"));
+        self.toggle.part_text_set("on", _("On"));
+        self.toggle.part_text_set("off", _("Off"));
         self.toggle._callback_add('changed', self.toggleChanged)
         self.toggle.size_hint_align_set(-1.0, 0.0)
         self.pack_end(self.toggle)

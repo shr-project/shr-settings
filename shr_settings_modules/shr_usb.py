@@ -72,8 +72,8 @@ class Usb(module.AbstractModule):
         self.toggle1 = elementary.Check(self.window)
         self.toggle1.style_set("toggle");
         self.toggle1.size_hint_align_set(-1.0, 0.0)
-        self.toggle1.text_part_set("on", _("Host"));
-        self.toggle1.text_part_set("off", _("Device"));
+        self.toggle1.part_text_set("on", _("Host"));
+        self.toggle1.part_text_set("off", _("Device"));
         self.toggle1._callback_add('changed', self.power_handle)
         self.box1.pack_end(self.toggle1)
         self.toggle1hidden=0  
@@ -85,8 +85,8 @@ class Usb(module.AbstractModule):
         self.toggle2 = elementary.Check(self.window)
         self.toggle2.style_set("toggle");
         self.toggle2.size_hint_align_set(-1.0, 0.0)
-        self.toggle2.text_part_set("on", _("HID On"));
-        self.toggle2.text_part_set("off", _("HID Off"));
+        self.toggle2.part_text_set("on", _("HID On"));
+        self.toggle2.part_text_set("off", _("HID Off"));
         self.toggle2._callback_add('changed', self.hid_handle)
         self.box1.pack_end(self.toggle2) 
         self.toggle2.state_set(self.usbhidIsLoaded())
@@ -106,8 +106,8 @@ class Usb(module.AbstractModule):
         self.toggle0.style_set("toggle");
         self.toggle0.text_set(_("USB mode:"))
         self.toggle0.size_hint_align_set(-1.0, 0.0)
-        self.toggle0.text_part_set("on", _("Auto"));
-        self.toggle0.text_part_set("off", _("Manual"));
+        self.toggle0.part_text_set("on", _("Auto"));
+        self.toggle0.part_text_set("off", _("Manual"));
         self.toggle0._callback_add('changed', self.res_handle)
         self.box1.pack_start(self.toggle0)
         self.toggle0.show()
