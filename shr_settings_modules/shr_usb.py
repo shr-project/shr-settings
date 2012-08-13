@@ -22,6 +22,11 @@ class Usb(module.AbstractModule):
         print "async dbus callback"
 
     def isEnabled(self):
+        try:
+            self.usb = getDbusObject (self.dbus, "org.freesmartphone.ousaged", "/org/freesmartphone/Usage", "org.freesmartphone.Usage")
+            return 'UsbHost' in self.usb.ListResources()
+        except:
+            pass
         return True
         
     def usbhidIsLoaded(self):
