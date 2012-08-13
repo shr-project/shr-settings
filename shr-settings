@@ -408,9 +408,9 @@ class MainWindow:
             (row, col) = divmod(i,2)
             cat_table.pack(bt,col,row,1,1)
 
-        #ophonekitd or phonefsod not running?
+        #phonefsod not running?
         if os.popen("pidof phonefsod").read() == "":
-            log('neither ophonekitd nor phonefsod is running!', logtype.FAIL)
+            log('phonefsod is not running!', logtype.FAIL)
 
             self.opkframe = elementary.Frame(self.win)
 
