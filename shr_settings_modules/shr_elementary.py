@@ -50,6 +50,7 @@ class Elementary(module.AbstractModule):
             os.system('echo "export ELM_THEME=default" >> /etc/profile.d/elementary.sh')
             os.system('echo "export ELM_FINGER_SIZE=70" >> /etc/profile.d/elementary.sh')
             os.system('echo "export ELM_SCALE=2" >> /etc/profile.d/elementary.sh')
+            os.system('echo "export ELM_PROFILE=mobile" >> /etc/profile.d/elementary.sh')
             file = open('/etc/profile.d/elementary.sh', 'r' )
 
         s=1
