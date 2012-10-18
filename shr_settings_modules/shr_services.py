@@ -260,7 +260,7 @@ class Services(module.AbstractModule):
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
         ic.resizable_set(1,1)
         ic.smooth_set(1)
-        quitbt.icon_set(ic)
+        quitbt.content_set(ic)
         quitbt.show()
         box.pack_end(quitbt)
 

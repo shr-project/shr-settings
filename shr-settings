@@ -164,7 +164,7 @@ class ModulesWindow:
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
         ic.resizable_set(1,1)
         ic.smooth_set(1)
-        quitbt2.icon_set(ic)
+        quitbt2.content_set(ic)
         quitbt2.show()
         box02.pack_end(quitbt2)
 
@@ -373,7 +373,7 @@ class MainWindow:
         ic.file_set( "/usr/share/pixmaps/shr-settings/icon_quit.png" )
         ic.smooth_set(1)
         ic.resizable_set(1, 1)
-        quitbt.icon_set(ic)
+        quitbt.content_set(ic)
         quitbt.show()
         mainbox.pack_end(quitbt)
 
@@ -402,7 +402,7 @@ class MainWindow:
                     ic = elementary.Icon(bt)
                     ic.file_set( i_path )
                     ic.resizable_set(1, 1)
-                    bt.icon_set(ic)
+                    bt.content_set(ic)
                     break
 
             (row, col) = divmod(i,2)
