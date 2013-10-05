@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.0
-Name=Other settings
+Name=Others
 Name[es]=Otros ajustes
 Name[gl]=Outros axustes
 Name[sv]=Övriga inställningar
 StartupNotify=true
-Exec=shr-settings Others shr_pim.Pim shr_services.Services shr_backup.Backup shr_imageinfo.ImageInfo
+Exec=shr-settings Others shr_pim.Pim shr_services.Services shr_backup.Backup shr_imageinfo.ImageInfo shr_sim_manager.SimManager
 Terminal=false
 Type=Application
-Categories=Settings;System;
-Icon=shr_settings
+Categories=Settings;
+Icon=shr-settings

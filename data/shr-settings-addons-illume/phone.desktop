@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.0
-Name=Phone settings
+Name=Phone
 Name[es]=Ajustes del teléfono
 Name[gl]=Axustes do teléfono
 Name[sv]=Inställningar för telefon
 StartupNotify=true
-Exec=shr-settings Phone shr_gsm.Gsm shr_call.Call shr_simauth.SimAuth shr_sim.Sim
+Exec=shr-settings Phone shr_gsm.Gsm shr_call.Call shr_phoneutils.Phoneutils shr_simauth.SimAuth shr_sim.Sim
 Terminal=false
 Type=Application
-Categories=Settings;System;
-Icon=shr_settings
+Categories=Settings;
+Icon=shr-settings

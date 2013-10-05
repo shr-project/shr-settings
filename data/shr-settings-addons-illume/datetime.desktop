@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.0
-Name=Date/time settings
+Name=Date/time
 Name[es]=Ajustes de Fecha y hora
 Name[gl]=Axustes de Data e hora
 Name[sv]=Inställningar för datum & tid
 StartupNotify=true
-Exec=shr-settings Date/time shr_clock.Clock shr_date.Date
+Exec=shr-settings Date/time shr_clock.Clock shr_ntp.NTP shr_date.Date shr_timezone.Timezone
 Terminal=false
 Type=Application
-Categories=Settings;System;
-Icon=shr_settings
+Categories=Settings;
+Icon=shr-settings

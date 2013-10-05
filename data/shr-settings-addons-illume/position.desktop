@@ -1,6 +1,6 @@
 [Desktop Entry]
 Version=1.0
-Name=Position settings
+Name=Position
 Name[es]=Ajustes de posición
 Name[gl]=Axustes de posición
 Name[sv]=Inställningar för position
@@ -8,5 +8,5 @@ StartupNotify=true
 Exec=shr-settings Position shr_gps.Gps shr_gpsinfo.GpsInfo
 Terminal=false
 Type=Application
-Categories=Settings;System;
-Icon=shr_settings
+Categories=Settings;
+Icon=shr-settings

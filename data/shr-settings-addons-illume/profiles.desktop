@@ -1,11 +1,11 @@
 [Desktop Entry]
 Version=1.0
-Name=Profiles settings
+Name=Profiles
 Name[es]=Ajustes de perfiles
 Name[gl]=Axustes de perfís
 StartupNotify=true
-Exec=shr-settings Profiles shr_profile.Profile shr_currentprofile.CurrentProfile
+Exec=shr-settings Profiles shr_profile.Profile shr_currentprofile.CurrentProfile shr_alsa_scenarios.AlsaScenarios
 Terminal=false
 Type=Application
-Categories=Settings;System;
-Icon=shr_settings
+Categories=Settings;
+Icon=shr-settings

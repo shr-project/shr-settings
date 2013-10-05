@@ -1,12 +1,12 @@
 [Desktop Entry]
 Version=1.0
-Name=Appearance settings
+Name=Appearance
 Name[es]=Ajustes de apariencia
 Name[gl]=Axustes de aparencia
 Name[sv]=Inställningar för utseende
 StartupNotify=true
-Exec=shr-settings Appearance shr_elementary.Elementary shr_splash.Splash
+Exec=shr-settings Appearance shr_phoneui_theme.PhoneuiTheme shr_elementary.Elementary shr_splash.Splash
 Terminal=false
 Type=Application
-Categories=Settings;System;
-Icon=shr_settings
+Categories=Settings;
+Icon=shr-settings
