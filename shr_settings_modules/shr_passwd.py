@@ -69,7 +69,7 @@ class Password(module.AbstractModule):
 	name =_("Root password")
 	section = _("Others")
 	wizard_name = _("Root password")
-	wizard_description = _("Please enter password which you want to use when, for instance, loging by SSH.")
+	wizard_description = _("Please enter the password you want to use when, for instance, logging in by SSH.")
 
 	def changePassword(self, user, password):
 		child = pexpect.spawn("/usr/bin/passwd %s" % user)
