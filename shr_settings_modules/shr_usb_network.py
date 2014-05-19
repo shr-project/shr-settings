@@ -41,7 +41,7 @@ class UsbNetwork(module.AbstractModule):
             )[20:24])
         except:
             print "Error fetching %s ip address" % self.iface
-            return "unkown"
+            return "unknown"
         return ip
 
 
@@ -52,7 +52,7 @@ class UsbNetwork(module.AbstractModule):
             return ''.join(['%02x:' % ord(char) for char in info[18:24]])[:-1]
         except:
             print "Error fetching %s MAC address" % self.iface
-            return "unkown"
+            return "unknown"
 
     def save_ip_address(self, ip):
         etcfile = "/etc/network/interfaces"
